@@ -1,0 +1,813 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  <title>goWeb编程</title>
+  <meta name="description" content="区块链">
+  <meta name="author" content="黎跃春">
+
+  <meta name="keywords" content="区块链"
+  />
+
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="goWeb编程">
+  <meta name="twitter:description" content="区块链">
+
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="goWeb编程">
+  <meta property="og:description" content="区块链">
+  <meta property="og:site_name" content="区块链e"
+  />
+
+
+  <link rel="icon" type="image/png" href="/images/favicon.png" />
+  <link href="/images/favicon.png" rel="shortcut icon" type="image/png">
+
+
+  <link rel="stylesheet" href=" /css/main.css ">
+  <link href="//netdna.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
+
+  <link rel="canonical" href="/2018/06/23/goweb%E7%BC%96%E7%A8%8B/">
+  <link rel="alternate" type="application/rss+xml" title="sweetsmelon博客" href=" /feed.xml
+    ">
+
+  <meta name="google-site-verification" content="1-1ZlHoRvM0T2FqPbW2S-qLgYXN6rsn52kErlMPd_gw" />
+
+  <!-- 站点统计 -->
+  <script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js">
+  </script>
+  <!--<script>(function() {var _53code = document.createElement("script");_53code.src = "https://tb.53kf.com/code/code/10174862/1";var s = document.getElementsByTagName("script")[0]; s.parentNode.insertBefore(_53code, s);})();</script>-->
+  <!-- 百度统计 -->
+  
+
+  <!-- google 统计 -->
+  
+  <script>
+    (function (i, s, o, g, r, a, m) {
+      i['GoogleAnalyticsObject'] = r;
+      i[r] = i[r] || function () {
+        (i[r].q = i[r].q || []).push(arguments)
+      }, i[r].l = 1 * new Date();
+      a = s.createElement(o),
+        m = s.getElementsByTagName(o)[0];
+      a.async = 1;
+      a.src = g;
+      m.parentNode.insertBefore(a, m)
+    })(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
+    ga('create', 'UA-104237177-1', 'auto');
+    ga('send', 'pageview');
+  </script>
+  
+
+  <script>
+    (function () {
+      var bp = document.createElement('script');
+      var curProtocol = window.location.protocol.split(':')[0];
+      if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+      } else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+      }
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(bp, s);
+    })();
+  </script>
+
+</head>
+
+
+<body>
+
+  <span class="mobile btn-mobile-menu">
+      <div class="nav_container">
+         <nav class="nav-menu-item" style = "float:right">
+            <i class="nav-menu-item">
+              <a href="/#blog" title="" class="blog-button">  博客主页
+              </a>
+            </i>
+            
+                <i class="nav-menu-item">
+
+                  <a href="/archive" title="archive" class="btn-mobile-menu__icon">
+                      所有文章
+                  </a>
+                </i>
+            
+                <i class="nav-menu-item">
+
+                  <a href="/tags" title="tags" class="btn-mobile-menu__icon">
+                      分类
+                  </a>
+                </i>
+            
+                <i class="nav-menu-item">
+
+                  <a href="/about" title="about" class="btn-mobile-menu__icon">
+                      关于我
+                  </a>
+                </i>
+            
+          </nav>
+
+      </div>
+    </span> <header class="panel-cover panel-cover--collapsed" style="background-image: url('/images/background-cover.jpg')">
+  <div class="panel-main">
+    <div class="panel-main__inner panel-inverted">
+      <div class="panel-main__content">
+        <!-- 头像效果-start -->
+        <div class="ih-item circle effect right_to_left">
+          <a href="/#blog" title="前往 sweetsmelon博客 的主页" class="blog-button">
+            <div class="img"><img src="/images/avatar.jpg" alt="img"></div>
+            <div class="info">
+              <div class="info-back">
+                <h2 style="font-size: 14px">
+                   微信:zhq496927203 
+                </h2>´
+                <p style="font-size: 6px">
+                   sweetsmelon 
+                </p>
+              </div>
+            </div>
+          </a>
+        </div>
+        <!-- 头像效果-end -->
+        <h1 class="panel-cover__title panel-title"><a href="/#blog" title="link to homepage for sweetsmelon博客" class="blog-button">sweetsmelon博客</a></h1>
+        <hr class="panel-cover__divider" />
+        <p class="panel-cover__description"></p>
+        <hr class="panel-cover__divider panel-cover__divider--secondary" /> 
+
+
+        <div class="navigation-wrapper">
+          <div>
+            <nav class="cover-navigation cover-navigation--primary">
+              <ul class="navigation">
+                <li class="navigation__item"><a href="/#blog" title="" class="blog-button">博客主页</a></li>
+                
+                <li class="navigation__item"><a href="/archive" title="archive">所有文章</a></li>
+                
+                <li class="navigation__item"><a href="/tags" title="tags">分类</a></li>
+                
+                <li class="navigation__item"><a href="/about" title="about">关于我</a></li>
+                
+              </ul>
+            </nav>
+          </div>
+        </div>
+
+        <div style="display:flex;justify-content:center;-webkit-justify-content:center">
+          <div style="display:flex;flex-direction:column;align-items:center;-webkit-flex-direction:column;-webkit-align-items:center;margin-right:10px">
+            <img src="/images/zhishixingqiu.png" style="width:120px;height:120px;margin-top:30px;margin-bottom:10px" />
+            <span class="panel-cover__subtitle panel-subtitle" style="font-size: 12px">链乎问答社区</span>
+          </div>
+          <div style="display:flex;flex-direction:column;align-items:center;-webkit-flex-direction:column;-webkit-align-items:center;margin-left:10px">
+            <img src="/images/lianhu.jpg" style="width:120px;height:120px;margin-top:30px;margin-bottom:10px" />
+            <span class="panel-cover__subtitle panel-subtitle" style="font-size: 12px">链乎公众号</span>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  
+  <div class="panel-cover--overlay cover-clear"></div>
+  
+
+  </div>
+</header>
+
+
+  <div class="content-wrapper">
+    <div class="content-wrapper__inner">
+      <article class="post-container post-container--single" itemscope itemtype="http://schema.org/BlogPosting">
+  <header class="post-header">
+    <h1 class="post-title">goWeb编程</h1>
+    <div class="post-meta">
+      <img src="/images/calendar.png" width="20px"/>
+      <time datetime="2018-06-23 00:00:00 +0800" itemprop="datePublished" class="post-meta__date date">2018-06-23</time>
+
+      <span id="busuanzi_container_page_pv"> | 阅读：<span id="busuanzi_value_page_pv"></span>次</span>
+    </p>
+    </div>
+  </header>
+
+  <section class="post">
+    <h2 id="一开启一个网络服务">一、开启一个网络服务</h2>
+
+<p>go语言本身就对网络进行了封装，所以开启一个网络服务非常容易</p>
+
+<p>1、 设置监听端口</p>
+<blockquote>
+  <p>http.ListenAndServe(“:9000”, nil)<br />
+<code class="highlighter-rouge">:9000</code>监听的端口 <code class="highlighter-rouge">handler</code>：一般传nil</p>
+</blockquote>
+
+<p>2、设置访问路由</p>
+
+<blockquote>
+  <p>http.HandleFunc(“/”, Hello)
+指定访问<code class="highlighter-rouge">localhost:9000</code>时调用<code class="highlighter-rouge">Hello</code>函数</p>
+</blockquote>
+
+<p>新建<code class="highlighter-rouge">main.go</code></p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>package main
+
+import (
+	"net/http"
+	"log"
+	"io"
+)
+
+func main() {
+	http.HandleFunc("/", Hello)
+
+	//设置监听端口
+	err := http.ListenAndServe(":9000", nil)
+	if err != nil {
+		log.Fatal("端口监听发生错误:", err)
+	}
+
+}
+func Hello(w http.ResponseWriter, r *http.Request) {
+	io.WriteString(w,"hello world")
+}
+
+
+</code></pre>
+</div>
+
+<ul>
+  <li>运行上面的代码</li>
+  <li>浏览器访问<code class="highlighter-rouge">localhost:9000</code></li>
+</ul>
+
+<p>运行正常的话，浏览器页面可以看到<code class="highlighter-rouge">hello world</code>显示</p>
+
+<h2 id="访问页面">访问页面</h2>
+
+<p>新建<code class="highlighter-rouge">temp.hmtl</code>文件</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code><span class="cp">&lt;!DOCTYPE html&gt;</span>
+<span class="nt">&lt;html</span> <span class="na">lang=</span><span class="s">"en"</span><span class="nt">&gt;</span>
+<span class="nt">&lt;head&gt;</span>
+    <span class="nt">&lt;meta</span> <span class="na">charset=</span><span class="s">"UTF-8"</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;title&gt;</span>Title<span class="nt">&lt;/title&gt;</span>
+<span class="nt">&lt;/head&gt;</span>
+<span class="nt">&lt;style&gt;</span>
+    <span class="nt">div</span><span class="p">{</span>
+        <span class="nl">color</span><span class="p">:</span> <span class="no">red</span><span class="p">;</span>
+    <span class="p">}</span>
+<span class="nt">&lt;/style&gt;</span>
+<span class="nt">&lt;body&gt;</span>
+<span class="nt">&lt;div</span> <span class="nt">&gt;</span> this is tempView<span class="nt">&lt;/div&gt;</span>
+<span class="nt">&lt;/body&gt;</span>
+<span class="nt">&lt;/html&gt;</span>
+
+</code></pre>
+</div>
+
+<blockquote>
+  <p>页面显示<code class="highlighter-rouge">this is tempView</code> 字体颜色红色</p>
+</blockquote>
+
+<p>打开<code class="highlighter-rouge">main.go</code></p>
+
+<p><code class="highlighter-rouge">main</code>函数中新增<code class="highlighter-rouge">temp</code>页面路由</p>
+
+<blockquote>
+  <div class="highlighter-rouge"><pre class="highlight"><code>http.HandleFunc("/temp.html",TempView)
+</code></pre>
+  </div>
+</blockquote>
+
+<p><code class="highlighter-rouge">TempView</code>函数</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>func TempView(w http.ResponseWriter,r *http.Request){
+
+	page := filepath.Join("temp.html")
+	//创建page转为一个模板实例
+	result,err := template.ParseFiles(page)
+	if err != nil {
+		fmt.Println("创建模板实例错误:",err)
+	}
+	//融合模板数据
+	err = result.Execute(w,nil)
+	if err != nil {
+		fmt.Println("融合模板数据时发生错误:",err)
+	}
+}
+
+</code></pre>
+</div>
+<blockquote>
+  <p>访问页面需要使用<code class="highlighter-rouge">template</code>对象来转化，输出</p>
+</blockquote>
+
+<p>打开浏览器输入http://localhost:9000/temp.html 会有红色的<code class="highlighter-rouge">this is tempView</code>显示</p>
+
+<h2 id="访问虚拟路径">访问虚拟路径</h2>
+
+<p><code class="highlighter-rouge">main</code>函数添加路由</p>
+
+<blockquote>
+  <p>访问指定页面
+http.HandleFunc(“/login.html”, LoginView)
+访问虚拟路径
+http.HandleFunc(“/login”, Login)</p>
+</blockquote>
+
+<p><code class="highlighter-rouge">LoginView</code>函数</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>func LoginView(w http.ResponseWriter, r *http.Request)  {
+
+    // 指定页面
+    page := filepath.Join("login.html")
+
+    // 创建模板实例
+    templateResult, err := template.ParseFiles(page)
+    if err != nil {
+        fmt.Println("创建模板实例错误: ", err)
+    }
+
+    // 融合模板数据
+    err = templateResult.Execute(w, nil)
+    if err != nil {
+        fmt.Println("融合模板数据时发生错误: ", err)
+    }
+
+}
+
+</code></pre>
+</div>
+
+<p><code class="highlighter-rouge">Login</code>函数,响应登录按钮，跳转至登录成功页面</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>func Login(w http.ResponseWriter,r *http.Request)  {
+	// 指定页面
+	page := filepath.Join( "loginSuccess.html")
+
+	// 创建模板实例
+	templateResult, err := template.ParseFiles(page)
+	if err != nil {
+		fmt.Println("创建模板实例错误: ", err)
+	}
+
+	// 融合模板数据
+	err = templateResult.Execute(w, nil)
+	if err != nil {
+		fmt.Println("融合模板数据时发生错误: ", err)
+	}
+}
+</code></pre>
+</div>
+
+<p>新建<code class="highlighter-rouge">login.html</code>文件</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code><span class="nt">&lt;html&gt;</span>
+<span class="nt">&lt;head&gt;</span>
+    <span class="nt">&lt;title&gt;</span>用户登录<span class="nt">&lt;/title&gt;</span>
+    <span class="nt">&lt;link</span> <span class="na">href=</span><span class="s">"/static/css/style.css"</span> <span class="na">rel=</span><span class="s">"stylesheet"</span><span class="nt">/&gt;</span>
+<span class="nt">&lt;/head&gt;</span>
+<span class="nt">&lt;body&gt;</span>
+    <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"login"</span><span class="nt">&gt;</span>
+        <span class="nt">&lt;form</span> <span class="na">action=</span><span class="s">"/login"</span> <span class="na">method=</span><span class="s">"post"</span><span class="nt">&gt;</span>
+            用户名:<span class="nt">&lt;input</span> <span class="na">type=</span><span class="s">"text"</span> <span class="na">name=</span><span class="s">"userName"</span> <span class="na">value=</span><span class="s">""</span> <span class="na">placeholder=</span><span class="s">"请输入用户名"</span><span class="nt">/&gt;&lt;br/&gt;</span>
+            密码: <span class="nt">&lt;input</span> <span class="na">type=</span><span class="s">"password"</span> <span class="na">name=</span><span class="s">"password"</span> <span class="na">placeholder=</span><span class="s">"请输入密码"</span><span class="nt">/&gt;&lt;br/&gt;</span>
+            <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"btn"</span><span class="nt">&gt;</span>
+                <span class="nt">&lt;span&gt;&lt;input</span> <span class="na">type=</span><span class="s">"submit"</span> <span class="na">value=</span><span class="s">"登录"</span><span class="nt">/&gt;&lt;/span&gt;</span>
+                <span class="nt">&lt;span&gt;&lt;input</span> <span class="na">type=</span><span class="s">"reset"</span> <span class="na">value=</span><span class="s">"重置"</span><span class="nt">/&gt;&lt;/span&gt;</span>
+            <span class="nt">&lt;/div&gt;</span>
+        <span class="nt">&lt;/form&gt;</span>
+    <span class="nt">&lt;/div&gt;</span>
+<span class="nt">&lt;/body&gt;</span>
+<span class="nt">&lt;/html&gt;</span>
+
+</code></pre>
+</div>
+<blockquote>
+  <p>action=”/login” 指定数据提交的路由，即登录按钮跳转的路由
+新建<code class="highlighter-rouge">loginSuccess.html</code></p>
+</blockquote>
+
+<div class="highlighter-rouge"><pre class="highlight"><code><span class="cp">&lt;!DOCTYPE html&gt;</span>
+<span class="nt">&lt;html</span> <span class="na">lang=</span><span class="s">"en"</span><span class="nt">&gt;</span>
+<span class="nt">&lt;head&gt;</span>
+    <span class="nt">&lt;meta</span> <span class="na">charset=</span><span class="s">"UTF-8"</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;title&gt;</span>Title<span class="nt">&lt;/title&gt;</span>
+<span class="nt">&lt;/head&gt;</span>
+<span class="nt">&lt;body&gt;</span>
+<span class="nt">&lt;div&gt;</span>登录成功<span class="nt">&lt;/div&gt;</span>
+<span class="nt">&lt;/body&gt;</span>
+<span class="nt">&lt;/html&gt;</span>
+
+</code></pre>
+</div>
+
+<p>浏览器打开 http://localhost:9000/login.html 会有登录页面显示,点击登录按钮跳转至<code class="highlighter-rouge">loginSuccess</code>页面</p>
+
+<h2 id="template模板语法">template模板语法</h2>
+
+<p>有时需要根据数据动态显示页面，这时候需要使用<code class="highlighter-rouge">template</code>语法</p>
+
+<p>实现登录功能</p>
+
+<ul>
+  <li>假设现在数据库中有5个用户，只有用户名和密码都正确时，才可以登录成功</li>
+  <li>登录成功跳转页面，显示所有用户</li>
+  <li>登录失败，提示登录失败</li>
+</ul>
+
+<p>####1、新建<code class="highlighter-rouge">domain.go</code></p>
+
+<p>新建<code class="highlighter-rouge">controller</code>目录，在该目录下新建<code class="highlighter-rouge">domain.go</code>文件</p>
+
+<ul>
+  <li>声明用户结构体</li>
+  <li>初始化数据</li>
+</ul>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>package controller
+
+type Person struct {
+    Pid string
+    Name string
+    Password string
+    Age int
+    Gender string
+}
+
+var Persons []Person
+
+func init() {
+
+//创建5个用户，数组模拟数据库存储
+    p := Person{Pid:"111", Name:"jack", Password:"123456", Age:21, Gender:"m"}
+    p2 := Person{Pid:"111", Name:"Jerry", Password:"123", Age:23, Gender:"m"}
+    p3 := Person{Pid:"111", Name:"alice", Password:"123456", Age:26, Gender:"f"}
+    p4 := Person{Pid:"111", Name:"bob", Password:"qazx", Age:29, Gender:"m"}
+    p5 := Person{Pid:"111", Name:"candy", Password:"123456", Age:22, Gender:"f"}
+
+    Persons = append(Persons, p)
+    Persons = append(Persons, p2)
+    Persons = append(Persons, p3)
+    Persons = append(Persons, p4)
+    Persons = append(Persons, p5)
+}
+
+</code></pre>
+</div>
+
+<p>修改<code class="highlighter-rouge">Login</code>函数</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>func Login(w http.ResponseWriter,r *http.Request)  {
+	userName := r.FormValue("userName")
+	password := r.FormValue("password")
+	loginSuccess := false
+	fmt.Println(userName," ====  ",password)
+	for _,person := range controller.Persons {
+		if person.Name == userName {
+			if person.Password == password {
+				loginSuccess = true
+				break
+			}else {
+				loginSuccess = false
+				break
+			}
+		}
+	}
+	//如果用户名，密码验证成功，跳转至登录成功页面
+	if loginSuccess {
+		// 指定页面
+		page := filepath.Join( "loginSuccess.html")
+		// 创建模板实例
+		templateResult, err := template.ParseFiles(page)
+		if err != nil {
+			fmt.Println("创建模板实例错误: ", err)
+		}
+		//需要展示的数据
+		data := &amp;struct {
+			Persons []controller.Person
+		}{
+			Persons:controller.Persons,
+		}
+		// 融合模板数据
+		err = templateResult.Execute(w, data)
+		if err != nil {
+			fmt.Println("融合模板数据时发生错误: ", err)
+		}
+	}else {
+		// 指定页面
+		page := filepath.Join( "login.html")
+		// 创建模板实例
+		templateResult, err := template.ParseFiles(page)
+		if err != nil {
+			fmt.Println("创建模板实例错误: ", err)
+		}
+		//需要展示的数据
+		data := &amp;struct {
+			Flag bool
+		}{
+			Flag: true,
+		}
+		// 融合模板数据
+		err = templateResult.Execute(w, data)
+		if err != nil {
+			fmt.Println("融合模板数据时发生错误: ", err)
+		}
+	}
+
+}
+
+</code></pre>
+</div>
+
+<blockquote>
+  <p>r.FormValue(key) 获取表单中的数据
+data 页面需要动态加载的数据</p>
+</blockquote>
+
+<p>修改<code class="highlighter-rouge">login.html</code></p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code><span class="cp">&lt;!DOCTYPE html&gt;</span>
+<span class="nt">&lt;html</span> <span class="na">lang=</span><span class="s">"en"</span><span class="nt">&gt;</span>
+<span class="nt">&lt;head&gt;</span>
+    <span class="nt">&lt;meta</span> <span class="na">charset=</span><span class="s">"UTF-8"</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;title&gt;</span>Title<span class="nt">&lt;/title&gt;</span>
+<span class="nt">&lt;/head&gt;</span>
+<span class="nt">&lt;body&gt;</span>
+<span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"login"</span><span class="nt">&gt;</span>
+    <span class="c">&lt;!--template语法 获取Flag属性的值--&gt;</span>
+
+    <span class="nt">&lt;div&gt;</span>用户名或密码错误<span class="nt">&lt;/div&gt;</span>
+
+    <span class="nt">&lt;form</span> <span class="na">action=</span><span class="s">"/login"</span> <span class="na">method=</span><span class="s">"post"</span><span class="nt">&gt;</span>
+        用户名:<span class="nt">&lt;input</span> <span class="na">type=</span><span class="s">"text"</span> <span class="na">name=</span><span class="s">"userName"</span> <span class="na">value=</span><span class="s">""</span> <span class="na">placeholder=</span><span class="s">"请输入用户名"</span><span class="nt">/&gt;&lt;br/&gt;</span>
+        密码: <span class="nt">&lt;input</span> <span class="na">type=</span><span class="s">"password"</span> <span class="na">name=</span><span class="s">"password"</span> <span class="na">placeholder=</span><span class="s">"请输入密码"</span><span class="nt">/&gt;&lt;br/&gt;</span>
+        <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"btn"</span><span class="nt">&gt;</span>
+            <span class="nt">&lt;span&gt;&lt;input</span> <span class="na">type=</span><span class="s">"submit"</span> <span class="na">value=</span><span class="s">"登录"</span><span class="nt">/&gt;&lt;/span&gt;</span>
+            <span class="nt">&lt;span&gt;&lt;input</span> <span class="na">type=</span><span class="s">"reset"</span> <span class="na">value=</span><span class="s">"重置"</span><span class="nt">/&gt;&lt;/span&gt;</span>
+        <span class="nt">&lt;/div&gt;</span>
+    <span class="nt">&lt;/form&gt;</span>
+<span class="nt">&lt;/div&gt;</span>
+<span class="nt">&lt;/body&gt;</span>
+<span class="nt">&lt;/html&gt;</span>
+
+</code></pre>
+</div>
+
+<p>修改<code class="highlighter-rouge">loginSuccess.html</code></p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code><span class="cp">&lt;!DOCTYPE html&gt;</span>
+<span class="nt">&lt;html</span> <span class="na">lang=</span><span class="s">"en"</span><span class="nt">&gt;</span>
+<span class="nt">&lt;head&gt;</span>
+    <span class="nt">&lt;meta</span> <span class="na">charset=</span><span class="s">"UTF-8"</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;title&gt;</span>登录成功<span class="nt">&lt;/title&gt;</span>
+<span class="nt">&lt;/head&gt;</span>
+<span class="nt">&lt;body&gt;</span>
+<span class="nt">&lt;table&gt;</span>
+    <span class="nt">&lt;tr&gt;</span>
+        <span class="nt">&lt;th&gt;</span>ID<span class="nt">&lt;/th&gt;</span>
+        <span class="nt">&lt;th&gt;</span>名称<span class="nt">&lt;/th&gt;</span>
+        <span class="nt">&lt;th&gt;</span>密码<span class="nt">&lt;/th&gt;</span>
+        <span class="nt">&lt;th&gt;</span>年龄<span class="nt">&lt;/th&gt;</span>
+        <span class="nt">&lt;th&gt;</span>性别<span class="nt">&lt;/th&gt;</span>
+    <span class="nt">&lt;/tr&gt;</span>
+    <span class="c">&lt;!--遍历Persons--&gt;</span>
+
+    <span class="nt">&lt;tr&gt;</span>
+        <span class="c">&lt;!--person.Pid--&gt;</span>
+        <span class="nt">&lt;td&gt;&lt;/td&gt;</span>
+        <span class="c">&lt;!--person.Name--&gt;</span>
+        <span class="nt">&lt;td&gt;&lt;/td&gt;</span>
+        <span class="nt">&lt;td&gt;&lt;/td&gt;</span>
+        <span class="nt">&lt;td&gt;&lt;/td&gt;</span>
+        <span class="nt">&lt;td&gt;&lt;/td&gt;</span>
+    <span class="nt">&lt;/tr&gt;</span>
+
+<span class="nt">&lt;/table&gt;</span>
+<span class="nt">&lt;/body&gt;</span>
+<span class="nt">&lt;/html&gt;</span>
+
+</code></pre>
+</div>
+
+<blockquote>
+  <p>获取一个属性的值通过获取
+判断bool值–代码–
+判断字符串是否相等
+遍历数组–需要循环执行的代码–</p>
+</blockquote>
+
+<p>浏览器访问http://localhost:9000/login.html 如果输入正确的用户名密码会显示所有用户,输入错误提示用户名或密码错误</p>
+
+<h2 id="感谢韩晓东老韩指导">感谢韩晓东（老韩）指导</h2>
+
+
+  </section>
+</article>
+
+<section>
+
+            <div class="content-play">
+              <p><a href="javascript:void(0)" onclick="dashangToggle()" class="dashang" title="打赏，支持一下">打赏一个呗</a></p>
+              <div class="hide_box-play"></div>
+              <div class="shang_box-play">
+                <a class="shang_close-play" href="javascript:void(0)" onclick="dashangToggle()" title="关闭"><img src="/images/payimg/close.jpg" alt="取消" /></a>
+                <div class="shang_tit-play">
+                  <p>感谢您的支持，我会继续努力的!</p>
+                </div>
+                <div class="shang_payimg">
+                    <img src="/images/payimg/alipayimg.jpg" alt="扫码支持" title="扫一扫" />
+                </div>
+              <div class="shang_payimg">    
+                    <img src="/images/payimg/weipayimg.jpg" alt="扫码支持" title="扫一扫" />
+                </div>
+                <div class="pay_explain">扫码打赏，你说多少就多少</div>
+                <div class="shang_payselect">
+                  <div class="pay_item checked" data-id="alipay">
+                    <span class="pay_logo"><img src="/images/payimg/alipay.jpg" alt="支付宝" /></span>
+                  </div>
+                  <div class="pay_item" data-id="weipay">
+                    <span class="pay_logo"><img src="/images/payimg/wechat.jpg" alt="微信" /></span>
+                  </div>
+                </div>
+                <div class="shang_info-play">
+                  <p>打开<span id="shang_pay_txt">支付宝</span>扫一扫，即可进行扫码打赏哦</p>
+                </div>
+              </div>
+            </div>
+            <script type="text/javascript">
+            function dashangToggle(){
+              $(".hide_box-play").fadeToggle();
+              $(".shang_box-play").fadeToggle();
+            }
+            </script>
+
+            <div style="text-align:center;margin:50px 0; font:normal 14px/24px 'MicroSoft YaHei';"></div>
+
+            <style type="text/css">
+              .content-play{width:80%;margin-top: 20px;margin-bottom: 10px;height:40px;}
+              .hide_box-play{z-index:999;filter:alpha(opacity=50);background:#666;opacity: 0.5;-moz-opacity: 0.5;left:0;top:0;height:99%;width:100%;position:fixed;display:none;}
+              .shang_box-play{width:540px;height:540px;padding:10px;background-color:#fff;border-radius:10px;position:fixed;z-index:1000;left:50%;top:50%;margin-left:-280px;margin-top:-280px;border:1px dotted #dedede;display:none;}
+              .shang_box-play img{border:none;border-width:0;}
+              .dashang{display:block;width:100px;margin:5px auto;height:25px;line-height:25px;padding:10px;background-color:#E74851;color:#fff;text-align:center;text-decoration:none;border-radius:10px;font-weight:bold;font-size:16px;transition: all 0.3s;}
+              .dashang:hover{opacity:0.8;padding:15px;font-size:18px;}
+              .shang_close-play{float:right;display:inline-block;
+                margin-right: 10px;margin-top: 20px;
+              }
+              .shang_logo{display:block;text-align:center;margin:20px auto;}
+              .shang_tit-play{width: 100%;height: 75px;text-align: center;line-height: 66px;color: #a3a3a3;font-size: 16px;background: url('/images/payimg/cy-reward-title-bg.jpg');font-family: 'Microsoft YaHei';margin-top: 7px;margin-right:2px;}
+              .shang_tit-play p{color:#a3a3a3;text-align:center;font-size:16px;}
+              .shang_payimg{width:140px;padding:10px;padding-left: 80px; /*border:6px solid #EA5F00;**/margin:0 auto;border-radius:3px;height:140px;display:inline-block;}
+              .shang_payimg img{display:inline-block;margin-right:10px;float:left;text-align:center;width:140px;height:140px; }
+              .pay_explain{text-align:center;margin:10px auto;font-size:12px;color:#545454;}
+              .shang_payselect{text-align:center;margin:0 auto;margin-top:40px;cursor:pointer;height:60px;width:500px;margin-left:110px;}
+              .shang_payselect .pay_item{display:inline-block;margin-right:140px;float:left;}
+              .shang_info-play{clear:both;}
+              .shang_info-play p,.shang_info-play a{color:#C3C3C3;text-align:center;font-size:12px;text-decoration:none;line-height:2em;}
+            </style>
+
+       <ul class="pager">
+        
+        <li class="previous">
+            <a href="/2018/06/22/%E5%BC%80%E5%8F%91%E6%A8%A1%E5%BC%8F%E6%B5%8B%E8%AF%95-%E6%89%93%E5%8C%85-%E7%AD%BE%E5%90%8D%E9%93%BE%E7%A0%81/" data-toggle="tooltip" data-placement="top" title="Fabric 使用开发模式测试，打包，签名链码">上一篇：  <span>Fabric 使用开发模式测试，打包，签名链码</span>
+            </a>
+        </li>
+        
+        
+        <li class="next">
+            <a href="/2018/06/28/Mac-%E7%BB%88%E7%AB%AF%E7%BF%BB%E5%A2%99/" data-toggle="tooltip" data-placement="top" title="Mac 终端翻墙">下一篇：  <span>Mac 终端翻墙</span>
+            </a>
+        </li>
+        
+    </ul>
+</section>
+
+ <section class="footer">
+  <footer>
+    <div class="footer_div">
+      <nav class="cover-navigation navigation--social">
+        <ul class="navigation">
+
+           
+          <!-- Github -->
+          <li class="navigation__item_social">
+            <a href="https://github.com/sweetMegan" title="@sweetMegan 的 Github"
+               target="_blank">
+              <i class='social fa fa-github fa-2x'></i>
+              <span class="label">Github</span>
+            </a>
+          </li>
+            
+
+          <!-- RSS -->
+          <!--<li class="navigation__item_social">-->
+          <!--<a href="/feed.xml" rel="author" title="RSS" target="_blank">-->
+          <!--<i class='social fa fa-rss fa-2x'></i>-->
+          <!--<span class="label">RSS</span>-->
+          <!--</a>-->
+          <!--</li>-->
+
+          
+          <!-- Email -->
+          <li class="navigation__item_social">
+            <a href="mailto:sweetsmelon@163.com" title="Contact me">
+              <i class='social fa fa-envelope fa-2x'></i>
+              <span class="label">Email</span>
+            </a>
+          </li>
+          
+
+        </ul>
+      </nav>
+
+    </div>
+
+    <table width="100%" border="0" cellspacing="0" cellpadding="0">
+      <thead>
+      <tr id="bar_head">
+        <th colspan="11">友情链接</th>
+      </tr>
+      </thead>
+
+      <tr align="center" valign="middle">
+        <td><a href="http://www.kongyixueyuan.com">区块链技术视频网站</a></td>
+
+        <td><a href="https://www.ethereum.org">以太坊官网</a></td>
+
+        <td><a href="https://solidity.readthedocs.io/en/develop/">Solidity</a></td>
+
+        <td><a href="http://truffleframework.com/">Truffle FrameWork</a></td>
+
+        <td><a href="http://embark.readthedocs.io">Embark FrameWork</a></td>
+
+      </tr>
+      <tr align="center" valign="middle">
+
+        <td>
+          <a href="https://www.ibm.com/developerworks/community/groups/service/html/communityview?communityUuid=3302cc3b-074e-44da-90b1-5055f1dc0d9c&amp;lang=zh">IBM开源技术微讲堂</a>
+        </td>
+
+        <td><a href="https://www.bitcoin.com/">Bitcoin.com</a></td>
+
+        <td><a href="https://github.com/bitshares/bitshares1-core">bitshares1-core</a></td>
+
+        <td><a href="https://ipfs.io">ipfs官网</a></td>
+
+        <td><a href="http://ipfser.org">ipfs中文网</a></td>
+
+      </tr>
+    </table>
+
+    <div class="footer_div">
+      <p class="copyright text-muted" align="center">
+        Copyright &copy; 2018 sweetsmelon博客 京ICP备15065741号. 区块链部落QQ群：348924182
+      </p>
+      <div align="center">
+        <link rel="stylesheet" href="http://cdn.bootcss.com/font-awesome/4.3.0/css/font-awesome.min.css">
+        <!-- 访问统计 -->
+        <!--<span id="busuanzi_container_site_pv">-->
+        <!--本站总访问量-->
+        <!--<span id="busuanzi_value_site_pv"></span>次-->
+        </span>
+      </div>
+    </div>
+
+  </footer>
+</section>
+
+    </div>
+  </div>
+
+  <script type="text/javascript" src="//code.jquery.com/jquery-1.11.3.min.js"></script>
+<script type="text/javascript" src="/js/main.js"></script>
+
+<script type="text/javascript" src="/js/highlight.pack.js"></script>
+<script>hljs.initHighlightingOnLoad();</script>
+
+
+
+
+  <script>
+    (function () {
+      var bp = document.createElement('script');
+      var curProtocol = window.location.protocol.split(':')[0];
+      if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+      } else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+      }
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(bp, s);
+    })();
+  </script>
+
+
+</body>
+
+</html>

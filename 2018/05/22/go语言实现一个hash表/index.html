@@ -1,0 +1,829 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  <title>go语言实现一个hash表</title>
+  <meta name="description" content="hash">
+  <meta name="author" content="黎跃春">
+
+  <meta name="keywords" content="hash"
+  />
+
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="go语言实现一个hash表">
+  <meta name="twitter:description" content="hash">
+
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="go语言实现一个hash表">
+  <meta property="og:description" content="hash">
+  <meta property="og:site_name" content="hashe"
+  />
+
+
+  <link rel="icon" type="image/png" href="/images/favicon.png" />
+  <link href="/images/favicon.png" rel="shortcut icon" type="image/png">
+
+
+  <link rel="stylesheet" href=" /css/main.css ">
+  <link href="//netdna.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
+
+  <link rel="canonical" href="/2018/05/22/go%E8%AF%AD%E8%A8%80%E5%AE%9E%E7%8E%B0%E4%B8%80%E4%B8%AAhash%E8%A1%A8/">
+  <link rel="alternate" type="application/rss+xml" title="sweetsmelon博客" href=" /feed.xml
+    ">
+
+  <meta name="google-site-verification" content="1-1ZlHoRvM0T2FqPbW2S-qLgYXN6rsn52kErlMPd_gw" />
+
+  <!-- 站点统计 -->
+  <script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js">
+  </script>
+  <!--<script>(function() {var _53code = document.createElement("script");_53code.src = "https://tb.53kf.com/code/code/10174862/1";var s = document.getElementsByTagName("script")[0]; s.parentNode.insertBefore(_53code, s);})();</script>-->
+  <!-- 百度统计 -->
+  
+
+  <!-- google 统计 -->
+  
+  <script>
+    (function (i, s, o, g, r, a, m) {
+      i['GoogleAnalyticsObject'] = r;
+      i[r] = i[r] || function () {
+        (i[r].q = i[r].q || []).push(arguments)
+      }, i[r].l = 1 * new Date();
+      a = s.createElement(o),
+        m = s.getElementsByTagName(o)[0];
+      a.async = 1;
+      a.src = g;
+      m.parentNode.insertBefore(a, m)
+    })(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
+    ga('create', 'UA-104237177-1', 'auto');
+    ga('send', 'pageview');
+  </script>
+  
+
+  <script>
+    (function () {
+      var bp = document.createElement('script');
+      var curProtocol = window.location.protocol.split(':')[0];
+      if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+      } else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+      }
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(bp, s);
+    })();
+  </script>
+
+</head>
+
+
+<body>
+
+  <span class="mobile btn-mobile-menu">
+      <div class="nav_container">
+         <nav class="nav-menu-item" style = "float:right">
+            <i class="nav-menu-item">
+              <a href="/#blog" title="" class="blog-button">  博客主页
+              </a>
+            </i>
+            
+                <i class="nav-menu-item">
+
+                  <a href="/archive" title="archive" class="btn-mobile-menu__icon">
+                      所有文章
+                  </a>
+                </i>
+            
+                <i class="nav-menu-item">
+
+                  <a href="/tags" title="tags" class="btn-mobile-menu__icon">
+                      分类
+                  </a>
+                </i>
+            
+                <i class="nav-menu-item">
+
+                  <a href="/about" title="about" class="btn-mobile-menu__icon">
+                      关于我
+                  </a>
+                </i>
+            
+          </nav>
+
+      </div>
+    </span> <header class="panel-cover panel-cover--collapsed" style="background-image: url('/images/background-cover.jpg')">
+  <div class="panel-main">
+    <div class="panel-main__inner panel-inverted">
+      <div class="panel-main__content">
+        <!-- 头像效果-start -->
+        <div class="ih-item circle effect right_to_left">
+          <a href="/#blog" title="前往 sweetsmelon博客 的主页" class="blog-button">
+            <div class="img"><img src="/images/avatar.jpg" alt="img"></div>
+            <div class="info">
+              <div class="info-back">
+                <h2 style="font-size: 14px">
+                   微信:zhq496927203 
+                </h2>´
+                <p style="font-size: 6px">
+                   sweetsmelon 
+                </p>
+              </div>
+            </div>
+          </a>
+        </div>
+        <!-- 头像效果-end -->
+        <h1 class="panel-cover__title panel-title"><a href="/#blog" title="link to homepage for sweetsmelon博客" class="blog-button">sweetsmelon博客</a></h1>
+        <hr class="panel-cover__divider" />
+        <p class="panel-cover__description"></p>
+        <hr class="panel-cover__divider panel-cover__divider--secondary" /> 
+
+
+        <div class="navigation-wrapper">
+          <div>
+            <nav class="cover-navigation cover-navigation--primary">
+              <ul class="navigation">
+                <li class="navigation__item"><a href="/#blog" title="" class="blog-button">博客主页</a></li>
+                
+                <li class="navigation__item"><a href="/archive" title="archive">所有文章</a></li>
+                
+                <li class="navigation__item"><a href="/tags" title="tags">分类</a></li>
+                
+                <li class="navigation__item"><a href="/about" title="about">关于我</a></li>
+                
+              </ul>
+            </nav>
+          </div>
+        </div>
+
+        <div style="display:flex;justify-content:center;-webkit-justify-content:center">
+          <div style="display:flex;flex-direction:column;align-items:center;-webkit-flex-direction:column;-webkit-align-items:center;margin-right:10px">
+            <img src="/images/zhishixingqiu.png" style="width:120px;height:120px;margin-top:30px;margin-bottom:10px" />
+            <span class="panel-cover__subtitle panel-subtitle" style="font-size: 12px">链乎问答社区</span>
+          </div>
+          <div style="display:flex;flex-direction:column;align-items:center;-webkit-flex-direction:column;-webkit-align-items:center;margin-left:10px">
+            <img src="/images/lianhu.jpg" style="width:120px;height:120px;margin-top:30px;margin-bottom:10px" />
+            <span class="panel-cover__subtitle panel-subtitle" style="font-size: 12px">链乎公众号</span>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  
+  <div class="panel-cover--overlay cover-clear"></div>
+  
+
+  </div>
+</header>
+
+
+  <div class="content-wrapper">
+    <div class="content-wrapper__inner">
+      <article class="post-container post-container--single" itemscope itemtype="http://schema.org/BlogPosting">
+  <header class="post-header">
+    <h1 class="post-title">go语言实现一个hash表</h1>
+    <div class="post-meta">
+      <img src="/images/calendar.png" width="20px"/>
+      <time datetime="2018-05-22 00:00:00 +0800" itemprop="datePublished" class="post-meta__date date">2018-05-22</time>
+
+      <span id="busuanzi_container_page_pv"> | 阅读：<span id="busuanzi_value_page_pv"></span>次</span>
+    </p>
+    </div>
+  </header>
+
+  <section class="post">
+    <p></p>
+
+<p>假设我现在有一条链表，链表中每个节点上都存储一个key-value的键值对，那么我就可以通过遍历链表，找到一个给定的key值对应的value，链表的结构是这样的</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>
+//声明节点类型
+type Node struct {
+	//数据域
+	Data DM
+	//地址域
+	NextNode *Node
+}
+//用结构体做数据域的类型
+type DM struct {
+	K string
+	V string
+}
+
+</code></pre>
+</div>
+
+<p>上面的代码将key-value封装为一个结构体DM，节点Node数据域存储当前的key-value键值对，地址域存储下一个节点的地址</p>
+
+<p>假设现在有一个链表，长度为10，第8个节点上的Data.K = “name” Data.V = “sweet”，那么如果要查找“name”对应的值“sweet”,就需要遍历这个链表8次，当数据量很大时，这样查找就会很费时，为了提高效率，就有了hash表</p>
+
+<h1 id="一hash表">一、hash表</h1>
+<p><strong>1、定义</strong></p>
+
+<blockquote>
+  <p>散列表（Hash table，也叫哈希表），是根据关键码值(Key value)而直接进行访问的数据结构。也就是说，它通过把关键码值映射到表中一个位置来访问记录，以加快查找的速度。这个映射函数叫做散列函数，存放记录的数组叫做散列表。</p>
+</blockquote>
+
+<p><img src="https://gss1.bdstatic.com/-vo3dSag_xI4khGkpoWK1HF6hhy/baike/c0%3Dbaike80%2C5%2C5%2C80%2C26/sign=249bc83ec45c10383073c690d378f876/c9fcc3cec3fdfc035f8e2b9cd63f8794a4c22624.jpg" alt="hash表" /></p>
+
+<p>意思就是，有一个长度为16的数组（<code class="highlighter-rouge">散列表</code>）,这个数组中的每个元素都是一个链表，即这个数组有16个链表，当有一个新的节点插入时，这个节点的key值通过一个函数算出自己应该存放在数组中的哪一条链上，这个函数叫做 <code class="highlighter-rouge">散列函数</code></p>
+
+<p><strong>2、怎么将一个key字符串转成一个[0~15]的数字</strong></p>
+
+<p>散列函数</p>
+<blockquote>
+  <p>Hash函数应用的主要对象是数组（比如，字符串），而其目标一般是一个int类型。</p>
+</blockquote>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>//将key转换成数组下标的散列算法
+func HashCode(key string) int {
+	var index int = 0
+	index = int(key[0])
+	for k := 0; k &lt; len(key); k++ {
+		//散列因子
+		index *= (1103515245 + int(key[k]))
+	}
+	index &gt;&gt;= 27
+	index &amp;= 16 - 1
+
+	return index
+}
+
+</code></pre>
+</div>
+<p>上面的代码就是一个hash函数，通过这个函数可以返回一个[0~15]的整数</p>
+
+<ul>
+  <li>
+    <p><code class="highlighter-rouge">1103515245</code>称为散列因子,在这个算法中，这个值是确定的，不能更改</p>
+  </li>
+  <li>
+    <p>这个hash函数只试用于长度为16的hash表</p>
+  </li>
+  <li>
+    <p>长度为16的hash算法并不是只有这一种</p>
+  </li>
+</ul>
+
+<hr />
+
+<p>下面介绍一下hash函数分类，与本文关系不大</p>
+
+<p>一般的说，Hash函数可以简单的划分为如下几类：</p>
+<ol>
+  <li>加法Hash；</li>
+  <li>位运算Hash；</li>
+  <li>乘法Hash；</li>
+  <li>除法Hash；</li>
+  <li>查表Hash；</li>
+  <li>混合Hash；
+下面详细的介绍以上各种方式在实际中的运用。
+（1） 加法Hash</li>
+</ol>
+
+<p>所谓的加法Hash就是把输入元素一个一个的加起来构成最后的结果。标准的加法Hash的构造如下:</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>static int additiveHash(String key, int prime)
+ {
+ int hash, i;
+  for (hash = key.length(), i = 0; i &lt;key.length(); i++)
+   hash += key.charAt(i);
+  return (hash % prime);
+  }
+
+</code></pre>
+</div>
+
+<p>这里的prime是任意的质数，看得出，结果的值域为[0,prime-1]。</p>
+
+<p>（2） 位运算Hash</p>
+
+<p>这类型Hash函数通过利用各种位运算（常见的是移位和异或）来充分的混合输入元素。比如，标准的旋转Hash的构造如下：</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>static int rotatingHash(String key, int prime)
+ {
+   int hash, i;
+   for (hash=key.length(), i=0; i&lt;key.length(); ++i)
+     hash = (hash&lt;&lt;4)^(hash&gt;&gt;28)^key.charAt(i);
+   return (hash % prime);
+ }
+</code></pre>
+</div>
+
+<p>先移位，然后再进行各种位运算是这种类型Hash函数的主要特点。比如，以上的那段计算hash的代码还可以有如下几种变形：</p>
+
+<hr />
+<ol>
+  <li>hash = (hash«5)^(hash»27)^key.charAt(i);</li>
+  <li>hash += key.charAt(i);
+ hash += (hash « 10);
+ hash ^= (hash » 6);</li>
+  <li>if((i&amp;1) == 0)
+ {
+  hash ^= (hash«7) ^ key.charAt(i) ^ (hash»3);
+ }
+ else
+ {
+  hash ^= ~((hash«11) ^ key.charAt(i) ^ (hash »5));
+ }</li>
+  <li>hash += (hash«5) + key.charAt(i);</li>
+  <li>hash = key.charAt(i) + (hash«6) + (hash»16) – hash;</li>
+  <li>hash ^= ((hash«5) + key.charAt(i) + (hash»2));</li>
+</ol>
+
+<hr />
+<p>(3) 乘法Hash</p>
+
+<p>这种类型的Hash函数利用了乘法的不相关性（乘法的这种性质，最有名的莫过于平方取头尾的随机数生成算法，虽然这种算法效果并不好）。比如，</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code> static int bernstein(String key)
+ {
+   int hash = 0;
+   int i;
+   for (i=0; i&lt;key.length(); ++i) hash = 33*hash + key.charAt(i);
+   return hash;
+ }
+ 
+</code></pre>
+</div>
+
+<p>jdk5.0里面的String类的hashCode()方法也使用乘法Hash。不过，它使用的乘数是31。推荐的乘数还有：131, 1313, 13131, 131313等等。</p>
+
+<p>使用这种方式的著名Hash函数还有：
+ //  32位FNV算法
+ int M_SHIFT = 0;
+    public int FNVHash(byte[] data)
+    {
+        int hash = (int)2166136261L;
+        for(byte b : data)
+            hash = (hash * 16777619) ^ b;
+        if (M_SHIFT == 0)
+            return hash;
+        return (hash ^ (hash » M_SHIFT)) &amp; M_MASK;
+}</p>
+
+<p>以及改进的FNV算法：
+    public static int FNVHash1(String data)
+    {
+        final int p = 16777619;
+        int hash = (int)2166136261L;
+        for(int i=0;i&lt;data.length();i++)
+            hash = (hash ^ data.charAt(i)) * p;
+        hash += hash « 13;
+        hash ^= hash » 7;
+        hash += hash « 3;
+        hash ^= hash » 17;
+        hash += hash « 5;
+        return hash;
+}</p>
+
+<p>除了乘以一个固定的数，常见的还有乘以一个不断改变的数，比如：
+    static int RSHash(String str)
+    {
+        int b    = 378551;
+        int a    = 63689;
+        int hash = 0;</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>   for(int i = 0; i &lt; str.length(); i++)
+   {
+      hash = hash * a + str.charAt(i);
+      a    = a * b;
+   }
+   return (hash &amp; 0x7FFFFFFF); }
+</code></pre>
+</div>
+
+<p>虽然Adler32算法的应用没有CRC32广泛，不过，它可能是乘法Hash里面最有名的一个了。关于它的介绍，大家可以去看RFC 1950规范。
+(4) 除法Hash</p>
+
+<p>除法和乘法一样，同样具有表面上看起来的不相关性。不过，因为除法太慢，这种方式几乎找不到真正的应用。需要注意的是，我们在前面看到的hash的 结果除以一个prime的目的只是为了保证结果的范围。如果你不需要它限制一个范围的话，可以使用如下的代码替代”hash%prime”： hash = hash ^ (hash»10) ^ (hash»20)。
+(5) 查表Hash</p>
+
+<p>查表Hash最有名的例子莫过于CRC系列算法。虽然CRC系列算法本身并不是查表，但是，查表是它的一种最快的实现方式。查表Hash中有名的例子有：Universal Hashing和Zobrist Hashing。他们的表格都是随机生成的。
+(6) 混合Hash</p>
+
+<p>混合Hash算法利用了以上各种方式。各种常见的Hash算法，比如MD5、Tiger都属于这个范围。它们一般很少在面向查找的Hash函数里面使用。
+(7) 对Hash算法的评价</p>
+
+<p>http://www.burtleburtle.net/bob/hash/doobs.html 这个页面提供了对几种流行Hash算法的评价。我们对Hash函数的建议如下：</p>
+
+<ol>
+  <li>
+    <p>字符串的Hash。最简单可以使用基本的乘法Hash，当乘数为33时，对于英文单词有很好的散列效果（小于6个的小写形式可以保证没有冲突）。复杂一点可以使用FNV算法（及其改进形式），它对于比较长的字符串，在速度和效果上都不错。</p>
+  </li>
+  <li>
+    <p>长数组的Hash。可以使用http://burtleburtle.net/bob/c/lookup3.c这种算法，它一次运算多个字节，速度还算不错。
+(8) 后记</p>
+  </li>
+</ol>
+
+<p>以上介绍了一番实际应用中的用于查找的Hash算法。Hash算法除了应用于这个方面以外，另外一个著名的应用是巨型字符串匹配（这时的 Hash算法叫做：rolling hash，因为它必须可以滚动的计算）。设计一个真正好的Hash算法并不是一件容易的事情。做为应用来说，选择一个适合的算法是最重要的。</p>
+
+<p>（9） 数组hash</p>
+
+<p>inline int hashcode(const int *v)
+{
+int s = 0;
+for(int i=0; i&lt;k; i++)
+s=((s«2)+(v[i]»4))^(v[i]«10);
+s = s % M;
+s = s &lt; 0 ? s + M : s;
+return s;
+}</p>
+
+<blockquote>
+  <p>注：虽说以上的hash能极大程度地避免冲突，但是冲突是在所难免的。所以无论用哪种hash函数，都要加上处理冲突的方法。</p>
+</blockquote>
+
+<hr />
+
+<h1 id="二实现hash表">二、实现hash表</h1>
+
+<p>hash表是一个有多条链表的数组，那么先要实现一条链表</p>
+
+<p><strong>1、实现一条链表</strong></p>
+
+<ul>
+  <li>创建节点结构体</li>
+</ul>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>//声明节点类型
+type Node struct {
+	//数据域
+	Data DM
+	//地址域
+	NextNode *Node
+	//头结点的当前节点
+	curr *Node
+
+}
+//用结构体做数据域的类型
+type DM struct {
+	K string
+	V string
+}
+
+</code></pre>
+</div>
+
+<blockquote>
+  <p>curr节点，也可以叫lastNode,即链表的最后一个节点，因为当我们插入数据时，都是插入到链表的最后</p>
+</blockquote>
+
+<ul>
+  <li>创建头结点</li>
+</ul>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>//创建头结点
+func CreateHeadNode(k,v string) (*Node) {
+	var node *Node = new(Node)
+	//设置数据域结构体中的键值对
+	node.Data.K = k
+	node.Data.V = v
+	//设置地址域
+	node.NextNode = nil
+	//保存头结点
+	head = node
+	head.curr = node
+	return node
+}
+
+
+</code></pre>
+</div>
+
+<ul>
+  <li>添加新节点</li>
+</ul>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>
+func AddNode(k,v string,currHead *Node) *Node {
+	fmt.Println("addNode",currHead)
+	var newNode *Node = new(Node)
+	newNode.Data.K = k
+	newNode.Data.V = v
+	//设置地址域
+	newNode.NextNode = nil
+	//挂接节点
+	currHead.curr.NextNode = newNode
+	fmt.Printf("newNode:%p\n",newNode)
+	//链表的curr节点始终指向这个链表的最后一个节点
+	currHead.curr = newNode
+	return currHead
+}
+
+</code></pre>
+</div>
+<p>到此链表就完成了，接下来创建16条链表，插入到数组中即创建一个hash表</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>var buletArr  [16]*linknodes.Node
+
+//给数组初始化
+func CreateBulet()  {
+	var arr  [16]*linknodes.Node
+	for i := 0; i &lt; 16; i++ {
+		arr[i] = linknodes.CreateHeadNode("头key"+strconv.Itoa(i),"头结点")
+	}
+	buletArr = arr
+}
+
+</code></pre>
+</div>
+<blockquote>
+  <p>创建16条链，每条链的头节点的Data.k和Data.v都是定义好的，头结点的位置，并没有通过hash算法计算Data.k的值存到对应位置，所以如果查找“头key0”可能找不到对应的值，因为，查找”头key0”和“头key0”可能不在一条链上。</p>
+</blockquote>
+
+<ul>
+  <li>向hash表中插入数据</li>
+</ul>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>func AddKeyValue(k,v string )  {
+	//计算键所对应的木桶下标
+	var pos = HashCode(k)
+	//获得木桶数组
+	//var arr = buletArr
+	var head *linknodes.Node = buletArr[pos]
+	//向指定下标的头结点，添加节点
+	linknodes.AddNode(k,v,head)
+}
+
+</code></pre>
+</div>
+
+<blockquote>
+  <p>通过HashCode方法，计算出k值对应的数组下标pos，从数组中取出pos对应的链表的头结点head，最后将数据插入到这条链上</p>
+</blockquote>
+
+<ul>
+  <li>查询数据</li>
+</ul>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>//获取数据
+func GetValueByKey(k string)string  {
+	var pos = HashCode(k)
+	var head * linknodes.Node = buletArr[pos]
+	fmt.Println(buletArr)
+	//通过头结点遍历链表
+	//linknodes.ShowNodes(head)
+	//查找对应下标下的链表,只有判断在key与节点中的key一致时打印
+	var n = head
+	for  {
+		//如果 节点为nil说明已经到链表最后，也就是链表中不存在这个值
+		if n == nil {
+			fmt.Println("没有对应的值")
+			break
+		}
+		if n.Data.K == k {
+			fmt.Println(n.Data.V)
+			break
+		}else {
+			n = n.NextNode
+		}
+	}
+	return ""
+}
+
+</code></pre>
+</div>
+
+<ul>
+  <li>hash函数</li>
+</ul>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>//将key转换成数组下标的散列算法
+func HashCode(key string) int {
+	var index int = 0
+	index = int(key[0])
+	for k := 0; k &lt; len(key); k++ {
+		//散列因子
+		index *= (1103515245 + int(key[k]))
+	}
+	index &gt;&gt;= 27
+	index &amp;= 16 - 1
+
+	return index
+}
+
+
+</code></pre>
+</div>
+
+<blockquote>
+  <p>将key值转[0~15]的整数，即数组下标</p>
+</blockquote>
+
+<p>到此hash表就完成了</p>
+
+<p><a href="https://github.com/sweetMegan/MyHashMap">项目源码</a></p>
+
+<h1 id="写在最后">写在最后</h1>
+<p>这个hash表只做了一级hash，效率可以提高16倍，还可以对每条链表做二级，三级hash，即把一个子个节点作为一个头结点从而衍生出另一个长度为16的hash表，效率可以更高</p>
+
+
+  </section>
+</article>
+
+<section>
+
+            <div class="content-play">
+              <p><a href="javascript:void(0)" onclick="dashangToggle()" class="dashang" title="打赏，支持一下">打赏一个呗</a></p>
+              <div class="hide_box-play"></div>
+              <div class="shang_box-play">
+                <a class="shang_close-play" href="javascript:void(0)" onclick="dashangToggle()" title="关闭"><img src="/images/payimg/close.jpg" alt="取消" /></a>
+                <div class="shang_tit-play">
+                  <p>感谢您的支持，我会继续努力的!</p>
+                </div>
+                <div class="shang_payimg">
+                    <img src="/images/payimg/alipayimg.jpg" alt="扫码支持" title="扫一扫" />
+                </div>
+              <div class="shang_payimg">    
+                    <img src="/images/payimg/weipayimg.jpg" alt="扫码支持" title="扫一扫" />
+                </div>
+                <div class="pay_explain">扫码打赏，你说多少就多少</div>
+                <div class="shang_payselect">
+                  <div class="pay_item checked" data-id="alipay">
+                    <span class="pay_logo"><img src="/images/payimg/alipay.jpg" alt="支付宝" /></span>
+                  </div>
+                  <div class="pay_item" data-id="weipay">
+                    <span class="pay_logo"><img src="/images/payimg/wechat.jpg" alt="微信" /></span>
+                  </div>
+                </div>
+                <div class="shang_info-play">
+                  <p>打开<span id="shang_pay_txt">支付宝</span>扫一扫，即可进行扫码打赏哦</p>
+                </div>
+              </div>
+            </div>
+            <script type="text/javascript">
+            function dashangToggle(){
+              $(".hide_box-play").fadeToggle();
+              $(".shang_box-play").fadeToggle();
+            }
+            </script>
+
+            <div style="text-align:center;margin:50px 0; font:normal 14px/24px 'MicroSoft YaHei';"></div>
+
+            <style type="text/css">
+              .content-play{width:80%;margin-top: 20px;margin-bottom: 10px;height:40px;}
+              .hide_box-play{z-index:999;filter:alpha(opacity=50);background:#666;opacity: 0.5;-moz-opacity: 0.5;left:0;top:0;height:99%;width:100%;position:fixed;display:none;}
+              .shang_box-play{width:540px;height:540px;padding:10px;background-color:#fff;border-radius:10px;position:fixed;z-index:1000;left:50%;top:50%;margin-left:-280px;margin-top:-280px;border:1px dotted #dedede;display:none;}
+              .shang_box-play img{border:none;border-width:0;}
+              .dashang{display:block;width:100px;margin:5px auto;height:25px;line-height:25px;padding:10px;background-color:#E74851;color:#fff;text-align:center;text-decoration:none;border-radius:10px;font-weight:bold;font-size:16px;transition: all 0.3s;}
+              .dashang:hover{opacity:0.8;padding:15px;font-size:18px;}
+              .shang_close-play{float:right;display:inline-block;
+                margin-right: 10px;margin-top: 20px;
+              }
+              .shang_logo{display:block;text-align:center;margin:20px auto;}
+              .shang_tit-play{width: 100%;height: 75px;text-align: center;line-height: 66px;color: #a3a3a3;font-size: 16px;background: url('/images/payimg/cy-reward-title-bg.jpg');font-family: 'Microsoft YaHei';margin-top: 7px;margin-right:2px;}
+              .shang_tit-play p{color:#a3a3a3;text-align:center;font-size:16px;}
+              .shang_payimg{width:140px;padding:10px;padding-left: 80px; /*border:6px solid #EA5F00;**/margin:0 auto;border-radius:3px;height:140px;display:inline-block;}
+              .shang_payimg img{display:inline-block;margin-right:10px;float:left;text-align:center;width:140px;height:140px; }
+              .pay_explain{text-align:center;margin:10px auto;font-size:12px;color:#545454;}
+              .shang_payselect{text-align:center;margin:0 auto;margin-top:40px;cursor:pointer;height:60px;width:500px;margin-left:110px;}
+              .shang_payselect .pay_item{display:inline-block;margin-right:140px;float:left;}
+              .shang_info-play{clear:both;}
+              .shang_info-play p,.shang_info-play a{color:#C3C3C3;text-align:center;font-size:12px;text-decoration:none;line-height:2em;}
+            </style>
+
+       <ul class="pager">
+        
+        <li class="previous">
+            <a href="/2018/05/13/%E7%94%9F%E6%88%90%E5%9B%BE%E7%89%87%E9%93%BE%E6%8E%A5/" data-toggle="tooltip" data-placement="top" title="生成图片链接">上一篇：  <span>生成图片链接</span>
+            </a>
+        </li>
+        
+        
+        <li class="next">
+            <a href="/2018/06/10/%E4%BB%8E%E9%9B%B6%E5%BC%80%E5%A7%8B%E5%86%99%E4%B8%80%E6%9D%A1%E5%85%AC%E9%93%BE-%E4%B8%80/" data-toggle="tooltip" data-placement="top" title="从零开始写一条公链（一）">下一篇：  <span>从零开始写一条公链（一）</span>
+            </a>
+        </li>
+        
+    </ul>
+</section>
+
+ <section class="footer">
+  <footer>
+    <div class="footer_div">
+      <nav class="cover-navigation navigation--social">
+        <ul class="navigation">
+
+           
+          <!-- Github -->
+          <li class="navigation__item_social">
+            <a href="https://github.com/sweetMegan" title="@sweetMegan 的 Github"
+               target="_blank">
+              <i class='social fa fa-github fa-2x'></i>
+              <span class="label">Github</span>
+            </a>
+          </li>
+            
+
+          <!-- RSS -->
+          <!--<li class="navigation__item_social">-->
+          <!--<a href="/feed.xml" rel="author" title="RSS" target="_blank">-->
+          <!--<i class='social fa fa-rss fa-2x'></i>-->
+          <!--<span class="label">RSS</span>-->
+          <!--</a>-->
+          <!--</li>-->
+
+          
+          <!-- Email -->
+          <li class="navigation__item_social">
+            <a href="mailto:sweetsmelon@163.com" title="Contact me">
+              <i class='social fa fa-envelope fa-2x'></i>
+              <span class="label">Email</span>
+            </a>
+          </li>
+          
+
+        </ul>
+      </nav>
+
+    </div>
+
+    <table width="100%" border="0" cellspacing="0" cellpadding="0">
+      <thead>
+      <tr id="bar_head">
+        <th colspan="11">友情链接</th>
+      </tr>
+      </thead>
+
+      <tr align="center" valign="middle">
+        <td><a href="http://www.kongyixueyuan.com">区块链技术视频网站</a></td>
+
+        <td><a href="https://www.ethereum.org">以太坊官网</a></td>
+
+        <td><a href="https://solidity.readthedocs.io/en/develop/">Solidity</a></td>
+
+        <td><a href="http://truffleframework.com/">Truffle FrameWork</a></td>
+
+        <td><a href="http://embark.readthedocs.io">Embark FrameWork</a></td>
+
+      </tr>
+      <tr align="center" valign="middle">
+
+        <td>
+          <a href="https://www.ibm.com/developerworks/community/groups/service/html/communityview?communityUuid=3302cc3b-074e-44da-90b1-5055f1dc0d9c&amp;lang=zh">IBM开源技术微讲堂</a>
+        </td>
+
+        <td><a href="https://www.bitcoin.com/">Bitcoin.com</a></td>
+
+        <td><a href="https://github.com/bitshares/bitshares1-core">bitshares1-core</a></td>
+
+        <td><a href="https://ipfs.io">ipfs官网</a></td>
+
+        <td><a href="http://ipfser.org">ipfs中文网</a></td>
+
+      </tr>
+    </table>
+
+    <div class="footer_div">
+      <p class="copyright text-muted" align="center">
+        Copyright &copy; 2018 sweetsmelon博客 京ICP备15065741号. 区块链部落QQ群：348924182
+      </p>
+      <div align="center">
+        <link rel="stylesheet" href="http://cdn.bootcss.com/font-awesome/4.3.0/css/font-awesome.min.css">
+        <!-- 访问统计 -->
+        <!--<span id="busuanzi_container_site_pv">-->
+        <!--本站总访问量-->
+        <!--<span id="busuanzi_value_site_pv"></span>次-->
+        </span>
+      </div>
+    </div>
+
+  </footer>
+</section>
+
+    </div>
+  </div>
+
+  <script type="text/javascript" src="//code.jquery.com/jquery-1.11.3.min.js"></script>
+<script type="text/javascript" src="/js/main.js"></script>
+
+<script type="text/javascript" src="/js/highlight.pack.js"></script>
+<script>hljs.initHighlightingOnLoad();</script>
+
+
+
+
+  <script>
+    (function () {
+      var bp = document.createElement('script');
+      var curProtocol = window.location.protocol.split(':')[0];
+      if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+      } else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+      }
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(bp, s);
+    })();
+  </script>
+
+
+</body>
+
+</html>

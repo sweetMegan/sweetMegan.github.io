@@ -1,0 +1,629 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  <title>Fabric 使用开发模式测试，打包，签名链码</title>
+  <meta name="description" content="区块链">
+  <meta name="author" content="黎跃春">
+
+  <meta name="keywords" content="区块链"
+  />
+
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="Fabric 使用开发模式测试，打包，签名链码">
+  <meta name="twitter:description" content="区块链">
+
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="Fabric 使用开发模式测试，打包，签名链码">
+  <meta property="og:description" content="区块链">
+  <meta property="og:site_name" content="区块链e"
+  />
+
+
+  <link rel="icon" type="image/png" href="/images/favicon.png" />
+  <link href="/images/favicon.png" rel="shortcut icon" type="image/png">
+
+
+  <link rel="stylesheet" href=" /css/main.css ">
+  <link href="//netdna.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
+
+  <link rel="canonical" href="/2018/06/22/%E5%BC%80%E5%8F%91%E6%A8%A1%E5%BC%8F%E6%B5%8B%E8%AF%95-%E6%89%93%E5%8C%85-%E7%AD%BE%E5%90%8D%E9%93%BE%E7%A0%81/">
+  <link rel="alternate" type="application/rss+xml" title="sweetsmelon博客" href=" /feed.xml
+    ">
+
+  <meta name="google-site-verification" content="1-1ZlHoRvM0T2FqPbW2S-qLgYXN6rsn52kErlMPd_gw" />
+
+  <!-- 站点统计 -->
+  <script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js">
+  </script>
+  <!--<script>(function() {var _53code = document.createElement("script");_53code.src = "https://tb.53kf.com/code/code/10174862/1";var s = document.getElementsByTagName("script")[0]; s.parentNode.insertBefore(_53code, s);})();</script>-->
+  <!-- 百度统计 -->
+  
+
+  <!-- google 统计 -->
+  
+  <script>
+    (function (i, s, o, g, r, a, m) {
+      i['GoogleAnalyticsObject'] = r;
+      i[r] = i[r] || function () {
+        (i[r].q = i[r].q || []).push(arguments)
+      }, i[r].l = 1 * new Date();
+      a = s.createElement(o),
+        m = s.getElementsByTagName(o)[0];
+      a.async = 1;
+      a.src = g;
+      m.parentNode.insertBefore(a, m)
+    })(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
+    ga('create', 'UA-104237177-1', 'auto');
+    ga('send', 'pageview');
+  </script>
+  
+
+  <script>
+    (function () {
+      var bp = document.createElement('script');
+      var curProtocol = window.location.protocol.split(':')[0];
+      if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+      } else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+      }
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(bp, s);
+    })();
+  </script>
+
+</head>
+
+
+<body>
+
+  <span class="mobile btn-mobile-menu">
+      <div class="nav_container">
+         <nav class="nav-menu-item" style = "float:right">
+            <i class="nav-menu-item">
+              <a href="/#blog" title="" class="blog-button">  博客主页
+              </a>
+            </i>
+            
+                <i class="nav-menu-item">
+
+                  <a href="/archive" title="archive" class="btn-mobile-menu__icon">
+                      所有文章
+                  </a>
+                </i>
+            
+                <i class="nav-menu-item">
+
+                  <a href="/tags" title="tags" class="btn-mobile-menu__icon">
+                      分类
+                  </a>
+                </i>
+            
+                <i class="nav-menu-item">
+
+                  <a href="/about" title="about" class="btn-mobile-menu__icon">
+                      关于我
+                  </a>
+                </i>
+            
+          </nav>
+
+      </div>
+    </span> <header class="panel-cover panel-cover--collapsed" style="background-image: url('/images/background-cover.jpg')">
+  <div class="panel-main">
+    <div class="panel-main__inner panel-inverted">
+      <div class="panel-main__content">
+        <!-- 头像效果-start -->
+        <div class="ih-item circle effect right_to_left">
+          <a href="/#blog" title="前往 sweetsmelon博客 的主页" class="blog-button">
+            <div class="img"><img src="/images/avatar.jpg" alt="img"></div>
+            <div class="info">
+              <div class="info-back">
+                <h2 style="font-size: 14px">
+                   微信:zhq496927203 
+                </h2>´
+                <p style="font-size: 6px">
+                   sweetsmelon 
+                </p>
+              </div>
+            </div>
+          </a>
+        </div>
+        <!-- 头像效果-end -->
+        <h1 class="panel-cover__title panel-title"><a href="/#blog" title="link to homepage for sweetsmelon博客" class="blog-button">sweetsmelon博客</a></h1>
+        <hr class="panel-cover__divider" />
+        <p class="panel-cover__description"></p>
+        <hr class="panel-cover__divider panel-cover__divider--secondary" /> 
+
+
+        <div class="navigation-wrapper">
+          <div>
+            <nav class="cover-navigation cover-navigation--primary">
+              <ul class="navigation">
+                <li class="navigation__item"><a href="/#blog" title="" class="blog-button">博客主页</a></li>
+                
+                <li class="navigation__item"><a href="/archive" title="archive">所有文章</a></li>
+                
+                <li class="navigation__item"><a href="/tags" title="tags">分类</a></li>
+                
+                <li class="navigation__item"><a href="/about" title="about">关于我</a></li>
+                
+              </ul>
+            </nav>
+          </div>
+        </div>
+
+        <div style="display:flex;justify-content:center;-webkit-justify-content:center">
+          <div style="display:flex;flex-direction:column;align-items:center;-webkit-flex-direction:column;-webkit-align-items:center;margin-right:10px">
+            <img src="/images/zhishixingqiu.png" style="width:120px;height:120px;margin-top:30px;margin-bottom:10px" />
+            <span class="panel-cover__subtitle panel-subtitle" style="font-size: 12px">链乎问答社区</span>
+          </div>
+          <div style="display:flex;flex-direction:column;align-items:center;-webkit-flex-direction:column;-webkit-align-items:center;margin-left:10px">
+            <img src="/images/lianhu.jpg" style="width:120px;height:120px;margin-top:30px;margin-bottom:10px" />
+            <span class="panel-cover__subtitle panel-subtitle" style="font-size: 12px">链乎公众号</span>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  
+  <div class="panel-cover--overlay cover-clear"></div>
+  
+
+  </div>
+</header>
+
+
+  <div class="content-wrapper">
+    <div class="content-wrapper__inner">
+      <article class="post-container post-container--single" itemscope itemtype="http://schema.org/BlogPosting">
+  <header class="post-header">
+    <h1 class="post-title">Fabric 使用开发模式测试，打包，签名链码</h1>
+    <div class="post-meta">
+      <img src="/images/calendar.png" width="20px"/>
+      <time datetime="2018-06-22 00:00:00 +0800" itemprop="datePublished" class="post-meta__date date">2018-06-22</time>
+
+      <span id="busuanzi_container_page_pv"> | 阅读：<span id="busuanzi_value_page_pv"></span>次</span>
+    </p>
+    </div>
+  </header>
+
+  <section class="post">
+    <p>正常情况下chaincode由对等体启动和维护。然而，在“开发模式”下，链码由用户构建并启动</p>
+
+<blockquote>
+  <p>如果没有安装Hyperledger Fabric Samples请先安装</p>
+</blockquote>
+
+<blockquote>
+  <p>如果没有下载Docker images请先下载</p>
+</blockquote>
+
+<p>跳转至<code class="highlighter-rouge">fabric-samples</code>的<code class="highlighter-rouge">chaincode-docker-devmode</code>目录</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>$ cd ~/hyfa/fabric-samples/chaincode-docker-devmode/
+</code></pre>
+</div>
+
+<p>使用<code class="highlighter-rouge">docker images</code>查看Docker镜像信息(显示本地Docker Registry)</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>$ sudo docker images
+</code></pre>
+</div>
+
+<p>会看到如下输出</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>REPOSITORY                     TAG                  IMAGE ID            CREATED             SIZE
+hyperledger/fabric-tools       latest             b7bfddf508bc        About an hour ago   1.46GB
+hyperledger/fabric-tools       x86_64-1.1.0       b7bfddf508bc        About an hour ago   1.46GB
+hyperledger/fabric-orderer     latest             ce0c810df36a        About an hour ago   180MB
+hyperledger/fabric-orderer     x86_64-1.1.0       ce0c810df36a        About an hour ago   180MB
+hyperledger/fabric-peer        latest             b023f9be0771        About an hour ago   187MB
+hyperledger/fabric-peer        x86_64-1.1.0       b023f9be0771        About an hour ago   187MB
+hyperledger/fabric-javaenv     latest             82098abb1a17        About an hour ago   1.52GB
+hyperledger/fabric-javaenv     x86_64-1.1.0       82098abb1a17        About an hour ago   1.52GB
+hyperledger/fabric-ccenv       latest             c8b4909d8d46        About an hour ago   1.39GB
+hyperledger/fabric-ccenv       x86_64-1.1.0       c8b4909d8d46        About an hour ago   1.39GB
+......
+</code></pre>
+</div>
+
+<p><strong>使用三个终端</strong></p>
+
+<p>###终端1 启动网络</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>$ cd ~/hyfa/fabric-samples/chaincode-docker-devmode/
+</code></pre>
+</div>
+
+<blockquote>
+  <p>该目录下有  <code class="highlighter-rouge">myc.tx</code>  文件</p>
+</blockquote>
+
+<p>启动网络</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>$ sudo docker-compose -f docker-compose-simple.yaml up -d
+</code></pre>
+</div>
+
+<p>###终端2 建立并启动链码</p>
+
+<p>打开第二个终端, 进入到<code class="highlighter-rouge">chaincode-docker-devmode</code>  目录</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>$ cd ~/hyfa/fabric-samples/chaincode-docker-devmode/
+</code></pre>
+</div>
+
+<p>####进入CLI</p>
+
+<p>chaincode容器的作用是为发简化的方式建立并启动链码</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>$sudo docker exec -it chaincode bash
+</code></pre>
+</div>
+
+<blockquote>
+  <p>命令提示符变为:</p>
+
+  <p><code class="highlighter-rouge">root@858726aed16e:/opt/gopath/src/chaincode#</code></p>
+</blockquote>
+
+<p>####编译</p>
+
+<p>进入sacc目录编译chaincode</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>root@858726aed16e:/opt/gopath/src/chaincode#  cd sacc
+root@858726aed16e:/opt/gopath/src/chaincode/sacc#  go build
+</code></pre>
+</div>
+
+<p>####运行chaincode</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>CORE_PEER_ADDRESS=peer:7052
+ CORE_CHAINCODE_ID_NAME=mycc:0 ./sacc
+</code></pre>
+</div>
+
+<p>mycc: 链码名称</p>
+
+<p>0: 链码初始版本号</p>
+
+<p>###终端3 使用链码</p>
+
+<p>####安装及实例化</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>$ cd ~/hyfa/fabric-samples/chaincode-docker-devmode/
+$ sudo docker exec -it cli bash
+</code></pre>
+</div>
+
+<p>进入CLI容器后执行如下命令安装及实例化chaincode</p>
+
+<blockquote>
+  <p><strong>容器中已经有  <code class="highlighter-rouge">myc.block </code>    、  <code class="highlighter-rouge">myc.tx</code>  两个文件， 可以直接使用</strong></p>
+</blockquote>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>peer chaincode install -p chaincodedev/chaincode/sacc -n mycc -v 0
+peer chaincode instantiate -n mycc -v 0 -c '{"Args":["a","10"]}' -C myc 
+</code></pre>
+</div>
+
+<blockquote>
+  <p>&lt;font color=red&gt;链码名与版本要与运行链码时设置的值一致&lt;/font&gt;</p>
+</blockquote>
+
+<p>####调用</p>
+
+<p>进行调用,将<code class="highlighter-rouge">a</code>的值更改为<code class="highlighter-rouge">20</code></p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>peer chaincode invoke -n mycc -c '{"Args":["set", "a", "20"]}' -C myc
+</code></pre>
+</div>
+
+<p>执行成功, 输出如下内容</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>......
+...... Chaincode invoke successful. result: status:200 payload:"20"
+......
+</code></pre>
+</div>
+
+<p>####查询</p>
+
+<p>查询<code class="highlighter-rouge">a</code>的值</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>peer chaincode query -n mycc -c '{"Args":["query","a"]}' -C myc
+</code></pre>
+</div>
+
+<p>执行成功, 输出: <code class="highlighter-rouge">Query Result: 20</code></p>
+
+<p>##打包链码及签名</p>
+
+<p>通过将链码相关数据进行封装, 可以实现对其进行打包和签名操作</p>
+
+<p>###打包</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>peer chaincode package -n mycc -p chaincodedev/chaincode/sacc -v 0 -s -S -i "AND('OrgA.admin')" ccpack.out
+</code></pre>
+</div>
+
+<blockquote>
+  <p>-s: 创建角色支持的CC部署规范包, 而不是原始的CC部署规范</p>
+
+  <p>-S: 如果创建CC部署规范方案角色支持,也与本地MSP签名</p>
+
+  <p>-i: 指定实例化策略</p>
+</blockquote>
+
+<p>打包后的文件, 可以直接用于install操作, 如:</p>
+
+<p>​	<code class="highlighter-rouge">peer chaincode install ccpack.out</code></p>
+
+<p>###签名</p>
+
+<p>对一个打包文件进行签名操作(添加当前MSP签名到签名列表中)</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>peer chaincode signpackage ccpack.out signedccpack.out
+</code></pre>
+</div>
+
+<p>##升级链码</p>
+
+<p><strong>退出终端3, 停止终端2的服务</strong></p>
+
+<p>###终端2中重新运行chaincode</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>$ sudo docker exec -it chaincode bash
+
+cd sacc
+go build
+CORE_PEER_ADDRESS=peer:7052 CORE_CHAINCODE_ID_NAME=mycc:1 ./sacc
+</code></pre>
+</div>
+
+<p><strong>注意版本为 <code class="highlighter-rouge">1.0 </code>,  旧版本为 <code class="highlighter-rouge">0</code></strong></p>
+
+<p>###终端3</p>
+
+<p>打开终端3, 进入CLI容器</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>$ sudo docker exec -it cli bash
+</code></pre>
+</div>
+
+<p>###安装及升级</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>peer chaincode install -p chaincodedev/chaincode/sacc -n mycc -v 1
+
+peer chaincode upgrade -n mycc -v 1 -c '{"Args":["a", "100"]}' -C myc 
+</code></pre>
+</div>
+
+<p>注意版本号必须一致</p>
+
+<p>在对某链码代码升级前, 推荐先将所有该链码的容器停止, 并从Peer上备份并移除旧链码部署文件. 之后先在个别Peer节点上部署新链码, 对原有数据进行测试, 成功后再在其它节点上进行升级操作</p>
+
+<h4 id="查询">查询</h4>
+
+<p>查询<code class="highlighter-rouge">a</code>的值</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>peer chaincode query -n mycc -c '{"Args":["query","a"]}' -C myc
+</code></pre>
+</div>
+
+<p>执行成功, 输出: <code class="highlighter-rouge">Query Result:100</code></p>
+
+<h2 id="感谢韩晓东老韩指导">感谢韩晓东（老韩）指导</h2>
+
+
+  </section>
+</article>
+
+<section>
+
+            <div class="content-play">
+              <p><a href="javascript:void(0)" onclick="dashangToggle()" class="dashang" title="打赏，支持一下">打赏一个呗</a></p>
+              <div class="hide_box-play"></div>
+              <div class="shang_box-play">
+                <a class="shang_close-play" href="javascript:void(0)" onclick="dashangToggle()" title="关闭"><img src="/images/payimg/close.jpg" alt="取消" /></a>
+                <div class="shang_tit-play">
+                  <p>感谢您的支持，我会继续努力的!</p>
+                </div>
+                <div class="shang_payimg">
+                    <img src="/images/payimg/alipayimg.jpg" alt="扫码支持" title="扫一扫" />
+                </div>
+              <div class="shang_payimg">    
+                    <img src="/images/payimg/weipayimg.jpg" alt="扫码支持" title="扫一扫" />
+                </div>
+                <div class="pay_explain">扫码打赏，你说多少就多少</div>
+                <div class="shang_payselect">
+                  <div class="pay_item checked" data-id="alipay">
+                    <span class="pay_logo"><img src="/images/payimg/alipay.jpg" alt="支付宝" /></span>
+                  </div>
+                  <div class="pay_item" data-id="weipay">
+                    <span class="pay_logo"><img src="/images/payimg/wechat.jpg" alt="微信" /></span>
+                  </div>
+                </div>
+                <div class="shang_info-play">
+                  <p>打开<span id="shang_pay_txt">支付宝</span>扫一扫，即可进行扫码打赏哦</p>
+                </div>
+              </div>
+            </div>
+            <script type="text/javascript">
+            function dashangToggle(){
+              $(".hide_box-play").fadeToggle();
+              $(".shang_box-play").fadeToggle();
+            }
+            </script>
+
+            <div style="text-align:center;margin:50px 0; font:normal 14px/24px 'MicroSoft YaHei';"></div>
+
+            <style type="text/css">
+              .content-play{width:80%;margin-top: 20px;margin-bottom: 10px;height:40px;}
+              .hide_box-play{z-index:999;filter:alpha(opacity=50);background:#666;opacity: 0.5;-moz-opacity: 0.5;left:0;top:0;height:99%;width:100%;position:fixed;display:none;}
+              .shang_box-play{width:540px;height:540px;padding:10px;background-color:#fff;border-radius:10px;position:fixed;z-index:1000;left:50%;top:50%;margin-left:-280px;margin-top:-280px;border:1px dotted #dedede;display:none;}
+              .shang_box-play img{border:none;border-width:0;}
+              .dashang{display:block;width:100px;margin:5px auto;height:25px;line-height:25px;padding:10px;background-color:#E74851;color:#fff;text-align:center;text-decoration:none;border-radius:10px;font-weight:bold;font-size:16px;transition: all 0.3s;}
+              .dashang:hover{opacity:0.8;padding:15px;font-size:18px;}
+              .shang_close-play{float:right;display:inline-block;
+                margin-right: 10px;margin-top: 20px;
+              }
+              .shang_logo{display:block;text-align:center;margin:20px auto;}
+              .shang_tit-play{width: 100%;height: 75px;text-align: center;line-height: 66px;color: #a3a3a3;font-size: 16px;background: url('/images/payimg/cy-reward-title-bg.jpg');font-family: 'Microsoft YaHei';margin-top: 7px;margin-right:2px;}
+              .shang_tit-play p{color:#a3a3a3;text-align:center;font-size:16px;}
+              .shang_payimg{width:140px;padding:10px;padding-left: 80px; /*border:6px solid #EA5F00;**/margin:0 auto;border-radius:3px;height:140px;display:inline-block;}
+              .shang_payimg img{display:inline-block;margin-right:10px;float:left;text-align:center;width:140px;height:140px; }
+              .pay_explain{text-align:center;margin:10px auto;font-size:12px;color:#545454;}
+              .shang_payselect{text-align:center;margin:0 auto;margin-top:40px;cursor:pointer;height:60px;width:500px;margin-left:110px;}
+              .shang_payselect .pay_item{display:inline-block;margin-right:140px;float:left;}
+              .shang_info-play{clear:both;}
+              .shang_info-play p,.shang_info-play a{color:#C3C3C3;text-align:center;font-size:12px;text-decoration:none;line-height:2em;}
+            </style>
+
+       <ul class="pager">
+        
+        <li class="previous">
+            <a href="/2018/06/22/Fabric-%E4%BA%A4%E6%98%93%E8%BF%87%E7%A8%8B/" data-toggle="tooltip" data-placement="top" title="Fabric 交易过程">上一篇：  <span>Fabric 交易过程</span>
+            </a>
+        </li>
+        
+        
+        <li class="next">
+            <a href="/2018/06/23/goweb%E7%BC%96%E7%A8%8B/" data-toggle="tooltip" data-placement="top" title="goWeb编程">下一篇：  <span>goWeb编程</span>
+            </a>
+        </li>
+        
+    </ul>
+</section>
+
+ <section class="footer">
+  <footer>
+    <div class="footer_div">
+      <nav class="cover-navigation navigation--social">
+        <ul class="navigation">
+
+           
+          <!-- Github -->
+          <li class="navigation__item_social">
+            <a href="https://github.com/sweetMegan" title="@sweetMegan 的 Github"
+               target="_blank">
+              <i class='social fa fa-github fa-2x'></i>
+              <span class="label">Github</span>
+            </a>
+          </li>
+            
+
+          <!-- RSS -->
+          <!--<li class="navigation__item_social">-->
+          <!--<a href="/feed.xml" rel="author" title="RSS" target="_blank">-->
+          <!--<i class='social fa fa-rss fa-2x'></i>-->
+          <!--<span class="label">RSS</span>-->
+          <!--</a>-->
+          <!--</li>-->
+
+          
+          <!-- Email -->
+          <li class="navigation__item_social">
+            <a href="mailto:sweetsmelon@163.com" title="Contact me">
+              <i class='social fa fa-envelope fa-2x'></i>
+              <span class="label">Email</span>
+            </a>
+          </li>
+          
+
+        </ul>
+      </nav>
+
+    </div>
+
+    <table width="100%" border="0" cellspacing="0" cellpadding="0">
+      <thead>
+      <tr id="bar_head">
+        <th colspan="11">友情链接</th>
+      </tr>
+      </thead>
+
+      <tr align="center" valign="middle">
+        <td><a href="http://www.kongyixueyuan.com">区块链技术视频网站</a></td>
+
+        <td><a href="https://www.ethereum.org">以太坊官网</a></td>
+
+        <td><a href="https://solidity.readthedocs.io/en/develop/">Solidity</a></td>
+
+        <td><a href="http://truffleframework.com/">Truffle FrameWork</a></td>
+
+        <td><a href="http://embark.readthedocs.io">Embark FrameWork</a></td>
+
+      </tr>
+      <tr align="center" valign="middle">
+
+        <td>
+          <a href="https://www.ibm.com/developerworks/community/groups/service/html/communityview?communityUuid=3302cc3b-074e-44da-90b1-5055f1dc0d9c&amp;lang=zh">IBM开源技术微讲堂</a>
+        </td>
+
+        <td><a href="https://www.bitcoin.com/">Bitcoin.com</a></td>
+
+        <td><a href="https://github.com/bitshares/bitshares1-core">bitshares1-core</a></td>
+
+        <td><a href="https://ipfs.io">ipfs官网</a></td>
+
+        <td><a href="http://ipfser.org">ipfs中文网</a></td>
+
+      </tr>
+    </table>
+
+    <div class="footer_div">
+      <p class="copyright text-muted" align="center">
+        Copyright &copy; 2018 sweetsmelon博客 京ICP备15065741号. 区块链部落QQ群：348924182
+      </p>
+      <div align="center">
+        <link rel="stylesheet" href="http://cdn.bootcss.com/font-awesome/4.3.0/css/font-awesome.min.css">
+        <!-- 访问统计 -->
+        <!--<span id="busuanzi_container_site_pv">-->
+        <!--本站总访问量-->
+        <!--<span id="busuanzi_value_site_pv"></span>次-->
+        </span>
+      </div>
+    </div>
+
+  </footer>
+</section>
+
+    </div>
+  </div>
+
+  <script type="text/javascript" src="//code.jquery.com/jquery-1.11.3.min.js"></script>
+<script type="text/javascript" src="/js/main.js"></script>
+
+<script type="text/javascript" src="/js/highlight.pack.js"></script>
+<script>hljs.initHighlightingOnLoad();</script>
+
+
+
+
+  <script>
+    (function () {
+      var bp = document.createElement('script');
+      var curProtocol = window.location.protocol.split(':')[0];
+      if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+      } else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+      }
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(bp, s);
+    })();
+  </script>
+
+
+</body>
+
+</html>

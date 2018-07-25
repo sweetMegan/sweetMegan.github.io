@@ -1,0 +1,611 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  <title>Fabric 链码开发</title>
+  <meta name="description" content="区块链">
+  <meta name="author" content="黎跃春">
+
+  <meta name="keywords" content="区块链"
+  />
+
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="Fabric 链码开发">
+  <meta name="twitter:description" content="区块链">
+
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="Fabric 链码开发">
+  <meta property="og:description" content="区块链">
+  <meta property="og:site_name" content="区块链e"
+  />
+
+
+  <link rel="icon" type="image/png" href="/images/favicon.png" />
+  <link href="/images/favicon.png" rel="shortcut icon" type="image/png">
+
+
+  <link rel="stylesheet" href=" /css/main.css ">
+  <link href="//netdna.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
+
+  <link rel="canonical" href="/2018/06/21/%E9%93%BE%E7%A0%81%E5%BC%80%E5%8F%91/">
+  <link rel="alternate" type="application/rss+xml" title="sweetsmelon博客" href=" /feed.xml
+    ">
+
+  <meta name="google-site-verification" content="1-1ZlHoRvM0T2FqPbW2S-qLgYXN6rsn52kErlMPd_gw" />
+
+  <!-- 站点统计 -->
+  <script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js">
+  </script>
+  <!--<script>(function() {var _53code = document.createElement("script");_53code.src = "https://tb.53kf.com/code/code/10174862/1";var s = document.getElementsByTagName("script")[0]; s.parentNode.insertBefore(_53code, s);})();</script>-->
+  <!-- 百度统计 -->
+  
+
+  <!-- google 统计 -->
+  
+  <script>
+    (function (i, s, o, g, r, a, m) {
+      i['GoogleAnalyticsObject'] = r;
+      i[r] = i[r] || function () {
+        (i[r].q = i[r].q || []).push(arguments)
+      }, i[r].l = 1 * new Date();
+      a = s.createElement(o),
+        m = s.getElementsByTagName(o)[0];
+      a.async = 1;
+      a.src = g;
+      m.parentNode.insertBefore(a, m)
+    })(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
+    ga('create', 'UA-104237177-1', 'auto');
+    ga('send', 'pageview');
+  </script>
+  
+
+  <script>
+    (function () {
+      var bp = document.createElement('script');
+      var curProtocol = window.location.protocol.split(':')[0];
+      if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+      } else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+      }
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(bp, s);
+    })();
+  </script>
+
+</head>
+
+
+<body>
+
+  <span class="mobile btn-mobile-menu">
+      <div class="nav_container">
+         <nav class="nav-menu-item" style = "float:right">
+            <i class="nav-menu-item">
+              <a href="/#blog" title="" class="blog-button">  博客主页
+              </a>
+            </i>
+            
+                <i class="nav-menu-item">
+
+                  <a href="/archive" title="archive" class="btn-mobile-menu__icon">
+                      所有文章
+                  </a>
+                </i>
+            
+                <i class="nav-menu-item">
+
+                  <a href="/tags" title="tags" class="btn-mobile-menu__icon">
+                      分类
+                  </a>
+                </i>
+            
+                <i class="nav-menu-item">
+
+                  <a href="/about" title="about" class="btn-mobile-menu__icon">
+                      关于我
+                  </a>
+                </i>
+            
+          </nav>
+
+      </div>
+    </span> <header class="panel-cover panel-cover--collapsed" style="background-image: url('/images/background-cover.jpg')">
+  <div class="panel-main">
+    <div class="panel-main__inner panel-inverted">
+      <div class="panel-main__content">
+        <!-- 头像效果-start -->
+        <div class="ih-item circle effect right_to_left">
+          <a href="/#blog" title="前往 sweetsmelon博客 的主页" class="blog-button">
+            <div class="img"><img src="/images/avatar.jpg" alt="img"></div>
+            <div class="info">
+              <div class="info-back">
+                <h2 style="font-size: 14px">
+                   微信:zhq496927203 
+                </h2>´
+                <p style="font-size: 6px">
+                   sweetsmelon 
+                </p>
+              </div>
+            </div>
+          </a>
+        </div>
+        <!-- 头像效果-end -->
+        <h1 class="panel-cover__title panel-title"><a href="/#blog" title="link to homepage for sweetsmelon博客" class="blog-button">sweetsmelon博客</a></h1>
+        <hr class="panel-cover__divider" />
+        <p class="panel-cover__description"></p>
+        <hr class="panel-cover__divider panel-cover__divider--secondary" /> 
+
+
+        <div class="navigation-wrapper">
+          <div>
+            <nav class="cover-navigation cover-navigation--primary">
+              <ul class="navigation">
+                <li class="navigation__item"><a href="/#blog" title="" class="blog-button">博客主页</a></li>
+                
+                <li class="navigation__item"><a href="/archive" title="archive">所有文章</a></li>
+                
+                <li class="navigation__item"><a href="/tags" title="tags">分类</a></li>
+                
+                <li class="navigation__item"><a href="/about" title="about">关于我</a></li>
+                
+              </ul>
+            </nav>
+          </div>
+        </div>
+
+        <div style="display:flex;justify-content:center;-webkit-justify-content:center">
+          <div style="display:flex;flex-direction:column;align-items:center;-webkit-flex-direction:column;-webkit-align-items:center;margin-right:10px">
+            <img src="/images/zhishixingqiu.png" style="width:120px;height:120px;margin-top:30px;margin-bottom:10px" />
+            <span class="panel-cover__subtitle panel-subtitle" style="font-size: 12px">链乎问答社区</span>
+          </div>
+          <div style="display:flex;flex-direction:column;align-items:center;-webkit-flex-direction:column;-webkit-align-items:center;margin-left:10px">
+            <img src="/images/lianhu.jpg" style="width:120px;height:120px;margin-top:30px;margin-bottom:10px" />
+            <span class="panel-cover__subtitle panel-subtitle" style="font-size: 12px">链乎公众号</span>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  
+  <div class="panel-cover--overlay cover-clear"></div>
+  
+
+  </div>
+</header>
+
+
+  <div class="content-wrapper">
+    <div class="content-wrapper__inner">
+      <article class="post-container post-container--single" itemscope itemtype="http://schema.org/BlogPosting">
+  <header class="post-header">
+    <h1 class="post-title">Fabric 链码开发</h1>
+    <div class="post-meta">
+      <img src="/images/calendar.png" width="20px"/>
+      <time datetime="2018-06-21 00:00:00 +0800" itemprop="datePublished" class="post-meta__date date">2018-06-21</time>
+
+      <span id="busuanzi_container_page_pv"> | 阅读：<span id="busuanzi_value_page_pv"></span>次</span>
+    </p>
+    </div>
+  </header>
+
+  <section class="post">
+    <p>##简介</p>
+
+<p>数字货币曾是区块链技术的唯一应用场景</p>
+
+<p>对智能合约的支持突破了场景限制, 丰富了区块链应用的适用范围, 可以支持多行业、大规模的商业应用</p>
+
+<p>###区块链应用</p>
+
+<p>区块链应用:  一般由若干部署在区块链网络中的智能合约, 以及调用这些智能合约的应用程序组成</p>
+
+<p>用户专注于与业务本身相关的应用程序</p>
+
+<p>智能合约则封装了与区块链账本直接交互的相关过程, 被应用程序调用</p>
+
+<h4 id="智能合约开发">智能合约开发</h4>
+
+<p>智能合约本质上是为了对上层业务逻辑进行支持且直接与账本结构打交道, 处于核心位置.</p>
+
+<p>所以设计得当可以简化上层应用开发的过程</p>
+
+<h4 id="应用程序开发">应用程序开发</h4>
+
+<p>应用程序通过调用智能合约提供的方法接口实现业务逻辑, 可以使用JavaScript、Python、Go、Java等主流语言进行开发</p>
+
+<p>##链码的原理</p>
+
+<p>链码延伸自智能合约的概念, 支持使用主流高级编程语言实现</p>
+
+<p>区块链网络中的成员商定业务逻辑后, 可将业务逻辑编程到链码中, 所有人遵守合约执行</p>
+
+<p>链码会创建一些状态（state）并写入账本中。状态带有绑定到链码的命名空间，仅限于创建他的链码使用，不能被其他链码直接访问。不过，在合适的范围内，一个链码也可以调用另一个链码，间接访问其状态</p>
+
+<p>链码在Fabric节点上的隔离沙盒(目前为Docker容器)中运行, 并通过gRPC协议与节点进行交互</p>
+
+<ul>
+  <li>调用链码</li>
+  <li>读写账本</li>
+  <li>返回响应</li>
+  <li>……</li>
+</ul>
+
+<p>Fabric中支持多种语言实现链码，包括Golang、JavaScript、Java等</p>
+
+<h4 id="基本工作原理">基本工作原理</h4>
+
+<ol>
+  <li>首先用户通过客户端向Fabric的背书节点发出调用链码的交易提案</li>
+  <li>节点对交易提案进行包括ACL权限检查在内的各种检验, 通过后则创建模拟执行这一交易的环境</li>
+  <li>之后, 节点和链码容器之间通过gRPC消息来交互, 模拟执行交易并给出背书结论</li>
+  <li>当链码的代码逻辑需要读写账本时,通过shim层发送相应操作类型给节点, 节点本地操作账本后返回响应消息</li>
+  <li>客户端收到足够的背书节点的支持后, 便可以将这笔交易发送给排序节点进行排序, 并最终写入区块链</li>
+</ol>
+
+<p>##链码接口与结构</p>
+
+<h3 id="依赖包">依赖包</h3>
+
+<p>链码实现需要引入如下依赖包</p>
+
+<ul>
+  <li>
+    <p>“github.com/hyperledger/fabric/core/chaincode/shim”</p>
+
+    <ol>
+      <li>shim包提供了链码与账本交互的中间层</li>
+      <li>链码通过shim.ChaincodeStub提供的方法来读取和修改账本状态</li>
+    </ol>
+  </li>
+  <li>
+    <p>“github.com/hyperledger/fabric/protos/peer”</p>
+
+    <ul>
+      <li>peer.Response: 响应信息</li>
+    </ul>
+  </li>
+</ul>
+
+<p>###链码接口</p>
+
+<p>每个链码都需要实现chaincode接口：</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>type Chaincode interface{
+	Init(stub ChaincodeStubInterface) peer.Response
+	Invoke(stub ChaincodeStubInterface) peer.Response
+}
+</code></pre>
+</div>
+
+<h3 id="init与invoke方法">Init与Invoke方法</h3>
+
+<p>编写链码, 关键是实现Init与Invoke两个方法</p>
+
+<p>Init方法在链码部署或升级时被调用, 完成初始化工作</p>
+
+<p>对数据进行操作时, Invoke方法被调用, 因此响应调用或查询的业务逻辑都需要在此方法中实现</p>
+
+<p>###必要结构</p>
+
+<p>一个链码的必要结构如下</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>package main
+
+//引入必要的包
+import(
+	"fmt"
+	
+	"github.com/hyperledger/fabric/core/chaincode/shim"
+	"github.com/hyperledger/fabric/protos/peer"
+)
+
+//声明一个结构体
+type SimpleChaincode struct {
+    
+}
+
+//为结构体添加Init方法
+func (t *SimpleChaincode) Init(stub shim.ChaincodeStubInterface) peer.Response{
+  //在该方法中实现链码初始化或升级时的处理逻辑
+  //编写时可灵活使用stub中的API
+}
+
+//为结构体添加Invoke方法
+func (t *SimpleChaincode) Invoke(stub shim.ChaincodeStubInterface) peer.Response{
+  //在该方法中实现链码运行中被调用或查询时的处理逻辑
+  //编写时可灵活使用stub中的API
+}
+
+//主函数，需要调用shim.Start（ ）方法
+func main() {
+  err := shim.Start(new(SimpleChaincode))
+  if err != nil {
+     fmt.Printf("Error starting Simple chaincode: %s", err)
+    }
+}
+</code></pre>
+</div>
+
+<p>##链码API</p>
+
+<h3 id="账本状态交互api">账本状态交互API</h3>
+
+<p>链码需要将数据记录在分布式账本中.需要记录的数据称为状态, 以K-V对的形式存储</p>
+
+<p><strong>账本状态交互API</strong>可以对账本状态进行操作</p>
+
+<p>GetState(key string)  ([]byte,  error)  通过Key来返回数组的特定值</p>
+
+<p>PutState(key string, value []byte)  error	账本中写入特定的键和值</p>
+
+<p>DelState(key string)  error		从账本中移除指定的键和值</p>
+
+<p>GetStateByRange(startKey, endKey string)  (StateQueryIteratorInterface, error)	根据指定的范围内的健值</p>
+
+<p>GetHistoryForKey(key string)  (HistoryQueryIteratorInterface, error)	返回指定健的所有历史值</p>
+
+<p>GetQueryResult(query string)  (StateQueryIteratorInterface, error)	对(支持富查询功能的)状态数据库进行富查询</p>
+
+<h3 id="交易信息相关api">交易信息相关API</h3>
+
+<p>GetTxID()  string		返回交易提案中指定的交易ID</p>
+
+<p>GetTxTimestamp()  (*timestamp.Timestamp, error)	返回交易创建的时间戳，这个时间戳是peer收到交易的当前时间</p>
+
+<p>GetBinding()  ([]byte, error)		返回交易的binding信息</p>
+
+<p>GetSignedProposal()  (*pb.SignedProposal, error)	返回与交易提案相关的所有数据</p>
+
+<p>GetCreator()  ([]byte, error)	返回该交易的提交者的身份信息</p>
+
+<p>GetTransient() (map[string][]byte, error)		返回交易中不会被写至账本中的一些临时信息</p>
+
+<h3 id="参数api">参数API</h3>
+
+<p>GetArgs()  [][]byte		返回调用链码时交易提案中指定的参数</p>
+
+<p>GetArgsSlice()  ([]byte, error)	返回调用链码时交易提案中指定的参数</p>
+
+<p>GetFunctionAndParameters()  (function string, params []string)	返回调用链码时交易提案中指定的被调用的函数名称及其参数</p>
+
+<p>GetStringArgs() []string	返回调用链码时指定的参数</p>
+
+<p>-c ‘{“Args”:[“fn”, “param1”, “param2”, “paramN”]}’</p>
+
+<h2 id="示例helloworld">示例(HelloWorld)</h2>
+
+<h3 id="init方法">Init方法</h3>
+
+<ul>
+  <li>获取参数并判断参数长度是否为2
+    <ul>
+      <li>参数: Key, Value</li>
+    </ul>
+  </li>
+  <li>调用PutState方法将状态写入账本中</li>
+  <li>如果有错误, 则返回</li>
+  <li>打印输出提示信息</li>
+  <li>返回成功</li>
+</ul>
+
+<p>###Invoke方法</p>
+
+<ul>
+  <li>获取参数并判断长度是否为1</li>
+  <li>利用第1个参数获取对应状态GetState(key)</li>
+  <li>如果有错误则返回</li>
+  <li>如果返回值为空则返回错误</li>
+  <li>返回成功状态</li>
+</ul>
+
+
+  </section>
+</article>
+
+<section>
+
+            <div class="content-play">
+              <p><a href="javascript:void(0)" onclick="dashangToggle()" class="dashang" title="打赏，支持一下">打赏一个呗</a></p>
+              <div class="hide_box-play"></div>
+              <div class="shang_box-play">
+                <a class="shang_close-play" href="javascript:void(0)" onclick="dashangToggle()" title="关闭"><img src="/images/payimg/close.jpg" alt="取消" /></a>
+                <div class="shang_tit-play">
+                  <p>感谢您的支持，我会继续努力的!</p>
+                </div>
+                <div class="shang_payimg">
+                    <img src="/images/payimg/alipayimg.jpg" alt="扫码支持" title="扫一扫" />
+                </div>
+              <div class="shang_payimg">    
+                    <img src="/images/payimg/weipayimg.jpg" alt="扫码支持" title="扫一扫" />
+                </div>
+                <div class="pay_explain">扫码打赏，你说多少就多少</div>
+                <div class="shang_payselect">
+                  <div class="pay_item checked" data-id="alipay">
+                    <span class="pay_logo"><img src="/images/payimg/alipay.jpg" alt="支付宝" /></span>
+                  </div>
+                  <div class="pay_item" data-id="weipay">
+                    <span class="pay_logo"><img src="/images/payimg/wechat.jpg" alt="微信" /></span>
+                  </div>
+                </div>
+                <div class="shang_info-play">
+                  <p>打开<span id="shang_pay_txt">支付宝</span>扫一扫，即可进行扫码打赏哦</p>
+                </div>
+              </div>
+            </div>
+            <script type="text/javascript">
+            function dashangToggle(){
+              $(".hide_box-play").fadeToggle();
+              $(".shang_box-play").fadeToggle();
+            }
+            </script>
+
+            <div style="text-align:center;margin:50px 0; font:normal 14px/24px 'MicroSoft YaHei';"></div>
+
+            <style type="text/css">
+              .content-play{width:80%;margin-top: 20px;margin-bottom: 10px;height:40px;}
+              .hide_box-play{z-index:999;filter:alpha(opacity=50);background:#666;opacity: 0.5;-moz-opacity: 0.5;left:0;top:0;height:99%;width:100%;position:fixed;display:none;}
+              .shang_box-play{width:540px;height:540px;padding:10px;background-color:#fff;border-radius:10px;position:fixed;z-index:1000;left:50%;top:50%;margin-left:-280px;margin-top:-280px;border:1px dotted #dedede;display:none;}
+              .shang_box-play img{border:none;border-width:0;}
+              .dashang{display:block;width:100px;margin:5px auto;height:25px;line-height:25px;padding:10px;background-color:#E74851;color:#fff;text-align:center;text-decoration:none;border-radius:10px;font-weight:bold;font-size:16px;transition: all 0.3s;}
+              .dashang:hover{opacity:0.8;padding:15px;font-size:18px;}
+              .shang_close-play{float:right;display:inline-block;
+                margin-right: 10px;margin-top: 20px;
+              }
+              .shang_logo{display:block;text-align:center;margin:20px auto;}
+              .shang_tit-play{width: 100%;height: 75px;text-align: center;line-height: 66px;color: #a3a3a3;font-size: 16px;background: url('/images/payimg/cy-reward-title-bg.jpg');font-family: 'Microsoft YaHei';margin-top: 7px;margin-right:2px;}
+              .shang_tit-play p{color:#a3a3a3;text-align:center;font-size:16px;}
+              .shang_payimg{width:140px;padding:10px;padding-left: 80px; /*border:6px solid #EA5F00;**/margin:0 auto;border-radius:3px;height:140px;display:inline-block;}
+              .shang_payimg img{display:inline-block;margin-right:10px;float:left;text-align:center;width:140px;height:140px; }
+              .pay_explain{text-align:center;margin:10px auto;font-size:12px;color:#545454;}
+              .shang_payselect{text-align:center;margin:0 auto;margin-top:40px;cursor:pointer;height:60px;width:500px;margin-left:110px;}
+              .shang_payselect .pay_item{display:inline-block;margin-right:140px;float:left;}
+              .shang_info-play{clear:both;}
+              .shang_info-play p,.shang_info-play a{color:#C3C3C3;text-align:center;font-size:12px;text-decoration:none;line-height:2em;}
+            </style>
+
+       <ul class="pager">
+        
+        <li class="previous">
+            <a href="/2018/06/20/Fabric-%E5%BB%BA%E7%AB%8B%E7%AC%AC%E4%B8%80%E4%B8%AA%E7%BD%91%E7%BB%9C/" data-toggle="tooltip" data-placement="top" title="Fabric 建立第一个网络">上一篇：  <span>Fabric 建立第一个网络</span>
+            </a>
+        </li>
+        
+        
+        <li class="next">
+            <a href="/2018/06/22/Fabric-%E4%BA%A4%E6%98%93%E8%BF%87%E7%A8%8B/" data-toggle="tooltip" data-placement="top" title="Fabric 交易过程">下一篇：  <span>Fabric 交易过程</span>
+            </a>
+        </li>
+        
+    </ul>
+</section>
+
+ <section class="footer">
+  <footer>
+    <div class="footer_div">
+      <nav class="cover-navigation navigation--social">
+        <ul class="navigation">
+
+           
+          <!-- Github -->
+          <li class="navigation__item_social">
+            <a href="https://github.com/sweetMegan" title="@sweetMegan 的 Github"
+               target="_blank">
+              <i class='social fa fa-github fa-2x'></i>
+              <span class="label">Github</span>
+            </a>
+          </li>
+            
+
+          <!-- RSS -->
+          <!--<li class="navigation__item_social">-->
+          <!--<a href="/feed.xml" rel="author" title="RSS" target="_blank">-->
+          <!--<i class='social fa fa-rss fa-2x'></i>-->
+          <!--<span class="label">RSS</span>-->
+          <!--</a>-->
+          <!--</li>-->
+
+          
+          <!-- Email -->
+          <li class="navigation__item_social">
+            <a href="mailto:sweetsmelon@163.com" title="Contact me">
+              <i class='social fa fa-envelope fa-2x'></i>
+              <span class="label">Email</span>
+            </a>
+          </li>
+          
+
+        </ul>
+      </nav>
+
+    </div>
+
+    <table width="100%" border="0" cellspacing="0" cellpadding="0">
+      <thead>
+      <tr id="bar_head">
+        <th colspan="11">友情链接</th>
+      </tr>
+      </thead>
+
+      <tr align="center" valign="middle">
+        <td><a href="http://www.kongyixueyuan.com">区块链技术视频网站</a></td>
+
+        <td><a href="https://www.ethereum.org">以太坊官网</a></td>
+
+        <td><a href="https://solidity.readthedocs.io/en/develop/">Solidity</a></td>
+
+        <td><a href="http://truffleframework.com/">Truffle FrameWork</a></td>
+
+        <td><a href="http://embark.readthedocs.io">Embark FrameWork</a></td>
+
+      </tr>
+      <tr align="center" valign="middle">
+
+        <td>
+          <a href="https://www.ibm.com/developerworks/community/groups/service/html/communityview?communityUuid=3302cc3b-074e-44da-90b1-5055f1dc0d9c&amp;lang=zh">IBM开源技术微讲堂</a>
+        </td>
+
+        <td><a href="https://www.bitcoin.com/">Bitcoin.com</a></td>
+
+        <td><a href="https://github.com/bitshares/bitshares1-core">bitshares1-core</a></td>
+
+        <td><a href="https://ipfs.io">ipfs官网</a></td>
+
+        <td><a href="http://ipfser.org">ipfs中文网</a></td>
+
+      </tr>
+    </table>
+
+    <div class="footer_div">
+      <p class="copyright text-muted" align="center">
+        Copyright &copy; 2018 sweetsmelon博客 京ICP备15065741号. 区块链部落QQ群：348924182
+      </p>
+      <div align="center">
+        <link rel="stylesheet" href="http://cdn.bootcss.com/font-awesome/4.3.0/css/font-awesome.min.css">
+        <!-- 访问统计 -->
+        <!--<span id="busuanzi_container_site_pv">-->
+        <!--本站总访问量-->
+        <!--<span id="busuanzi_value_site_pv"></span>次-->
+        </span>
+      </div>
+    </div>
+
+  </footer>
+</section>
+
+    </div>
+  </div>
+
+  <script type="text/javascript" src="//code.jquery.com/jquery-1.11.3.min.js"></script>
+<script type="text/javascript" src="/js/main.js"></script>
+
+<script type="text/javascript" src="/js/highlight.pack.js"></script>
+<script>hljs.initHighlightingOnLoad();</script>
+
+
+
+
+  <script>
+    (function () {
+      var bp = document.createElement('script');
+      var curProtocol = window.location.protocol.split(':')[0];
+      if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+      } else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+      }
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(bp, s);
+    })();
+  </script>
+
+
+</body>
+
+</html>
