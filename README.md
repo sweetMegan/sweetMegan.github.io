@@ -1,16 +1,5 @@
-# 关于我
+# 这个repository是我的博客模板，请访问[我的博客](https://mutex86.github.io)
 
-> 熟悉iOS ，区块链开发。
+***本博客模板来自涛神，特别鸣谢！***
 
-## 联系我
-
-- 微信：zhq496927203
-- QQ：496927203
-
-
-
-## 关注链乎官方公众号
-
-![](http://om1c35wrq.bkt.clouddn.com/lianhu.jpg)
-
-
+## 如果你也觉得这个模板很酷，想要使用这个模板，请访问 https://github.com/litaotao/github-blog-template
