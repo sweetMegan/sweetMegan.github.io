@@ -232,7 +232,7 @@
 
 <p>系统指定用户:  <code class="highlighter-rouge">admin,  alice,  bob,   jack</code></p>
 
-<h2 id="一开启服务设置路由">一、开启服务，设置路由</h2>
+<h3 id="一开启服务设置路由">一、开启服务，设置路由</h3>
 
 <p>编辑<code class="highlighter-rouge">app.go</code></p>
 
@@ -285,7 +285,7 @@ func WebStart(app *Controllers.Application)error  {
 </code></pre>
 </div>
 
-<h2 id="二封装处理请求响应">二、封装处理请求响应</h2>
+<h3 id="二封装处理请求响应">二、封装处理请求响应</h3>
 
 <p>编辑<code class="highlighter-rouge">controllerHandler.go</code></p>
 
@@ -649,7 +649,7 @@ func (app *Application) LoginOut(w http.ResponseWriter, r *http.Request)  {
 </code></pre>
 </div>
 
-<h2 id="二封装响应">二、封装响应</h2>
+<h3 id="三封装响应">三、封装响应</h3>
 
 <p>编辑 <code class="highlighter-rouge">controllerResponse.go</code></p>
 
@@ -676,7 +676,7 @@ func (app *Application) LoginOut(w http.ResponseWriter, r *http.Request)  {
 data 页面间传递的数据</p>
 </blockquote>
 
-<h2 id="创建登录用户结构体">创建登录用户结构体</h2>
+<h3 id="创建登录用户结构体">创建登录用户结构体</h3>
 
 <p>编辑<code class="highlighter-rouge">userInfo.go</code></p>
 
@@ -712,7 +712,7 @@ func init()  {
 </code></pre>
 </div>
 
-<h2 id="运行测试">运行测试</h2>
+<h3 id="运行测试">运行测试</h3>
 
 <blockquote>
   <p>cd $GOPATH/src/zhq/bill
@@ -772,11 +772,11 @@ make</p>
 
 <p>不论是签收或是拒签都应只能对一个票据操作一次，这里为了掩饰，未做这一处理</p>
 
-<p>###哦了，票据项目至此就完成了</p>
+<h4 id="哦了票据项目至此就完成了">哦了，票据项目至此就完成了</h4>
 
-<p>##<a href="https://github.com/sweetMegan/bill">源码下载</a></p>
+<h2 id="源码下载"><a href="https://github.com/sweetMegan/bill">源码下载</a></h2>
 
-<p>##感谢韩晓东（老韩）指导</p>
+<h2 id="感谢韩晓东老韩指导">感谢韩晓东（老韩）指导</h2>
 
 
   </section>

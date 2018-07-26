@@ -5,8 +5,8 @@
     <description></description>
     <link>/</link>
     <atom:link href="/feed.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Thu, 26 Jul 2018 23:19:07 +0800</pubDate>
-    <lastBuildDate>Thu, 26 Jul 2018 23:19:07 +0800</lastBuildDate>
+    <pubDate>Thu, 26 Jul 2018 23:44:22 +0800</pubDate>
+    <lastBuildDate>Thu, 26 Jul 2018 23:44:22 +0800</lastBuildDate>
     <generator>Jekyll v3.5.1</generator>
     
       <item>
@@ -106,7 +106,7 @@
   &lt;p&gt;zhangqiangdeMac-mini:privatechain zhqmac$ geth init genesis.json –datadir blockchainData&lt;/p&gt;
 &lt;/blockquote&gt;
 
-&lt;h4 id=&quot;四启动私有链节点&quot;&gt;四、􏳽􏳾􏰈􏰉􏰊􏲵􏲶􏳽􏳾􏰈􏰉􏰊􏲵􏲶启动私有链节点&lt;/h4&gt;
+&lt;h4 id=&quot;四启动私有链节点&quot;&gt;􏳽􏳾􏰈􏰉􏰊􏲵􏲶􏳽􏳾􏰈􏰉􏰊􏲵􏲶四、启动私有链节点&lt;/h4&gt;
 
 &lt;blockquote&gt;
   &lt;p&gt;geth –datadir blockchainData/ –networkid 110 –rpc console&lt;/p&gt;
@@ -932,18 +932,23 @@ console.log(&quot;third over&quot;);
 &lt;/div&gt;
 
 &lt;blockquote&gt;
-  &lt;p&gt;􏰔有&lt;code class=&quot;highlighter-rouge&quot;&gt;async&lt;/code&gt;标记的函数称为异步函数，在异步函数中，可以用&lt;code class=&quot;highlighter-rouge&quot;&gt;await&lt;/code&gt;调用另一个异步函数。使用&lt;code class=&quot;highlighter-rouge&quot;&gt;await&lt;/code&gt;时，它所在的方法必须使用关键字async。&lt;/p&gt;
+  &lt;p&gt;有&lt;code class=&quot;highlighter-rouge&quot;&gt;async&lt;/code&gt;标记的函数称为异步函数，在异步函数中，可以用&lt;code class=&quot;highlighter-rouge&quot;&gt;await&lt;/code&gt;调用另一个异步函数。使用&lt;code class=&quot;highlighter-rouge&quot;&gt;await&lt;/code&gt;时，它所在的方法必须使用关键字async。&lt;/p&gt;
 &lt;/blockquote&gt;
 
 &lt;p&gt;执行结果:&lt;/p&gt;
 
 &lt;blockquote&gt;
-  &lt;p&gt;first
-second
-third
-third over
-second over
-first over&lt;/p&gt;
+  &lt;p&gt;first&lt;/p&gt;
+
+  &lt;p&gt;second&lt;/p&gt;
+
+  &lt;p&gt;third&lt;/p&gt;
+
+  &lt;p&gt;third over&lt;/p&gt;
+
+  &lt;p&gt;second over&lt;/p&gt;
+
+  &lt;p&gt;first over&lt;/p&gt;
 &lt;/blockquote&gt;
 
 &lt;h2 id=&quot;五原生路由&quot;&gt;五、原生路由&lt;/h2&gt;
@@ -1266,9 +1271,9 @@ app.listen(3000);
 &lt;/code&gt;&lt;/pre&gt;
 &lt;/div&gt;
 
-&lt;p&gt;源码下载&lt;/p&gt;
+&lt;p&gt;源码下载 https://github.com/sweetMegan/koaDemo&lt;/p&gt;
 
-&lt;p&gt;##感谢李旭（旭哥）指导&lt;/p&gt;
+&lt;h2 id=&quot;感谢李旭旭哥指导&quot;&gt;感谢李旭（旭哥）指导&lt;/h2&gt;
 
 </description>
         <pubDate>Sat, 14 Jul 2018 00:00:00 +0800</pubDate>
@@ -1282,10 +1287,10 @@ app.listen(3000);
     
       <item>
         <title>Nodejs实现以太坊钱包-概述</title>
-        <description>&lt;p&gt;􏰲􏰳􏰴􏰩􏰵􏰶􏰷􏰸􏰹􏰬􏰺􏰻􏰼􏰽􏰾􏰲􏰳􏰴􏰩􏰵􏰶􏰷􏰸􏰹􏰬􏰺􏰻􏰼􏰽􏰾􏰲􏰳􏰴􏰩􏰵􏰶􏰷􏰸􏰹􏰬􏰺􏰻􏰼􏰽􏰾􏰲􏰳􏰴􏰩􏰵􏰶􏰷􏰸􏰹􏰬􏰺􏰻􏰼􏰽􏰾􏰲􏰳􏰴􏰩􏰵􏰶􏰷􏰸􏰹􏰬􏰺􏰻􏰼􏰽􏰾
+        <description>&lt;p&gt;􏰲􏰳􏰴􏰩􏰵􏰶􏰷􏰸􏰹􏰬􏰺􏰻􏰼􏰽􏰾􏰲􏰳􏰴􏰩􏰵􏰶􏰷􏰸􏰹􏰬􏰺􏰻􏰼􏰽􏰾􏰲􏰳􏰴􏰩􏰵􏰶􏰷􏰸􏰹􏰬􏰺􏰻􏰼􏰽􏰾􏰲􏰳􏰴􏰩􏰵􏰶􏰷􏰸􏰹􏰬
 如何做一个功能完整的以太坊钱包？以太坊官方提供了一些API()给开发者使用，但是依靠这些API不足以做成一个完整功能的钱包。主要在转账这块，由于安全性考虑，在加解密，数字签名这块不可能有现成的API暴露给开发者。官方给了一个Nodejs的模块给我们使用，叫web3。&lt;/p&gt;
 
-&lt;h4 id=&quot;web3&quot;&gt;web3&lt;/h4&gt;
+&lt;h4 id=&quot;web3&quot;&gt;&lt;strong&gt;web3&lt;/strong&gt;&lt;/h4&gt;
 
 &lt;p&gt;web3模块主要连接以太坊暴露出来的RPC层。开发者利用web3连接RPC层，可以连接任何暴露了RPC接口的节点，从而与区块链交互。&lt;/p&gt;
 
@@ -1295,7 +1300,7 @@ app.listen(3000);
 
 &lt;p&gt;文档:&lt;a href=&quot;http://web3js.readthedocs.io/en/1.0/&quot;&gt;web3&lt;/a&gt;&lt;/p&gt;
 
-&lt;h4 id=&quot;koa&quot;&gt;Koa&lt;/h4&gt;
+&lt;h4 id=&quot;koa&quot;&gt;&lt;strong&gt;Koa&lt;/strong&gt;&lt;/h4&gt;
 
 &lt;p&gt;我们的钱包项目使用web3可以与区块链交互了，这个web3是Nodejs的库，那么我们就用nodejs提供后台接口供前端调用即可，这里使用Koa框架。&lt;/p&gt;
 
@@ -1303,7 +1308,7 @@ app.listen(3000);
 
 &lt;p&gt;github地址：&lt;a href=&quot;https://github.com/koajs/koa/tree/2.5.2&quot;&gt;Koa&lt;/a&gt;&lt;/p&gt;
 
-&lt;h4 id=&quot;中间件&quot;&gt;中间件&lt;/h4&gt;
+&lt;h4 id=&quot;中间件&quot;&gt;&lt;strong&gt;中间件&lt;/strong&gt;&lt;/h4&gt;
 
 &lt;p&gt;Koa的最大特色，也是最重要的一个设计，就是中间件。Koa中间件是简单的函数，调用&lt;code class=&quot;highlighter-rouge&quot;&gt;app.use()&lt;/code&gt;传入&lt;code class=&quot;highlighter-rouge&quot;&gt;MiddlewareFunction&lt;/code&gt;函数带有两个参数&lt;code class=&quot;highlighter-rouge&quot;&gt;(ctx,next)&lt;/code&gt;。中间件处在&lt;code class=&quot;highlighter-rouge&quot;&gt;HTTP Request&lt;/code&gt;和&lt;code class=&quot;highlighter-rouge&quot;&gt;HTTP Response&lt;/code&gt;之间，用来实现某种中间功能。如:&lt;/p&gt;
 
@@ -1319,7 +1324,7 @@ app.listen(3000);
 
 &lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;next&lt;/code&gt;是一个被调用来执行下游中间件的函数，必须手动调用&lt;code class=&quot;highlighter-rouge&quot;&gt;next()&lt;/code&gt;以运行下游中间件。&lt;/p&gt;
 
-&lt;h2 id=&quot;感谢李旭旭哥指导&quot;&gt;感谢李旭（旭哥）指导&lt;/h2&gt;
+&lt;h2 id=&quot;感谢李旭旭哥指导&quot;&gt;&lt;strong&gt;感谢李旭（旭哥）指导&lt;/strong&gt;&lt;/h2&gt;
 
 </description>
         <pubDate>Sat, 14 Jul 2018 00:00:00 +0800</pubDate>
@@ -1546,7 +1551,7 @@ funAsync();
     
       <item>
         <title>Mac 开机停在进度条解决方法</title>
-        <description>&lt;p&gt;##查看原因&lt;/p&gt;
+        <description>&lt;h3 id=&quot;查看原因&quot;&gt;查看原因&lt;/h3&gt;
 
 &lt;p&gt;开机 &amp;gt; 立即按&lt;code class=&quot;highlighter-rouge&quot;&gt;command + V&lt;/code&gt;键，进入代码界面：&lt;/p&gt;
 
@@ -1555,7 +1560,7 @@ funAsync();
   &lt;li&gt;不必要一直看这个输出，知道是这个原因就可以了。&lt;/li&gt;
 &lt;/ul&gt;
 
-&lt;p&gt;##解决问题&lt;/p&gt;
+&lt;h3 id=&quot;解决问题&quot;&gt;解决问题&lt;/h3&gt;
 
 &lt;p&gt;1、关机 &amp;gt; 再开机 &amp;gt; 立即按command + R键，进入macOS恢复界面，左上角找到终端工具，在终端命令行中按如下顺序执行命令(目的：清除数据库缓存)：&lt;/p&gt;
 
@@ -1582,15 +1587,22 @@ funAsync();
  &amp;lt;font color=red&amp;gt; 如果有重要文件，建议还是先备份一下 &amp;lt;/font&amp;gt;&lt;/p&gt;
 &lt;/blockquote&gt;
 
-&lt;h2 id=&quot;备份重要文件&quot;&gt;备份重要文件&lt;/h2&gt;
+&lt;h3 id=&quot;备份重要文件&quot;&gt;备份重要文件&lt;/h3&gt;
 
-&lt;p&gt;1、开机后立即按住&lt;code class=&quot;highlighter-rouge&quot;&gt;command + R&lt;/code&gt;键进入恢复模式；&lt;/p&gt;
-
-&lt;p&gt;2、然后选择&lt;code class=&quot;highlighter-rouge&quot;&gt;磁盘工具&lt;/code&gt;；&lt;/p&gt;
-
-&lt;p&gt;3、准备一个硬盘或者U盘，通过硬盘工具将你的硬盘或者U盘格式化成mac-日志格式，如果你的U盘本身能直接读书，可以不用格式化；&lt;/p&gt;
-
-&lt;p&gt;4、通过&lt;code class=&quot;highlighter-rouge&quot;&gt;磁盘工具&lt;/code&gt;将你电脑的资料备份到你的移动盘：&lt;/p&gt;
+&lt;ol&gt;
+  &lt;li&gt;
+    &lt;p&gt;开机后立即按住&lt;code class=&quot;highlighter-rouge&quot;&gt;command + R&lt;/code&gt;键进入恢复模式；&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;然后选择&lt;code class=&quot;highlighter-rouge&quot;&gt;磁盘工具&lt;/code&gt;；&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;准备一个硬盘或者U盘，通过硬盘工具将你的硬盘或者U盘格式化成mac-日志格式，如果你的U盘本身能直接读书，可以不用格式化；&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;通过&lt;code class=&quot;highlighter-rouge&quot;&gt;磁盘工具&lt;/code&gt;将你电脑的资料备份到你的移动盘：&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ol&gt;
 
 &lt;ul&gt;
   &lt;li&gt;首先新建文件夹映像&lt;/li&gt;
@@ -1618,7 +1630,7 @@ funAsync();
   &lt;/li&gt;
 &lt;/ul&gt;
 
-&lt;h2 id=&quot;重装系统&quot;&gt;重装系统&lt;/h2&gt;
+&lt;h3 id=&quot;重装系统&quot;&gt;重装系统&lt;/h3&gt;
 
 &lt;p&gt;如果正常启动后，仍想要重装系统，可以继续以下操作&lt;/p&gt;
 
@@ -1682,7 +1694,7 @@ funAsync();
 
 &lt;p&gt;系统指定用户:  &lt;code class=&quot;highlighter-rouge&quot;&gt;admin,  alice,  bob,   jack&lt;/code&gt;&lt;/p&gt;
 
-&lt;h2 id=&quot;一开启服务设置路由&quot;&gt;一、开启服务，设置路由&lt;/h2&gt;
+&lt;h3 id=&quot;一开启服务设置路由&quot;&gt;一、开启服务，设置路由&lt;/h3&gt;
 
 &lt;p&gt;编辑&lt;code class=&quot;highlighter-rouge&quot;&gt;app.go&lt;/code&gt;&lt;/p&gt;
 
@@ -1735,7 +1747,7 @@ func WebStart(app *Controllers.Application)error  {
 &lt;/code&gt;&lt;/pre&gt;
 &lt;/div&gt;
 
-&lt;h2 id=&quot;二封装处理请求响应&quot;&gt;二、封装处理请求响应&lt;/h2&gt;
+&lt;h3 id=&quot;二封装处理请求响应&quot;&gt;二、封装处理请求响应&lt;/h3&gt;
 
 &lt;p&gt;编辑&lt;code class=&quot;highlighter-rouge&quot;&gt;controllerHandler.go&lt;/code&gt;&lt;/p&gt;
 
@@ -2099,7 +2111,7 @@ func (app *Application) LoginOut(w http.ResponseWriter, r *http.Request)  {
 &lt;/code&gt;&lt;/pre&gt;
 &lt;/div&gt;
 
-&lt;h2 id=&quot;二封装响应&quot;&gt;二、封装响应&lt;/h2&gt;
+&lt;h3 id=&quot;三封装响应&quot;&gt;三、封装响应&lt;/h3&gt;
 
 &lt;p&gt;编辑 &lt;code class=&quot;highlighter-rouge&quot;&gt;controllerResponse.go&lt;/code&gt;&lt;/p&gt;
 
@@ -2126,7 +2138,7 @@ func (app *Application) LoginOut(w http.ResponseWriter, r *http.Request)  {
 data 页面间传递的数据&lt;/p&gt;
 &lt;/blockquote&gt;
 
-&lt;h2 id=&quot;创建登录用户结构体&quot;&gt;创建登录用户结构体&lt;/h2&gt;
+&lt;h3 id=&quot;创建登录用户结构体&quot;&gt;创建登录用户结构体&lt;/h3&gt;
 
 &lt;p&gt;编辑&lt;code class=&quot;highlighter-rouge&quot;&gt;userInfo.go&lt;/code&gt;&lt;/p&gt;
 
@@ -2162,7 +2174,7 @@ func init()  {
 &lt;/code&gt;&lt;/pre&gt;
 &lt;/div&gt;
 
-&lt;h2 id=&quot;运行测试&quot;&gt;运行测试&lt;/h2&gt;
+&lt;h3 id=&quot;运行测试&quot;&gt;运行测试&lt;/h3&gt;
 
 &lt;blockquote&gt;
   &lt;p&gt;cd $GOPATH/src/zhq/bill
@@ -2222,11 +2234,11 @@ make&lt;/p&gt;
 
 &lt;p&gt;不论是签收或是拒签都应只能对一个票据操作一次，这里为了掩饰，未做这一处理&lt;/p&gt;
 
-&lt;p&gt;###哦了，票据项目至此就完成了&lt;/p&gt;
+&lt;h4 id=&quot;哦了票据项目至此就完成了&quot;&gt;哦了，票据项目至此就完成了&lt;/h4&gt;
 
-&lt;p&gt;##&lt;a href=&quot;https://github.com/sweetMegan/bill&quot;&gt;源码下载&lt;/a&gt;&lt;/p&gt;
+&lt;h2 id=&quot;源码下载&quot;&gt;&lt;a href=&quot;https://github.com/sweetMegan/bill&quot;&gt;源码下载&lt;/a&gt;&lt;/h2&gt;
 
-&lt;p&gt;##感谢韩晓东（老韩）指导&lt;/p&gt;
+&lt;h2 id=&quot;感谢韩晓东老韩指导&quot;&gt;感谢韩晓东（老韩）指导&lt;/h2&gt;
 
 </description>
         <pubDate>Tue, 10 Jul 2018 00:00:00 +0800</pubDate>
