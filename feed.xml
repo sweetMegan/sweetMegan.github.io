@@ -1,30 +1,112 @@
----
-layout: null
----
 <?xml version="1.0" encoding="UTF-8"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>{{ site.title | xml_escape }}</title>
-    <description>{{ site.description | xml_escape }}</description>
-    <link>{{ site.url }}{{ site.baseurl }}/</link>
-    <atom:link href="{{ "/feed.xml" | prepend: site.baseurl | prepend: site.url }}" rel="self" type="application/rss+xml" />
-    <pubDate>{{ site.time | date_to_rfc822 }}</pubDate>
-    <lastBuildDate>{{ site.time | date_to_rfc822 }}</lastBuildDate>
-    <generator>Jekyll v{{ jekyll.version }}</generator>
-    {% for post in site.posts limit:10 %}
+    <title>sweetsmelon博客</title>
+    <description></description>
+    <link>/</link>
+    <atom:link href="/feed.xml" rel="self" type="application/rss+xml"/>
+    <pubDate>Thu, 26 Jul 2018 22:01:35 +0800</pubDate>
+    <lastBuildDate>Thu, 26 Jul 2018 22:01:35 +0800</lastBuildDate>
+    <generator>Jekyll v3.5.1</generator>
+    
       <item>
-        <title>{{ post.title | xml_escape }}</title>
-        <description>{{ post.content | xml_escape }}</description>
-        <pubDate>{{ post.date | date_to_rfc822 }}</pubDate>
-        <link>{{ post.url | prepend: site.baseurl | prepend: site.url }}</link>
-        <guid isPermaLink="true">{{ post.url | prepend: site.baseurl | prepend: site.url }}</guid>
-        {% for tag in post.tags %}
-        <category>{{ tag | xml_escape }}</category>
-        {% endfor %}
-        {% for cat in post.categories %}
-        <category>{{ cat | xml_escape }}</category>
-        {% endfor %}
+        <title>星云链发送交易</title>
+        <description>&lt;ul&gt;
+  &lt;li&gt;创建账户&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;$ ./neb account new
+
+Your new account is locked with a passphrase. Please give a passphrase. Do not forget this passphrase.
+
+Passphrase:
+
+Repeat passphrase:
+
+Address: n1SQe5d1NKHYFMKtJ5sNHPsSPVavGzW71Wy
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;blockquote&gt;
+  &lt;p&gt;密码不要乱写，记住密码&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;查看账户&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;curl -i -H Accept:application/json -X POST http://localhost:8685/v1/user/accountstate -d '{&quot;address&quot;:&quot;n1MVEBhTKXe49CJstoLZ7kq8C3nLP9Bbx5G&quot;}'
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;启动私有链
+  &lt;strong&gt;1、启动种子节点&lt;/strong&gt;&lt;/p&gt;
+
+    &lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;  ./neb -c conf/default/config.conf
+&lt;/code&gt;&lt;/pre&gt;
+    &lt;/div&gt;
+
+    &lt;p&gt;&lt;strong&gt;2、启动矿工节点&lt;/strong&gt;&lt;/p&gt;
+
+    &lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;  ./neb -c conf/example/miner.conf
+&lt;/code&gt;&lt;/pre&gt;
+    &lt;/div&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;发起交易&lt;/p&gt;
+
+    &lt;p&gt;&lt;strong&gt;一、签名&amp;amp;发送&lt;/strong&gt;
+  &lt;strong&gt;1、给交易签名&lt;/strong&gt;&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;   curl -i -H 'Content-Type: application/json' -X POST http://localhost:8685/v1/admin/sign -d '{&quot;transaction&quot;:{&quot;from&quot;:&quot;n1FF1nz6tarkDVwWQkMnnwFPuPKUaQTdptE&quot;,&quot;to&quot;:&quot;n1MVEBhTKXe49CJstoLZ7kq8C3nLP9Bbx5G&quot;, &quot;value&quot;:&quot;1000000000000000000&quot;,&quot;nonce&quot;:1,&quot;gasPrice&quot;:&quot;1000000&quot;,&quot;gasLimit&quot;:&quot;2000000&quot;}, &quot;passphrase&quot;:&quot;passphrase&quot;}' 
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;blockquote&gt;
+  &lt;ul&gt;
+    &lt;li&gt;nonce值必须大于 from账户的nonce值,否则下面提交交易会报错
+{“error”:”transaction’s nonce is invalid, should bigger than the from’s nonce”}&lt;/li&gt;
+    &lt;li&gt;在发送交易时，对于同一个账户，只有当他Nonce为N的交易上链后，Nonce为N+1的交易才能上链，有严格的顺序，Nonce必须严格加1。可以通过GetAccountState接口查看最新的Nonce。&lt;/li&gt;
+  &lt;/ul&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;&lt;strong&gt;2、提交交易&lt;/strong&gt;&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;curl -i -H 'Content-Type: application/json' -X POST http://localhost:8685/v1/user/rawtransaction -d '{&quot;data&quot;:&quot;CiC3mkO3VfBvZb7Jfp6Ltz973jf8WQCgaBxwP4hZsfwOLRIaGVcH+WT/SVMkY18ix7SG4F1+Z8evXJoA35caGhlXTHpREcMhXjav+RTl4PXYdSAjpbXNazKjIhAAAAAAAAAAAA3gtrOnZAAAKAMwkbys1wU6CAoGYmluYXJ5QGRKEAAAAAAAAAAAAAAAAAAPQkBSEAAAAAAAAAAAAAAAAAAehIBYAWJBjcyJU9VVhKV32f8zTCla6F46p0aEITwNTqR/judpqiRmFZ0OkLj4r6tF44FaKFMwGjyKXnWfyTM2uWHyOotcKQA=&quot;}'
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;查看交易 hash为交易返回的hash值&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;curl -i -H Accept:application/json -X POST http://localhost:8685/v1/user/getTransactionReceipt -d '{&quot;hash&quot;:&quot;b79a43b755f06f65bec97e9e8bb73f7bde37fc5900a0681c703f8859b1fc0e2d&quot;}'
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;blockquote&gt;
+  &lt;ul&gt;
+    &lt;li&gt;0: 交易失败. 表示当前交易已经上链，但是执行失败了。可能是因为部署合约或者调用合约参数错误。&lt;/li&gt;
+    &lt;li&gt;1: 交易成功. 表示当前交易已经上链，而且执行成功了。&lt;/li&gt;
+    &lt;li&gt;2: 交易待定. 表示当前交易还没有上链。可能是因为当前交易还没有被打包；如果长时间处于当前状态，可能是因为当前交易的发送者账户的余额不够支付上链手续费&lt;/li&gt;
+  &lt;/ul&gt;
+&lt;/blockquote&gt;
+
+&lt;h2 id=&quot;参考资料&quot;&gt;参考资料&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;a href=&quot;https://github.com/nebulasio/wiki/blob/master/tutorials/%5B%E4%B8%AD%E6%96%87%5D%20Nebulas%20101%20-%2002%20%E5%8F%91%E9%80%81%E4%BA%A4%E6%98%93.md&quot;&gt;Nebulas 101 - 02 在星云链上发送交易&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+</description>
+        <pubDate>Fri, 04 May 2018 00:00:00 +0800</pubDate>
+        <link>/2018/05/04/%E6%98%9F%E4%BA%91%E9%93%BE%E5%8F%91%E9%80%81%E4%BA%A4%E6%98%93/</link>
+        <guid isPermaLink="true">/2018/05/04/%E6%98%9F%E4%BA%91%E9%93%BE%E5%8F%91%E9%80%81%E4%BA%A4%E6%98%93/</guid>
+        
+        <category>区块链</category>
+        
+        
       </item>
-    {% endfor %}
+    
   </channel>
 </rss>
