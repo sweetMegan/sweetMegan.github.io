@@ -5,8 +5,8 @@
     <description></description>
     <link>/</link>
     <atom:link href="/feed.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Thu, 26 Jul 2018 22:18:46 +0800</pubDate>
-    <lastBuildDate>Thu, 26 Jul 2018 22:18:46 +0800</lastBuildDate>
+    <pubDate>Thu, 26 Jul 2018 22:25:12 +0800</pubDate>
+    <lastBuildDate>Thu, 26 Jul 2018 22:25:12 +0800</lastBuildDate>
     <generator>Jekyll v3.5.1</generator>
     
       <item>
@@ -14,9 +14,11 @@
         <description>&lt;h2 id=&quot;一创建项目&quot;&gt;一、创建项目&lt;/h2&gt;
 
 &lt;blockquote&gt;
-  &lt;p&gt;mkdir myWallet
-cd myWallet
-npm init&lt;/p&gt;
+  &lt;p&gt;mkdir myWallet&lt;/p&gt;
+
+  &lt;p&gt;cd myWallet&lt;/p&gt;
+
+  &lt;p&gt;npm init&lt;/p&gt;
 &lt;/blockquote&gt;
 
 &lt;p&gt;将下面的依赖添加到生成的&lt;code class=&quot;highlighter-rouge&quot;&gt;package.json&lt;/code&gt;文件中&lt;/p&gt;
