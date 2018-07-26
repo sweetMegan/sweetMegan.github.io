@@ -5,9 +5,411 @@
     <description></description>
     <link>/</link>
     <atom:link href="/feed.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Thu, 26 Jul 2018 22:01:35 +0800</pubDate>
-    <lastBuildDate>Thu, 26 Jul 2018 22:01:35 +0800</lastBuildDate>
+    <pubDate>Thu, 26 Jul 2018 22:18:46 +0800</pubDate>
+    <lastBuildDate>Thu, 26 Jul 2018 22:18:46 +0800</lastBuildDate>
     <generator>Jekyll v3.5.1</generator>
+    
+      <item>
+        <title>Nodejs实现以太坊钱包</title>
+        <description>&lt;h2 id=&quot;一创建项目&quot;&gt;一、创建项目&lt;/h2&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;mkdir myWallet
+cd myWallet
+npm init&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;将下面的依赖添加到生成的&lt;code class=&quot;highlighter-rouge&quot;&gt;package.json&lt;/code&gt;文件中&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt; &quot;dependencies&quot;: {
+    &quot;bignumber.js&quot;: &quot;^7.2.1&quot;,
+    &quot;ejs&quot;: &quot;^2.6.1&quot;,
+    &quot;koa&quot;: &quot;^2.5.2&quot;,
+    &quot;koa-body&quot;: &quot;^4.0.4&quot;,
+    &quot;koa-bodyparser&quot;: &quot;^4.2.1&quot;,
+    &quot;koa-router&quot;: &quot;^7.4.0&quot;,
+    &quot;koa-static&quot;: &quot;^5.0.0&quot;,
+    &quot;koa-views&quot;: &quot;^6.1.4&quot;,
+    &quot;web3&quot;: &quot;^1.0.0-beta.34&quot;
+  }
+  
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;####安装依赖&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;npm install&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;h2 id=&quot;二初始化项目&quot;&gt;二、初始化项目&lt;/h2&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;新建文件&lt;code class=&quot;highlighter-rouge&quot;&gt;index.js&lt;/code&gt;,项目入口&lt;/li&gt;
+  &lt;li&gt;新建目录&lt;code class=&quot;highlighter-rouge&quot;&gt;controller&lt;/code&gt;,封装请求处理
+    &lt;ul&gt;
+      &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;account.js&lt;/code&gt; 与账户相关的处理&lt;/li&gt;
+      &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;createAccount.js&lt;/code&gt;创建账户处理&lt;/li&gt;
+      &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;transaction.js&lt;/code&gt; 与交易相关的处理&lt;/li&gt;
+      &lt;li&gt;新建目录&lt;code class=&quot;highlighter-rouge&quot;&gt;model&lt;/code&gt;,模型封装&lt;/li&gt;
+    &lt;/ul&gt;
+    &lt;ul&gt;
+      &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;responsedata.js&lt;/code&gt;,封装应答响应对象
+      *    新建目录&lt;code class=&quot;highlighter-rouge&quot;&gt;routers&lt;/code&gt;,路由处理
+       * &lt;code class=&quot;highlighter-rouge&quot;&gt;router.js&lt;/code&gt;
+      * 新建目录&lt;code class=&quot;highlighter-rouge&quot;&gt;utils&lt;/code&gt;，工具
+       * &lt;code class=&quot;highlighter-rouge&quot;&gt;myUtils.js&lt;/code&gt;&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;h2 id=&quot;三响应对象&quot;&gt;三、响应对象&lt;/h2&gt;
+
+&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;responsedata.js&lt;/code&gt;&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;function response(code, msg, data) {
+    this.code = code;//状态码
+    this.msg = msg;//状态描述
+    this.data = data;//返回的数据
+}
+module.exports = response;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;h2 id=&quot;四开启服务&quot;&gt;四、开启服务&lt;/h2&gt;
+
+&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;index.js&lt;/code&gt;&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;const Koa = require(&quot;koa&quot;);
+const app = new Koa();
+const koaBody = require(&quot;koa-body&quot;);
+const router = require(&quot;./routers/router&quot;);
+app.use(async (ctx, next) =&amp;gt; {
+    console.log(`Process ${ctx.request.method} ${ctx.request.url} ...`);
+    await next();
+});
+//解析post请求
+app.use(koaBody({
+    multipart:true,
+}));
+app.use(router.routes());
+app.listen(&quot;3000&quot;);
+console.log(&quot;服务已开启,监听端口:3000&quot;);
+
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;h2 id=&quot;五设置路由&quot;&gt;五、设置路由&lt;/h2&gt;
+
+&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;router.js&lt;/code&gt;&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;const router = require(&quot;koa-router&quot;)();
+const createAccountController = require(&quot;../controller/createAccount&quot;);
+const accountController = require(&quot;../controller/account&quot;);
+const transactionController = require(&quot;../controller/transaction&quot;);
+//创建账号
+router.post(&quot;/createaccount&quot;,createAccountController.createAccount);
+//私钥解锁账户
+router.post(&quot;/unlockaccountwithprivatekey&quot;,accountController.unlockAccountWithPrivateKey);
+//keystore解锁账户
+router.post(&quot;/unlockaccountwithkeystore&quot;,accountController.unlockAccountWithKeyStore);
+//发起交易
+router.post(&quot;/createtransaction&quot;,transactionController.createTransaction);
+//确认交易
+router.post(&quot;/sendtransaction&quot;,transactionController.sendTransaction);
+//交易详情
+router.post(&quot;/transactionstatus&quot;,transactionController.transactionStatus);
+module.exports = router;
+
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;项目中所有请求都采用&lt;code class=&quot;highlighter-rouge&quot;&gt;post&lt;/code&gt;的方式&lt;/p&gt;
+
+&lt;h2 id=&quot;六实例化web3&quot;&gt;六、实例化&lt;code class=&quot;highlighter-rouge&quot;&gt;web3&lt;/code&gt;&lt;/h2&gt;
+
+&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;myUtils.js&lt;/code&gt;&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;const Web3 = require(&quot;web3&quot;);
+var fs = require(&quot;fs&quot;);
+getWeb3 = ()=&amp;gt;{
+    //初始化web3访问节点为私有链节点
+    const web3 = new Web3(Web3.givenProvider||&quot;http://localhost:8545&quot;);
+    //以太坊测试链
+    // const web3 = new Web3(Web3.givenProvider || &quot;https://kovan.infura.io/v3/4abf7f8865064ed6b99ca3fdac820921&quot;);
+    return web3;
+};
+module.exports={
+    getWeb3,
+};
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;调用&lt;code class=&quot;highlighter-rouge&quot;&gt;getWeb3()&lt;/code&gt;获取&lt;code class=&quot;highlighter-rouge&quot;&gt;web3&lt;/code&gt;对象&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;var web3 = new Web3(Web3.givenProvider||&quot;http://localhost:8545&quot;);
+&lt;/code&gt;&lt;/pre&gt;
+  &lt;/div&gt;
+&lt;/blockquote&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;第一次调用&lt;code class=&quot;highlighter-rouge&quot;&gt;getWeb3()&lt;/code&gt;方法时&lt;code class=&quot;highlighter-rouge&quot;&gt;Web3.givenProvider&lt;/code&gt;为空,所以需要设置一个种子节点。&lt;/li&gt;
+  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;http://localhost:8545&lt;/code&gt;为本地私有链地址，&lt;a href=&quot;https://sweetmegan.github.io/2018/07/15/%E4%BB%A5%E5%A4%AA%E5%9D%8A%E7%A7%81%E7%BD%91%E5%BB%BA%E7%AB%8B-%E9%80%9A%E8%BF%87%E5%88%9B%E4%B8%96%E5%8C%BA%E5%9D%97%E6%9D%A5%E5%88%9D%E5%A7%8B%E5%8C%96%E5%8C%BA%E5%9D%97%E9%93%BE/&quot;&gt;怎么搭建私链&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;https://kovan.infura.io/v3/4abf7f8865064ed6b99ca3fdac820921&lt;/code&gt;是以太网&lt;code class=&quot;highlighter-rouge&quot;&gt;kovan&lt;/code&gt;测试链地址&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h4 id=&quot;获取测试链地址&quot;&gt;获取测试链地址&lt;/h4&gt;
+
+&lt;p&gt;打开 &lt;code class=&quot;highlighter-rouge&quot;&gt;INFURA&lt;/code&gt; https://infura.io/dashboard
+注册，登录
+登录成功后来到下面页面&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;http://otwxtrtn9.bkt.clouddn.com/%E8%8E%B7%E5%8F%96%E4%BB%A5%E5%A4%AA%E7%BD%91%E6%B5%8B%E8%AF%95%E9%93%BE%E5%9C%B0%E5%9D%80.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;可以看到主网和其他三个测试链，按需选择&lt;code class=&quot;highlighter-rouge&quot;&gt;ENDPOINT&lt;/code&gt;下的地址就是我们所需要的地址&lt;/p&gt;
+
+&lt;h2 id=&quot;七请求处理&quot;&gt;七、请求处理&lt;/h2&gt;
+
+&lt;p&gt;####&amp;lt;font color=red&amp;gt;在执行下面操作前需开启一个私链或者测试链&amp;lt;/font&amp;gt;&lt;/p&gt;
+
+&lt;h4 id=&quot;1创建账户&quot;&gt;1、创建账户&lt;/h4&gt;
+
+&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;createAccount.js&lt;/code&gt;&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;const web3 = require(&quot;../utils/myUtils&quot;).getWeb3();
+const path = require(&quot;path&quot;);
+const fs = require(&quot;fs&quot;);
+var respones = require(&quot;../model/responsedata&quot;);
+//创建钱包
+createAccount = async ctx =&amp;gt; {
+    var responseData = new respones(0,&quot;success&quot;,{});
+    // console.log(ctx.request.body);
+    var body = ctx.request.body;
+    //创建钱包
+    var account = web3.eth.accounts.create();
+    //生成keyStore文件
+    //keyStore是将私钥与用户密码拼接,将拼接结果对称加密得到
+    var keyStoreJson = account.encrypt(body.pwd);
+    //保存keyStore
+    //写入文件的keyStore数据
+    // var keyStoreStr = JSON.stringify(keyStoreJson);
+    // //keyStore文件名
+    // var keyStoreFileName = &quot;UTC--&quot;+new Date().toISOString()+&quot;--&quot;+account.address;
+    // //文件保存路径
+    // var keyStoreFilePath = path.join(__dirname,&quot;../static/keystore&quot;,keyStoreFileName);
+    // await fs.writeFile(keyStoreFilePath,keyStoreStr,()=&amp;gt;{});
+    // var responseData = new respones(0,&quot;success&quot;,{
+    //     &quot;downloadUrl&quot;:&quot;/keystore/&quot;+keyStoreFileName,
+    //     &quot;privateKey&quot;:account.privateKey
+    // });
+    responseData.data.keyStore = keyStoreJson;
+    ctx.body = responseData;
+};
+module.exports={
+    createAccount
+};
+
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;keystore&lt;/code&gt;文件在客户端自己保存，服务端不保存&lt;/p&gt;
+
+&lt;h4 id=&quot;2账号操作&quot;&gt;2、账号操作&lt;/h4&gt;
+
+&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;account.js&lt;/code&gt;&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;
+const web3 = require(&quot;../utils/myUtils&quot;).getWeb3();
+const myUtil = require(&quot;../utils/myUtils&quot;);
+var response = require(&quot;../model/responsedata&quot;);
+setResponseDataWithAccount = async(account, responseData)=&amp;gt; {
+    responseData.data.address = account.address;
+    responseData.data.privateKey = account.privateKey;
+    responseData.data.balance = await getBalanceWithAddress(account.address);
+    return responseData;
+};
+
+getBalanceWithAddress = async(address)=&amp;gt; {
+    console.log(&quot;account:&quot; + address);
+    var balance = await web3.eth.getBalance(address);
+    return web3.utils.fromWei(balance, &quot;ether&quot;);
+};
+//使用私钥解锁账户
+unlockAccountWithPrivateKey = async(ctx)=&amp;gt; {
+    var responseData = new response(0, &quot;success&quot;, {});
+    var body = ctx.request.body;
+    var privateKey = body.privateKey;
+    console.log(&quot;privateKey:&quot; + privateKey);
+    var account = web3.eth.accounts.privateKeyToAccount(privateKey);
+    // ctx.body = {name:&quot;解锁&quot;};
+    var data = await setResponseDataWithAccount(account, responseData);
+    console.log(data);
+    ctx.body = data;
+};
+//使用keyStore文件
+unlockAccountWithKeyStore = async(ctx)=&amp;gt; {
+    var responseData = new response(0, &quot;success&quot;, {});
+    var body = ctx.request.body;
+    var pwd = body.pwd;
+    var keyStore = body.keyStore;
+    try {
+        var account = web3.eth.accounts.decrypt(keyStore, pwd);
+        ctx.body = await setResponseDataWithAccount(account, responseData);
+    }catch (error){
+        console.log(error)
+        responseData.code = 1;
+        responseData.message = &quot;failed&quot;;
+        responseData.data = {error: error.message};
+        ctx.body = responseData;
+    }
+};
+module.exports = {
+    unlockAccountWithPrivateKey,
+    unlockAccountWithKeyStore,
+};
+
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;h4 id=&quot;3交易处理&quot;&gt;3、交易处理&lt;/h4&gt;
+
+&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;transaction.js&lt;/code&gt;&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;const web3 = require(&quot;../utils/myUtils&quot;).getWeb3();
+var response = require(&quot;../model/responsedata&quot;);
+var bignumber = require(&quot;bignumber.js&quot;)
+
+//发起交易
+createTransaction = async(ctx)=&amp;gt; {
+    console.log(&quot;createTransaction&quot;);
+    var responseData = new response(0, &quot;success&quot;, {});
+    var body = ctx.request.body;
+    var fromAddress = body.from;
+    var toAddress = body.to;
+    //将输入的金额换算成Wei
+    var money = web3.utils.toWei(body.money, &quot;ether&quot;);
+    var gasPrice = await web3.eth.getGasPrice();
+    //获取交易的nonce值,一个顺序累加的值
+    var nonce = await web3.eth.getTransactionCount(fromAddress);
+    var transactionData = {
+        from: fromAddress,
+        to: toAddress,
+        value: money,
+        gasPrice: gasPrice,
+        data: '0x00',//当使用代币转账或者合约调用时
+        nonce: nonce,
+    };
+    //estimateGas()方法会将transactionData数据做一些操作,导致,transactionData一些值的类型变化,所以下面对transactionData重新赋值
+    var gas = await web3.eth.estimateGas(transactionData);
+    transactionData = {
+        from: fromAddress,
+        to: toAddress,
+        value: money,
+        gasPrice: gasPrice,
+        data: '0x00',//当使用代币转账或者合约调用时
+        nonce: nonce,
+        gas:gas,
+    };
+    console.log(transactionData);
+    responseData.data = transactionData;
+    ctx.body = responseData;
+
+};
+
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;p&gt;创建一笔交易，返回交易的&lt;code class=&quot;highlighter-rouge&quot;&gt;gas&lt;/code&gt;和&lt;code class=&quot;highlighter-rouge&quot;&gt;gasPrice&lt;/code&gt;供用户确认&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;//确认交易
+/*
+* 1、签名交易
+* 2、发送交易
+* */
+sendTransaction = async(ctx)=&amp;gt; {
+
+    console.log(&quot;sendTransaction&quot;);
+
+    var responseData = new response(0, &quot;success&quot;, {});
+    var body = ctx.request.body;
+    var transactionData = {
+        from: body.from,
+        to: body.to,
+        value: body.value,
+        gasPrice: body.gasPrice,
+        data: body.data,//当使用代币转账或者合约调用时
+        nonce: body.nonce,
+        gas: body.gas
+    };
+    //privateKey为了安全,需要进行加密处理
+    var privateKey = body.privateKey;
+    //签名交易
+    console.log(transactionData);
+    console.log(privateKey);
+    var signTransactionData = await web3.eth.accounts.signTransaction(transactionData, privateKey);
+    try {
+        //发送交易
+        await web3.eth.sendSignedTransaction(signTransactionData.rawTransaction, (error, hash)=&amp;gt; {
+            if (!error) {
+                responseData.data.hash = hash;
+            } else {
+                responseData.code = 1;
+                responseData.message = &quot;failed&quot;;
+                responseData.data = {error: error.message};
+            }
+        })
+    } catch (error) {
+        console.log(error);
+        responseData.code = 1;
+        responseData.message = &quot;failed&quot;;
+        responseData.data = {error: error.message};
+    }
+    ctx.body = responseData
+};
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;p&gt;确认一笔交易，这里才是真正提交一笔交易，这时不会直接返回结果，交易提交后，如果连接的是测试链，需要自己去挖矿,执行命令&lt;code class=&quot;highlighter-rouge&quot;&gt;miner.start()&lt;/code&gt;,直到矿工确认这笔交易后，才会返回交易信息。如果是测试链，因为它有自己的生态，不需要做其他操作。&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;//根据txHash查询交易状态
+transactionStatus = async(ctx)=&amp;gt; {
+  var responseData = new response(0,&quot;success&quot;,{});
+    var data = ctx.request.body;
+    var txHash = data.txHash;
+    var result = await web3.eth.getTransactionReceipt(txHash);
+    if (result != null){
+        responseData.data = result;
+    }
+    ctx.body = responseData;
+};
+module.exports = {
+    createTransaction,
+    sendTransaction,
+    transactionStatus,
+};
+
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;根据交易hash，返回&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;注 ：&lt;code class=&quot;highlighter-rouge&quot;&gt;createTransaction&lt;/code&gt;方法中调用&lt;code class=&quot;highlighter-rouge&quot;&gt;estimateGas()&lt;/code&gt;方法会将&lt;code class=&quot;highlighter-rouge&quot;&gt;transactionData&lt;/code&gt;数据做一些操作,导致,&lt;code class=&quot;highlighter-rouge&quot;&gt;transactionData&lt;/code&gt;一些值的类型变化,所以下面对&lt;code class=&quot;highlighter-rouge&quot;&gt;transactionData&lt;/code&gt;重新赋值&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;h2 id=&quot;demo下载-httpsgithubcomsweetmeganmywalletdemo&quot;&gt;demo下载 https://github.com/sweetMegan/myWalletDemo&lt;/h2&gt;
+
+&lt;p&gt;####&lt;code class=&quot;highlighter-rouge&quot;&gt;myWallet&lt;/code&gt;为nodejs后台
+####&lt;code class=&quot;highlighter-rouge&quot;&gt;myWalletClient&lt;/code&gt;为iOS前端&lt;/p&gt;
+
+</description>
+        <pubDate>Sun, 15 Jul 2018 00:00:00 +0800</pubDate>
+        <link>/2018/07/15/Nodejs%E5%AE%9E%E7%8E%B0%E4%BB%A5%E5%A4%AA%E5%9D%8A%E9%92%B1%E5%8C%85-iOS%E5%AE%9E%E7%8E%B0%E5%89%8D%E7%AB%AF%E8%B0%83%E7%94%A8/</link>
+        <guid isPermaLink="true">/2018/07/15/Nodejs%E5%AE%9E%E7%8E%B0%E4%BB%A5%E5%A4%AA%E5%9D%8A%E9%92%B1%E5%8C%85-iOS%E5%AE%9E%E7%8E%B0%E5%89%8D%E7%AB%AF%E8%B0%83%E7%94%A8/</guid>
+        
+        <category>区块链</category>
+        
+        
+      </item>
     
       <item>
         <title>星云链发送交易</title>
