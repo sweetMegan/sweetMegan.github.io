@@ -6,21 +6,21 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
-  <title>Mac 终端翻墙</title>
-  <meta name="description" content="其他">
+  <title>React使用react-router-dom实现页面跳转与传值</title>
+  <meta name="description" content="React">
   <meta name="author" content="黎跃春">
 
-  <meta name="keywords" content="其他"
+  <meta name="keywords" content="React"
   />
 
   <meta name="twitter:card" content="summary">
-  <meta name="twitter:title" content="Mac 终端翻墙">
-  <meta name="twitter:description" content="其他">
+  <meta name="twitter:title" content="React使用react-router-dom实现页面跳转与传值">
+  <meta name="twitter:description" content="React">
 
   <meta property="og:type" content="article">
-  <meta property="og:title" content="Mac 终端翻墙">
-  <meta property="og:description" content="其他">
-  <meta property="og:site_name" content="其他e"
+  <meta property="og:title" content="React使用react-router-dom实现页面跳转与传值">
+  <meta property="og:description" content="React">
+  <meta property="og:site_name" content="Reacte"
   />
 
 
@@ -31,7 +31,7 @@
   <link rel="stylesheet" href=" /css/main.css ">
   <link href="//netdna.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
 
-  <link rel="canonical" href="/2018/06/28/Mac-%E7%BB%88%E7%AB%AF%E7%BF%BB%E5%A2%99/">
+  <link rel="canonical" href="/2018/05/11/react%E9%A1%B5%E9%9D%A2%E8%B7%B3%E8%BD%AC/">
   <link rel="alternate" type="application/rss+xml" title="sweetsmelon博客" href=" /feed.xml
     ">
 
@@ -185,10 +185,10 @@
     <div class="content-wrapper__inner">
       <article class="post-container post-container--single" itemscope itemtype="http://schema.org/BlogPosting">
   <header class="post-header">
-    <h1 class="post-title">Mac 终端翻墙</h1>
+    <h1 class="post-title">React使用react-router-dom实现页面跳转与传值</h1>
     <div class="post-meta">
       <img src="/images/calendar.png" width="20px"/>
-      <time datetime="2018-06-28 00:00:00 +0800" itemprop="datePublished" class="post-meta__date date">2018-06-28</time>
+      <time datetime="2018-05-11 00:00:00 +0800" itemprop="datePublished" class="post-meta__date date">2018-05-11</time>
 
       <span id="busuanzi_container_page_pv"> | 阅读：<span id="busuanzi_value_page_pv"></span>次</span>
     </p>
@@ -196,107 +196,266 @@
   </header>
 
   <section class="post">
-    <h3 id="工具准备">工具准备</h3>
-
-<p>1、<code class="highlighter-rouge">shadowsocks</code> 代理客户端</p>
-
-<p>2、<code class="highlighter-rouge">homebrew</code> 软件包管理工具</p>
-
-<p>3、<code class="highlighter-rouge">privoxy</code> 终端翻墙工具</p>
-
-<h3 id="安装">安装</h3>
-
-<p>1、安装 <code class="highlighter-rouge">shadowsocks</code></p>
-
-<p><code class="highlighter-rouge">shadowsocks</code>百度一下，一大堆，也可以在<a href="export http_proxy='http://localhost:8118'
-export https_proxy='http://localhost:8118'">这里</a>下载，购买VPN服务</p>
-
-<p>2、安装 <code class="highlighter-rouge">homebrew</code></p>
+    <p>先把版本写在前面</p>
 
 <blockquote>
-  <p>ruby -e “$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)” &lt; /dev/null 2&gt; /dev/null</p>
+  <div class="highlighter-rouge"><pre class="highlight"><code>"react-router-dom": "^4.2.2"
+</code></pre>
+  </div>
 </blockquote>
 
-<p>3、安装<code class="highlighter-rouge">privoxy</code></p>
+<p>以前就得版本使用<code class="highlighter-rouge">Context</code>对象来控制路由，现在新版本改了用<code class="highlighter-rouge">history</code>了</p>
 
-<blockquote>
-  <p>brew install privoxy</p>
-</blockquote>
+<p>使用导航在<code class="highlighter-rouge">react-router-dom</code>提供了两个控件<code class="highlighter-rouge">BrowserRouter</code>和<code class="highlighter-rouge">HashRouter</code>都可以实现导航，区别<a href="http://react-china.org/t/react-router4/15843">看这里</a> 这篇手记的demo中使用的是<code class="highlighter-rouge">BrowserRouter</code></p>
 
-<h3 id="使用privoxy">使用privoxy</h3>
+<p>先上代码</p>
 
-<h4 id="1privoxy配置">1、<code class="highlighter-rouge">privoxy</code>配置</h4>
+<p>index.js</p>
 
-<p>打开配置文件 <code class="highlighter-rouge">/usr/local/etc/privoxy/config</code></p>
+<div class="highlighter-rouge"><pre class="highlight"><code>import React from 'react';
+import ReactDOM from 'react-dom';
+import './index.css';
+import registerServiceWorker from './registerServiceWorker';
+import AppRoutes from "./AppRoutes";
+import {
+    BrowserRouter,
+} from 'react-router-dom';
+ReactDOM.render(&lt;BrowserRouter&gt;
+    {AppRoutes}
+&lt;/BrowserRouter&gt;, document.getElementById('root'));
+registerServiceWorker();
 
-<blockquote>
-  <p>vim /usr/local/etc/privoxy/config</p>
-</blockquote>
-
-<p>加入下面这两项配置项</p>
-
-<blockquote>
-  <p>listen-address 0.0.0.0:8118
-forward-socks5 / localhost:1080 .</p>
-</blockquote>
-
-<p>第一行设置privoxy监听任意IP地址的8118端口。第二行设置本地socks5代理客户端端口，注意不要忘了最后有一个空格和点号。</p>
-
-<h4 id="2启动privoxy">2、启动privoxy</h4>
-
-<blockquote>
-  <p>sudo /usr/local/sbin/privoxy /usr/local/etc/privoxy/config</p>
-</blockquote>
-
-<h4 id="3查看是否启动成功">3、查看是否启动成功</h4>
-
-<blockquote>
-  <table>
-    <tbody>
-      <tr>
-        <td>netstat -na</td>
-        <td>grep 8118</td>
-      </tr>
-    </tbody>
-  </table>
-</blockquote>
-
-<p>启动成功会有如下输出</p>
-
-<div class="highlighter-rouge"><pre class="highlight"><code>tcp4       0      0  *.8118                 *.*                    LISTEN     
-tcp4       0      0  127.0.0.1.8118         *.*                    LISTEN
 </code></pre>
 </div>
-<h4 id="4使用">4、使用</h4>
 
-<p>打开 <code class="highlighter-rouge">.bash_profile</code></p>
+<ul>
+  <li>先从<code class="highlighter-rouge">react-router-dom</code>导入需要的<code class="highlighter-rouge">BrowserRouter</code>控件</li>
+</ul>
 
-<blockquote>
-  <p>vim ~/.bash_profile</p>
-</blockquote>
+<div class="highlighter-rouge"><pre class="highlight"><code>ReactDOM.render(&lt;BrowserRouter&gt;
+    {AppRoutes}
+&lt;/BrowserRouter&gt;, document.getElementById('root'));
 
-<p>添加下面两项</p>
+</code></pre>
+</div>
 
-<blockquote>
-  <p>export http_proxy=’http://localhost:8118’
-export https_proxy=’http://localhost:8118’</p>
-</blockquote>
+<ul>
+  <li>将<code class="highlighter-rouge">BrowserRouter</code>做为最底层控件</li>
+</ul>
 
-<p>使配置生效</p>
+<p>AppRoutes.js</p>
 
-<blockquote>
-  <p>source ~/.bash_profile</p>
-</blockquote>
+<div class="highlighter-rouge"><pre class="highlight"><code>import {
+    Route,
+} from 'react-router-dom';
+import App from './App';
+import Page1 from './Page1';
+import Page2 from './Page2';
+/**
+ * Routes: https://github.com/reactjs/react-router/blob/master/docs/API.md#route
+ *
+ * Routes are used to declare your view hierarchy.
+ *
+ * Say you go to http://material-ui.com/#/components/paper
+ * The react router will search for a route named 'paper' and will recursively render its
+ * handler and its parent handler like so: Paper &gt; Components &gt; Master
+ */
+const AppRoutes = (
+    &lt;div&gt;
+            &lt;Route exact path="/" component={App}/&gt;
+            &lt;Route path="/page1" component={Page1}/&gt;
+            &lt;Route path="/page2" component={Page2}/&gt;
+    &lt;/div&gt;
+);
 
-<p>试一下</p>
+export default AppRoutes;
 
-<blockquote>
-  <p>curl www.google.com</p>
-</blockquote>
+</code></pre>
+</div>
 
-<h3 id="参考资料">参考资料</h3>
+<div class="highlighter-rouge"><pre class="highlight"><code>const AppRoutes = (
+    &lt;div&gt;
+            &lt;Route exact path="/" component={App}/&gt;
+            &lt;Route path="/page1" component={Page1}/&gt;
+            &lt;Route path="/page2" component={Page2}/&gt;
+    &lt;/div&gt;
+);
 
-<p>http://www.cashqian.net/blog/001486989831982332565298e4942a2bb8f56b08f9d2475000</p>
+</code></pre>
+</div>
+
+<ul>
+  <li>exact控制匹配到/路径时不会再继续向下匹配，path标识路由的路径，component表示路径对应显示的组件。</li>
+  <li>创建了三个路径，首页(http://localhost:3000/) -&gt; App 、page1(http://localhost:3000/page1) -&gt; Page1、page2(http://localhost:3000/page2) -&gt; Page2</li>
+  <li>也可以index.js中的{AppRoutes}直接替换成上面的代码，这里这么写是为了方便项目管理</li>
+</ul>
+
+<h1 id="到这儿路已经铺好了下一步就是使用了">到这儿路已经铺好了，下一步就是使用了</h1>
+
+<p>App.js</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>import React, { Component } from 'react';
+import {
+    Link
+} from 'react-router-dom';
+var dic = {
+  name:"hello",
+  value:"world",
+}
+class App extends Component {
+
+  render() {
+    return (
+      &lt;div className="App"&gt;
+        App
+        &lt;div&gt;
+&lt;Link to={
+                    {pathname:"/page1",
+                        state:{data:dic}}
+                    }&gt; Page1&lt;/Link&gt;
+          &lt;/div&gt;
+      &lt;/div&gt;
+    );
+  }
+}
+
+export default App;
+
+</code></pre>
+</div>
+
+<ul>
+  <li>
+    <p>第一种方法使用<code class="highlighter-rouge">react-router-dom</code>中的 <code class="highlighter-rouge">&lt;Link&gt;</code>控件</p>
+
+    <p>1、 跳转到page1页面，只跳转不传值，可以这样</p>
+  </li>
+</ul>
+
+<p><code class="highlighter-rouge">&lt;Link to= "/page1"&gt;to Page&lt;/Link&gt;</code></p>
+
+<p>2、跳转并传值</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>&lt;Link to={
+                    {pathname:"/page1",
+                        state:{data:dic}}
+                    }&gt; Page1&lt;/Link&gt;
+
+</code></pre>
+</div>
+
+<p>这时候需要传一个字典</p>
+<ul>
+  <li>pathname:跳转页路径</li>
+  <li>给下一页传的值,这个键值对可以随意写，key值不一定是<code class="highlighter-rouge">data</code>,可以随意写,但是这里的key值是什么，下个页面也对应要用这个key值来取值.</li>
+</ul>
+
+<p>除了这个<code class="highlighter-rouge">&lt;Link&gt;</code>还有一个<code class="highlighter-rouge">&lt;NavLink&gt;</code>跟这个意思差不多，不写了</p>
+
+<ul>
+  <li>
+    <p>第二种方法应该是最常用的了,history 控制路由跳转</p>
+
+    <p>page1.js</p>
+  </li>
+</ul>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>
+import React, { Component } from 'react';
+import {
+    Link,
+} from 'react-router-dom';
+var args = "one world one dream";
+var data="";
+class Page1 extends Component {
+
+    constructor(props){
+        super(props);
+        //获取上个页面传过来的值
+        /*
+         * data是state中的一个字段,因为app.js传过来的值对应的key是data,所以这里这么写
+         * */
+        data = this.props.location.state.data;
+    }
+    componentDidMount(){
+        console.log(this.props.location.state.data);
+    }
+    toNextPage=()=&gt;{
+        //使用history的push方法,实现跳转
+        this.props.history.push({
+            pathname:"/page2",
+            state:{args:args}
+        });
+    };
+
+    render() {
+        return (
+            &lt;div &gt;
+                Page1 &lt;br/&gt;
+                {"App说:"+ data.name+data.value}
+                &lt;div&gt;
+                    {/*使用Link控件跳转*/}
+                    &lt;Link to={
+                    {pathname:"/page2",
+                        state:{args:args}}
+                    }&gt; Page2&lt;/Link&gt;
+                &lt;/div&gt;
+                {/*使用history的push方法,实现跳转*/}
+                &lt;button onClick={()=&gt;this.toNextPage()}&gt;
+                    去下一页
+                &lt;/button&gt;
+            &lt;/div&gt;
+        );
+    }
+}
+
+// export default withRouter(Page1);
+export default Page1
+
+</code></pre>
+</div>
+
+<p>toNextPage() 方法即我们需要的方法</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>toNextPage=()=&gt;{
+        //使用history的push方法,实现跳转
+        this.props.history.push({
+            pathname:"/page2",
+            state:{args:args}
+        });
+    };
+
+</code></pre>
+</div>
+
+<ul>
+  <li><code class="highlighter-rouge">history</code> 被放在 <code class="highlighter-rouge">props</code>属性下，push跳转到下一页</li>
+  <li><code class="highlighter-rouge">push</code>中的参数和<code class="highlighter-rouge">&lt;Link&gt;</code>控件设置方法一样</li>
+</ul>
+
+<h1 id="传参结束了该获取了">传参结束了，该获取了</h1>
+
+<p>page1.js中</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>     constructor(props){
+        super(props);
+        //获取上个页面传过来的值
+        /*
+         * data是state中的一个字段,因为app.js传过来的值对应的key是data,所以这里这么写
+         * */
+        data = this.props.location.state.data;
+    }
+    
+</code></pre>
+</div>
+
+<p>哦了!跳转，传值，取值都说完了，应该够用了,<a href="https://github.com/sweetMegan/reactNavDemo.git">demo下载</a></p>
+
+<p>#参考资料</p>
+<ul>
+  <li><a href="https://github.com/brickspert/blog/issues/3">react-router v4 使用 history 控制路由跳转</a></li>
+  <li><a href="http://react-china.org/t/react-router4/15843">React-router4简约教程</a></li>
+</ul>
 
 
   </section>
@@ -366,13 +525,13 @@ export https_proxy=’http://localhost:8118’</p>
        <ul class="pager">
         
         <li class="previous">
-            <a href="/2018/06/23/goweb%E7%BC%96%E7%A8%8B/" data-toggle="tooltip" data-placement="top" title="goWeb编程">上一篇：  <span>goWeb编程</span>
+            <a href="/2018/05/09/%E5%9C%A8React%E4%B8%AD%E5%AF%BC%E5%85%A5Material-UI%E4%B8%8E%E4%BD%BF%E7%94%A8/" data-toggle="tooltip" data-placement="top" title="在React中导入Material-UI与使用">上一篇：  <span>在React中导入Material-UI与使用</span>
             </a>
         </li>
         
         
         <li class="next">
-            <a href="/2018/06/28/ubuntu%E7%BF%BB%E5%A2%99/" data-toggle="tooltip" data-placement="top" title="ubuntu 翻墙">下一篇：  <span>ubuntu 翻墙</span>
+            <a href="/2018/05/13/%E7%94%9F%E6%88%90%E5%9B%BE%E7%89%87%E9%93%BE%E6%8E%A5/" data-toggle="tooltip" data-placement="top" title="生成图片链接">下一篇：  <span>生成图片链接</span>
             </a>
         </li>
         

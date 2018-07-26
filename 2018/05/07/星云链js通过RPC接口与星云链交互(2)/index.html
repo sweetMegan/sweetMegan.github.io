@@ -6,21 +6,21 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
-  <title>Nodejs框架Koa</title>
-  <meta name="description" content="区块链">
+  <title>星云链js通过RPC接口与星云链交互(2)</title>
+  <meta name="description" content="星云链手记">
   <meta name="author" content="黎跃春">
 
-  <meta name="keywords" content="区块链"
+  <meta name="keywords" content="区块链交易"
   />
 
   <meta name="twitter:card" content="summary">
-  <meta name="twitter:title" content="Nodejs框架Koa">
-  <meta name="twitter:description" content="区块链">
+  <meta name="twitter:title" content="星云链js通过RPC接口与星云链交互(2)">
+  <meta name="twitter:description" content="星云链手记">
 
   <meta property="og:type" content="article">
-  <meta property="og:title" content="Nodejs框架Koa">
-  <meta property="og:description" content="区块链">
-  <meta property="og:site_name" content="区块链e"
+  <meta property="og:title" content="星云链js通过RPC接口与星云链交互(2)">
+  <meta property="og:description" content="星云链手记">
+  <meta property="og:site_name" content="区块链交易e"
   />
 
 
@@ -31,7 +31,7 @@
   <link rel="stylesheet" href=" /css/main.css ">
   <link href="//netdna.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
 
-  <link rel="canonical" href="/2018/07/14/Nodejs%E6%A1%86%E6%9E%B6Koa/">
+  <link rel="canonical" href="/2018/05/07/%E6%98%9F%E4%BA%91%E9%93%BEjs%E9%80%9A%E8%BF%87RPC%E6%8E%A5%E5%8F%A3%E4%B8%8E%E6%98%9F%E4%BA%91%E9%93%BE%E4%BA%A4%E4%BA%92(2)/">
   <link rel="alternate" type="application/rss+xml" title="sweetsmelon博客" href=" /feed.xml
     ">
 
@@ -185,10 +185,10 @@
     <div class="content-wrapper__inner">
       <article class="post-container post-container--single" itemscope itemtype="http://schema.org/BlogPosting">
   <header class="post-header">
-    <h1 class="post-title">Nodejs框架Koa</h1>
+    <h1 class="post-title">星云链js通过RPC接口与星云链交互(2)</h1>
     <div class="post-meta">
       <img src="/images/calendar.png" width="20px"/>
-      <time datetime="2018-07-14 00:00:00 +0800" itemprop="datePublished" class="post-meta__date date">2018-07-14</time>
+      <time datetime="2018-05-07 00:00:00 +0800" itemprop="datePublished" class="post-meta__date date">2018-05-07</time>
 
       <span id="busuanzi_container_page_pv"> | 阅读：<span id="busuanzi_value_page_pv"></span>次</span>
     </p>
@@ -196,512 +196,217 @@
   </header>
 
   <section class="post">
-    <h2 id="安装环境">安装环境</h2>
+    <p>上一篇<a href="https://sweetmegan.github.io/2018/05/06/js%E6%98%9F%E4%BA%91%E4%BA%A4%E4%BA%92-1/">星云链js通过RPC接口与星云链交互(1)</a>介绍了如果通过js创建一个账户。查询账户信息、发送交易可以查看https://github.com/nebulasio/neb.js 这个demo里的方法，很简单，直接调用就可以了。这篇博客介绍通过js调用自己上传的合约中的方法。</p>
 
-<h3 id="安装node与npm">安装Node与npm</h3>
+<p>首先下载一个星云提供的一个<a href="https://github.com/15010159959/super-dictionary">DappDemo super-dictionary</a>,super-dictionary是一个字典应用，可以根据用户输入，输出一个结果，如果没有对应结果，用户可以自己添加一个结果。</p>
 
-<h4 id="安装nodejs">安装Node.js</h4>
+<p>下载完成双击<code class="highlighter-rouge">index.html</code>可以看到</p>
 
-<blockquote>
-  <p>brew install node@8</p>
-</blockquote>
-
-<h4 id="安装指定版本的npm">安装指定版本的npm</h4>
+<p><img src="http://otwxtrtn9.bkt.clouddn.com/%E8%B0%83%E7%94%A8%E5%90%88%E7%BA%A6.png" alt="调用合约1" /></p>
 
 <blockquote>
-  <p>npm install npm@5.6.0 -g</p>
+  <p>这里需要用Google浏览器打开，并且需要安装星云钱包插件否则会出现<code class="highlighter-rouge">NOTE: Please install WebExtensionWallet to use SUPER DICTIONARY</code>错误，如下图</p>
 </blockquote>
 
-<h4 id="检查node版本">检查Node版本</h4>
+<p><img src="http://otwxtrtn9.bkt.clouddn.com/%E8%B0%83%E7%94%A8%E5%90%88%E7%BA%A64.png" alt="调用合约4" /></p>
 
-<blockquote>
-  <p>node -v</p>
-</blockquote>
-
-<h4 id="检查npm版本">检查npm版本</h4>
-
-<blockquote>
-  <p>npm -v</p>
-</blockquote>
-
-<h4 id="升级node">升级Node</h4>
-
-<blockquote>
-  <p>npm install -g n</p>
-</blockquote>
-
-<h2 id="一koa">一、Koa</h2>
+<p>要求WebExtensionWallet钱包，下面在Google浏览器中安装它</p>
 
 <ul>
-  <li>安装Koa</li>
-</ul>
-
-<p>新建一个项目<code class="highlighter-rouge">koademo</code>，打开终端</p>
-
-<blockquote>
-  <p>mkdir koademo
-cd  koademo
-npm init</p>
-</blockquote>
-
-<p>此时会要求输入一些配置信息，什么都不用写，一直回车</p>
-
-<p><img src="http://otwxtrtn9.bkt.clouddn.com/Nodejs%E6%A1%86%E6%9E%B6Koa%202.png" alt="" /></p>
-
-<p>此时项目路径下会新增文件<code class="highlighter-rouge">package.json</code></p>
-
-<p>安装<code class="highlighter-rouge">koa</code></p>
-
-<blockquote>
-  <p>npm install koa</p>
-</blockquote>
-
-<p>新建<code class="highlighter-rouge">index.js</code>文件，添加如下代码,开启服务,监听端口3000</p>
-
-<div class="highlighter-rouge"><pre class="highlight"><code>const Koa = require("koa");
-const app = new Koa();
-//开启服务,监听端口3000
-app.listen(3000);
-
-</code></pre>
-</div>
-
-<blockquote>
-  <p>new Koa():创建的对象被称为<code class="highlighter-rouge">Koa</code>应用对象。应用对象时带有<code class="highlighter-rouge">node http</code>服务的Koa接口，它可以处理中间件的注册，将<code class="highlighter-rouge">http</code>请求分发到中间件，进行默认错误处理，以及对上下文，请求和响应对象进行配置。
-app.listen(3000):用于启动一个服务的快捷方法，是对<code class="highlighter-rouge">http.createServer</code>的简单包装，它实际上这样运行:<code class="highlighter-rouge">http:createServer(app.callback()).listen(3000)</code>;</p>
-</blockquote>
-
-<h2 id="context">context</h2>
-
-<p><code class="highlighter-rouge">context</code>是一个请求的上下文，该对象封装了一个传入的<code class="highlighter-rouge">http</code>消息，<code class="highlighter-rouge">context</code>有<code class="highlighter-rouge">request</code>和<code class="highlighter-rouge">response</code>属性，我们可以设置两个属性来处理和响应不同的请求。</p>
-
-<ul>
-  <li>代码</li>
-</ul>
-
-<div class="highlighter-rouge"><pre class="highlight"><code>const Koa = require("koa");
-const app = new Koa();
-//开启服务,监听端口3000
-app.use((ctx,next)=&gt;{
-   ctx.response.body="hello world";
-});
-app.listen(3000);
-
-</code></pre>
-</div>
-<ul>
-  <li>说明</li>
-</ul>
-
-<blockquote>
-  <p>app.use(function):将给定的function当做中间件加载到应用中。
-ctx:每一个请求都会创建一段上下文，在控制业务逻辑的中间件中，上下文被寄存在<code class="highlighter-rouge">ctx</code>对象中。为了使用方便，许多上下文属性和方法都被委托代理到他们的<code class="highlighter-rouge">ctx.request</code>和<code class="highlighter-rouge">ctx.response</code>，比如访问<code class="highlighter-rouge">ctx.type</code>和<code class="highlighter-rouge">ctx.length</code>将被代理到<code class="highlighter-rouge">response</code>对象,<code class="highlighter-rouge">ctx.path</code>和<code class="highlighter-rouge">ctx.method</code>将被代理到<code class="highlighter-rouge">request</code>对象。</p>
-</blockquote>
-
-<ul>
-  <li>启动服务</li>
-</ul>
-
-<blockquote>
-  <p>node index.js</p>
-</blockquote>
-
-<p>浏览器访问 <code class="highlighter-rouge">http://localhost:3000</code>,如果运行正确，在页面会显示<code class="highlighter-rouge">hello world</code>。</p>
-
-<h2 id="三网页模板">三、网页模板</h2>
-
-<p>实际开发中，返回给用户的网页往往都写成模板文件。我们可以让<code class="highlighter-rouge">Koa</code>先读取模板文件,然后将这个模板返回给用户。</p>
-
-<ul>
-  <li>代码</li>
-</ul>
-
-<div class="highlighter-rouge"><pre class="highlight"><code> const Koa = require("koa");
-const app = new Koa();
-const fs = require("fs");
-app.use((ctx,next)=&gt;{
-    //必须指定type,否则调用fs模板后默认响应类型为为`application/octet-stream`类型
-    ctx.response.type="text/html";
-    //将文件作为响应体流失传输
-    ctx.response.body=fs.createReadStream("./views/index.html");
-});
-app.listen("3000");
-
-</code></pre>
-</div>
-
-<h2 id="四中间件">四、中间件</h2>
-
-<p><code class="highlighter-rouge">Koa</code>所有的功能都是通过中间件实现的。中间件处在<code class="highlighter-rouge">HTTP Request</code>和<code class="highlighter-rouge">HTTP Response</code>中间</p>
-
-<p><code class="highlighter-rouge">Koa</code>的中间件之间按照编码顺序在栈内一次执行，允许您执行操作并向下传递请求，之后过滤并逆序返回响应。</p>
-
-<div class="highlighter-rouge"><pre class="highlight"><code>const Koa = require('koa');
-const app = new Koa();
-
-app.use(async (ctx,next)=&gt;{
-    console.log("first");
-    await next();
-    console.log("first over")
-});
-app.use(async(ctx,next)=&gt;{
-   console.log("second");
-    await next();
-    console.log("second over")
-
-});
-app.use(async(ctx,next)=&gt;{
-    console.log("third");
-    await next();
-console.log("third over");
-});
-
-</code></pre>
-</div>
-
-<blockquote>
-  <p>有<code class="highlighter-rouge">async</code>标记的函数称为异步函数，在异步函数中，可以用<code class="highlighter-rouge">await</code>调用另一个异步函数。使用<code class="highlighter-rouge">await</code>时，它所在的方法必须使用关键字async。</p>
-</blockquote>
-
-<p>执行结果:</p>
-
-<blockquote>
-  <p>first</p>
-
-  <p>second</p>
-
-  <p>third</p>
-
-  <p>third over</p>
-
-  <p>second over</p>
-
-  <p>first over</p>
-</blockquote>
-
-<h2 id="五原生路由">五、原生路由</h2>
-
-<p>开发中需要根据用户请求返回相应的数据，可以通过设置路由实现</p>
-
-<ul>
-  <li>代码</li>
-</ul>
-
-<div class="highlighter-rouge"><pre class="highlight"><code>const Koa = require("koa");
-const app = new Koa();
-app.use(async (ctx)=&gt;{
-    if (ctx.request.path=="/"){
-        ctx.response.body = "首页";
-    }
-    switch (ctx.request.path){
-        case "/":{
-            ctx.response.body = "首页";
-            break;
-        }
-        case "/login":{
-            ctx.body = "login";
-            break;
-        }
-        case "/test":{
-            ctx.body = "test";
-            break;
-        }
-        
-    }
-});
-//开启服务,监听端口3000
-app.listen(3000);
-
-</code></pre>
-</div>
-
-<table>
-  <thead>
-    <tr>
-      <th>浏览器访问</th>
-      <th>结果</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td>http://localhost:3000/</td>
-      <td>首页</td>
-    </tr>
-    <tr>
-      <td>http://localhost:3000/login</td>
-      <td>login</td>
-    </tr>
-    <tr>
-      <td>http://localhost:3000/test</td>
-      <td>test</td>
-    </tr>
-  </tbody>
-</table>
-
-<h2 id="六koa-router">六、koa-router</h2>
-
-<p>原生路由用起来不方便，我们可以使用封装好的<a href="https://www.npmjs.com/package/koa-route">koa-router</a>模块</p>
-
-<blockquote>
-  <p>npm install koa-router</p>
-</blockquote>
-
-<ul>
-  <li>代码</li>
-</ul>
-
-<div class="highlighter-rouge"><pre class="highlight"><code>const Koa = require("koa");
-const app = new Koa();
-const r = require("koa-router");
-const router = r();
-//设置路由
-router.get("/",(ctx,next)=&gt;{
-    ctx.body = "首页";
-
-});
-router.get("/login",(ctx,next)=&gt;{
-    ctx.body = "login";
-
-});
-router.get("/test",(ctx,next)=&gt;{
-    ctx.body = "test";
-});
-//绑定路由
-app.use(router.routes());
-//开启服务,监听端口3000
-app.listen(3000);
-
-</code></pre>
-</div>
-
-<h2 id="七重定向">七、重定向</h2>
-
-<p>将上面的代码中<code class="highlighter-rouge">test</code>重定向到<code class="highlighter-rouge">login</code></p>
-
-<div class="highlighter-rouge"><pre class="highlight"><code>const Koa = require("koa");
-const app = new Koa();
-const r = require("koa-router");
-const router = r();
-//设置路由
-router.get("/",(ctx,next)=&gt;{
-    ctx.body = "首页";
-
-});
-router.get("/login",(ctx,next)=&gt;{
-    ctx.body = "login";
-
-});
-//test重定向到login
-router.get("/test",(ctx,next)=&gt;{
-    ctx.response.redirect("/login");
-});
-//绑定路由
-app.use(router.routes());
-//开启服务,监听端口3000
-app.listen(3000);
-
-</code></pre>
-</div>
-
-<h2 id="八获取get请求参数">八、获取get请求参数</h2>
-
-<div class="highlighter-rouge"><pre class="highlight"><code>/**
- * Created by zhqmac on 2018/7/22.
- */
-const Koa = require("koa");
-const app = new Koa();
-const router= require("koa-router")();
-app.use((ctx,next)=&gt;{
-   console.log(ctx.request.method);
-    console.log(ctx.request.url);
-    next()
-});
-//http://localhost:3000/login?name=zhq?age=26
-router.get("/login",ctx=&gt;{
-   var name = ctx.query.name;
-    var age = ctx.query.age;
-    console.log(name+"年龄:"+age);
-    ctx.body = `&lt;h1&gt; Hello,${name}&lt;/h1&gt;`
-});
-//http://localhost:3000/regist/zhq/26
-router.get("/regist/:name/:age",ctx=&gt;{
-    var name = ctx.params.name;
-    var age = ctx.params.age;
-    ctx.response.body = `&lt;h1&gt;regist, ${name} ${age}!&lt;/h1&gt;`;
-
-
-});
-app.use(router.routes());
-//开启服务,监听端口3000
-app.listen(3000);
-
-</code></pre>
-</div>
-
-<h2 id="获取post请求参数">获取post请求参数</h2>
-
-<div class="highlighter-rouge"><pre class="highlight"><code>const Koa = require("koa");
-const app = new Koa();
-const koaBody = require("koa-body");
-
-const router= require("koa-router")();
-app.use(async (ctx,next)=&gt;{
-    console.log(ctx.request.method);
-    console.log(ctx.request.url);
-    await next()
-});
-router.post("/login", (ctx,next) =&gt; {
-    var body = ctx.request.body;
-    console.log(body);
-    console.log(body.name);
-    ctx.body = {name:body.name};
-
-});
-app.use(koaBody());
-app.use(router.routes());
-//开启服务,监听端口3000
-app.listen(3000);
-
-</code></pre>
-</div>
-
-<p>使用<code class="highlighter-rouge">curl</code>发起post请求</p>
-
-<blockquote>
-  <p>curl -X POST –data “name=zhq” 127.0.0.1:3000/login</p>
-</blockquote>
-
-<p>返回结果是一个json串</p>
-
-<div class="highlighter-rouge"><pre class="highlight"><code><span class="p">{</span><span class="w">
-    </span><span class="nt">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"zhq"</span><span class="w">
-</span><span class="p">}</span><span class="w">
-</span></code></pre>
-</div>
-<h2 id="十加载静态资源">十、加载静态资源</h2>
-
-<p>如图片、字体、样式表、脚本等</p>
-
-<p>引入<code class="highlighter-rouge">koa-static</code></p>
-
-<blockquote>
-  <p>npm install koa-static</p>
-</blockquote>
-
-<p>下面以加载一张图片为例</p>
-
-<ol>
   <li>
-    <p>新建目录<code class="highlighter-rouge">static</code></p>
+    <p>1、下载 <a href="https://github.com/ChengOrangeJu/WebExtensionWallet">WebExtensionWallet</a></p>
   </li>
   <li>
-    <p>在<code class="highlighter-rouge">static</code>目录下新建<code class="highlighter-rouge">images</code>目录</p>
+    <p>2、打开Google浏览器 ：-&gt;更多工具-&gt;扩展程序</p>
+
+    <p><img src="http://otwxtrtn9.bkt.clouddn.com/%E8%B0%83%E7%94%A8%E5%90%88%E7%BA%A65.png" alt="调用合约5" /></p>
   </li>
   <li>
-    <p>在<code class="highlighter-rouge">images</code>目录下添加一张图片<code class="highlighter-rouge">avatar.JPG</code></p>
+    <p>3、使用<code class="highlighter-rouge">开发者模式</code>,将刚才下载好的WebExtensionWallet拖拽进来
+  <img src="http://otwxtrtn9.bkt.clouddn.com/%E8%B0%83%E7%94%A8%E5%90%88%E7%BA%A66.png" alt="调用合约6" /></p>
   </li>
-</ol>
+  <li>
+    <p>4、添加进来以后是这样
+  <img src="http://otwxtrtn9.bkt.clouddn.com/%E8%B0%83%E7%94%A8%E5%90%88%E7%BA%A67.png" alt="调用合约7" /></p>
+  </li>
+  <li>
+    <p>5、打开WebExtensionWallet -&gt; 选择测试链,因为super-dictionary部署在测试链上</p>
 
-<ul>
-  <li>代码</li>
+    <p><img src="http://otwxtrtn9.bkt.clouddn.com/%E8%B0%83%E7%94%A8%E5%90%88%E7%BA%A68.png" alt="调用合约8" /></p>
+  </li>
+  <li>
+    <p>6、新建一个钱包，或者在Send-Tx导入一个钱包，不需要进行交易，点取消就可以，就是为了给WebExtensionWallet导入一个钱包，否则运行demo时会弹出提示框 <code class="highlighter-rouge">import Wallet</code></p>
+  </li>
 </ul>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>const Koa = require("koa");
-const app = new Koa();
-const path = require("path");
-const koaStatic= require("koa-static");
-const router= require("koa-router")();
+<p>现在打开<code class="highlighter-rouge">index.html</code>输入“你是谁”,结果是这样的
+<img src="http://otwxtrtn9.bkt.clouddn.com/%E8%B0%83%E7%94%A8%E5%90%88%E7%BA%A62.png" alt="调用合约2" /></p>
 
-//静态资源目录对于相对入口文件的路径
-const staticPath = './static';
+<p>输入”你在哪”
+ <img src="http://otwxtrtn9.bkt.clouddn.com/%E8%B0%83%E7%94%A8%E5%90%88%E7%BA%A63.png" alt="调用合约3" /></p>
 
-router.get("/",ctx=&gt;{
-   ctx.body = "<span class="nt">&lt;html&gt;&lt;a</span> <span class="na">href=</span><span class="s">'/images/avatar.JPG'</span><span class="nt">&gt;</span>点我<span class="nt">&lt;/a&gt;&lt;/html&gt;</span>"
-});
-app.use(koaStatic(
-    path.join(__dirname,staticPath)
-));
-app.use(router.routes());
-//开启服务,监听端口3000
-app.listen(3000);
+<p>点add按照提示，选择自己私钥，付钱，等待挖矿交易成功，就可以了</p>
 
+<h1 id="调用合约方法">调用合约方法</h1>
+
+<p>使用webStorm打开super-dictionary项目，在查看<code class="highlighter-rouge">index.html</code>找到<code class="highlighter-rouge">search</code>按钮点击事件</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code> $("#search").click(function(){
+        // $("#search_value").val() 搜索框内的值
+        var to = dappAddress;
+        var value = "0";
+        var callFunction = "get";
+        var callArgs = "[\"" + $("#search_value").val() + "\"]"; //in the form of ["args"]
+        console.log(callArgs);
+        nebPay.simulateCall(to, value, callFunction, callArgs, {    //使用nebpay的simulateCall接口去执行get查询, 模拟执行.不发送交易,不上链
+            listener: cbSearch      //指定回调函数
+        });
 </code></pre>
 </div>
 
-<h2 id="十一模板引擎">十一、模板引擎</h2>
-
-<p>安装ejs模板引擎</p>
+<p><code class="highlighter-rouge">nebPay.simulateCall</code>就是我们需要的交互方法</p>
 
 <blockquote>
-  <p>npm install ejs
-npm install koa-views</p>
+  <p>simulateCall: function (to, value, func, args, options)</p>
 </blockquote>
 
 <ul>
-  <li>代码</li>
+  <li>to:合约地址</li>
+  <li>value: 传”0”就好</li>
+  <li>func：要调用的合约中的方法名</li>
+  <li>args: 方法传的参数(无参数-“”，有参数-json数组)</li>
+  <li>options:一个字典 <code class="highlighter-rouge">listener</code> 可以指定回调函数</li>
 </ul>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>const Koa = require("koa");
-const app = new Koa();
-//引入koa-router的时候要加上一个()
-var router = require("koa-router")();
-var views = require("koa-views");
-var path = require("path");
-//views 必须是异步才可以
-router.get("/login",async ctx=&gt;{
-    //将json里面的值替换为文件里面的变量
-    //go 里面使用的是template模板,他们功能类型
-    var name = "zhq";
-    await ctx.render("loginEjs.ejs",{
-        name
-    })
-});
-router.get("/regist",async ctx=&gt;{
-    await ctx.render("regist.html")
-});
-app.use(views(
-    path.join(__dirname,"./views"),
-    {
-        extensions:"ejs",
-        //默认去views下面获取ejs后缀的文件
-        //如果是其他类型的文件需要制定文件类型
-        map:{
-            html:"ejs"
-        }
+<p>OK，现在用这个方法调用自己的合约，创建一个简单的demo,<a href="https://github.com/sweetMegan/NEBDapp">demo地址</a></p>
+
+<ul>
+  <li>1、将super-dictionary项目中的lib文件夹中所有东西添加到自己的demo中</li>
+</ul>
+
+<p><img src="http://otwxtrtn9.bkt.clouddn.com/%E8%B0%83%E7%94%A8%E5%90%88%E7%BA%A69.png" alt="调用合约9" /></p>
+
+<ul>
+  <li>2、上传自己的合约，我的合约是这样的，有一个sum求和方法</li>
+</ul>
+
+<div class="highlighter-rouge"><pre class="highlight"><code> 'use strict';
+//定义一个合约
+var TestProtocal = function () {
+};
+TestProtocal.prototype = {
+    //合约初始化方法
+    init:function () {
+        return "hello world";
+    },
+    //无参数的合约方法
+    printTest:function () {
+      return "printTest";
+    },
+    //一个参数的合约方法
+    argTest:function (arg) {
+        return arg;
+    },
+    //多个参数合约方法
+    argTest2:function (arg1, arg2) {
+        return "arg1:"+arg1+" arg2:"+arg2;
+    },
+    sum:function (arg1, arg2) {
+        return parseInt(arg1)+parseInt(arg2);
     }
-));
-//路由注册到中间件
-app.use(router.routes());
-//开启服务,监听端口3000
-app.listen(3000);
+};
+module.exports = TestProtocal;
 
 </code></pre>
 </div>
 
-<p><code class="highlighter-rouge">loginEjs.js</code></p>
+<blockquote>
+  <ul>
+    <li>部署合约时要注意部署到哪条链上WebExtensionWallet就选择哪条链，比如我的部署到测试链，WebExtensionWallet就选择测试链,否则找不到合约，返回结果为<code class="highlighter-rouge">undefined</code></li>
+    <li>我的合约部署在测试链，合约地址<code class="highlighter-rouge">n1jb79jgi44ukKhcs2h6PPZTvZqQASKV6T7</code></li>
+  </ul>
+</blockquote>
+
+<p>调用合约方法，我就直接上代码了
+<code class="highlighter-rouge">index.html</code>代码</p>
 
 <div class="highlighter-rouge"><pre class="highlight"><code><span class="cp">&lt;!DOCTYPE html&gt;</span>
 <span class="nt">&lt;html</span> <span class="na">lang=</span><span class="s">"en"</span><span class="nt">&gt;</span>
 <span class="nt">&lt;head&gt;</span>
     <span class="nt">&lt;meta</span> <span class="na">charset=</span><span class="s">"UTF-8"</span><span class="nt">&gt;</span>
     <span class="nt">&lt;title&gt;</span>Title<span class="nt">&lt;/title&gt;</span>
-    <span class="nt">&lt;style&gt;</span>
-        <span class="nt">div</span><span class="p">{</span>
-            <span class="nl">background</span><span class="p">:</span> <span class="no">darkcyan</span><span class="p">;</span>
-        <span class="p">}</span>
-    <span class="nt">&lt;/style&gt;</span>
 <span class="nt">&lt;/head&gt;</span>
+
 <span class="nt">&lt;body&gt;</span>
-<span class="nt">&lt;div&gt;</span>注册  <span class="err">&lt;</span>%=  name %&gt;<span class="nt">&lt;/div&gt;</span>
+<span class="nt">&lt;div</span> <span class="nt">&gt;</span>
+    <span class="nt">&lt;div</span> <span class="na">style=</span><span class="s">"height: 40px;font-size: 14px; width: 100px;text-align: center;line-height: 40px;border-radius: 20px; background: red ;color:white"</span>
+         <span class="na">onclick=</span><span class="s">"clickAction()"</span><span class="nt">&gt;</span>
+        无参数printTest
+    <span class="nt">&lt;/div&gt;</span>
+<span class="nt">&lt;/div&gt;</span>
+<span class="nt">&lt;div</span> <span class="na">style=</span><span class="s">"display: flex;margin-top: 40px"</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;div</span> <span class="na">style=</span><span class="s">"margin-left: 10px"</span><span class="nt">&gt;</span>
+        arg1:<span class="nt">&lt;input</span> <span class="na">style=</span><span class="s">"height: 40px;font-size: 14px; width: 100px;"</span> <span class="na">type=</span><span class="s">"text"</span> <span class="na">id=</span><span class="s">"arg1"</span> <span class="nt">&gt;</span>
+    <span class="nt">&lt;/div&gt;</span>
+    <span class="nt">&lt;div</span> <span class="na">style=</span><span class="s">"margin-left: 10px"</span><span class="nt">&gt;</span>
+        arg2:<span class="nt">&lt;input</span> <span class="na">style=</span><span class="s">"height: 40px;font-size: 14px; width: 100px;"</span> <span class="na">type=</span><span class="s">"text"</span> <span class="na">id=</span><span class="s">"arg2"</span> <span class="nt">&gt;</span>
+    <span class="nt">&lt;/div&gt;</span>
+    <span class="nt">&lt;div</span> <span class="na">style=</span><span class="s">"height: 40px;font-size: 14px; width: 100px;text-align: center;line-height: 40px;border-radius: 20px; background: red ;color:white"</span>
+         <span class="na">onclick=</span><span class="s">"clickAction2()"</span><span class="nt">&gt;</span>
+        求和sum
+    <span class="nt">&lt;/div&gt;</span>
+<span class="nt">&lt;/div&gt;</span>
+<span class="nt">&lt;div</span> <span class="na">id=</span><span class="s">"result"</span> <span class="na">style=</span><span class="s">"margin-top: 40px"</span><span class="nt">&gt;</span>
+    运行结果:
+<span class="nt">&lt;/div&gt;</span>
+
+<span class="c">&lt;!--导入与包--&gt;</span>
+<span class="nt">&lt;script </span><span class="na">src=</span><span class="s">lib/jquery-3.3.1.min.js</span><span class="nt">&gt;&lt;/script&gt;</span>
+<span class="nt">&lt;script </span><span class="na">src=</span><span class="s">lib/nebPay.js</span><span class="nt">&gt;&lt;/script&gt;</span>
+<span class="nt">&lt;script </span><span class="na">src=</span><span class="s">lib/bootstrap-4.0.0-dist/js/bootstrap.min.js</span><span class="nt">&gt;&lt;/script&gt;</span>
+<span class="nt">&lt;script </span><span class="na">type=</span><span class="s">"text/javascript"</span><span class="nt">&gt;</span>
+    <span class="kd">var</span> <span class="nx">NebPay</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s2">"nebpay"</span><span class="p">);</span>
+    <span class="kd">var</span> <span class="nx">nebPay</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">NebPay</span><span class="p">();</span>
+    <span class="c1">//要调用的合约地址</span>
+    <span class="kd">var</span> <span class="nx">dappAddress</span> <span class="o">=</span> <span class="s2">"n1jb79jgi44ukKhcs2h6PPZTvZqQASKV6T7"</span><span class="p">;</span>
+    <span class="kd">var</span> <span class="nx">to</span> <span class="o">=</span> <span class="nx">dappAddress</span><span class="p">;</span>
+    <span class="kd">var</span> <span class="nx">value</span> <span class="o">=</span> <span class="s2">"0"</span><span class="p">;</span>
+    <span class="kd">function</span> <span class="nx">clickAction</span><span class="p">(</span><span class="nx">e</span><span class="p">)</span> <span class="p">{</span>
+        <span class="c1">//要到用的合约方法</span>
+        <span class="kd">var</span> <span class="nx">callFunction</span> <span class="o">=</span> <span class="s2">"printTest"</span><span class="p">;</span>
+        <span class="c1">//执行合约方法</span>
+        <span class="nx">nebPay</span><span class="p">.</span><span class="nx">simulateCall</span><span class="p">(</span><span class="nx">to</span><span class="p">,</span> <span class="nx">value</span><span class="p">,</span> <span class="nx">callFunction</span><span class="p">,</span> <span class="s2">""</span><span class="p">,</span> <span class="p">{</span>
+            <span class="na">listener</span><span class="p">:</span> <span class="nx">parseResult</span>      <span class="c1">//指定回调函数</span>
+        <span class="p">});</span>
+    <span class="p">}</span>
+    <span class="kd">function</span> <span class="nx">clickAction2</span><span class="p">(</span><span class="nx">e</span><span class="p">)</span> <span class="p">{</span>
+        <span class="c1">//要到用的合约方法</span>
+        <span class="kd">var</span> <span class="nx">callFunction</span> <span class="o">=</span> <span class="s2">"sum"</span><span class="p">;</span>
+        <span class="c1">//字符串转json数组</span>
+        <span class="kd">var</span> <span class="nx">callArgs</span> <span class="o">=</span> <span class="s2">"[\""</span> <span class="o">+</span> <span class="nx">$</span><span class="p">(</span><span class="s2">"#arg1"</span><span class="p">).</span><span class="nx">val</span><span class="p">()</span> <span class="o">+</span> <span class="s2">"\",\""</span> <span class="o">+</span>  <span class="nx">$</span><span class="p">(</span><span class="s2">"#arg2"</span><span class="p">).</span><span class="nx">val</span><span class="p">()</span> <span class="o">+</span> <span class="s2">"\"]"</span><span class="p">;</span> <span class="c1">//in the form of ["args"]</span>
+        <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">callArgs</span><span class="p">);</span>
+        <span class="c1">//执行合约方法</span>
+        <span class="nx">nebPay</span><span class="p">.</span><span class="nx">simulateCall</span><span class="p">(</span><span class="nx">to</span><span class="p">,</span> <span class="nx">value</span><span class="p">,</span> <span class="nx">callFunction</span><span class="p">,</span> <span class="nx">callArgs</span><span class="p">,</span> <span class="p">{</span>
+            <span class="na">listener</span><span class="p">:</span> <span class="nx">parseResult</span>      <span class="c1">//指定回调函数</span>
+        <span class="p">});</span>
+    <span class="p">}</span>
+
+    <span class="kd">function</span> <span class="nx">parseResult</span><span class="p">(</span><span class="nx">res</span><span class="p">)</span> <span class="p">{</span>
+        <span class="kd">var</span> <span class="nx">result</span> <span class="o">=</span> <span class="nx">res</span><span class="p">.</span><span class="nx">result</span><span class="p">;</span>
+        <span class="nx">$</span><span class="p">(</span><span class="s2">"#result"</span><span class="p">).</span><span class="nx">text</span><span class="p">(</span><span class="s2">"运行结果:"</span><span class="o">+</span><span class="nx">result</span><span class="p">)</span>
+    <span class="p">}</span>
+<span class="nt">&lt;/script&gt;</span>
 <span class="nt">&lt;/body&gt;</span>
 <span class="nt">&lt;/html&gt;</span>
 
 </code></pre>
 </div>
 
-<h2 id="源码下载-httpsgithubcomsweetmegankoademo">源码下载 https://github.com/sweetMegan/koaDemo</h2>
+<p>代码说明：两个按钮”无参数”按钮,”求和sum”按钮，分别触发clickAction和clickAction2方法，clickAction调用合约中的printTest方法,clickAction2调用合约中的sum方法,合约执行完回调parseResult方法,对返回结果解析，并输出到运行结果的<code class="highlighter-rouge">&lt;div&gt;</code>标签上</p>
 
-<h2 id="感谢李旭旭哥指导">感谢李旭（旭哥）指导</h2>
+<h1 id="参考资料">参考资料</h1>
+
+<p><a href="https://github.com/15010159959/super-dictionary">DappDemo super-dictionary</a></p>
 
 
   </section>
@@ -771,13 +476,13 @@ app.listen(3000);
        <ul class="pager">
         
         <li class="previous">
-            <a href="/2018/07/14/Nodejs%E5%AE%9E%E7%8E%B0%E4%BB%A5%E5%A4%AA%E5%9D%8A%E9%92%B1%E5%8C%85-%E6%A6%82%E8%BF%B0/" data-toggle="tooltip" data-placement="top" title="Nodejs实现以太坊钱包-概述">上一篇：  <span>Nodejs实现以太坊钱包-概述</span>
+            <a href="/2018/05/06/%E6%98%9F%E4%BA%91%E9%93%BE%E4%BD%BF%E7%94%A8wallet%E9%83%A8%E7%BD%B2-%E8%B0%83%E7%94%A8%E5%90%88%E7%BA%A6/" data-toggle="tooltip" data-placement="top" title="星云链使用wallet部署，调用合约">上一篇：  <span>星云链使用wallet部署，调用合约</span>
             </a>
         </li>
         
         
         <li class="next">
-            <a href="/2018/07/15/Nodejs%E5%AE%9E%E7%8E%B0%E4%BB%A5%E5%A4%AA%E5%9D%8A%E9%92%B1%E5%8C%85-iOS%E5%AE%9E%E7%8E%B0%E5%89%8D%E7%AB%AF%E8%B0%83%E7%94%A8/" data-toggle="tooltip" data-placement="top" title="Nodejs实现以太坊钱包">下一篇：  <span>Nodejs实现以太坊钱包</span>
+            <a href="/2018/05/09/%E5%9C%A8React%E4%B8%AD%E5%AF%BC%E5%85%A5Material-UI%E4%B8%8E%E4%BD%BF%E7%94%A8/" data-toggle="tooltip" data-placement="top" title="在React中导入Material-UI与使用">下一篇：  <span>在React中导入Material-UI与使用</span>
             </a>
         </li>
         

@@ -196,8 +196,8 @@
   </header>
 
   <section class="post">
-    <p>##写在前面：
-本文目的：使用go语言，实现简单的区块结构，并通过pow共识算法将区块存储在区块链上，结构如下图</p>
+    <h3 id="写在前面">写在前面：</h3>
+<p>本文目的：使用go语言，实现简单的区块结构，并通过pow共识算法将区块存储在区块链上，结构如下图</p>
 
 <p><img src="http://otwxtrtn9.bkt.clouddn.com/%E5%85%AC%E9%93%BE%E4%B8%801.1.png" alt="公链一1" /></p>
 <blockquote>
@@ -208,8 +208,8 @@ Hash:当前区块的hash
 注：这只是一个简单的区块结构，具体结构还要根据区块的作用来定义属性</p>
 </blockquote>
 
-<p>##实现一个区块
-定义一个结构体</p>
+<h3 id="实现一个区块">实现一个区块</h3>
+<p>定义一个结构体</p>
 
 <div class="highlighter-rouge"><pre class="highlight"><code>type Block struct {
 	//时间戳
@@ -273,7 +273,7 @@ Hash:当前区块的hash
 
 <p><img src="http://otwxtrtn9.bkt.clouddn.com/%E5%85%AC%E9%93%BE%E4%B8%802.png" alt="公链一2" /></p>
 
-<p>##实现区块链</p>
+<h3 id="实现区块链">实现区块链</h3>
 
 <p>上面创建区块时，有一个问题就是区块的PreHash，是我手动添加的，这肯定是不对的，但是区块链的第一个区块是没有PreHash的，所以这第一个区块和其他区块相比有些特别，我们称它为<code class="highlighter-rouge">创世区块</code>,创世区块需要特别处理，preHash值设为0</p>
 
@@ -355,7 +355,7 @@ func  CreateGenesisBlockchain()(*Blockchain) {
   <p>结果中可以看到上一个区块的hash与下一个区块的preHash是对应的</p>
 </blockquote>
 
-<p>##添加pow共识算法</p>
+<h3 id="添加pow共识算法">添加pow共识算法</h3>
 
 <p>首先修改一下Block结构体，新增属性Nonce，挖矿时通过不断累加Nonce值来找到有效的hash值</p>
 
@@ -428,7 +428,7 @@ func IsValidHash(hash []byte)bool  {
 
 <p>今天就到这里，这篇是通过数组维护区块链，下一篇介绍通过BoltDB来维护区块链</p>
 
-<p><a href="https://github.com/sweetMegan/PubliceChain1">下载demo</a></p>
+<p>下载demo  https://github.com/sweetMegan/PubliceChain1</p>
 
 
   </section>
@@ -498,7 +498,7 @@ func IsValidHash(hash []byte)bool  {
        <ul class="pager">
         
         <li class="previous">
-            <a href="/2018/05/04/%E6%98%9F%E4%BA%91%E9%93%BE%E5%8F%91%E9%80%81%E4%BA%A4%E6%98%93/" data-toggle="tooltip" data-placement="top" title="星云链发送交易">上一篇：  <span>星云链发送交易</span>
+            <a href="/2018/05/22/go%E8%AF%AD%E8%A8%80%E5%AE%9E%E7%8E%B0%E4%B8%80%E4%B8%AAhash%E8%A1%A8/" data-toggle="tooltip" data-placement="top" title="go语言实现一个hash表">上一篇：  <span>go语言实现一个hash表</span>
             </a>
         </li>
         

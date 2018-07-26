@@ -214,11 +214,11 @@
       用来配置锚节点</li>
 </ul>
 
-<p>##1、自动启动</p>
+<h3 id="1自动启动">1、自动启动</h3>
 
 <p><code class="highlighter-rouge">byfn.sh</code>就是我们自动启动需要用到的脚本文件</p>
 
-<p>####启动前准备</p>
+<h4 id="启动前准备">启动前准备</h4>
 
 <blockquote>
   <p>byfn.sh  generate 生成网络环境中的组织结构及相应的身份证书</p>
@@ -226,7 +226,7 @@
 
 <p>执行成功：会在<code class="highlighter-rouge">first-network</code>新创建一个<code class="highlighter-rouge">crypto-config</code>文件夹，<code class="highlighter-rouge">channel-artifacts</code>文件件下新生成4个文件,其中<code class="highlighter-rouge">genesis.block</code>为创世区块,<code class="highlighter-rouge">channel.tx</code>通道配置文件,<code class="highlighter-rouge">Org1MSPanchors.tx</code><code class="highlighter-rouge">Org2MSPanchors.tx</code>,锚点配置文件</p>
 
-<p>####启动网络</p>
+<h4 id="启动网络">启动网络</h4>
 
 <blockquote>
   <p>byfn.sh up    启动网络</p>
@@ -254,7 +254,7 @@
 
 <p><strong>$ docker ps 查看指定节点是否启动</strong></p>
 
-<p>####关闭网络</p>
+<h4 id="关闭网络">关闭网络</h4>
 
 <blockquote>
   <p>byfn.sh down  关闭网络</p>
@@ -274,9 +274,9 @@
         delete</p>
 </blockquote>
 
-<p>##2、手动启动</p>
+<h3 id="2手动启动">2、手动启动</h3>
 
-<p>####1、生成组织结构及身份证书</p>
+<h4 id="1生成组织结构及身份证书">1、生成组织结构及身份证书</h4>
 
 <blockquote>
   <p>./bin/cryptogen showtemplate</p>
@@ -292,7 +292,7 @@
 
 <p>config = 配置文件路径</p>
 
-<p>####2、生成创世区块</p>
+<h4 id="2生成创世区块">2、生成创世区块</h4>
 
 <p>需要使用configtx.yaml配置文件生成区块</p>
 
@@ -374,7 +374,7 @@ Orderer: &amp;OrdererDefaults
 
 <p>如果执行成功在channel-artifacts文件夹下会生成<code class="highlighter-rouge">genesis.block</code>文件</p>
 
-<p>####3、应用通道配置交易信息</p>
+<h4 id="3应用通道配置交易信息">3、应用通道配置交易信息</h4>
 
 <blockquote>
   <p>sudo ../bin/configtxgen -profile TwoOrgsChannel -channelID $CHANNEL_NAME -outputCreateChannelTx ./channel-artifacts/channel.tx</p>
@@ -382,7 +382,7 @@ Orderer: &amp;OrdererDefaults
 
 <p>如果执行成功在channel-artifacts文件夹下会生成<code class="highlighter-rouge">channel.tx</code>文件</p>
 
-<p>####4、生成锚节点更新配置文件</p>
+<h4 id="4生成锚节点更新配置文件">4、生成锚节点更新配置文件</h4>
 
 <p>生成组织1的锚节点</p>
 <blockquote>
@@ -396,7 +396,7 @@ Orderer: &amp;OrdererDefaults
 
 <p>如果执行成功在channel-artifacts文件夹下会生成<code class="highlighter-rouge">Org1MSPanchors.tx</code>和<code class="highlighter-rouge">Org2MSPanchors.tx</code>文件</p>
 
-<p>####5、安装链码</p>
+<h4 id="5安装链码">5、安装链码</h4>
 
 <blockquote>
   <p>peer chaincode install -p github.com/chaincode/chaincode_example02/go/ -n mycc -v 1.0</p>
@@ -407,7 +407,7 @@ Orderer: &amp;OrdererDefaults
 -v:指定要安装链码的版本号
 -p:指定要安装链码的链码文件所在的路径(相对路径)</p>
 
-<p>####6、实例化链码</p>
+<h4 id="6实例化链码">6、实例化链码</h4>
 
 <blockquote>
   <p>peer chaincode instantiate -o orderer.example.com:7050 -C $CHANNEL_NAME -n mycc -v 1.0 -c ‘{“Args”:[“init”,”a”,”100”,”b”,”200”]}’ –tls –cafile /opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/ordererOrganizations/example.com/msp/tlscacerts/tlsca.example.com-cert.pem -P “OR(‘Org1MSP.peer’,’Org2MSP.peer’)”</p>
@@ -422,9 +422,9 @@ Orderer: &amp;OrdererDefaults
 –tls:是否开始tls
 –cafile:指定orderer的MSP的CA证书路径</p>
 
-<p>####7、调用链码</p>
+<h4 id="7调用链码">7、调用链码</h4>
 
-<p>#####7.1、查询</p>
+<h5 id="71查询">7.1、查询</h5>
 
 <blockquote>
   <p>echo $CHANNEL_NAME    查看环境变量是否存在</p>
@@ -438,7 +438,7 @@ Orderer: &amp;OrdererDefaults
 -c:调用链码的传递的参数</p>
 </blockquote>
 
-<p>#####7.2、修改</p>
+<h5 id="72修改">7.2、修改</h5>
 
 <blockquote>
   <p>peer chaincode invoke -C $CHAN

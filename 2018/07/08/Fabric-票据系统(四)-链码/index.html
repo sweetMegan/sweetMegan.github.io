@@ -198,7 +198,7 @@
   <section class="post">
     <p>现在<code class="highlighter-rouge">CLI</code>已经准备好了，接下来需要的是编写链码，实现功能</p>
 
-<h2 id="实现链码必要结构">实现链码必要结构</h2>
+<h3 id="实现链码必要结构">实现链码必要结构</h3>
 
 <ul>
   <li>新建目录<code class="highlighter-rouge">ChainCode</code></li>
@@ -214,14 +214,14 @@
 
 </code></pre>
 </div>
-<p>####Init()</p>
+<h4 id="init">Init()</h4>
 <div class="highlighter-rouge"><pre class="highlight"><code>func (t *BillChainCode) Init(stub shim.ChaincodeStubInterface) peer.Response {
 	return shim.Success(nil)
 }
 
 </code></pre>
 </div>
-<p>####Invoke()</p>
+<h4 id="invoke">Invoke()</h4>
 
 <div class="highlighter-rouge"><pre class="highlight"><code>
 func (t *BillChainCode) Invoke(stub shim.ChaincodeStubInterface) peer.Response {
@@ -255,7 +255,7 @@ func (t *BillChainCode) Invoke(stub shim.ChaincodeStubInterface) peer.Response {
 
 </code></pre>
 </div>
-<p>####启动链码</p>
+<h4 id="启动链码">启动链码</h4>
 
 <div class="highlighter-rouge"><pre class="highlight"><code>func main()  {
 	chaincode := new(BillChainCode)
@@ -266,7 +266,7 @@ func (t *BillChainCode) Invoke(stub shim.ChaincodeStubInterface) peer.Response {
 }
 </code></pre>
 </div>
-<h2 id="实现票据操作">实现票据操作</h2>
+<h3 id="实现票据操作">实现票据操作</h3>
 
 <p>在这之前首先创建票据结构体和一些常量必须票据状态
 新建<code class="highlighter-rouge">stucture.go</code></p>
@@ -457,7 +457,7 @@ func (t *BillChainCode)Issue(stub shim.ChaincodeStubInterface,args []string)peer
 </code></pre>
 </div>
 
-<p>####查询我的票据列表</p>
+<h4 id="查询我的票据列表">查询我的票据列表</h4>
 
 <p>1、依据复合键查询，一个人的所有票据</p>
 
@@ -506,7 +506,7 @@ func (t *BillChainCode) QueryMyBills(stub shim.ChaincodeStubInterface, args []st
   <p>这里需要注意的是package 包名为 main 因为链码是可以单独运行的</p>
 </blockquote>
 
-<p>##测试</p>
+<h3 id="测试">测试</h3>
 
 <p>将测试数据</p>
 
@@ -588,7 +588,7 @@ func (t *BillChainCode) QueryMyBills(stub shim.ChaincodeStubInterface, args []st
 </div>
 <p>七个方法只实现了前两个，其他的意思都跟这个差不多，就不多说了</p>
 
-<p>##<a href="https://github.com/sweetMegan/bill">源码下载</a></p>
+<h2 id="源码下载"><a href="https://github.com/sweetMegan/bill">源码下载</a></h2>
 
 <h2 id="感谢韩晓东老韩指导">感谢韩晓东（老韩）指导</h2>
 

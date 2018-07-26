@@ -196,13 +196,13 @@
   </header>
 
   <section class="post">
-    <h2 id="一生成组织结构通道和锚节点配置文件">一、生成组织结构、通道和锚节点配置文件</h2>
+    <h3 id="一生成组织结构通道和锚节点配置文件">一、生成组织结构、通道和锚节点配置文件</h3>
 
 <p>步骤与请参考<a href="https://sweetmegan.github.io/2018/06/20/Fabric-%E5%BB%BA%E7%AB%8B%E7%AC%AC%E4%B8%80%E4%B8%AA%E7%BD%91%E7%BB%9C/">手动启动一个网络</a></p>
 
-<h2 id="二下载-安装-fabric-sdk-go">二、下载 安装 Fabric SDK Go</h2>
+<h3 id="二下载-安装-fabric-sdk-go">二、下载 安装 Fabric SDK Go</h3>
 
-<p>###&lt;font color=red&gt;在进行以下操作前，请确保终端可以翻墙 ！&lt;/font&gt;</p>
+<h4 id="font-colorred在进行以下操作前请确保终端可以翻墙-font">&lt;font color=red&gt;在进行以下操作前，请确保终端可以翻墙 ！&lt;/font&gt;</h4>
 
 <p>安装Hyperledger Fabric SDK Go，可以很容易的与Fabric的组件进行通信。 不需要安装Fabric或Fabric CA框架，因为SDK会自动在本地处理。</p>
 
@@ -284,10 +284,10 @@ $ make
   <p>注意 ：有很多的输出内容，但将它放在这里并不重要。 唯一需要关心的是<code class="highlighter-rouge">fabsdkgo_integration-tests_1 exited with code 0</code>。 如果你有<code class="highlighter-rouge">fabsdkgo_integration-tests_1 exited with code 1</code>那么表示有问题。 在输出的消息中向上滚动以查找错误。</p>
 </blockquote>
 
-<h2 id="三创建第一个项目">三、创建第一个项目</h2>
+<h3 id="三创建第一个项目">三、创建第一个项目</h3>
 
-<p>####1、创建go项目，项目名<code class="highlighter-rouge">bill</code>
-####2、项目中新建目录<code class="highlighter-rouge">fixtures</code></p>
+<h4 id="1创建go项目项目名bill">1、创建go项目，项目名<code class="highlighter-rouge">bill</code></h4>
+<h4 id="2项目中新建目录fixtures">2、项目中新建目录<code class="highlighter-rouge">fixtures</code></h4>
 
 <p>将<code class="highlighter-rouge">fabric-samples/first-network/channel-artifacts</code>(里面包含创世区块、通道、锚节点配置文件)和<code class="highlighter-rouge">fabric-samples/first-network/crypto-config</code>(包含组织结构和证书)两个目录拷贝到<code class="highlighter-rouge">fixtures</code>目录下</p>
 
@@ -384,12 +384,12 @@ services:
           - ca.org1.example.com
 </code></pre>
     </div>
-
-    <blockquote>
-      <p>&lt;font color=red&gt; 注意： <code class="highlighter-rouge">FABRIC_CA_SERVER_CA_KEYFILE</code>和<code class="highlighter-rouge">FABRIC_CA_SERVER_TLS_KEYFILE</code>对应的私钥要与自己生成的私钥一致,因为当前配置的Org1的CA证书，所以对应的私钥为 <code class="highlighter-rouge">fixtures/crypto-config/peerOrganizations/org1.example.com/ca/5839e7c26a2440eac09853ff41e199c28ea2449eed4b2884480b0891c096f58d_sk</code>,将<code class="highlighter-rouge">私钥文件名</code>改为<code class="highlighter-rouge">5839e7c26a2440eac09853ff41e199c28ea2449eed4b2884480b0891c096f58d_sk</code>即可&lt;/font&gt;</p>
-    </blockquote>
   </li>
 </ol>
+
+<blockquote>
+  <p>&lt;font color=red&gt; 注意： <code class="highlighter-rouge">FABRIC_CA_SERVER_CA_KEYFILE</code>和<code class="highlighter-rouge">FABRIC_CA_SERVER_TLS_KEYFILE</code>对应的私钥要与自己生成的私钥一致,因为当前配置的Org1的CA证书，所以对应的私钥为 <code class="highlighter-rouge">fixtures/crypto-config/peerOrganizations/org1.example.com/ca/5839e7c26a2440eac09853ff41e199c28ea2449eed4b2884480b0891c096f58d_sk</code>,将<code class="highlighter-rouge">私钥文件名</code>改为<code class="highlighter-rouge">5839e7c26a2440eac09853ff41e199c28ea2449eed4b2884480b0891c096f58d_sk</code>即可 &lt;/font&gt;</p>
+</blockquote>
 
 <p><img src="http://otwxtrtn9.bkt.clouddn.com/fabric%20bill%EF%BC%88%E4%B8%80%EF%BC%891.png" alt="fabric bill(一)1" /></p>
 
@@ -556,7 +556,7 @@ $ docker-compose down
   </li>
 </ul>
 
-<p>##<a href="https://github.com/sweetMegan/bill">源码下载</a></p>
+<h2 id="源码下载-httpsgithubcomsweetmeganbill">源码下载 https://github.com/sweetMegan/bill</h2>
 
 <h2 id="感谢韩晓东老韩指导">感谢韩晓东（老韩）指导</h2>
 

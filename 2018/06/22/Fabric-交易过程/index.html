@@ -196,19 +196,21 @@
   </header>
 
   <section class="post">
-    <p>##Peer节点类型
-        –Endorser背书节点
-                用于背书签名
-                只有一部分节点是背书节点
-        –commit节点
-                用于保存区块
-                所有节点都是commit节点
-        –Leader节点
-                获取orderer服务节点生成的区块，广播给本组织中的其他节点
-        –Anchor锚节点
-                跨组织的数据交换</p>
+    <h3 id="peer节点类型">Peer节点类型</h3>
+<div class="highlighter-rouge"><pre class="highlight"><code>    --Endorser背书节点
+            用于背书签名
+            只有一部分节点是背书节点
+    --commit节点
+            用于保存区块
+            所有节点都是commit节点
+    --Leader节点
+            获取orderer服务节点生成的区块，广播给本组织中的其他节点
+    --Anchor锚节点
+            跨组织的数据交换
+</code></pre>
+</div>
 
-<p>##交易过程:</p>
+<h3 id="交易过程">交易过程:</h3>
 
 <p>1、应用首先将交易提案发送给背书节点</p>
 
@@ -248,7 +250,7 @@
 
 <p><img src="http://otwxtrtn9.bkt.clouddn.com/%E4%BA%A4%E6%98%93%E8%BF%87%E7%A8%8B.png" alt="交易过程" /></p>
 
-<p>##一些补充：</p>
+<h3 id="一些补充">一些补充：</h3>
 
 <p>fabric账本:leverdb、couchdb</p>
 

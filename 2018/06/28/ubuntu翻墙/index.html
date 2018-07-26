@@ -196,7 +196,7 @@
   </header>
 
   <section class="post">
-    <p>##工具准备</p>
+    <h3 id="工具准备">工具准备</h3>
 
 <p>1、shadowsocks翻墙工具</p>
 
@@ -206,7 +206,7 @@
 
 <h3 id="安装shadowsocks">安装shadowsocks</h3>
 
-<p>####方法一 ：在终端配置，启动shadowsocks</p>
+<h4 id="方法一-在终端配置启动shadowsocks">方法一 ：在终端配置，启动shadowsocks</h4>
 
 <div class="highlighter-rouge"><pre class="highlight"><code>$ sudo apt install shadowsocks
 
@@ -230,7 +230,7 @@ $ sslocal -c $HOME/shadowsocks/shadowsocks.json
 </div>
 <p>这种方式配置代理 <code class="highlighter-rouge">method</code>有些加密方式不支持，比如 <code class="highlighter-rouge">chacha20</code>，所以推荐方法二</p>
 
-<p>####方法二:安装shadowsocks客户端</p>
+<h4 id="方法二安装shadowsocks客户端">方法二:安装shadowsocks客户端</h4>
 
 <div class="highlighter-rouge"><pre class="highlight"><code>sudo add-apt-repository ppa:hzwhuang/ss-qt5
 sudo apt-get update
@@ -253,8 +253,8 @@ sudo apt-get install shadowsocks-qt5
 
 <p><img src="http://otwxtrtn9.bkt.clouddn.com/ubuntu%20ss%203.png" alt="ubuntu ss 3" /></p>
 
-<p>与<code class="highlighter-rouge">Mac</code>不同，<code class="highlighter-rouge">ubuntu</code>系统虽然启动了VPN但是浏览器仍不能翻墙需要配置浏览器
-###安装chrome浏览器</p>
+<p>与<code class="highlighter-rouge">Mac</code>不同，<code class="highlighter-rouge">ubuntu</code>系统虽然启动了VPN但是浏览器仍不能翻墙需要配置浏览器</p>
+<h3 id="安装chrome浏览器">安装chrome浏览器</h3>
 
 <p>1.将下载源加入系统源列表</p>
 
@@ -287,18 +287,18 @@ sudo apt-get install shadowsocks-qt5
   <p>sudo apt-get install google-chrome-stable</p>
 </blockquote>
 
-<p>###安装<code class="highlighter-rouge">SwitchyOmega</code>插件</p>
+<h3 id="安装switchyomega插件">安装<code class="highlighter-rouge">SwitchyOmega</code>插件</h3>
 
 <p>我们需要给chrome安装SwitchyOmega插件，但是没有代理之前是不能从谷歌商店安装这个插件的，但是我们可以从Github上直接下载最新版 https://github.com/FelisCatus/SwitchyOmega/releases/ （这个是chrome的）然后浏览器地址打开chrome://extensions/，将下载的插件托进去安装。</p>
 
-<p>####设置代理地址</p>
+<h4 id="设置代理地址">设置代理地址</h4>
 
 <p>安装好插件会自动跳到设置选项，有提示你可以跳过。左边新建情景模式-选择代理服务器-比如命名为SS（叫什么无所谓）其他默认之后创建，之后在代理协议选择SOCKS5，地址为127.0.0.1,端口默认1080 。然后保存即应用选项。</p>
 
 <p><img src="http://www.sundabao.com/wp-content/uploads/2016/10/shadowsocks-0.png" alt="ubuntu 4" />
 <img src="https://www.sundabao.com/wp-content/uploads/2016/10/shadowsocks-1.png" alt="ubuntu 5" /></p>
 
-<p>####设置自动切换</p>
+<h4 id="设置自动切换">设置自动切换</h4>
 
 <p>接着点击自动切换 ( Auto switch）上面的不用管，在按照规则列表匹配请求后面选择刚才新建的SS，默认情景模式选择直接连接。点击应用选项保存。再往下规则列表设置选择AutoProxy 然后将这个地址填进去，点击下面的立即更新情景模式，会有提示更新成功！</p>
 
@@ -310,7 +310,7 @@ sudo apt-get install shadowsocks-qt5
 
 <p>点击浏览器右上角的SwitchyOmega图标，下面选择自动切换，然后打开google.com试试</p>
 
-<p>###OK到这里，应该可以浏览器翻墙了,下面通过<code class="highlighter-rouge">polipo</code>全局翻墙</p>
+<h3 id="ok到这里应该可以浏览器翻墙了下面通过polipo全局翻墙">OK到这里，应该可以浏览器翻墙了,下面通过<code class="highlighter-rouge">polipo</code>全局翻墙</h3>
 
 <div class="highlighter-rouge"><pre class="highlight"><code>$ sudo apt install polipo
 
@@ -341,20 +341,20 @@ $ sudo vim /etc/polipo/config
 </code></pre>
 </div>
 
-<p>####重启Polipo：</p>
+<h4 id="重启polipo">重启Polipo：</h4>
 
 <blockquote>
   <p>$ /etc/init.d/polipo restart</p>
 </blockquote>
 
-<p>####设置环境变量(重启后需要重新设定)</p>
+<h4 id="设置环境变量重启后需要重新设定">设置环境变量(重启后需要重新设定)</h4>
 
 <blockquote>
   <p>export http_proxy=”http://127.0.0.1:8123/” 
 export https_proxy=”http://127.0.0.1:8123/”</p>
 </blockquote>
 
-<p>####验证代理是否正常工作：</p>
+<h4 id="验证代理是否正常工作">验证代理是否正常工作：</h4>
 
 <blockquote>
   <p>$ curl www.google.com</p>
@@ -362,7 +362,7 @@ export https_proxy=”http://127.0.0.1:8123/”</p>
 
 <p>如果正常，就会返回抓取到的Google网页内容</p>
 
-<p>####接下来</p>
+<h4 id="ping下百度">ping下百度</h4>
 
 <blockquote>
   <p>ping www.baidu.com</p>
@@ -370,7 +370,7 @@ export https_proxy=”http://127.0.0.1:8123/”</p>
 
 <p>发现是ping不通的，原因是resolv.conf文件被polipo修改为127.0.0.1, 造成无法解析任何域名</p>
 
-<p>####修改resolv.conf文件</p>
+<h4 id="修改resolvconf文件">修改resolv.conf文件</h4>
 
 <blockquote>
   <p>$ sudo vim /etc/resolv.conf</p>
@@ -383,7 +383,7 @@ export https_proxy=”http://127.0.0.1:8123/”</p>
 nameserver 8.8.8.8</p>
 </blockquote>
 
-<p>##参考资料</p>
+<h2 id="参考资料">参考资料</h2>
 
 <p>https://blog.csdn.net/qq_30164225/article/details/54632634</p>
 

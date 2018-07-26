@@ -196,7 +196,7 @@
   </header>
 
   <section class="post">
-    <h4 id="一创建目录privatechain名字随便起">一、创建目录<code class="highlighter-rouge">privatechain</code>,名字随便起</h4>
+    <h3 id="一创建目录privatechain名字随便起">一、创建目录<code class="highlighter-rouge">privatechain</code>,名字随便起</h3>
 
 <blockquote>
   <p>zhangqiangdeMac-mini:~ zhqmac$  cd Desktop</p>
@@ -206,7 +206,7 @@
   <p>zhangqiangdeMac-mini:Desktop zhqmac$ cd privatechain/</p>
 </blockquote>
 
-<h4 id="二创建创世块">二、创建创世块</h4>
+<h3 id="二创建创世块">二、创建创世块</h3>
 
 <blockquote>
   <p>vi genesis.json</p>
@@ -285,13 +285,13 @@
   </tbody>
 </table>
 
-<h4 id="三初始化区块链并且创建一个文件夹来存储区块数据">三、初始化区块链，并且创建一个文件夹来存储区块数据</h4>
+<h3 id="三初始化区块链并且创建一个文件夹来存储区块数据">三、初始化区块链，并且创建一个文件夹来存储区块数据</h3>
 
 <blockquote>
   <p>zhangqiangdeMac-mini:privatechain zhqmac$ geth init genesis.json –datadir blockchainData</p>
 </blockquote>
 
-<h4 id="四启动私有链节点">􏳽􏳾􏰈􏰉􏰊􏲵􏲶􏳽􏳾􏰈􏰉􏰊􏲵􏲶四、启动私有链节点</h4>
+<h3 id="四启动私有链节点">四、启动私有链节点</h3>
 
 <blockquote>
   <p>geth –datadir blockchainData/ –networkid 110 –rpc console</p>
@@ -342,7 +342,7 @@
   </tbody>
 </table>
 
-<h4 id="五新建账户">五、新建账户</h4>
+<h3 id="五新建账户">五、新建账户</h3>
 
 <p>查看所有账户</p>
 
@@ -370,7 +370,7 @@
 </span></code></pre>
 </div>
 
-<h4 id="六挖矿">六、挖矿</h4>
+<h3 id="六挖矿">六、挖矿</h3>
 
 <ul>
   <li><strong>查看账户余额</strong></li>
@@ -431,7 +431,7 @@
 
 <p>这时就应该有以太币了，单位为<code class="highlighter-rouge">wei</code></p>
 
-<h4 id="七发送交易">七、发送交易</h4>
+<h3 id="七发送交易">七、发送交易</h3>
 
 <ul>
   <li><strong>创建一个账号</strong></li>
@@ -513,7 +513,7 @@ miner.stop()</p>
 
 <p>转账成功</p>
 
-<h4 id="八查看交易">八、查看交易</h4>
+<h3 id="八查看交易">八、查看交易</h3>
 
 <blockquote>
   <p>eth.getTransaction(“0xa0517620c64f43e50db46836449a18afcf749200aaa13e5ce8f17b2d86be7b4a”)</p>
@@ -521,13 +521,13 @@ miner.stop()</p>
 
 <p>可以查看交易信息。</p>
 
-<h4 id="九查看当前区块总数">九、查看当前区块总数</h4>
+<h3 id="九查看当前区块总数">九、查看当前区块总数</h3>
 
 <blockquote>
   <p>eth.blockNumber</p>
 </blockquote>
 
-<h4 id="十通过区块号查看区块">十、通过区块号查看区块</h4>
+<h3 id="十通过区块号查看区块">十、通过区块号查看区块</h3>
 
 <blockquote>
   <p>eth.getBlock(6)</p>

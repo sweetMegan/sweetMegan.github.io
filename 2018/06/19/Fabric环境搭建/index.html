@@ -196,7 +196,7 @@
   </header>
 
   <section class="post">
-    <p>###1、安装fabric需要的工具</p>
+    <h3 id="1安装fabric需要的工具">1、安装fabric需要的工具</h3>
 
 <ul>
   <li>git</li>
@@ -208,24 +208,24 @@
   <li>Node，npm(可选)</li>
 </ul>
 
-<p>####安装git</p>
+<h4 id="安装git">安装git</h4>
 
 <div class="highlighter-rouge"><pre class="highlight"><code>$ sudo apt update
 $ sudo apt install git
 </code></pre>
 </div>
 
-<p>###安装curl</p>
+<h3 id="安装curl">安装curl</h3>
 
 <div class="highlighter-rouge"><pre class="highlight"><code>$ sudo apt install curl
 </code></pre>
 </div>
-<p>###安装vim</p>
+<h3 id="安装vim">安装vim</h3>
 
 <div class="highlighter-rouge"><pre class="highlight"><code>$ sudo apt install vim
 </code></pre>
 </div>
-<p>###安装Golang</p>
+<h3 id="安装golang">安装Golang</h3>
 
 <p>Fabric1.1.0版本要求Go1.9+</p>
 
@@ -273,7 +273,7 @@ export PATH=$GOROOT/bin:$PATH
   </div>
 </blockquote>
 
-<p>###安装Docker</p>
+<h3 id="安装docker">安装Docker</h3>
 
 <div class="highlighter-rouge"><pre class="highlight"><code>$ sudo apt update
 $ sudo apt install docker.io
@@ -290,7 +290,7 @@ $ sudo apt install docker.io
 
 <p>输出: <code class="highlighter-rouge">Docker version 1.13.1, build 092cba3</code></p>
 
-<p>###安装Docker Compose</p>
+<h3 id="安装docker-compose">安装Docker Compose</h3>
 
 <div class="highlighter-rouge"><pre class="highlight"><code>$ sudo apt install docker-compose
 </code></pre>
@@ -304,21 +304,21 @@ $ sudo apt install docker.io
 
 <p>输出: <code class="highlighter-rouge">docker-compose version 1.8.0, build unknown</code></p>
 
-<p>###Hyperledger Fabric Samples 下载安装</p>
+<h3 id="hyperledger-fabric-samples-下载安装">Hyperledger Fabric Samples 下载安装</h3>
 
-<p>####1、在当前用户目录中创建一个新的目录 –方便管理fabric</p>
+<h4 id="1在当前用户目录中创建一个新的目录-方便管理fabric">1、在当前用户目录中创建一个新的目录 –方便管理fabric</h4>
 
 <div class="highlighter-rouge"><pre class="highlight"><code>$ mkdir hyfa
 </code></pre>
 </div>
 
-<p>####2、进入该目录</p>
+<h4 id="2进入该目录">2、进入该目录</h4>
 
 <div class="highlighter-rouge"><pre class="highlight"><code>$ cd hyfa
 </code></pre>
 </div>
 
-<p>####3、下载方式一：</p>
+<h4 id="3下载方式一">3、下载方式一：</h4>
 
 <p><strong>新建文件bootstrap.sh</strong></p>
 
@@ -359,7 +359,7 @@ $ sudo apt install docker.io
 
 <p>下载完成后, 查看相关输出内容, 如果下载有失败的镜像, 可再次执行  <code class="highlighter-rouge">$ sudo ./bootstrap.sh 1.1.0</code>  命令</p>
 
-<p>####下载方式二:</p>
+<h4 id="下载方式二">下载方式二:</h4>
 
 <blockquote>
   <p><strong>建议使用方式一进行下载</strong></p>
@@ -414,8 +414,8 @@ tools:工具集，包含peer,cryptogen,configtxgen相关工具，支持客户端
 kafka:支持couchdb(一种特定的kv数据库)，保存数据
 zookeeper:</p>
 
-<p>###一些补充
- p2p:Gossip 数据传输协议，一个节点将数据随机分发给临近的节点，接收到数据的节点再重复此过程</p>
+<h3 id="一些补充">一些补充</h3>
+<p>p2p:Gossip 数据传输协议，一个节点将数据随机分发给临近的节点，接收到数据的节点再重复此过程</p>
 
 <p>leader节点:在本组织中进行通信，从Orderer服务节点中拉取区块，然后分发给本组织内的其他节点</p>
 
@@ -495,7 +495,7 @@ anchor:
 
 <p>搭建Fabric网络的目录</p>
 
-<p>###安装shadowsocks</p>
+<h3 id="安装shadowsocks">安装shadowsocks</h3>
 
 <p>如果有shadowsocks客户端跳过此步骤</p>
 
@@ -523,7 +523,7 @@ $ vim shadowsocks.json
   <p>sslocal -c $HOME/shadowsocks/shadowsocks.json</p>
 </blockquote>
 
-<p>###命令行翻墙</p>
+<h3 id="命令行翻墙">命令行翻墙</h3>
 
 <p>如果安装了shadowsocks，浏览器是可以翻墙的，但是命令行不能翻墙,命令行翻墙需要安装polipo</p>
 

@@ -237,7 +237,7 @@ hyperledger/fabric-ccenv       x86_64-1.1.0       c8b4909d8d46        About an h
 
 <p><strong>使用三个终端</strong></p>
 
-<p>###终端1 启动网络</p>
+<h3 id="终端1-启动网络">终端1 启动网络</h3>
 
 <div class="highlighter-rouge"><pre class="highlight"><code>$ cd ~/hyfa/fabric-samples/chaincode-docker-devmode/
 </code></pre>
@@ -253,7 +253,7 @@ hyperledger/fabric-ccenv       x86_64-1.1.0       c8b4909d8d46        About an h
 </code></pre>
 </div>
 
-<p>###终端2 建立并启动链码</p>
+<h3 id="终端2-建立并启动链码">终端2 建立并启动链码</h3>
 
 <p>打开第二个终端, 进入到<code class="highlighter-rouge">chaincode-docker-devmode</code>  目录</p>
 
@@ -261,7 +261,7 @@ hyperledger/fabric-ccenv       x86_64-1.1.0       c8b4909d8d46        About an h
 </code></pre>
 </div>
 
-<p>####进入CLI</p>
+<h4 id="进入cli">进入CLI</h4>
 
 <p>chaincode容器的作用是为发简化的方式建立并启动链码</p>
 
@@ -275,7 +275,7 @@ hyperledger/fabric-ccenv       x86_64-1.1.0       c8b4909d8d46        About an h
   <p><code class="highlighter-rouge">root@858726aed16e:/opt/gopath/src/chaincode#</code></p>
 </blockquote>
 
-<p>####编译</p>
+<h4 id="编译">编译</h4>
 
 <p>进入sacc目录编译chaincode</p>
 
@@ -284,7 +284,7 @@ root@858726aed16e:/opt/gopath/src/chaincode/sacc#  go build
 </code></pre>
 </div>
 
-<p>####运行chaincode</p>
+<h4 id="运行chaincode">运行chaincode</h4>
 
 <div class="highlighter-rouge"><pre class="highlight"><code>CORE_PEER_ADDRESS=peer:7052
  CORE_CHAINCODE_ID_NAME=mycc:0 ./sacc
@@ -295,9 +295,9 @@ root@858726aed16e:/opt/gopath/src/chaincode/sacc#  go build
 
 <p>0: 链码初始版本号</p>
 
-<p>###终端3 使用链码</p>
+<h3 id="终端3-使用链码">终端3 使用链码</h3>
 
-<p>####安装及实例化</p>
+<h4 id="安装及实例化">安装及实例化</h4>
 
 <div class="highlighter-rouge"><pre class="highlight"><code>$ cd ~/hyfa/fabric-samples/chaincode-docker-devmode/
 $ sudo docker exec -it cli bash
@@ -319,7 +319,7 @@ peer chaincode instantiate -n mycc -v 0 -c '{"Args":["a","10"]}' -C myc
   <p>&lt;font color=red&gt;链码名与版本要与运行链码时设置的值一致&lt;/font&gt;</p>
 </blockquote>
 
-<p>####调用</p>
+<h4 id="调用">调用</h4>
 
 <p>进行调用,将<code class="highlighter-rouge">a</code>的值更改为<code class="highlighter-rouge">20</code></p>
 
@@ -335,7 +335,7 @@ peer chaincode instantiate -n mycc -v 0 -c '{"Args":["a","10"]}' -C myc
 </code></pre>
 </div>
 
-<p>####查询</p>
+<h4 id="查询">查询</h4>
 
 <p>查询<code class="highlighter-rouge">a</code>的值</p>
 
@@ -345,11 +345,11 @@ peer chaincode instantiate -n mycc -v 0 -c '{"Args":["a","10"]}' -C myc
 
 <p>执行成功, 输出: <code class="highlighter-rouge">Query Result: 20</code></p>
 
-<p>##打包链码及签名</p>
+<h3 id="打包链码及签名">打包链码及签名</h3>
 
 <p>通过将链码相关数据进行封装, 可以实现对其进行打包和签名操作</p>
 
-<p>###打包</p>
+<h4 id="打包">打包</h4>
 
 <div class="highlighter-rouge"><pre class="highlight"><code>peer chaincode package -n mycc -p chaincodedev/chaincode/sacc -v 0 -s -S -i "AND('OrgA.admin')" ccpack.out
 </code></pre>
@@ -367,7 +367,7 @@ peer chaincode instantiate -n mycc -v 0 -c '{"Args":["a","10"]}' -C myc
 
 <p>​	<code class="highlighter-rouge">peer chaincode install ccpack.out</code></p>
 
-<p>###签名</p>
+<h4 id="签名">签名</h4>
 
 <p>对一个打包文件进行签名操作(添加当前MSP签名到签名列表中)</p>
 
@@ -375,11 +375,11 @@ peer chaincode instantiate -n mycc -v 0 -c '{"Args":["a","10"]}' -C myc
 </code></pre>
 </div>
 
-<p>##升级链码</p>
+<h3 id="升级链码">升级链码</h3>
 
 <p><strong>退出终端3, 停止终端2的服务</strong></p>
 
-<p>###终端2中重新运行chaincode</p>
+<h4 id="终端2中重新运行chaincode">终端2中重新运行chaincode</h4>
 
 <div class="highlighter-rouge"><pre class="highlight"><code>$ sudo docker exec -it chaincode bash
 
@@ -391,7 +391,7 @@ CORE_PEER_ADDRESS=peer:7052 CORE_CHAINCODE_ID_NAME=mycc:1 ./sacc
 
 <p><strong>注意版本为 <code class="highlighter-rouge">1.0 </code>,  旧版本为 <code class="highlighter-rouge">0</code></strong></p>
 
-<p>###终端3</p>
+<h4 id="终端3">终端3</h4>
 
 <p>打开终端3, 进入CLI容器</p>
 
@@ -399,7 +399,7 @@ CORE_PEER_ADDRESS=peer:7052 CORE_CHAINCODE_ID_NAME=mycc:1 ./sacc
 </code></pre>
 </div>
 
-<p>###安装及升级</p>
+<h4 id="安装及升级">安装及升级</h4>
 
 <div class="highlighter-rouge"><pre class="highlight"><code>peer chaincode install -p chaincodedev/chaincode/sacc -n mycc -v 1
 
@@ -411,7 +411,7 @@ peer chaincode upgrade -n mycc -v 1 -c '{"Args":["a", "100"]}' -C myc
 
 <p>在对某链码代码升级前, 推荐先将所有该链码的容器停止, 并从Peer上备份并移除旧链码部署文件. 之后先在个别Peer节点上部署新链码, 对原有数据进行测试, 成功后再在其它节点上进行升级操作</p>
 
-<h4 id="查询">查询</h4>
+<h4 id="查询-1">查询</h4>
 
 <p>查询<code class="highlighter-rouge">a</code>的值</p>
 

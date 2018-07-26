@@ -196,7 +196,7 @@
   </header>
 
   <section class="post">
-    <h2 id="一开启一个网络服务">一、开启一个网络服务</h2>
+    <h3 id="一开启一个网络服务">一、开启一个网络服务</h3>
 
 <p>go语言本身就对网络进行了封装，所以开启一个网络服务非常容易</p>
 
@@ -248,7 +248,7 @@ func Hello(w http.ResponseWriter, r *http.Request) {
 
 <p>运行正常的话，浏览器页面可以看到<code class="highlighter-rouge">hello world</code>显示</p>
 
-<h2 id="访问页面">访问页面</h2>
+<h3 id="访问页面">访问页面</h3>
 
 <p>新建<code class="highlighter-rouge">temp.hmtl</code>文件</p>
 
@@ -310,7 +310,7 @@ func Hello(w http.ResponseWriter, r *http.Request) {
 
 <p>打开浏览器输入http://localhost:9000/temp.html 会有红色的<code class="highlighter-rouge">this is tempView</code>显示</p>
 
-<h2 id="访问虚拟路径">访问虚拟路径</h2>
+<h3 id="访问虚拟路径">访问虚拟路径</h3>
 
 <p><code class="highlighter-rouge">main</code>函数添加路由</p>
 
@@ -410,7 +410,7 @@ http.HandleFunc(“/login”, Login)</p>
 
 <p>浏览器打开 http://localhost:9000/login.html 会有登录页面显示,点击登录按钮跳转至<code class="highlighter-rouge">loginSuccess</code>页面</p>
 
-<h2 id="template模板语法">template模板语法</h2>
+<h3 id="template模板语法">template模板语法</h3>
 
 <p>有时需要根据数据动态显示页面，这时候需要使用<code class="highlighter-rouge">template</code>语法</p>
 
@@ -422,7 +422,7 @@ http.HandleFunc(“/login”, Login)</p>
   <li>登录失败，提示登录失败</li>
 </ul>
 
-<p>####1、新建<code class="highlighter-rouge">domain.go</code></p>
+<h4 id="1新建domaingo">1、新建<code class="highlighter-rouge">domain.go</code></h4>
 
 <p>新建<code class="highlighter-rouge">controller</code>目录，在该目录下新建<code class="highlighter-rouge">domain.go</code>文件</p>
 

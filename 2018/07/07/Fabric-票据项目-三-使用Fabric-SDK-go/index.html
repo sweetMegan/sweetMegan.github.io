@@ -202,7 +202,7 @@
 
 <p>用户通过浏览器访问项目的Goweb服务，service通过SDK调用链码查询或更新数据,链码将结果返回给service，Goweb服务将结果展示给用户</p>
 
-<h2 id="一配置应用参数">一、配置应用参数</h2>
+<h3 id="一配置应用参数">一、配置应用参数</h3>
 
 <p>应用程序需要很多参数，特别是Fabric组件的通信地址。 现在把所有内容放入新的配置文件中(Fabric SDK Go配置和自定义参数)。</p>
 
@@ -367,7 +367,7 @@ certificateAuthorities:
 </code></pre>
 </div>
 
-<h2 id="二初始化sdk">二、初始化SDK</h2>
+<h3 id="二初始化sdk">二、初始化SDK</h3>
 
 <p>在这个阶段，我们只初始化一个客户端，它将与 peer，CA 和 orderer进行通信。 还创建了一个新通道, 并将Peer节点加入到此通道中</p>
 
@@ -396,7 +396,7 @@ certificateAuthorities:
 </code></pre>
 </div>
 
-<p>###初始化sdk</p>
+<h4 id="初始化sdk">初始化sdk</h4>
 
 <p>接下来要做的是创建通道,回忆手动启动一个网络时，创建通道前需要一些配置文件，这些文件现在已经准备好了,接下来是:</p>
 
@@ -465,7 +465,7 @@ certificateAuthorities:
 </code></pre>
 </div>
 
-<p>###测试</p>
+<h4 id="测试">测试</h4>
 
 <p>在工程目录下新建<code class="highlighter-rouge">main.go</code>文件</p>
 
@@ -566,7 +566,7 @@ $ ./bill
 
 <p>现在只用本地网络初始化SDK。 在下一步中，将与链码进行交互。</p>
 
-<h3 id="清理和makefile">清理和Makefile</h3>
+<h4 id="清理和makefile">清理和Makefile</h4>
 
 <p>Fabric SDK生成一些文件，如证书，二进制文件和临时文件。 关闭网络不会完全清理环境，当需要重新启动时，这些文件将被重复使用以避免构建过程。 对于开发，可以快速测试，但对于真正的测试，需要清理所有内容并从头开始。</p>
 
@@ -674,7 +674,7 @@ $ vim Makefile
   <li>…</li>
 </ul>
 
-<p>##<a href="https://github.com/sweetMegan/bill">源码下载</a></p>
+<h2 id="源码下载--httpsgithubcomsweetmeganbill">源码下载  https://github.com/sweetMegan/bill</h2>
 
 <h2 id="感谢韩晓东老韩指导">感谢韩晓东（老韩）指导</h2>
 

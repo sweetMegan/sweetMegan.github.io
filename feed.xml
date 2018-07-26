@@ -5,13 +5,13 @@
     <description></description>
     <link>/</link>
     <atom:link href="/feed.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Thu, 26 Jul 2018 23:44:22 +0800</pubDate>
-    <lastBuildDate>Thu, 26 Jul 2018 23:44:22 +0800</lastBuildDate>
+    <pubDate>Fri, 27 Jul 2018 00:17:04 +0800</pubDate>
+    <lastBuildDate>Fri, 27 Jul 2018 00:17:04 +0800</lastBuildDate>
     <generator>Jekyll v3.5.1</generator>
     
       <item>
         <title>以太坊私网建立-通过创世区块来初始化区块链</title>
-        <description>&lt;h4 id=&quot;一创建目录privatechain名字随便起&quot;&gt;一、创建目录&lt;code class=&quot;highlighter-rouge&quot;&gt;privatechain&lt;/code&gt;,名字随便起&lt;/h4&gt;
+        <description>&lt;h3 id=&quot;一创建目录privatechain名字随便起&quot;&gt;一、创建目录&lt;code class=&quot;highlighter-rouge&quot;&gt;privatechain&lt;/code&gt;,名字随便起&lt;/h3&gt;
 
 &lt;blockquote&gt;
   &lt;p&gt;zhangqiangdeMac-mini:~ zhqmac$  cd Desktop&lt;/p&gt;
@@ -21,7 +21,7 @@
   &lt;p&gt;zhangqiangdeMac-mini:Desktop zhqmac$ cd privatechain/&lt;/p&gt;
 &lt;/blockquote&gt;
 
-&lt;h4 id=&quot;二创建创世块&quot;&gt;二、创建创世块&lt;/h4&gt;
+&lt;h3 id=&quot;二创建创世块&quot;&gt;二、创建创世块&lt;/h3&gt;
 
 &lt;blockquote&gt;
   &lt;p&gt;vi genesis.json&lt;/p&gt;
@@ -100,13 +100,13 @@
   &lt;/tbody&gt;
 &lt;/table&gt;
 
-&lt;h4 id=&quot;三初始化区块链并且创建一个文件夹来存储区块数据&quot;&gt;三、初始化区块链，并且创建一个文件夹来存储区块数据&lt;/h4&gt;
+&lt;h3 id=&quot;三初始化区块链并且创建一个文件夹来存储区块数据&quot;&gt;三、初始化区块链，并且创建一个文件夹来存储区块数据&lt;/h3&gt;
 
 &lt;blockquote&gt;
   &lt;p&gt;zhangqiangdeMac-mini:privatechain zhqmac$ geth init genesis.json –datadir blockchainData&lt;/p&gt;
 &lt;/blockquote&gt;
 
-&lt;h4 id=&quot;四启动私有链节点&quot;&gt;􏳽􏳾􏰈􏰉􏰊􏲵􏲶􏳽􏳾􏰈􏰉􏰊􏲵􏲶四、启动私有链节点&lt;/h4&gt;
+&lt;h3 id=&quot;四启动私有链节点&quot;&gt;四、启动私有链节点&lt;/h3&gt;
 
 &lt;blockquote&gt;
   &lt;p&gt;geth –datadir blockchainData/ –networkid 110 –rpc console&lt;/p&gt;
@@ -157,7 +157,7 @@
   &lt;/tbody&gt;
 &lt;/table&gt;
 
-&lt;h4 id=&quot;五新建账户&quot;&gt;五、新建账户&lt;/h4&gt;
+&lt;h3 id=&quot;五新建账户&quot;&gt;五、新建账户&lt;/h3&gt;
 
 &lt;p&gt;查看所有账户&lt;/p&gt;
 
@@ -185,7 +185,7 @@
 &lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
 &lt;/div&gt;
 
-&lt;h4 id=&quot;六挖矿&quot;&gt;六、挖矿&lt;/h4&gt;
+&lt;h3 id=&quot;六挖矿&quot;&gt;六、挖矿&lt;/h3&gt;
 
 &lt;ul&gt;
   &lt;li&gt;&lt;strong&gt;查看账户余额&lt;/strong&gt;&lt;/li&gt;
@@ -246,7 +246,7 @@
 
 &lt;p&gt;这时就应该有以太币了，单位为&lt;code class=&quot;highlighter-rouge&quot;&gt;wei&lt;/code&gt;&lt;/p&gt;
 
-&lt;h4 id=&quot;七发送交易&quot;&gt;七、发送交易&lt;/h4&gt;
+&lt;h3 id=&quot;七发送交易&quot;&gt;七、发送交易&lt;/h3&gt;
 
 &lt;ul&gt;
   &lt;li&gt;&lt;strong&gt;创建一个账号&lt;/strong&gt;&lt;/li&gt;
@@ -328,7 +328,7 @@ miner.stop()&lt;/p&gt;
 
 &lt;p&gt;转账成功&lt;/p&gt;
 
-&lt;h4 id=&quot;八查看交易&quot;&gt;八、查看交易&lt;/h4&gt;
+&lt;h3 id=&quot;八查看交易&quot;&gt;八、查看交易&lt;/h3&gt;
 
 &lt;blockquote&gt;
   &lt;p&gt;eth.getTransaction(“0xa0517620c64f43e50db46836449a18afcf749200aaa13e5ce8f17b2d86be7b4a”)&lt;/p&gt;
@@ -336,13 +336,13 @@ miner.stop()&lt;/p&gt;
 
 &lt;p&gt;可以查看交易信息。&lt;/p&gt;
 
-&lt;h4 id=&quot;九查看当前区块总数&quot;&gt;九、查看当前区块总数&lt;/h4&gt;
+&lt;h3 id=&quot;九查看当前区块总数&quot;&gt;九、查看当前区块总数&lt;/h3&gt;
 
 &lt;blockquote&gt;
   &lt;p&gt;eth.blockNumber&lt;/p&gt;
 &lt;/blockquote&gt;
 
-&lt;h4 id=&quot;十通过区块号查看区块&quot;&gt;十、通过区块号查看区块&lt;/h4&gt;
+&lt;h3 id=&quot;十通过区块号查看区块&quot;&gt;十、通过区块号查看区块&lt;/h3&gt;
 
 &lt;blockquote&gt;
   &lt;p&gt;eth.getBlock(6)&lt;/p&gt;
@@ -1271,7 +1271,7 @@ app.listen(3000);
 &lt;/code&gt;&lt;/pre&gt;
 &lt;/div&gt;
 
-&lt;p&gt;源码下载 https://github.com/sweetMegan/koaDemo&lt;/p&gt;
+&lt;h2 id=&quot;源码下载-httpsgithubcomsweetmegankoademo&quot;&gt;源码下载 https://github.com/sweetMegan/koaDemo&lt;/h2&gt;
 
 &lt;h2 id=&quot;感谢李旭旭哥指导&quot;&gt;感谢李旭（旭哥）指导&lt;/h2&gt;
 
@@ -2254,7 +2254,7 @@ make&lt;/p&gt;
         <title>Fabric 票据系统(五) Service</title>
         <description>&lt;p&gt;现在&lt;code class=&quot;highlighter-rouge&quot;&gt;CLI&lt;/code&gt;,链码都有了，但是还不能将它们联系起来，上一篇调用链码还需要使用命令行来测试，这篇实现通过代码代用链码&lt;/p&gt;
 
-&lt;h2 id=&quot;一安装初始化链码&quot;&gt;一、安装初始化链码&lt;/h2&gt;
+&lt;h3 id=&quot;一安装初始化链码&quot;&gt;一、安装初始化链码&lt;/h3&gt;
 
 &lt;p&gt;安装、执行链码需要有一个客户端对象并指定链码名称，链码路径和版本，所以需要对&lt;code class=&quot;highlighter-rouge&quot;&gt;FabricSetup&lt;/code&gt;结构体进行修改&lt;/p&gt;
 
@@ -2344,7 +2344,7 @@ make&lt;/p&gt;
 &lt;/code&gt;&lt;/pre&gt;
 &lt;/div&gt;
 
-&lt;h2 id=&quot;二service&quot;&gt;二、service&lt;/h2&gt;
+&lt;h3 id=&quot;二service&quot;&gt;二、service&lt;/h3&gt;
 
 &lt;h4 id=&quot;1准备数据&quot;&gt;1、准备数据&lt;/h4&gt;
 
@@ -2477,7 +2477,7 @@ type HistoryItem struct {
 
 &lt;p&gt;其余5个方法，跟这两个类似，只需要改&lt;code class=&quot;highlighter-rouge&quot;&gt;Fcn&lt;/code&gt;和形参就可以了&lt;/p&gt;
 
-&lt;h2 id=&quot;三测试&quot;&gt;三、测试&lt;/h2&gt;
+&lt;h3 id=&quot;三测试&quot;&gt;三、测试&lt;/h3&gt;
 
 &lt;p&gt;修改工程目录下的&lt;code class=&quot;highlighter-rouge&quot;&gt;main.go&lt;/code&gt;&lt;/p&gt;
 
@@ -2611,7 +2611,7 @@ make&lt;/p&gt;
 
 &lt;p&gt;&lt;img src=&quot;http://otwxtrtn9.bkt.clouddn.com/Fabric%E7%A5%A8%E6%8D%AE%E9%A1%B9%E7%9B%AE%EF%BC%88%E4%BA%94%EF%BC%89.png&quot; alt=&quot;Fabric 票据项目五&quot; /&gt;&lt;/p&gt;
 
-&lt;p&gt;##&lt;a href=&quot;https://github.com/sweetMegan/bill&quot;&gt;源码下载&lt;/a&gt;&lt;/p&gt;
+&lt;h2 id=&quot;源码下载-httpsgithubcomsweetmeganbill&quot;&gt;源码下载 https://github.com/sweetMegan/bill&lt;/h2&gt;
 
 &lt;h2 id=&quot;感谢韩晓东老韩指导&quot;&gt;感谢韩晓东（老韩）指导&lt;/h2&gt;
 
@@ -2629,7 +2629,7 @@ make&lt;/p&gt;
         <title>Fabric 票据系统(四) 链码</title>
         <description>&lt;p&gt;现在&lt;code class=&quot;highlighter-rouge&quot;&gt;CLI&lt;/code&gt;已经准备好了，接下来需要的是编写链码，实现功能&lt;/p&gt;
 
-&lt;h2 id=&quot;实现链码必要结构&quot;&gt;实现链码必要结构&lt;/h2&gt;
+&lt;h3 id=&quot;实现链码必要结构&quot;&gt;实现链码必要结构&lt;/h3&gt;
 
 &lt;ul&gt;
   &lt;li&gt;新建目录&lt;code class=&quot;highlighter-rouge&quot;&gt;ChainCode&lt;/code&gt;&lt;/li&gt;
@@ -2645,14 +2645,14 @@ make&lt;/p&gt;
 
 &lt;/code&gt;&lt;/pre&gt;
 &lt;/div&gt;
-&lt;p&gt;####Init()&lt;/p&gt;
+&lt;h4 id=&quot;init&quot;&gt;Init()&lt;/h4&gt;
 &lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;func (t *BillChainCode) Init(stub shim.ChaincodeStubInterface) peer.Response {
 	return shim.Success(nil)
 }
 
 &lt;/code&gt;&lt;/pre&gt;
 &lt;/div&gt;
-&lt;p&gt;####Invoke()&lt;/p&gt;
+&lt;h4 id=&quot;invoke&quot;&gt;Invoke()&lt;/h4&gt;
 
 &lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;
 func (t *BillChainCode) Invoke(stub shim.ChaincodeStubInterface) peer.Response {
@@ -2686,7 +2686,7 @@ func (t *BillChainCode) Invoke(stub shim.ChaincodeStubInterface) peer.Response {
 
 &lt;/code&gt;&lt;/pre&gt;
 &lt;/div&gt;
-&lt;p&gt;####启动链码&lt;/p&gt;
+&lt;h4 id=&quot;启动链码&quot;&gt;启动链码&lt;/h4&gt;
 
 &lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;func main()  {
 	chaincode := new(BillChainCode)
@@ -2697,7 +2697,7 @@ func (t *BillChainCode) Invoke(stub shim.ChaincodeStubInterface) peer.Response {
 }
 &lt;/code&gt;&lt;/pre&gt;
 &lt;/div&gt;
-&lt;h2 id=&quot;实现票据操作&quot;&gt;实现票据操作&lt;/h2&gt;
+&lt;h3 id=&quot;实现票据操作&quot;&gt;实现票据操作&lt;/h3&gt;
 
 &lt;p&gt;在这之前首先创建票据结构体和一些常量必须票据状态
 新建&lt;code class=&quot;highlighter-rouge&quot;&gt;stucture.go&lt;/code&gt;&lt;/p&gt;
@@ -2888,7 +2888,7 @@ func (t *BillChainCode)Issue(stub shim.ChaincodeStubInterface,args []string)peer
 &lt;/code&gt;&lt;/pre&gt;
 &lt;/div&gt;
 
-&lt;p&gt;####查询我的票据列表&lt;/p&gt;
+&lt;h4 id=&quot;查询我的票据列表&quot;&gt;查询我的票据列表&lt;/h4&gt;
 
 &lt;p&gt;1、依据复合键查询，一个人的所有票据&lt;/p&gt;
 
@@ -2937,7 +2937,7 @@ func (t *BillChainCode) QueryMyBills(stub shim.ChaincodeStubInterface, args []st
   &lt;p&gt;这里需要注意的是package 包名为 main 因为链码是可以单独运行的&lt;/p&gt;
 &lt;/blockquote&gt;
 
-&lt;p&gt;##测试&lt;/p&gt;
+&lt;h3 id=&quot;测试&quot;&gt;测试&lt;/h3&gt;
 
 &lt;p&gt;将测试数据&lt;/p&gt;
 
@@ -3019,7 +3019,7 @@ func (t *BillChainCode) QueryMyBills(stub shim.ChaincodeStubInterface, args []st
 &lt;/div&gt;
 &lt;p&gt;七个方法只实现了前两个，其他的意思都跟这个差不多，就不多说了&lt;/p&gt;
 
-&lt;p&gt;##&lt;a href=&quot;https://github.com/sweetMegan/bill&quot;&gt;源码下载&lt;/a&gt;&lt;/p&gt;
+&lt;h2 id=&quot;源码下载&quot;&gt;&lt;a href=&quot;https://github.com/sweetMegan/bill&quot;&gt;源码下载&lt;/a&gt;&lt;/h2&gt;
 
 &lt;h2 id=&quot;感谢韩晓东老韩指导&quot;&gt;感谢韩晓东（老韩）指导&lt;/h2&gt;
 
@@ -3041,7 +3041,7 @@ func (t *BillChainCode) QueryMyBills(stub shim.ChaincodeStubInterface, args []st
 
 &lt;p&gt;用户通过浏览器访问项目的Goweb服务，service通过SDK调用链码查询或更新数据,链码将结果返回给service，Goweb服务将结果展示给用户&lt;/p&gt;
 
-&lt;h2 id=&quot;一配置应用参数&quot;&gt;一、配置应用参数&lt;/h2&gt;
+&lt;h3 id=&quot;一配置应用参数&quot;&gt;一、配置应用参数&lt;/h3&gt;
 
 &lt;p&gt;应用程序需要很多参数，特别是Fabric组件的通信地址。 现在把所有内容放入新的配置文件中(Fabric SDK Go配置和自定义参数)。&lt;/p&gt;
 
@@ -3206,7 +3206,7 @@ certificateAuthorities:
 &lt;/code&gt;&lt;/pre&gt;
 &lt;/div&gt;
 
-&lt;h2 id=&quot;二初始化sdk&quot;&gt;二、初始化SDK&lt;/h2&gt;
+&lt;h3 id=&quot;二初始化sdk&quot;&gt;二、初始化SDK&lt;/h3&gt;
 
 &lt;p&gt;在这个阶段，我们只初始化一个客户端，它将与 peer，CA 和 orderer进行通信。 还创建了一个新通道, 并将Peer节点加入到此通道中&lt;/p&gt;
 
@@ -3235,7 +3235,7 @@ certificateAuthorities:
 &lt;/code&gt;&lt;/pre&gt;
 &lt;/div&gt;
 
-&lt;p&gt;###初始化sdk&lt;/p&gt;
+&lt;h4 id=&quot;初始化sdk&quot;&gt;初始化sdk&lt;/h4&gt;
 
 &lt;p&gt;接下来要做的是创建通道,回忆手动启动一个网络时，创建通道前需要一些配置文件，这些文件现在已经准备好了,接下来是:&lt;/p&gt;
 
@@ -3304,7 +3304,7 @@ certificateAuthorities:
 &lt;/code&gt;&lt;/pre&gt;
 &lt;/div&gt;
 
-&lt;p&gt;###测试&lt;/p&gt;
+&lt;h4 id=&quot;测试&quot;&gt;测试&lt;/h4&gt;
 
 &lt;p&gt;在工程目录下新建&lt;code class=&quot;highlighter-rouge&quot;&gt;main.go&lt;/code&gt;文件&lt;/p&gt;
 
@@ -3405,7 +3405,7 @@ $ ./bill
 
 &lt;p&gt;现在只用本地网络初始化SDK。 在下一步中，将与链码进行交互。&lt;/p&gt;
 
-&lt;h3 id=&quot;清理和makefile&quot;&gt;清理和Makefile&lt;/h3&gt;
+&lt;h4 id=&quot;清理和makefile&quot;&gt;清理和Makefile&lt;/h4&gt;
 
 &lt;p&gt;Fabric SDK生成一些文件，如证书，二进制文件和临时文件。 关闭网络不会完全清理环境，当需要重新启动时，这些文件将被重复使用以避免构建过程。 对于开发，可以快速测试，但对于真正的测试，需要清理所有内容并从头开始。&lt;/p&gt;
 
@@ -3513,7 +3513,7 @@ $ vim Makefile
   &lt;li&gt;…&lt;/li&gt;
 &lt;/ul&gt;
 
-&lt;p&gt;##&lt;a href=&quot;https://github.com/sweetMegan/bill&quot;&gt;源码下载&lt;/a&gt;&lt;/p&gt;
+&lt;h2 id=&quot;源码下载--httpsgithubcomsweetmeganbill&quot;&gt;源码下载  https://github.com/sweetMegan/bill&lt;/h2&gt;
 
 &lt;h2 id=&quot;感谢韩晓东老韩指导&quot;&gt;感谢韩晓东（老韩）指导&lt;/h2&gt;
 

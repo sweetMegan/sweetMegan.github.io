@@ -196,7 +196,7 @@
   </header>
 
   <section class="post">
-    <p>##概念:</p>
+    <h3 id="概念">概念:</h3>
 
 <p>Chaincode: 链上代码, 简称链码, 一般是指用户编写的应用代码</p>
 
@@ -227,13 +227,13 @@
   <li>系统链码</li>
 </ul>
 
-<h3 id="用户链码">用户链码</h3>
+<h4 id="用户链码">用户链码</h4>
 
 <p>由应用开发人员使用Go(Java/JS)语言编写基于区块链分布式账本的状态及处理逻辑</p>
 
 <p>运行在链码容器中, 通过Fabric提供的接口与账本平台进行交互</p>
 
-<h3 id="系统链码">系统链码</h3>
+<h4 id="系统链码">系统链码</h4>
 
 <p>负责Fabric节点自身的处理逻辑, 包括系统配置、背书、校验等工作</p>
 
@@ -241,13 +241,13 @@
 
 <p>系统链码共有五种类型:</p>
 
-<p>####配置系统链码(CSCC)</p>
+<h5 id="配置系统链码cscc">配置系统链码(CSCC)</h5>
 
 <p>CSCC:  Configuration System Chaincode</p>
 
 <p>负责账本和链的配置管理</p>
 
-<p>####背书管理系统链码(ESCC)</p>
+<h5 id="背书管理系统链码escc">背书管理系统链码(ESCC)</h5>
 
 <p>ESCC:  Endorsement System Chaincode</p>
 
@@ -257,7 +257,7 @@
   <p>对传入的链码提案的模拟运行结果进行签名, 之后创建响应消息返回给客户端</p>
 </blockquote>
 
-<h4 id="生命周期系统链码lscc">生命周期系统链码(LSCC)</h4>
+<h5 id="生命周期系统链码lscc">生命周期系统链码(LSCC)</h5>
 
 <p>LSCC:  Lifecycle System Chaincode</p>
 
@@ -265,13 +265,13 @@
 
 <p>链码生命周期包括安装、部署、升级、权限管理、获取信息等环节.</p>
 
-<h4 id="查询系统链码qscc">查询系统链码(QSCC)</h4>
+<h5 id="查询系统链码qscc">查询系统链码(QSCC)</h5>
 
 <p>QSCC:  Query System Chaincode</p>
 
 <p>负责提供账本和链的信息查询功能</p>
 
-<h4 id="验证系统链码vscc">验证系统链码(VSCC)</h4>
+<h5 id="验证系统链码vscc">验证系统链码(VSCC)</h5>
 
 <p>VSCC:  Verification System Chaincode</p>
 
@@ -286,7 +286,7 @@
   <li>通过则返回正确, 否则返回错误消息</li>
 </ol>
 
-<p>##链码生命周期</p>
+<h3 id="链码生命周期">链码生命周期</h3>
 
 <p>管理Chaincode的生命周期四个命令：</p>
 
@@ -300,7 +300,7 @@
 
 <p>链代码可以在安装后随时升级</p>
 
-<p>##安装链码</p>
+<h3 id="安装链码">安装链码</h3>
 
 <p>install命令将链码的源码和环境等内容封装为一个链码安装打包文件(Chaincode Install Package, CIP), 并传输到背书节点.</p>
 
@@ -308,13 +308,13 @@
 
 <p>安装链码只需要与Peer交互</p>
 
-<p>###进入到sacc目录</p>
+<h4 id="进入到sacc目录">进入到sacc目录</h4>
 
 <div class="highlighter-rouge"><pre class="highlight"><code>$ cd ~/hyfa/fabric-samples/chaincode/sacc/
 </code></pre>
 </div>
 
-<p>###构建Chaincode</p>
+<h4 id="构建chaincode">构建Chaincode</h4>
 
 <div class="highlighter-rouge"><pre class="highlight"><code>$ go get -u --tags nopkcs11 github.com/hyperledger/fabric/core/chaincode/shim
 
@@ -322,7 +322,7 @@ $ go build --tags nopkcs11
 </code></pre>
 </div>
 
-<p>####命令解释</p>
+<h5 id="命令解释">命令解释</h5>
 
 <p>go get:  根据要求和实际情况从互联网上下载或更新指定的代码包及其依赖包，并对它们进行编译和安装</p>
 
@@ -341,7 +341,7 @@ $ sudo apt install libltdl-dev
 </code></pre>
 </div>
 
-<p>##使用开发模式测试</p>
+<h3 id="使用开发模式测试">使用开发模式测试</h3>
 
 <p>正常情况下chaincode由对等体启动和维护。然而，在“开发模式”下，链码由用户构建并启动</p>
 
@@ -384,7 +384,7 @@ hyperledger/fabric-ccenv       x86_64-1.1.0       c8b4909d8d46        About an h
 
 <p><strong>使用三个终端</strong></p>
 
-<p>###终端1 启动网络</p>
+<h4 id="终端1-启动网络">终端1 启动网络</h4>
 
 <div class="highlighter-rouge"><pre class="highlight"><code>$ cd ~/hyfa/fabric-samples/chaincode-docker-devmode/
 </code></pre>
@@ -400,7 +400,7 @@ hyperledger/fabric-ccenv       x86_64-1.1.0       c8b4909d8d46        About an h
 </code></pre>
 </div>
 
-<p>###终端2 建立并启动链码</p>
+<h4 id="终端2-建立并启动链码">终端2 建立并启动链码</h4>
 
 <p>打开第二个终端, 进入到<code class="highlighter-rouge">chaincode-docker-devmode</code>  目录</p>
 
@@ -408,7 +408,7 @@ hyperledger/fabric-ccenv       x86_64-1.1.0       c8b4909d8d46        About an h
 </code></pre>
 </div>
 
-<p>####进入CLI</p>
+<h5 id="进入cli">进入CLI</h5>
 
 <p>chaincode容器的作用是为发简化的方式建立并启动链码</p>
 
@@ -422,7 +422,7 @@ hyperledger/fabric-ccenv       x86_64-1.1.0       c8b4909d8d46        About an h
   <p><code class="highlighter-rouge">root@858726aed16e:/opt/gopath/src/chaincode#</code></p>
 </blockquote>
 
-<p>####编译</p>
+<h5 id="编译">编译</h5>
 
 <p>进入sacc目录编译chaincode</p>
 
@@ -431,7 +431,7 @@ root@858726aed16e:/opt/gopath/src/chaincode/sacc#  go build
 </code></pre>
 </div>
 
-<p>####运行chaincode</p>
+<h5 id="运行chaincode">运行chaincode</h5>
 
 <div class="highlighter-rouge"><pre class="highlight"><code>CORE_PEER_ADDRESS=peer:7052 CORE_CHAINCODE_ID_NAME=mycc:0 ./sacc
 </code></pre>
@@ -441,9 +441,9 @@ root@858726aed16e:/opt/gopath/src/chaincode/sacc#  go build
 
 <p>0: 链码初始版本号</p>
 
-<p>###终端3 使用链码</p>
+<h4 id="终端3-使用链码">终端3 使用链码</h4>
 
-<p>####安装及实例化</p>
+<h5 id="安装及实例化">安装及实例化</h5>
 
 <div class="highlighter-rouge"><pre class="highlight"><code>$ cd ~/hyfa/fabric-samples/chaincode-docker-devmode/
 $ sudo docker exec -it cli bash
@@ -465,7 +465,7 @@ peer chaincode instantiate -n mycc -v 0 -c '{"Args":["a","10"]}' -C myc
   <p>&lt;font color=red&gt;链码名与版本要与运行链码时设置的值一致&lt;/font&gt;</p>
 </blockquote>
 
-<p>####调用</p>
+<h5 id="调用">调用</h5>
 
 <p>进行调用,将<code class="highlighter-rouge">a</code>的值更改为<code class="highlighter-rouge">20</code></p>
 
@@ -481,7 +481,7 @@ peer chaincode instantiate -n mycc -v 0 -c '{"Args":["a","10"]}' -C myc
 </code></pre>
 </div>
 
-<p>####查询</p>
+<h5 id="查询">查询</h5>
 
 <p>查询<code class="highlighter-rouge">a</code>的值</p>
 
@@ -491,11 +491,11 @@ peer chaincode instantiate -n mycc -v 0 -c '{"Args":["a","10"]}' -C myc
 
 <p>执行成功, 输出: <code class="highlighter-rouge">Query Result: 20</code></p>
 
-<p>##打包链码及签名</p>
+<h3 id="打包链码及签名">打包链码及签名</h3>
 
 <p>通过将链码相关数据进行封装, 可以实现对其进行打包和签名操作</p>
 
-<p>###打包</p>
+<h4 id="打包">打包</h4>
 
 <div class="highlighter-rouge"><pre class="highlight"><code>peer chaincode package -n mycc -p chaincodedev/chaincode/sacc -v 0 -s -S -i "AND('OrgA.admin')" ccpack.out
 </code></pre>
@@ -513,7 +513,7 @@ peer chaincode instantiate -n mycc -v 0 -c '{"Args":["a","10"]}' -C myc
 
 <p>​	<code class="highlighter-rouge">peer chaincode install ccpack.out</code></p>
 
-<p>###签名</p>
+<h4 id="签名">签名</h4>
 
 <p>对一个打包文件进行签名操作(添加当前MSP签名到签名列表中)</p>
 
@@ -521,11 +521,11 @@ peer chaincode instantiate -n mycc -v 0 -c '{"Args":["a","10"]}' -C myc
 </code></pre>
 </div>
 
-<p>##升级链码</p>
+<h3 id="升级链码">升级链码</h3>
 
 <p><strong>退出终端3, 停止终端2的服务</strong></p>
 
-<p>###终端2中重新运行chaincode</p>
+<h4 id="终端2中重新运行chaincode">终端2中重新运行chaincode</h4>
 
 <div class="highlighter-rouge"><pre class="highlight"><code>$ sudo docker exec -it chaincode bash
 
@@ -537,7 +537,7 @@ CORE_PEER_ADDRESS=peer:7052 CORE_CHAINCODE_ID_NAME=mycc:1 ./sacc
 
 <p><strong>注意版本为 <code class="highlighter-rouge">1.0 </code>,  旧版本为 <code class="highlighter-rouge">0</code></strong></p>
 
-<p>###终端3</p>
+<h4 id="终端3">终端3</h4>
 
 <p>打开终端3, 进入CLI容器</p>
 
@@ -545,7 +545,7 @@ CORE_PEER_ADDRESS=peer:7052 CORE_CHAINCODE_ID_NAME=mycc:1 ./sacc
 </code></pre>
 </div>
 
-<p>###安装及升级</p>
+<h4 id="安装及升级">安装及升级</h4>
 
 <div class="highlighter-rouge"><pre class="highlight"><code>peer chaincode install -p chaincodedev/chaincode/sacc -n mycc -v 1
 
@@ -557,7 +557,7 @@ peer chaincode upgrade -n mycc -v 1 -c '{"Args":["a", "100"]}' -C myc
 
 <p>在对某链码代码升级前, 推荐先将所有该链码的容器停止, 并从Peer上备份并移除旧链码部署文件. 之后先在个别Peer节点上部署新链码, 对原有数据进行测试, 成功后再在其它节点上进行升级操作</p>
 
-<h4 id="查询">查询</h4>
+<h5 id="查询-1">查询</h5>
 
 <p>查询<code class="highlighter-rouge">a</code>的值</p>
 
