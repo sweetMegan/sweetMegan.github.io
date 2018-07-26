@@ -206,9 +206,7 @@
   <p>zhangqiangdeMac-mini:myWallet zhqmac$ npm init</p>
 </blockquote>
 
-<p>将下面的依赖添加到生成的</p>
-
-<p><code class="highlighter-rouge">package.json</code>文件中</p>
+<p>将下面的依赖添加到生成的<code class="highlighter-rouge">package.json</code>文件中</p>
 
 <div class="highlighter-rouge"><pre class="highlight"><code> "dependencies": {
     "bignumber.js": "^7.2.1",
@@ -225,7 +223,7 @@
 </code></pre>
 </div>
 
-<p>####安装依赖</p>
+<h4 id="安装依赖">安装依赖</h4>
 
 <blockquote>
   <p>npm install</p>
@@ -240,14 +238,18 @@
       <li><code class="highlighter-rouge">account.js</code> 与账户相关的处理</li>
       <li><code class="highlighter-rouge">createAccount.js</code>创建账户处理</li>
       <li><code class="highlighter-rouge">transaction.js</code> 与交易相关的处理</li>
-      <li>新建目录<code class="highlighter-rouge">model</code>,模型封装</li>
     </ul>
+  </li>
+  <li>新建目录<code class="highlighter-rouge">model</code>,模型封装
+    * <code class="highlighter-rouge">responsedata.js</code>,封装应答响应对象</li>
+  <li>新建目录<code class="highlighter-rouge">routers</code>,路由处理
     <ul>
-      <li><code class="highlighter-rouge">responsedata.js</code>,封装应答响应对象
-      *    新建目录<code class="highlighter-rouge">routers</code>,路由处理
-       * <code class="highlighter-rouge">router.js</code>
-      * 新建目录<code class="highlighter-rouge">utils</code>，工具
-       * <code class="highlighter-rouge">myUtils.js</code></li>
+      <li><code class="highlighter-rouge">router.js</code></li>
+    </ul>
+  </li>
+  <li>新建目录<code class="highlighter-rouge">utils</code>，工具
+    <ul>
+      <li><code class="highlighter-rouge">myUtils.js</code></li>
     </ul>
   </li>
 </ol>
@@ -348,7 +350,7 @@ module.exports={
   <li><code class="highlighter-rouge">https://kovan.infura.io/v3/4abf7f8865064ed6b99ca3fdac820921</code>是以太网<code class="highlighter-rouge">kovan</code>测试链地址</li>
 </ul>
 
-<h4 id="获取测试链地址">获取测试链地址</h4>
+<h4 id="获取测试链地址"><strong>获取测试链地址</strong></h4>
 
 <p>打开 <code class="highlighter-rouge">INFURA</code> https://infura.io/dashboard
 注册，登录
@@ -360,7 +362,7 @@ module.exports={
 
 <h2 id="七请求处理">七、请求处理</h2>
 
-<p>####&lt;font color=red&gt;在执行下面操作前需开启一个私链或者测试链&lt;/font&gt;</p>
+<h4 id="font-colorred在执行下面操作前需开启一个私链或者测试链font">&lt;font color=red&gt;在执行下面操作前需开启一个私链或者测试链&lt;/font&gt;</h4>
 
 <h4 id="1创建账户">1、创建账户</h4>
 
@@ -587,8 +589,8 @@ module.exports = {
 
 <h2 id="demo下载-httpsgithubcomsweetmeganmywalletdemo">demo下载 https://github.com/sweetMegan/myWalletDemo</h2>
 
-<p>####<code class="highlighter-rouge">myWallet</code>为nodejs后台
-####<code class="highlighter-rouge">myWalletClient</code>为iOS前端</p>
+<h4 id="mywallet为nodejs后台"><strong><code class="highlighter-rouge">myWallet</code>为nodejs后台</strong></h4>
+<h4 id="mywalletclient为ios前端"><strong><code class="highlighter-rouge">myWalletClient</code>为iOS前端</strong></h4>
 
 
   </section>

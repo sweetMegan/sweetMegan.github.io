@@ -5,8 +5,8 @@
     <description></description>
     <link>/</link>
     <atom:link href="/feed.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Thu, 26 Jul 2018 22:53:39 +0800</pubDate>
-    <lastBuildDate>Thu, 26 Jul 2018 22:53:39 +0800</lastBuildDate>
+    <pubDate>Thu, 26 Jul 2018 23:03:27 +0800</pubDate>
+    <lastBuildDate>Thu, 26 Jul 2018 23:03:27 +0800</lastBuildDate>
     <generator>Jekyll v3.5.1</generator>
     
       <item>
@@ -21,9 +21,7 @@
   &lt;p&gt;zhangqiangdeMac-mini:myWallet zhqmac$ npm init&lt;/p&gt;
 &lt;/blockquote&gt;
 
-&lt;p&gt;将下面的依赖添加到生成的&lt;/p&gt;
-
-&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;package.json&lt;/code&gt;文件中&lt;/p&gt;
+&lt;p&gt;将下面的依赖添加到生成的&lt;code class=&quot;highlighter-rouge&quot;&gt;package.json&lt;/code&gt;文件中&lt;/p&gt;
 
 &lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt; &quot;dependencies&quot;: {
     &quot;bignumber.js&quot;: &quot;^7.2.1&quot;,
@@ -40,7 +38,7 @@
 &lt;/code&gt;&lt;/pre&gt;
 &lt;/div&gt;
 
-&lt;p&gt;####安装依赖&lt;/p&gt;
+&lt;h4 id=&quot;安装依赖&quot;&gt;安装依赖&lt;/h4&gt;
 
 &lt;blockquote&gt;
   &lt;p&gt;npm install&lt;/p&gt;
@@ -55,14 +53,18 @@
       &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;account.js&lt;/code&gt; 与账户相关的处理&lt;/li&gt;
       &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;createAccount.js&lt;/code&gt;创建账户处理&lt;/li&gt;
       &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;transaction.js&lt;/code&gt; 与交易相关的处理&lt;/li&gt;
-      &lt;li&gt;新建目录&lt;code class=&quot;highlighter-rouge&quot;&gt;model&lt;/code&gt;,模型封装&lt;/li&gt;
     &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;新建目录&lt;code class=&quot;highlighter-rouge&quot;&gt;model&lt;/code&gt;,模型封装
+    * &lt;code class=&quot;highlighter-rouge&quot;&gt;responsedata.js&lt;/code&gt;,封装应答响应对象&lt;/li&gt;
+  &lt;li&gt;新建目录&lt;code class=&quot;highlighter-rouge&quot;&gt;routers&lt;/code&gt;,路由处理
     &lt;ul&gt;
-      &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;responsedata.js&lt;/code&gt;,封装应答响应对象
-      *    新建目录&lt;code class=&quot;highlighter-rouge&quot;&gt;routers&lt;/code&gt;,路由处理
-       * &lt;code class=&quot;highlighter-rouge&quot;&gt;router.js&lt;/code&gt;
-      * 新建目录&lt;code class=&quot;highlighter-rouge&quot;&gt;utils&lt;/code&gt;，工具
-       * &lt;code class=&quot;highlighter-rouge&quot;&gt;myUtils.js&lt;/code&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;router.js&lt;/code&gt;&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;新建目录&lt;code class=&quot;highlighter-rouge&quot;&gt;utils&lt;/code&gt;，工具
+    &lt;ul&gt;
+      &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;myUtils.js&lt;/code&gt;&lt;/li&gt;
     &lt;/ul&gt;
   &lt;/li&gt;
 &lt;/ol&gt;
@@ -163,7 +165,7 @@ module.exports={
   &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;https://kovan.infura.io/v3/4abf7f8865064ed6b99ca3fdac820921&lt;/code&gt;是以太网&lt;code class=&quot;highlighter-rouge&quot;&gt;kovan&lt;/code&gt;测试链地址&lt;/li&gt;
 &lt;/ul&gt;
 
-&lt;h4 id=&quot;获取测试链地址&quot;&gt;获取测试链地址&lt;/h4&gt;
+&lt;h4 id=&quot;获取测试链地址&quot;&gt;&lt;strong&gt;获取测试链地址&lt;/strong&gt;&lt;/h4&gt;
 
 &lt;p&gt;打开 &lt;code class=&quot;highlighter-rouge&quot;&gt;INFURA&lt;/code&gt; https://infura.io/dashboard
 注册，登录
@@ -175,7 +177,7 @@ module.exports={
 
 &lt;h2 id=&quot;七请求处理&quot;&gt;七、请求处理&lt;/h2&gt;
 
-&lt;p&gt;####&amp;lt;font color=red&amp;gt;在执行下面操作前需开启一个私链或者测试链&amp;lt;/font&amp;gt;&lt;/p&gt;
+&lt;h4 id=&quot;font-colorred在执行下面操作前需开启一个私链或者测试链font&quot;&gt;&amp;lt;font color=red&amp;gt;在执行下面操作前需开启一个私链或者测试链&amp;lt;/font&amp;gt;&lt;/h4&gt;
 
 &lt;h4 id=&quot;1创建账户&quot;&gt;1、创建账户&lt;/h4&gt;
 
@@ -402,8 +404,8 @@ module.exports = {
 
 &lt;h2 id=&quot;demo下载-httpsgithubcomsweetmeganmywalletdemo&quot;&gt;demo下载 https://github.com/sweetMegan/myWalletDemo&lt;/h2&gt;
 
-&lt;p&gt;####&lt;code class=&quot;highlighter-rouge&quot;&gt;myWallet&lt;/code&gt;为nodejs后台
-####&lt;code class=&quot;highlighter-rouge&quot;&gt;myWalletClient&lt;/code&gt;为iOS前端&lt;/p&gt;
+&lt;h4 id=&quot;mywallet为nodejs后台&quot;&gt;&lt;strong&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;myWallet&lt;/code&gt;为nodejs后台&lt;/strong&gt;&lt;/h4&gt;
+&lt;h4 id=&quot;mywalletclient为ios前端&quot;&gt;&lt;strong&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;myWalletClient&lt;/code&gt;为iOS前端&lt;/strong&gt;&lt;/h4&gt;
 
 </description>
         <pubDate>Sun, 15 Jul 2018 00:00:00 +0800</pubDate>
