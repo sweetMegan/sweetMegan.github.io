@@ -31,7 +31,7 @@
   <link rel="stylesheet" href=" /css/main.css ">
   <link href="//netdna.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
 
-  <link rel="canonical" href="/tags/">
+  <link rel="canonical" href="/page/2/">
   <link rel="alternate" type="application/rss+xml" title="sweetsmelon博客" href=" /feed.xml
     ">
 
@@ -114,7 +114,7 @@
           </nav>
 
       </div>
-    </span> <header class="panel-cover panel-cover--collapsed" style="background-image: url('/images/background-cover.jpg')">
+    </span> <header class="panel-cover " style="background-image: url('/images/background-cover.jpg')">
   <div class="panel-main">
     <div class="panel-main__inner panel-inverted">
       <div class="panel-main__content">
@@ -183,256 +183,93 @@
 
   <div class="content-wrapper">
     <div class="content-wrapper__inner">
-      <article class="post-container post-container--single" itemscope itemtype="http://schema.org/BlogPosting">
-  <header class="post-header">
-    <div class="post-meta">
-      <time datetime="" itemprop="datePublished" class="post-meta__date date"></time>
-      <span class="post-meta__tags tags"></span>
-    </div>
-    <h1 class="post-title"></h1>
-  </header>
+      <div class="main-post-list hidden">
 
-  <section class="post">
+  <ol class="post-list">
     
+    <li>
+      <h2 class="post-list__post-title post-title"><a href="/2018/06/19/Fabric%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/" title="访问 Fabric环境搭建">Fabric环境搭建</a></h2>
+      <p class="excerpt">###1、安装fabric需要的工具  git  curl  vim (可选，vm）  Golang（GOROOT,GOPATH）1.10.1  Docker 一个容器  docker_compose 实现对Docker的自动化操作,简化了Docker容器的操作命令，一条命令即可启动docker容器，相关的操作命令是被集成在一个配置文件中  Node，npm(可选)####安装git$ sudo apt update$ sudo apt install git###安装curl$ sudo...&hellip;</p>
+      <div class="post-list__meta">        
+        <time datetime="2018-06-19 00:00:00 +0800" class="post-list__meta--date date">
+          <img src="/images/calendar.png" width="20px" /> 
+          2018-06-19</time> 
+        <div class = "tag-img-icon">
+          <img src="/images/tag-icon.svg" width="20px" /> 
+        </div>
+        <a href="/tags">
+          <div class = "post-list-icon-mate">
+            <span class="post-list__meta--tags-right">区块链</span>
+          </div>
+          <div class = "post-list-small-mate">
+          <a class="btn-border-small" href=/2018/06/19/Fabric%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/>阅读全文 » </a>
+          </div>
+      </div>
+      <hr class="post-list__divider" />
+    </li>
+    
+    <li>
+      <h2 class="post-list__post-title post-title"><a href="/2018/06/10/%E4%BB%8E%E9%9B%B6%E5%BC%80%E5%A7%8B%E5%86%99%E4%B8%80%E6%9D%A1%E5%85%AC%E9%93%BE-%E4%B8%80/" title="访问 从零开始写一条公链（一）">从零开始写一条公链（一）</a></h2>
+      <p class="excerpt">##写在前面：本文目的：使用go语言，实现简单的区块结构，并通过pow共识算法将区块存储在区块链上，结构如下图  Prehash :上一个区块的hash值，通过它将两个区块串联起来，以后遍历区块也要用到，同时也保证了区块的有效性与安全性Timestamp:区块产生的时间Data:区块上的记录，交易Hash:当前区块的hash注：这只是一个简单的区块结构，具体结构还要根据区块的作用来定义属性##实现一个区块定义一个结构体type Block struct {	//时间戳	Timestame ...&hellip;</p>
+      <div class="post-list__meta">        
+        <time datetime="2018-06-10 00:00:00 +0800" class="post-list__meta--date date">
+          <img src="/images/calendar.png" width="20px" /> 
+          2018-06-10</time> 
+        <div class = "tag-img-icon">
+          <img src="/images/tag-icon.svg" width="20px" /> 
+        </div>
+        <a href="/tags">
+          <div class = "post-list-icon-mate">
+            <span class="post-list__meta--tags-right">区块链</span>
+          </div>
+          <div class = "post-list-small-mate">
+          <a class="btn-border-small" href=/2018/06/10/%E4%BB%8E%E9%9B%B6%E5%BC%80%E5%A7%8B%E5%86%99%E4%B8%80%E6%9D%A1%E5%85%AC%E9%93%BE-%E4%B8%80/>阅读全文 » </a>
+          </div>
+      </div>
+      <hr class="post-list__divider" />
+    </li>
+    
+    <li>
+      <h2 class="post-list__post-title post-title"><a href="/2018/05/04/%E6%98%9F%E4%BA%91%E9%93%BE%E5%8F%91%E9%80%81%E4%BA%A4%E6%98%93/" title="访问 星云链发送交易">星云链发送交易</a></h2>
+      <p class="excerpt">  创建账户$ ./neb account newYour new account is locked with a passphrase. Please give a passphrase. Do not forget this passphrase.Passphrase:Repeat passphrase:Address: n1SQe5d1NKHYFMKtJ5sNHPsSPVavGzW71Wy  密码不要乱写，记住密码  查看账户curl -i -H Accept:applicatio...&hellip;</p>
+      <div class="post-list__meta">        
+        <time datetime="2018-05-04 00:00:00 +0800" class="post-list__meta--date date">
+          <img src="/images/calendar.png" width="20px" /> 
+          2018-05-04</time> 
+        <div class = "tag-img-icon">
+          <img src="/images/tag-icon.svg" width="20px" /> 
+        </div>
+        <a href="/tags">
+          <div class = "post-list-icon-mate">
+            <span class="post-list__meta--tags-right">区块链</span>
+          </div>
+          <div class = "post-list-small-mate">
+          <a class="btn-border-small" href=/2018/05/04/%E6%98%9F%E4%BA%91%E9%93%BE%E5%8F%91%E9%80%81%E4%BA%A4%E6%98%93/>阅读全文 » </a>
+          </div>
+      </div>
+      <hr class="post-list__divider" />
+    </li>
+    
+  </ol>
 
-<ul class="tag_box inline">
-    
-  
+  <hr class="post-list__divider " />
 
+<nav class="pagination" role="navigation">
 
-  
-     
-    	<li><a href="#区块链-ref">区块链 <span>20</span></a></li>
-     
-    	<li><a href="#其他-ref">其他 <span>3</span></a></li>
+	<!-- 百度搜索 -->
+	<script type="text/javascript">(function(){document.write(unescape('%3Cdiv id="bdcs"%3E%3C/div%3E'));var bdcs = document.createElement('script');bdcs.type = 'text/javascript';bdcs.async = true;bdcs.src = 'http://znsv.baidu.com/customer_search/api/js?sid=12441349038163667913' + '&plate_url=' + encodeURIComponent(window.location.href) + '&t=' + Math.ceil(new Date()/3600000);var s = document.getElementsByTagName('script')[0];s.parentNode.insertBefore(bdcs, s);})();
+	</script>
+	
     
-  
-
-
-
-</ul>
-
-<div class = "card">
- 
-
-  <h3 id="区块链-ref">区块链</h3>
-  <ul>
-      
+        <a class="newer-posts pagination__newer btn btn-small btn-tertiary" href="/#blog">&larr; 最近</a>
     
-
-
-  
+    <span class="pagination__page-number">2 / 2</span>
     
-      
-      	
-      	<li><a href="/2018/07/15/%E4%BB%A5%E5%A4%AA%E5%9D%8A%E7%A7%81%E7%BD%91%E5%BB%BA%E7%AB%8B-%E9%80%9A%E8%BF%87%E5%88%9B%E4%B8%96%E5%8C%BA%E5%9D%97%E6%9D%A5%E5%88%9D%E5%A7%8B%E5%8C%96%E5%8C%BA%E5%9D%97%E9%93%BE/">以太坊私网建立-通过创世区块来初始化区块链</a></li>
-      	
-      
-    
-  
-    
-      
-      	
-      	<li><a href="/2018/07/15/Nodejs%E5%AE%9E%E7%8E%B0%E4%BB%A5%E5%A4%AA%E5%9D%8A%E9%92%B1%E5%8C%85-iOS%E5%AE%9E%E7%8E%B0%E5%89%8D%E7%AB%AF%E8%B0%83%E7%94%A8/">Nodejs实现以太坊钱包</a></li>
-      	
-      
-    
-  
-    
-      
-      	
-      	<li><a href="/2018/07/14/Nodejs%E6%A1%86%E6%9E%B6Koa/">Nodejs框架Koa</a></li>
-      	
-      
-    
-  
-    
-      
-      	
-      	<li><a href="/2018/07/14/Nodejs%E5%AE%9E%E7%8E%B0%E4%BB%A5%E5%A4%AA%E5%9D%8A%E9%92%B1%E5%8C%85-%E6%A6%82%E8%BF%B0/">Nodejs实现以太坊钱包-概述</a></li>
-      	
-      
-    
-  
-    
-      
-      	
-      	<li><a href="/2018/07/14/(%E8%BD%AC%E8%BD%BD-Koa-async%E5%92%8Cawait%E8%AF%A6%E8%A7%A3/">（转载）Koa async和await详解</a></li>
-      	
-      
-    
-  
-    
-      
-      	
-      	<li><a href="/2018/07/10/Fabric-%E7%A5%A8%E6%8D%AE%E7%B3%BB%E7%BB%9F(%E5%85%AD)-goWeb/">Fabric 票据系统(六) goWeb</a></li>
-      	
-      
-    
-  
-    
-      
-      	
-      	<li><a href="/2018/07/09/Fabric-%E7%A5%A8%E6%8D%AE%E7%B3%BB%E7%BB%9F(%E4%BA%94)-Service/">Fabric 票据系统(五) Service</a></li>
-      	
-      
-    
-  
-    
-      
-      	
-      	<li><a href="/2018/07/08/Fabric-%E7%A5%A8%E6%8D%AE%E7%B3%BB%E7%BB%9F(%E5%9B%9B)-%E9%93%BE%E7%A0%81/">Fabric 票据系统(四) 链码</a></li>
-      	
-      
-    
-  
-    
-      
-      	
-      	<li><a href="/2018/07/07/Fabric-%E7%A5%A8%E6%8D%AE%E9%A1%B9%E7%9B%AE-%E4%B8%89-%E4%BD%BF%E7%94%A8Fabric-SDK-go/">Fabric 票据项目（三）使用Fabric SDK go</a></li>
-      	
-      
-    
-  
-    
-      
-      	
-      	<li><a href="/2018/07/06/Fabric-%E7%A5%A8%E6%8D%AE%E9%A1%B9%E7%9B%AE-%E4%BA%8C-%E7%A5%A8%E6%8D%AE%E7%B3%BB%E7%BB%9F%E4%BB%8B%E7%BB%8D/">Fabric 票据项目（二）票据系统介绍</a></li>
-      	
-      
-    
-  
-    
-      
-      	
-      	<li><a href="/2018/07/01/Fabric-%E7%A5%A8%E6%8D%AE%E9%A1%B9%E7%9B%AE-%E4%B8%80-%E6%90%AD%E5%BB%BA%E7%8E%AF%E5%A2%83/">Fabric 票据项目（一）搭建环境</a></li>
-      	
-      
-    
-  
-    
-      
-      	
-      	<li><a href="/2018/06/23/goweb%E7%BC%96%E7%A8%8B/">goWeb编程</a></li>
-      	
-      
-    
-  
-    
-      
-      	
-      	<li><a href="/2018/06/22/%E5%BC%80%E5%8F%91%E6%A8%A1%E5%BC%8F%E6%B5%8B%E8%AF%95-%E6%89%93%E5%8C%85-%E7%AD%BE%E5%90%8D%E9%93%BE%E7%A0%81/">Fabric 使用开发模式测试，打包，签名链码</a></li>
-      	
-      
-    
-  
-    
-      
-      	
-      	<li><a href="/2018/06/22/Fabric-%E4%BA%A4%E6%98%93%E8%BF%87%E7%A8%8B/">Fabric 交易过程</a></li>
-      	
-      
-    
-  
-    
-      
-      	
-      	<li><a href="/2018/06/21/%E9%93%BE%E7%A0%81%E5%BC%80%E5%8F%91/">Fabric 链码开发</a></li>
-      	
-      
-    
-  
-    
-      
-      	
-      	<li><a href="/2018/06/20/Fabric-%E5%BB%BA%E7%AB%8B%E7%AC%AC%E4%B8%80%E4%B8%AA%E7%BD%91%E7%BB%9C/">Fabric 建立第一个网络</a></li>
-      	
-      
-    
-  
-    
-      
-      	
-      	<li><a href="/2018/06/19/%E9%93%BE%E7%A0%81%E7%9A%84%E6%A6%82%E5%BF%B5%E4%B8%8E%E4%BD%BF%E7%94%A8/">Fabric链码的概念与使用</a></li>
-      	
-      
-    
-  
-    
-      
-      	
-      	<li><a href="/2018/06/19/Fabric%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/">Fabric环境搭建</a></li>
-      	
-      
-    
-  
-    
-      
-      	
-      	<li><a href="/2018/06/10/%E4%BB%8E%E9%9B%B6%E5%BC%80%E5%A7%8B%E5%86%99%E4%B8%80%E6%9D%A1%E5%85%AC%E9%93%BE-%E4%B8%80/">从零开始写一条公链（一）</a></li>
-      	
-      
-    
-  
-    
-      
-      	
-      	<li><a href="/2018/05/04/%E6%98%9F%E4%BA%91%E9%93%BE%E5%8F%91%E9%80%81%E4%BA%A4%E6%98%93/">星云链发送交易</a></li>
-      	
-      
-    
-  
-
-
-
-  </ul>
-
-
- 
-
-  <h3 id="其他-ref">其他</h3>
-  <ul>
-      
-    
-
-
-  
-    
-      
-      	
-      	<li><a href="/2018/07/13/Mac-%E5%BC%80%E6%9C%BA%E5%81%9C%E5%9C%A8%E8%BF%9B%E5%BA%A6%E6%9D%A1%E8%A7%A3%E5%86%B3%E6%96%B9%E6%B3%95/">Mac 开机停在进度条解决方法</a></li>
-      	
-      
-    
-  
-    
-      
-      	
-      	<li><a href="/2018/06/28/ubuntu%E7%BF%BB%E5%A2%99/">ubuntu 翻墙</a></li>
-      	
-      
-    
-  
-    
-      
-      	
-      	<li><a href="/2018/06/28/Mac-%E7%BB%88%E7%AB%AF%E7%BF%BB%E5%A2%99/">Mac 终端翻墙</a></li>
-      	
-      
-    
-  
-
-
-
-  </ul>
-
+</nav>
 
 
 </div>
-
-  </section>
-</article>
-</script> <section class="footer">
+ <section class="footer">
   <footer>
     <div class="footer_div">
       <nav class="cover-navigation navigation--social">

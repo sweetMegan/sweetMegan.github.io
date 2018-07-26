@@ -6,21 +6,21 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
-  <title>星云链发送交易</title>
-  <meta name="description" content="星云链发送交易手记">
+  <title>Fabric环境搭建</title>
+  <meta name="description" content="区块链">
   <meta name="author" content="黎跃春">
 
-  <meta name="keywords" content="区块链交易"
+  <meta name="keywords" content="区块链"
   />
 
   <meta name="twitter:card" content="summary">
-  <meta name="twitter:title" content="星云链发送交易">
-  <meta name="twitter:description" content="星云链发送交易手记">
+  <meta name="twitter:title" content="Fabric环境搭建">
+  <meta name="twitter:description" content="区块链">
 
   <meta property="og:type" content="article">
-  <meta property="og:title" content="星云链发送交易">
-  <meta property="og:description" content="星云链发送交易手记">
-  <meta property="og:site_name" content="区块链交易e"
+  <meta property="og:title" content="Fabric环境搭建">
+  <meta property="og:description" content="区块链">
+  <meta property="og:site_name" content="区块链e"
   />
 
 
@@ -31,7 +31,7 @@
   <link rel="stylesheet" href=" /css/main.css ">
   <link href="//netdna.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
 
-  <link rel="canonical" href="/2018/05/04/%E6%98%9F%E4%BA%91%E9%93%BE%E5%8F%91%E9%80%81%E4%BA%A4%E6%98%93/">
+  <link rel="canonical" href="/2018/06/19/Fabric%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/">
   <link rel="alternate" type="application/rss+xml" title="sweetsmelon博客" href=" /feed.xml
     ">
 
@@ -185,10 +185,10 @@
     <div class="content-wrapper__inner">
       <article class="post-container post-container--single" itemscope itemtype="http://schema.org/BlogPosting">
   <header class="post-header">
-    <h1 class="post-title">星云链发送交易</h1>
+    <h1 class="post-title">Fabric环境搭建</h1>
     <div class="post-meta">
       <img src="/images/calendar.png" width="20px"/>
-      <time datetime="2018-05-04 00:00:00 +0800" itemprop="datePublished" class="post-meta__date date">2018-05-04</time>
+      <time datetime="2018-06-19 00:00:00 +0800" itemprop="datePublished" class="post-meta__date date">2018-06-19</time>
 
       <span id="busuanzi_container_page_pv"> | 阅读：<span id="busuanzi_value_page_pv"></span>次</span>
     </p>
@@ -196,92 +196,395 @@
   </header>
 
   <section class="post">
-    <ul>
-  <li>创建账户</li>
-</ul>
-
-<div class="highlighter-rouge"><pre class="highlight"><code>$ ./neb account new
-
-Your new account is locked with a passphrase. Please give a passphrase. Do not forget this passphrase.
-
-Passphrase:
-
-Repeat passphrase:
-
-Address: n1SQe5d1NKHYFMKtJ5sNHPsSPVavGzW71Wy
-</code></pre>
-</div>
-<blockquote>
-  <p>密码不要乱写，记住密码</p>
-</blockquote>
+    <p>###1、安装fabric需要的工具</p>
 
 <ul>
-  <li>查看账户</li>
+  <li>git</li>
+  <li>curl</li>
+  <li>vim (可选，vm）</li>
+  <li>Golang（GOROOT,GOPATH）1.10.1</li>
+  <li>Docker 一个容器</li>
+  <li>docker_compose 实现对Docker的自动化操作,简化了Docker容器的操作命令，一条命令即可启动docker容器，相关的操作命令是被集成在一个配置文件中</li>
+  <li>Node，npm(可选)</li>
 </ul>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>curl -i -H Accept:application/json -X POST http://localhost:8685/v1/user/accountstate -d '{"address":"n1MVEBhTKXe49CJstoLZ7kq8C3nLP9Bbx5G"}'
+<p>####安装git</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>$ sudo apt update
+$ sudo apt install git
 </code></pre>
 </div>
+
+<p>###安装curl</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>$ sudo apt install curl
+</code></pre>
+</div>
+<p>###安装vim</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>$ sudo apt install vim
+</code></pre>
+</div>
+<p>###安装Golang</p>
+
+<p>Fabric1.1.0版本要求Go1.9+</p>
+
+<p>Fabric1.0.0版本要求Go1.7+</p>
+
+<p>下载 <a href="https://golang.org/dl/">go1.10.1.linux-amd64.tar.gz 需要翻墙</a> 没有翻墙可以从<a href="https://pan.baidu.com/s/1lOc_aMJUmmNqKSLE4iCM_Q">百度网盘下载</a></p>
+
+<p>将压缩包放到Home目录下，解压文件</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>$ tar -zxvf go1.10.1.linux-amd64.tar.gz
+</code></pre>
+</div>
+<p>编辑环境变量文件</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>$ vim .bashrc 
+</code></pre>
+</div>
+
+<p>添加如下内容:</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>export GOPATH=$HOME/gocode
+export GOROOT=$HOME/go
+export PATH=$GOROOT/bin:$PATH
+</code></pre>
+</div>
+
+<p>使刚才的配置生效</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>$ source .bashrc
+</code></pre>
+</div>
+<p>执行：</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>$ go version
+</code></pre>
+</div>
+<p>输出: <code class="highlighter-rouge">go version go1.10.1 linux/amd64</code>，配置成功</p>
+
+<blockquote>
+  <p>如果系统中有旧版本的golang,则使用如下命令卸载旧版本的golang,然后再重新安装</p>
+
+  <div class="highlighter-rouge"><pre class="highlight"><code>$ su -
+# apt-get remove golang-go --purge &amp;&amp; apt-get autoremove --purge &amp;&amp; apt-get clean
+</code></pre>
+  </div>
+</blockquote>
+
+<p>###安装Docker</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>$ sudo apt update
+$ sudo apt install docker.io
+</code></pre>
+</div>
+
+<p>查看Docker版本信息</p>
+
+<p>version 1.12+</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>$ docker --version
+</code></pre>
+</div>
+
+<p>输出: <code class="highlighter-rouge">Docker version 1.13.1, build 092cba3</code></p>
+
+<p>###安装Docker Compose</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>$ sudo apt install docker-compose
+</code></pre>
+</div>
+
+<p>查看DockerCompose版本信息</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>$ docker-compose --version
+</code></pre>
+</div>
+
+<p>输出: <code class="highlighter-rouge">docker-compose version 1.8.0, build unknown</code></p>
+
+<p>###Hyperledger Fabric Samples 下载安装</p>
+
+<p>####1、在当前用户目录中创建一个新的目录 –方便管理fabric</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>$ mkdir hyfa
+</code></pre>
+</div>
+
+<p>####2、进入该目录</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>$ cd hyfa
+</code></pre>
+</div>
+
+<p>####3、下载方式一：</p>
+
+<p><strong>新建文件bootstrap.sh</strong></p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>$ vim bootstrap.sh
+</code></pre>
+</div>
+
+<p>将<code class="highlighter-rouge">https://github.com/hyperledger/fabric/blob/master/scripts/bootstrap.sh</code>中的&lt;font color=red&gt;内容&lt;/font&gt;拷贝保存退出</p>
+
+<p><strong>赋予bootstrap.sh可执行权限并运行</strong></p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>$ chmod +x bootstrap.sh
+</code></pre>
+</div>
+
+<p><strong>配置docker加速器</strong></p>
+
+<p>配置docker加速器的目的是为了在下载docker镜像文件时加速</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>$ curl -sSL https://get.daocloud.io/daotools/set_mirror.sh | sh -s http://8890cb8b.m.daocloud.io
+</code></pre>
+</div>
+
+<p><strong>重启docker服务</strong></p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>$ sudo systemctl restart docker.service
+</code></pre>
+</div>
+
+<p><strong>执行<code class="highlighter-rouge">bootstrap.sh</code></strong></p>
+
+<p><strong>确定网络稳定,否则会导致各种问题，例如下载到一半时网络超时，下载失败等等</strong></p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>$ sudo ./bootstrap.sh 1.1.0
+</code></pre>
+</div>
+<p>&lt;font color=red&gt;这里需要下载一些工具包，会很耗时，如果失败重复执行<code class="highlighter-rouge">$ sudo ./bootstrap.sh 1.1.0</code>&lt;/font&gt;</p>
+
+<p>下载完成后, 查看相关输出内容, 如果下载有失败的镜像, 可再次执行  <code class="highlighter-rouge">$ sudo ./bootstrap.sh 1.1.0</code>  命令</p>
+
+<p>####下载方式二:</p>
+
+<blockquote>
+  <p><strong>建议使用方式一进行下载</strong></p>
+</blockquote>
+
+<p><strong>配置docker加速器,</strong></p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>$ curl -sSL https://get.daocloud.io/daotools/set_mirror.sh | sh -s http://8890cb8b.m.daocloud.io
+</code></pre>
+</div>
+
+<p><strong>重启docker服务</strong></p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>$ sudo systemctl restart docker.service
+</code></pre>
+</div>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>$ curl  https://github.com/hyperledger/fabric/blob/master/scripts/bootstrap.sh | bash -s 1.1.0
+</code></pre>
+</div>
+
+<p>安装完成后输出:</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>hyperledger/fabric-ca          latest          72617b4fa9b4   5 weeks ago    299 MB
+hyperledger/fabric-ca          x86_64-1.1.0    72617b4fa9b4   5 weeks ago    299 MB
+hyperledger/fabric-tools       latest          b7bfddf508bc   5 weeks ago    1.46 GB
+hyperledger/fabric-tools       x86_64-1.1.0    b7bfddf508bc   5 weeks ago    1.46 GB
+hyperledger/fabric-orderer     latest          ce0c810df36a   5 weeks ago    180 MB
+hyperledger/fabric-orderer     x86_64-1.1.0    ce0c810df36a   5 weeks ago    180 MB
+hyperledger/fabric-peer        latest          b023f9be0771   5 weeks ago    187 MB
+hyperledger/fabric-peer        x86_64-1.1.0    b023f9be0771   5 weeks ago    187 MB
+hyperledger/fabric-javaenv     latest          82098abb1a17   5 weeks ago    1.52 GB
+hyperledger/fabric-javaenv     x86_64-1.1.0    82098abb1a17   5 weeks ago    1.52 GB
+hyperledger/fabric-ccenv       latest          c8b4909d8d46   5 weeks ago    1.39 GB
+hyperledger/fabric-ccenv       x86_64-1.1.0    c8b4909d8d46   5 weeks ago    1.39 GB
+hyperledger/fabric-zookeeper   latest          92cbb952b6f8   2 months ago   1.39 GB
+hyperledger/fabric-zookeeper   x86_64-0.4.6    92cbb952b6f8   2 months ago   1.39 GB
+hyperledger/fabric-kafka       latest          554c591b86a8   2 months ago   1.4 GB
+hyperledger/fabric-kafka       x86_64-0.4.6    554c591b86a8   2 months ago   1.4 GB
+hyperledger/fabric-couchdb     latest          7e73c828fc5b   2 months ago   1.56 GB
+hyperledger/fabric-couchdb     x86_64-0.4.6    7e73c828fc5b   2 months ago   1.56 GB
+
+</code></pre>
+</div>
+
+<p>ca:证书颁发机构
+ peer:包含Peer相关的文件  处理交易 保存区块
+ orderer:包含orderer相关的文件  请求排序  生成区块
+javaenv:包含了支持java语言的链码（智能合约）
+ccenv:包含了支持Go语言的链码环境
+tools:工具集，包含peer,cryptogen,configtxgen相关工具，支持客户端测试
+kafka:支持couchdb(一种特定的kv数据库)，保存数据
+zookeeper:</p>
+
+<p>###一些补充
+ p2p:Gossip 数据传输协议，一个节点将数据随机分发给临近的节点，接收到数据的节点再重复此过程</p>
+
+<p>leader节点:在本组织中进行通信，从Orderer服务节点中拉取区块，然后分发给本组织内的其他节点</p>
+
+<p>节点:</p>
+
+<blockquote>
+  <p>leader:从peer中选举产生
+peer:保存区块
+orderer:
+– 服务节点
+– 产生区块 
+anchor:
+–锚节点
+–锚节点是指定的
+–用来跨组织的数据交换
+–发现通道内新加入的组织/节点</p>
+</blockquote>
+
+<p>查看docker容器中有哪些镜像文件：</p>
+
+<blockquote>
+  <p>sudo docker images</p>
+</blockquote>
+
+<h3 id="fabric-samplesbin">fabric-samples/bin:</h3>
+
+<p>相应的工具目录</p>
+
 <ul>
   <li>
-    <p>启动私有链
-  <strong>1、启动种子节点</strong></p>
+    <p>cryptogen:用来生成组织结构及相应的证书密钥,在联盟链中有哪些组织及对应组织下有哪些节点
+ orderer:
+ org: 
+     org1
+         peer0.org1.exmaple.com
+         peer1.org1.example.com
+     org2
+         peer0.org2.exmaple.com
+         peer1.org2.example.com</p>
 
-    <div class="highlighter-rouge"><pre class="highlight"><code>  ./neb -c conf/default/config.conf
-</code></pre>
-    </div>
-
-    <p><strong>2、启动矿工节点</strong></p>
-
-    <div class="highlighter-rouge"><pre class="highlight"><code>  ./neb -c conf/example/miner.conf
-</code></pre>
-    </div>
+    <blockquote>
+      <p>什么组织可以访问通道中的的数据依赖于生成的证书及密钥</p>
+    </blockquote>
   </li>
   <li>
-    <p>发起交易</p>
-
-    <p><strong>一、签名&amp;发送</strong>
-  <strong>1、给交易签名</strong></p>
+    <p>configtxgen: 
+  1、用来生成Orderer服务的初始区块（创世区块）,
+  2、还可以生成对应的通道交易配置文件（包含了通道中的成员及访问策略）
+  3、生成Anchor（锚节点更新配置文件）
+      (1)用来跨组织的数据交换
+      (2)发现通道内新加入的组织/节点</p>
   </li>
 </ul>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>   curl -i -H 'Content-Type: application/json' -X POST http://localhost:8685/v1/admin/sign -d '{"transaction":{"from":"n1FF1nz6tarkDVwWQkMnnwFPuPKUaQTdptE","to":"n1MVEBhTKXe49CJstoLZ7kq8C3nLP9Bbx5G", "value":"1000000000000000000","nonce":1,"gasPrice":"1000000","gasLimit":"2000000"}, "passphrase":"passphrase"}' 
-</code></pre>
-</div>
-<blockquote>
-  <ul>
-    <li>nonce值必须大于 from账户的nonce值,否则下面提交交易会报错
-{“error”:”transaction’s nonce is invalid, should bigger than the from’s nonce”}</li>
-    <li>在发送交易时，对于同一个账户，只有当他Nonce为N的交易上链后，Nonce为N+1的交易才能上链，有严格的顺序，Nonce必须严格加1。可以通过GetAccountState接口查看最新的Nonce。</li>
-  </ul>
-</blockquote>
-
-<p><strong>2、提交交易</strong></p>
-
-<div class="highlighter-rouge"><pre class="highlight"><code>curl -i -H 'Content-Type: application/json' -X POST http://localhost:8685/v1/user/rawtransaction -d '{"data":"CiC3mkO3VfBvZb7Jfp6Ltz973jf8WQCgaBxwP4hZsfwOLRIaGVcH+WT/SVMkY18ix7SG4F1+Z8evXJoA35caGhlXTHpREcMhXjav+RTl4PXYdSAjpbXNazKjIhAAAAAAAAAAAA3gtrOnZAAAKAMwkbys1wU6CAoGYmluYXJ5QGRKEAAAAAAAAAAAAAAAAAAPQkBSEAAAAAAAAAAAAAAAAAAehIBYAWJBjcyJU9VVhKV32f8zTCla6F46p0aEITwNTqR/judpqiRmFZ0OkLj4r6tF44FaKFMwGjyKXnWfyTM2uWHyOotcKQA="}'
-</code></pre>
-</div>
+<p>每个组织都会有一个Anchor</p>
 
 <ul>
-  <li>查看交易 hash为交易返回的hash值</li>
+  <li>configtxlator:用来添加新组织</li>
 </ul>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>curl -i -H Accept:application/json -X POST http://localhost:8685/v1/user/getTransactionReceipt -d '{"hash":"b79a43b755f06f65bec97e9e8bb73f7bde37fc5900a0681c703f8859b1fc0e2d"}'
+<p><strong>chaincode:</strong>
+链码示例</p>
+
+<p><strong>chaincode-docker-devmode:</strong></p>
+
+<p>用于在开发模式下测试的环境</p>
+
+<p><strong>fabcar</strong></p>
+
+<p>提供一个Node.js的简单实例</p>
+
+<p><strong>fabric-ca</strong></p>
+
+<p>简单的证书</p>
+
+<p><strong>first-network</strong></p>
+
+<p>搭建Fabric网络的目录</p>
+
+<p>###安装shadowsocks</p>
+
+<p>如果有shadowsocks客户端跳过此步骤</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>$ sudo apt install shadowsocks
+
+$ mkdir shadowsocks &amp;&amp; cd shadowsocks/
+
+$ vim shadowsocks.json
+
+{
+    "server":"代理IP",
+    "server_port":代理端口,
+    "local_port":1080,
+    "password":"密码",
+    "timeout":600,
+    "method":"aes-256-cfb"
+}
+
 </code></pre>
 </div>
+
+<p>启动:</p>
+
 <blockquote>
-  <ul>
-    <li>0: 交易失败. 表示当前交易已经上链，但是执行失败了。可能是因为部署合约或者调用合约参数错误。</li>
-    <li>1: 交易成功. 表示当前交易已经上链，而且执行成功了。</li>
-    <li>2: 交易待定. 表示当前交易还没有上链。可能是因为当前交易还没有被打包；如果长时间处于当前状态，可能是因为当前交易的发送者账户的余额不够支付上链手续费</li>
-  </ul>
+  <p>sslocal -c $HOME/shadowsocks/shadowsocks.json</p>
 </blockquote>
 
-<h2 id="参考资料">参考资料</h2>
+<p>###命令行翻墙</p>
 
-<ul>
-  <li><a href="https://github.com/nebulasio/wiki/blob/master/tutorials/%5B%E4%B8%AD%E6%96%87%5D%20Nebulas%20101%20-%2002%20%E5%8F%91%E9%80%81%E4%BA%A4%E6%98%93.md">Nebulas 101 - 02 在星云链上发送交易</a></li>
-</ul>
+<p>如果安装了shadowsocks，浏览器是可以翻墙的，但是命令行不能翻墙,命令行翻墙需要安装polipo</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>$ sudo apt install polipo
+
+$ sudo vim /etc/polipo/config
+原内容删除后插入如下内容:
+    
+    # This file only needs to list configuration variables that deviate
+    # from the default values. See /usr/share/doc/polipo/examples/config.sample
+    # and "polipo -v" for variables you can tweak and further information.
+    logSyslog = false
+    logFile = "/var/log/polipo/polipo.log"
+
+    socksParentProxy = "127.0.0.1:1080"
+    socksProxyType = socks5
+
+    chunkHighMark = 50331648
+    objectHighMark = 16384
+
+    serverMaxSlots = 64
+    serverSlots = 16
+    serverSlots1 = 32
+
+    proxyAddress = "0.0.0.0"
+    proxyPort = 8123
+</code></pre>
+</div>
+<p>重启Polipo：</p>
+
+<blockquote>
+  <p>$ /etc/init.d/polipo restart</p>
+</blockquote>
+
+<p>设置环境变量(重启后需要重新设定)</p>
+<blockquote>
+  <p>export http_proxy=”http://127.0.0.1:8123/” 
+export https_proxy=”http://127.0.0.1:8123/”</p>
+</blockquote>
+
+<p>验证代理是否正常工作：</p>
+
+<blockquote>
+  <p>$ curl www.google.com</p>
+</blockquote>
+
+<p>如果正常，就会返回抓取到的Google网页内容</p>
+
+<p>但是这时候ping 网址是ping不通的，比如 <code class="highlighter-rouge">ping www.baidu.com</code>,因为<code class="highlighter-rouge">resolv.conf</code>文件被<code class="highlighter-rouge">polipo</code>修改为<code class="highlighter-rouge">127.0.0.1</code>, 造成无法解析任何域名</p>
+
+<p>修改resolv.conf文件</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>$ sudo vim /etc/resolv.conf 
+
+添加如下内容:
+
+nameserver 114.114.114.114
+
+nameserver 8.8.8.8
+</code></pre>
+</div>
 
 
   </section>
@@ -350,9 +653,14 @@ Address: n1SQe5d1NKHYFMKtJ5sNHPsSPVavGzW71Wy
 
        <ul class="pager">
         
+        <li class="previous">
+            <a href="/2018/06/10/%E4%BB%8E%E9%9B%B6%E5%BC%80%E5%A7%8B%E5%86%99%E4%B8%80%E6%9D%A1%E5%85%AC%E9%93%BE-%E4%B8%80/" data-toggle="tooltip" data-placement="top" title="从零开始写一条公链（一）">上一篇：  <span>从零开始写一条公链（一）</span>
+            </a>
+        </li>
+        
         
         <li class="next">
-            <a href="/2018/06/10/%E4%BB%8E%E9%9B%B6%E5%BC%80%E5%A7%8B%E5%86%99%E4%B8%80%E6%9D%A1%E5%85%AC%E9%93%BE-%E4%B8%80/" data-toggle="tooltip" data-placement="top" title="从零开始写一条公链（一）">下一篇：  <span>从零开始写一条公链（一）</span>
+            <a href="/2018/06/19/%E9%93%BE%E7%A0%81%E7%9A%84%E6%A6%82%E5%BF%B5%E4%B8%8E%E4%BD%BF%E7%94%A8/" data-toggle="tooltip" data-placement="top" title="Fabric链码的概念与使用">下一篇：  <span>Fabric链码的概念与使用</span>
             </a>
         </li>
         

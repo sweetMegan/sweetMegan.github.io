@@ -5,12 +5,361 @@
     <description></description>
     <link>/</link>
     <atom:link href="/feed.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Thu, 26 Jul 2018 23:14:49 +0800</pubDate>
-    <lastBuildDate>Thu, 26 Jul 2018 23:14:49 +0800</lastBuildDate>
+    <pubDate>Thu, 26 Jul 2018 23:19:07 +0800</pubDate>
+    <lastBuildDate>Thu, 26 Jul 2018 23:19:07 +0800</lastBuildDate>
     <generator>Jekyll v3.5.1</generator>
     
       <item>
-        <title>Nodejs实现以太坊钱包test</title>
+        <title>以太坊私网建立-通过创世区块来初始化区块链</title>
+        <description>&lt;h4 id=&quot;一创建目录privatechain名字随便起&quot;&gt;一、创建目录&lt;code class=&quot;highlighter-rouge&quot;&gt;privatechain&lt;/code&gt;,名字随便起&lt;/h4&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;zhangqiangdeMac-mini:~ zhqmac$  cd Desktop&lt;/p&gt;
+
+  &lt;p&gt;zhangqiangdeMac-mini:Desktop zhqmac$ mkdir privatechain&lt;/p&gt;
+
+  &lt;p&gt;zhangqiangdeMac-mini:Desktop zhqmac$ cd privatechain/&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;h4 id=&quot;二创建创世块&quot;&gt;二、创建创世块&lt;/h4&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;vi genesis.json&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;拷贝下面的内容&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+  &lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&quot;alloc&quot;&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{},&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+  &lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&quot;coinbase&quot;&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;0x0000000000000000000000000000000000000000&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+  &lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&quot;config&quot;&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+    &lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&quot;chainId&quot;&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;110&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+    &lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&quot;eip155Block&quot;&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+    &lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&quot;eip158Block&quot;&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+    &lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&quot;homesteadBlock&quot;&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+  &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;},&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+  &lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&quot;difficulty&quot;&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;0x20000&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+  &lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&quot;extraData&quot;&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+  &lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&quot;gasLimit&quot;&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;0x2fefd8&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+  &lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&quot;mixhash&quot;&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;0x0000000000000000000000000000000000000000000000000000000000000000&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+  &lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&quot;nonce&quot;&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;0x0000000000000042&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+  &lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&quot;parentHash&quot;&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;0x0000000000000000000000000000000000000000000000000000000000000000&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+  &lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&quot;timestamp&quot;&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;0x00&quot;&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;p&gt;保存退出&lt;/p&gt;
+
+&lt;p&gt;参数说明:&lt;/p&gt;
+
+&lt;table&gt;
+  &lt;thead&gt;
+    &lt;tr&gt;
+      &lt;th&gt;参数&lt;/th&gt;
+      &lt;th&gt;说明&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td&gt;mixhash&lt;/td&gt;
+      &lt;td&gt;与nonce配合用户挖矿，由上一个区块的一部分生成的hash。&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;nonce&lt;/td&gt;
+      &lt;td&gt;nonce就是一个64位随机数，用于挖矿&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;difficulty&lt;/td&gt;
+      &lt;td&gt;设置当前区块的难度，如果难度过大，cpu挖矿就很难，这里设置较小难度&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;alloc&lt;/td&gt;
+      &lt;td&gt;用来预置账号以及账号的以太币数量,因为私有链挖矿比较容易，所以我们不需要预置有币的账号，需要的时候自己创建即可以&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;coinbase&lt;/td&gt;
+      &lt;td&gt;矿工的账号，随便填&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;timestamp&lt;/td&gt;
+      &lt;td&gt;设置创世块的时间戳&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;parentHash&lt;/td&gt;
+      &lt;td&gt;上一个区块的hash值，因为是创世块，所以这个值是0&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;extraData&lt;/td&gt;
+      &lt;td&gt;附加信息，随便填，可以填你的个性信息&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;gasLimit&lt;/td&gt;
+      &lt;td&gt;该值设置对GAS的消耗总量限制，用来限制区块能包含的交易信息总和，因为我们是私链，所以随意写&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;h4 id=&quot;三初始化区块链并且创建一个文件夹来存储区块数据&quot;&gt;三、初始化区块链，并且创建一个文件夹来存储区块数据&lt;/h4&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;zhangqiangdeMac-mini:privatechain zhqmac$ geth init genesis.json –datadir blockchainData&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;h4 id=&quot;四启动私有链节点&quot;&gt;四、􏳽􏳾􏰈􏰉􏰊􏲵􏲶􏳽􏳾􏰈􏰉􏰊􏲵􏲶启动私有链节点&lt;/h4&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;geth –datadir blockchainData/ –networkid 110 –rpc console&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;如果出现&lt;code class=&quot;highlighter-rouge&quot;&gt;Welcome to the Geth JavaScript console!&lt;/code&gt;表示启动成功&lt;/p&gt;
+
+&lt;table&gt;
+  &lt;thead&gt;
+    &lt;tr&gt;
+      &lt;th&gt;参数&lt;/th&gt;
+      &lt;th&gt;说明&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td&gt;identity&lt;/td&gt;
+      &lt;td&gt;区块链的标示，随便填写，用于标示目前网络的名字&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;init&lt;/td&gt;
+      &lt;td&gt;指定创世区块文件的位置，并创建初始块&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;datadir&lt;/td&gt;
+      &lt;td&gt;设置当前区块链网络数据存放的位置&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;port&lt;/td&gt;
+      &lt;td&gt;网络监听端口&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;rpc&lt;/td&gt;
+      &lt;td&gt;启动rpc通信，可以进行智能合约的部署和调试&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;rpcapi&lt;/td&gt;
+      &lt;td&gt;设置允许链接的rpc的客户端，一般为db,eth,net,web3&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;networkid&lt;/td&gt;
+      &lt;td&gt;设置当前区块链的网络ID,用于区分不同的网络，是个数字，&lt;code class=&quot;highlighter-rouge&quot;&gt;1&lt;/code&gt;表示主网&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;console&lt;/td&gt;
+      &lt;td&gt;启动命令行模式，可以在&lt;code class=&quot;highlighter-rouge&quot;&gt;geth&lt;/code&gt;中执行命令.&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;h4 id=&quot;五新建账户&quot;&gt;五、新建账户&lt;/h4&gt;
+
+&lt;p&gt;查看所有账户&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;personal.listAccounts&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;返回为&lt;code class=&quot;highlighter-rouge&quot;&gt;[]&lt;/code&gt;,此时还没有账户&lt;/p&gt;
+
+&lt;p&gt;新建账户&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;personal.newAccount(“123456”)&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;&quot;123456&quot;&lt;/code&gt;为账户密码&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;personal.listAccounts&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;可以查看到刚才创建的钱包地址,在&lt;code class=&quot;highlighter-rouge&quot;&gt;blockchainData&lt;/code&gt;目录下的&lt;code class=&quot;highlighter-rouge&quot;&gt;keystore&lt;/code&gt;目录中多了一个keystore文件，里面保存的即是次账号的一些信息:&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&quot;address&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;0a778959e98293bdc1101ec211dbc3135be2b59a&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&quot;crypto&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:{&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&quot;cipher&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;aes-128-ctr&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&quot;ciphertext&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;e6e5c00cd34e76f4d64b07f0de100f3a81cfbe8b11b3c7ffc52f7bdad6308a27&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&quot;cipherparams&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:{&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&quot;iv&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;498e15f6d7244bab299ff986e4155b2b&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;},&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&quot;kdf&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;scrypt&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&quot;kdfparams&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:{&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&quot;dklen&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;32&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&quot;n&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;262144&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&quot;p&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&quot;r&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;8&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&quot;salt&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;5b0345890294ee5fc050b00e852963ce41cc60ae69ff86302d1a361498b09ba5&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;},&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&quot;mac&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;2e7f9c197ed4dbb9c5c3888b28639f5d38767ab3bb3359f4b58dc195d9798f2f&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;},&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&quot;id&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;a1b23559-f59e-44df-a32d-92f6682fd86f&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;h4 id=&quot;六挖矿&quot;&gt;六、挖矿&lt;/h4&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;strong&gt;查看账户余额&lt;/strong&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;eth.getBalance(eth.coinbase)&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;查询结果为0，&lt;code class=&quot;highlighter-rouge&quot;&gt;eth.coinbase&lt;/code&gt;矿工的账号，默认为&lt;code class=&quot;highlighter-rouge&quot;&gt;personal.listAccounts&lt;/code&gt;第一个账号&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;strong&gt;设置&lt;code class=&quot;highlighter-rouge&quot;&gt;coinbase&lt;/code&gt;&lt;/strong&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;eth.setEtherbase(eth.accounts[0])&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;因为此时我们只有一个账号，如果想要设置其他账号为挖矿账号，可以新建一个账号，通过&lt;code class=&quot;highlighter-rouge&quot;&gt;eth.accounts[index]&lt;/code&gt;来设置，或者直接将地址填在这里&lt;code class=&quot;highlighter-rouge&quot;&gt;eth.setEtherbase(&quot;0x0a778959e98293bdc1101ec211dbc3135be2b59a&quot;)&lt;/code&gt;&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;strong&gt;开始挖矿&lt;/strong&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;miner.start(1)&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;1&lt;/code&gt;表示线程数&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;http://otwxtrtn9.bkt.clouddn.com/%E5%BC%80%E5%90%AF%E6%8C%96%E7%9F%BF.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;如果卡在&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;INFO [07-24|00:48:46.606] Commit new mining work                   number=2 txs=0 uncles=0 elapsed=129.846µs
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;p&gt;没有关系，等着就好，根据电脑性能不同，时间可长可短&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;strong&gt;停止挖矿&lt;/strong&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;miner.stop()&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;输入可能被挖矿的输出截断，没关系，直接输完，回车就好&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;strong&gt;看下余额&lt;/strong&gt;
+    &lt;blockquote&gt;
+      &lt;p&gt;eth.getBalance(eth.coinbase)&lt;/p&gt;
+    &lt;/blockquote&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;这时就应该有以太币了，单位为&lt;code class=&quot;highlighter-rouge&quot;&gt;wei&lt;/code&gt;&lt;/p&gt;
+
+&lt;h4 id=&quot;七发送交易&quot;&gt;七、发送交易&lt;/h4&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;strong&gt;创建一个账号&lt;/strong&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;personal.newAccount(“123456”)&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;strong&gt;解锁账号&lt;/strong&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;personal.unlockAccount(eth.coinbase)&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;输入密码&lt;/p&gt;
+
+&lt;p&gt;如下输出表示解锁成功&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;Unlock account 0x0a778959e98293bdc1101ec211dbc3135be2b59a
+Passphrase: 
+true
+&amp;gt; 
+
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;注：解锁的账号，为了安全，一段时间后会自动上锁&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;strong&gt;转账&lt;/strong&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;eth.sendTransaction({from:eth.coinbase,to:eth.accounts[1],value:100000000})&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;返回结果:&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt; &amp;gt; eth.sendTransaction({from:eth.coinbase,to:eth.accounts[1],value:100000000})
+INFO [07-24|01:00:53.132] Submitted transaction                    fullhash=0xa0517620c64f43e50db46836449a18afcf749200aaa13e5ce8f17b2d86be7b4a recipient=0x19BD3Fe6E7Db24aDaA5Dc012a154A9a03dCCD1fE
+&quot;0xa0517620c64f43e50db46836449a18afcf749200aaa13e5ce8f17b2d86be7b4a&quot;
+ 
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;0xa0517620c64f43e50db46836449a18afcf749200aaa13e5ce8f17b2d86be7b4a&lt;/code&gt;为交易hash&lt;/p&gt;
+
+&lt;p&gt;或者&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;amount = web3.toWei(10,’ether’)
+eth.sendTransaction({from:eth.coinbase,to:eth.accounts[1],value:amount})&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;strong&gt;查看&lt;code class=&quot;highlighter-rouge&quot;&gt;eth.accounts[1]&lt;/code&gt;的余额&lt;/strong&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;eth.getBalance(eth.accounts[1])&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;余额还是&lt;code class=&quot;highlighter-rouge&quot;&gt;0&lt;/code&gt;,因为交易还没有被验证，需要矿工挖矿确认。&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;miner.start()
+miner.stop()&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;再查看余额&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;eth.getBalance(eth.accounts[1])&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;转账成功&lt;/p&gt;
+
+&lt;h4 id=&quot;八查看交易&quot;&gt;八、查看交易&lt;/h4&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;eth.getTransaction(“0xa0517620c64f43e50db46836449a18afcf749200aaa13e5ce8f17b2d86be7b4a”)&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;可以查看交易信息。&lt;/p&gt;
+
+&lt;h4 id=&quot;九查看当前区块总数&quot;&gt;九、查看当前区块总数&lt;/h4&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;eth.blockNumber&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;h4 id=&quot;十通过区块号查看区块&quot;&gt;十、通过区块号查看区块&lt;/h4&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;eth.getBlock(6)&lt;/p&gt;
+&lt;/blockquote&gt;
+
+</description>
+        <pubDate>Sun, 15 Jul 2018 00:00:00 +0800</pubDate>
+        <link>/2018/07/15/%E4%BB%A5%E5%A4%AA%E5%9D%8A%E7%A7%81%E7%BD%91%E5%BB%BA%E7%AB%8B-%E9%80%9A%E8%BF%87%E5%88%9B%E4%B8%96%E5%8C%BA%E5%9D%97%E6%9D%A5%E5%88%9D%E5%A7%8B%E5%8C%96%E5%8C%BA%E5%9D%97%E9%93%BE/</link>
+        <guid isPermaLink="true">/2018/07/15/%E4%BB%A5%E5%A4%AA%E5%9D%8A%E7%A7%81%E7%BD%91%E5%BB%BA%E7%AB%8B-%E9%80%9A%E8%BF%87%E5%88%9B%E4%B8%96%E5%8C%BA%E5%9D%97%E6%9D%A5%E5%88%9D%E5%A7%8B%E5%8C%96%E5%8C%BA%E5%9D%97%E9%93%BE/</guid>
+        
+        <category>区块链</category>
+        
+        
+      </item>
+    
+      <item>
+        <title>Nodejs实现以太坊钱包</title>
         <description>&lt;h2 id=&quot;一创建项目&quot;&gt;一、创建项目&lt;/h2&gt;
 
 &lt;blockquote&gt;
@@ -418,98 +767,2748 @@ module.exports = {
       </item>
     
       <item>
-        <title>星云链发送交易</title>
-        <description>&lt;ul&gt;
-  &lt;li&gt;创建账户&lt;/li&gt;
+        <title>Nodejs框架Koa</title>
+        <description>&lt;h2 id=&quot;安装环境&quot;&gt;安装环境&lt;/h2&gt;
+
+&lt;h3 id=&quot;安装node与npm&quot;&gt;安装Node与npm&lt;/h3&gt;
+
+&lt;h4 id=&quot;安装nodejs&quot;&gt;安装Node.js&lt;/h4&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;brew install node@8&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;h4 id=&quot;安装指定版本的npm&quot;&gt;安装指定版本的npm&lt;/h4&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;npm install npm@5.6.0 -g&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;h4 id=&quot;检查node版本&quot;&gt;检查Node版本&lt;/h4&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;node -v&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;h4 id=&quot;检查npm版本&quot;&gt;检查npm版本&lt;/h4&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;npm -v&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;h4 id=&quot;升级node&quot;&gt;升级Node&lt;/h4&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;npm install -g n&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;h2 id=&quot;一koa&quot;&gt;一、Koa&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;安装Koa&lt;/li&gt;
 &lt;/ul&gt;
 
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;$ ./neb account new
+&lt;p&gt;新建一个项目&lt;code class=&quot;highlighter-rouge&quot;&gt;koademo&lt;/code&gt;，打开终端&lt;/p&gt;
 
-Your new account is locked with a passphrase. Please give a passphrase. Do not forget this passphrase.
+&lt;blockquote&gt;
+  &lt;p&gt;mkdir koademo
+cd  koademo
+npm init&lt;/p&gt;
+&lt;/blockquote&gt;
 
-Passphrase:
+&lt;p&gt;此时会要求输入一些配置信息，什么都不用写，一直回车&lt;/p&gt;
 
-Repeat passphrase:
+&lt;p&gt;&lt;img src=&quot;http://otwxtrtn9.bkt.clouddn.com/Nodejs%E6%A1%86%E6%9E%B6Koa%202.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
 
-Address: n1SQe5d1NKHYFMKtJ5sNHPsSPVavGzW71Wy
+&lt;p&gt;此时项目路径下会新增文件&lt;code class=&quot;highlighter-rouge&quot;&gt;package.json&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;安装&lt;code class=&quot;highlighter-rouge&quot;&gt;koa&lt;/code&gt;&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;npm install koa&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;新建&lt;code class=&quot;highlighter-rouge&quot;&gt;index.js&lt;/code&gt;文件，添加如下代码,开启服务,监听端口3000&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;const Koa = require(&quot;koa&quot;);
+const app = new Koa();
+//开启服务,监听端口3000
+app.listen(3000);
+
 &lt;/code&gt;&lt;/pre&gt;
 &lt;/div&gt;
+
 &lt;blockquote&gt;
-  &lt;p&gt;密码不要乱写，记住密码&lt;/p&gt;
+  &lt;p&gt;new Koa():创建的对象被称为&lt;code class=&quot;highlighter-rouge&quot;&gt;Koa&lt;/code&gt;应用对象。应用对象时带有&lt;code class=&quot;highlighter-rouge&quot;&gt;node http&lt;/code&gt;服务的Koa接口，它可以处理中间件的注册，将&lt;code class=&quot;highlighter-rouge&quot;&gt;http&lt;/code&gt;请求分发到中间件，进行默认错误处理，以及对上下文，请求和响应对象进行配置。
+app.listen(3000):用于启动一个服务的快捷方法，是对&lt;code class=&quot;highlighter-rouge&quot;&gt;http.createServer&lt;/code&gt;的简单包装，它实际上这样运行:&lt;code class=&quot;highlighter-rouge&quot;&gt;http:createServer(app.callback()).listen(3000)&lt;/code&gt;;&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;h2 id=&quot;context&quot;&gt;context&lt;/h2&gt;
+
+&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;context&lt;/code&gt;是一个请求的上下文，该对象封装了一个传入的&lt;code class=&quot;highlighter-rouge&quot;&gt;http&lt;/code&gt;消息，&lt;code class=&quot;highlighter-rouge&quot;&gt;context&lt;/code&gt;有&lt;code class=&quot;highlighter-rouge&quot;&gt;request&lt;/code&gt;和&lt;code class=&quot;highlighter-rouge&quot;&gt;response&lt;/code&gt;属性，我们可以设置两个属性来处理和响应不同的请求。&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;代码&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;const Koa = require(&quot;koa&quot;);
+const app = new Koa();
+//开启服务,监听端口3000
+app.use((ctx,next)=&amp;gt;{
+   ctx.response.body=&quot;hello world&quot;;
+});
+app.listen(3000);
+
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;ul&gt;
+  &lt;li&gt;说明&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;app.use(function):将给定的function当做中间件加载到应用中。
+ctx:每一个请求都会创建一段上下文，在控制业务逻辑的中间件中，上下文被寄存在&lt;code class=&quot;highlighter-rouge&quot;&gt;ctx&lt;/code&gt;对象中。为了使用方便，许多上下文属性和方法都被委托代理到他们的&lt;code class=&quot;highlighter-rouge&quot;&gt;ctx.request&lt;/code&gt;和&lt;code class=&quot;highlighter-rouge&quot;&gt;ctx.response&lt;/code&gt;，比如访问&lt;code class=&quot;highlighter-rouge&quot;&gt;ctx.type&lt;/code&gt;和&lt;code class=&quot;highlighter-rouge&quot;&gt;ctx.length&lt;/code&gt;将被代理到&lt;code class=&quot;highlighter-rouge&quot;&gt;response&lt;/code&gt;对象,&lt;code class=&quot;highlighter-rouge&quot;&gt;ctx.path&lt;/code&gt;和&lt;code class=&quot;highlighter-rouge&quot;&gt;ctx.method&lt;/code&gt;将被代理到&lt;code class=&quot;highlighter-rouge&quot;&gt;request&lt;/code&gt;对象。&lt;/p&gt;
 &lt;/blockquote&gt;
 
 &lt;ul&gt;
-  &lt;li&gt;查看账户&lt;/li&gt;
+  &lt;li&gt;启动服务&lt;/li&gt;
 &lt;/ul&gt;
 
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;curl -i -H Accept:application/json -X POST http://localhost:8685/v1/user/accountstate -d '{&quot;address&quot;:&quot;n1MVEBhTKXe49CJstoLZ7kq8C3nLP9Bbx5G&quot;}'
+&lt;blockquote&gt;
+  &lt;p&gt;node index.js&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;浏览器访问 &lt;code class=&quot;highlighter-rouge&quot;&gt;http://localhost:3000&lt;/code&gt;,如果运行正确，在页面会显示&lt;code class=&quot;highlighter-rouge&quot;&gt;hello world&lt;/code&gt;。&lt;/p&gt;
+
+&lt;h2 id=&quot;三网页模板&quot;&gt;三、网页模板&lt;/h2&gt;
+
+&lt;p&gt;实际开发中，返回给用户的网页往往都写成模板文件。我们可以让&lt;code class=&quot;highlighter-rouge&quot;&gt;Koa&lt;/code&gt;先读取模板文件,然后将这个模板返回给用户。&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;代码&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt; const Koa = require(&quot;koa&quot;);
+const app = new Koa();
+const fs = require(&quot;fs&quot;);
+app.use((ctx,next)=&amp;gt;{
+    //必须指定type,否则调用fs模板后默认响应类型为为`application/octet-stream`类型
+    ctx.response.type=&quot;text/html&quot;;
+    //将文件作为响应体流失传输
+    ctx.response.body=fs.createReadStream(&quot;./views/index.html&quot;);
+});
+app.listen(&quot;3000&quot;);
+
 &lt;/code&gt;&lt;/pre&gt;
 &lt;/div&gt;
+
+&lt;h2 id=&quot;四中间件&quot;&gt;四、中间件&lt;/h2&gt;
+
+&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;Koa&lt;/code&gt;所有的功能都是通过中间件实现的。中间件处在&lt;code class=&quot;highlighter-rouge&quot;&gt;HTTP Request&lt;/code&gt;和&lt;code class=&quot;highlighter-rouge&quot;&gt;HTTP Response&lt;/code&gt;中间&lt;/p&gt;
+
+&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;Koa&lt;/code&gt;的中间件之间按照编码顺序在栈内一次执行，允许您执行操作并向下传递请求，之后过滤并逆序返回响应。&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;const Koa = require('koa');
+const app = new Koa();
+
+app.use(async (ctx,next)=&amp;gt;{
+    console.log(&quot;first&quot;);
+    await next();
+    console.log(&quot;first over&quot;)
+});
+app.use(async(ctx,next)=&amp;gt;{
+   console.log(&quot;second&quot;);
+    await next();
+    console.log(&quot;second over&quot;)
+
+});
+app.use(async(ctx,next)=&amp;gt;{
+    console.log(&quot;third&quot;);
+    await next();
+console.log(&quot;third over&quot;);
+});
+
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;􏰔有&lt;code class=&quot;highlighter-rouge&quot;&gt;async&lt;/code&gt;标记的函数称为异步函数，在异步函数中，可以用&lt;code class=&quot;highlighter-rouge&quot;&gt;await&lt;/code&gt;调用另一个异步函数。使用&lt;code class=&quot;highlighter-rouge&quot;&gt;await&lt;/code&gt;时，它所在的方法必须使用关键字async。&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;执行结果:&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;first
+second
+third
+third over
+second over
+first over&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;h2 id=&quot;五原生路由&quot;&gt;五、原生路由&lt;/h2&gt;
+
+&lt;p&gt;开发中需要根据用户请求返回相应的数据，可以通过设置路由实现&lt;/p&gt;
+
 &lt;ul&gt;
+  &lt;li&gt;代码&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;const Koa = require(&quot;koa&quot;);
+const app = new Koa();
+app.use(async (ctx)=&amp;gt;{
+    if (ctx.request.path==&quot;/&quot;){
+        ctx.response.body = &quot;首页&quot;;
+    }
+    switch (ctx.request.path){
+        case &quot;/&quot;:{
+            ctx.response.body = &quot;首页&quot;;
+            break;
+        }
+        case &quot;/login&quot;:{
+            ctx.body = &quot;login&quot;;
+            break;
+        }
+        case &quot;/test&quot;:{
+            ctx.body = &quot;test&quot;;
+            break;
+        }
+        
+    }
+});
+//开启服务,监听端口3000
+app.listen(3000);
+
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;table&gt;
+  &lt;thead&gt;
+    &lt;tr&gt;
+      &lt;th&gt;浏览器访问&lt;/th&gt;
+      &lt;th&gt;结果&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td&gt;http://localhost:3000/&lt;/td&gt;
+      &lt;td&gt;首页&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;http://localhost:3000/login&lt;/td&gt;
+      &lt;td&gt;login&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;http://localhost:3000/test&lt;/td&gt;
+      &lt;td&gt;test&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;h2 id=&quot;六koa-router&quot;&gt;六、koa-router&lt;/h2&gt;
+
+&lt;p&gt;原生路由用起来不方便，我们可以使用封装好的&lt;a href=&quot;https://www.npmjs.com/package/koa-route&quot;&gt;koa-router&lt;/a&gt;模块&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;npm install koa-router&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;代码&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;const Koa = require(&quot;koa&quot;);
+const app = new Koa();
+const r = require(&quot;koa-router&quot;);
+const router = r();
+//设置路由
+router.get(&quot;/&quot;,(ctx,next)=&amp;gt;{
+    ctx.body = &quot;首页&quot;;
+
+});
+router.get(&quot;/login&quot;,(ctx,next)=&amp;gt;{
+    ctx.body = &quot;login&quot;;
+
+});
+router.get(&quot;/test&quot;,(ctx,next)=&amp;gt;{
+    ctx.body = &quot;test&quot;;
+});
+//绑定路由
+app.use(router.routes());
+//开启服务,监听端口3000
+app.listen(3000);
+
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;h2 id=&quot;七重定向&quot;&gt;七、重定向&lt;/h2&gt;
+
+&lt;p&gt;将上面的代码中&lt;code class=&quot;highlighter-rouge&quot;&gt;test&lt;/code&gt;重定向到&lt;code class=&quot;highlighter-rouge&quot;&gt;login&lt;/code&gt;&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;const Koa = require(&quot;koa&quot;);
+const app = new Koa();
+const r = require(&quot;koa-router&quot;);
+const router = r();
+//设置路由
+router.get(&quot;/&quot;,(ctx,next)=&amp;gt;{
+    ctx.body = &quot;首页&quot;;
+
+});
+router.get(&quot;/login&quot;,(ctx,next)=&amp;gt;{
+    ctx.body = &quot;login&quot;;
+
+});
+//test重定向到login
+router.get(&quot;/test&quot;,(ctx,next)=&amp;gt;{
+    ctx.response.redirect(&quot;/login&quot;);
+});
+//绑定路由
+app.use(router.routes());
+//开启服务,监听端口3000
+app.listen(3000);
+
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;h2 id=&quot;八获取get请求参数&quot;&gt;八、获取get请求参数&lt;/h2&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;/**
+ * Created by zhqmac on 2018/7/22.
+ */
+const Koa = require(&quot;koa&quot;);
+const app = new Koa();
+const router= require(&quot;koa-router&quot;)();
+app.use((ctx,next)=&amp;gt;{
+   console.log(ctx.request.method);
+    console.log(ctx.request.url);
+    next()
+});
+//http://localhost:3000/login?name=zhq?age=26
+router.get(&quot;/login&quot;,ctx=&amp;gt;{
+   var name = ctx.query.name;
+    var age = ctx.query.age;
+    console.log(name+&quot;年龄:&quot;+age);
+    ctx.body = `&amp;lt;h1&amp;gt; Hello,${name}&amp;lt;/h1&amp;gt;`
+});
+//http://localhost:3000/regist/zhq/26
+router.get(&quot;/regist/:name/:age&quot;,ctx=&amp;gt;{
+    var name = ctx.params.name;
+    var age = ctx.params.age;
+    ctx.response.body = `&amp;lt;h1&amp;gt;regist, ${name} ${age}!&amp;lt;/h1&amp;gt;`;
+
+
+});
+app.use(router.routes());
+//开启服务,监听端口3000
+app.listen(3000);
+
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;h2 id=&quot;获取post请求参数&quot;&gt;获取post请求参数&lt;/h2&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;const Koa = require(&quot;koa&quot;);
+const app = new Koa();
+const koaBody = require(&quot;koa-body&quot;);
+
+const router= require(&quot;koa-router&quot;)();
+app.use(async (ctx,next)=&amp;gt;{
+    console.log(ctx.request.method);
+    console.log(ctx.request.url);
+    await next()
+});
+router.post(&quot;/login&quot;, (ctx,next) =&amp;gt; {
+    var body = ctx.request.body;
+    console.log(body);
+    console.log(body.name);
+    ctx.body = {name:body.name};
+
+});
+app.use(koaBody());
+app.use(router.routes());
+//开启服务,监听端口3000
+app.listen(3000);
+
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;使用&lt;code class=&quot;highlighter-rouge&quot;&gt;curl&lt;/code&gt;发起post请求&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;curl -X POST –data “name=zhq” 127.0.0.1:3000/login&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;返回结果是一个json串&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+    &lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&quot;name&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;zhq&quot;&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;h2 id=&quot;十加载静态资源&quot;&gt;十、加载静态资源&lt;/h2&gt;
+
+&lt;p&gt;如图片、字体、样式表、脚本等&lt;/p&gt;
+
+&lt;p&gt;引入&lt;code class=&quot;highlighter-rouge&quot;&gt;koa-static&lt;/code&gt;&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;npm install koa-static&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;下面以加载一张图片为例&lt;/p&gt;
+
+&lt;ol&gt;
   &lt;li&gt;
-    &lt;p&gt;启动私有链
-  &lt;strong&gt;1、启动种子节点&lt;/strong&gt;&lt;/p&gt;
-
-    &lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;  ./neb -c conf/default/config.conf
-&lt;/code&gt;&lt;/pre&gt;
-    &lt;/div&gt;
-
-    &lt;p&gt;&lt;strong&gt;2、启动矿工节点&lt;/strong&gt;&lt;/p&gt;
-
-    &lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;  ./neb -c conf/example/miner.conf
-&lt;/code&gt;&lt;/pre&gt;
-    &lt;/div&gt;
+    &lt;p&gt;新建目录&lt;code class=&quot;highlighter-rouge&quot;&gt;static&lt;/code&gt;&lt;/p&gt;
   &lt;/li&gt;
   &lt;li&gt;
-    &lt;p&gt;发起交易&lt;/p&gt;
-
-    &lt;p&gt;&lt;strong&gt;一、签名&amp;amp;发送&lt;/strong&gt;
-  &lt;strong&gt;1、给交易签名&lt;/strong&gt;&lt;/p&gt;
+    &lt;p&gt;在&lt;code class=&quot;highlighter-rouge&quot;&gt;static&lt;/code&gt;目录下新建&lt;code class=&quot;highlighter-rouge&quot;&gt;images&lt;/code&gt;目录&lt;/p&gt;
   &lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;   curl -i -H 'Content-Type: application/json' -X POST http://localhost:8685/v1/admin/sign -d '{&quot;transaction&quot;:{&quot;from&quot;:&quot;n1FF1nz6tarkDVwWQkMnnwFPuPKUaQTdptE&quot;,&quot;to&quot;:&quot;n1MVEBhTKXe49CJstoLZ7kq8C3nLP9Bbx5G&quot;, &quot;value&quot;:&quot;1000000000000000000&quot;,&quot;nonce&quot;:1,&quot;gasPrice&quot;:&quot;1000000&quot;,&quot;gasLimit&quot;:&quot;2000000&quot;}, &quot;passphrase&quot;:&quot;passphrase&quot;}' 
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-&lt;blockquote&gt;
-  &lt;ul&gt;
-    &lt;li&gt;nonce值必须大于 from账户的nonce值,否则下面提交交易会报错
-{“error”:”transaction’s nonce is invalid, should bigger than the from’s nonce”}&lt;/li&gt;
-    &lt;li&gt;在发送交易时，对于同一个账户，只有当他Nonce为N的交易上链后，Nonce为N+1的交易才能上链，有严格的顺序，Nonce必须严格加1。可以通过GetAccountState接口查看最新的Nonce。&lt;/li&gt;
-  &lt;/ul&gt;
-&lt;/blockquote&gt;
-
-&lt;p&gt;&lt;strong&gt;2、提交交易&lt;/strong&gt;&lt;/p&gt;
-
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;curl -i -H 'Content-Type: application/json' -X POST http://localhost:8685/v1/user/rawtransaction -d '{&quot;data&quot;:&quot;CiC3mkO3VfBvZb7Jfp6Ltz973jf8WQCgaBxwP4hZsfwOLRIaGVcH+WT/SVMkY18ix7SG4F1+Z8evXJoA35caGhlXTHpREcMhXjav+RTl4PXYdSAjpbXNazKjIhAAAAAAAAAAAA3gtrOnZAAAKAMwkbys1wU6CAoGYmluYXJ5QGRKEAAAAAAAAAAAAAAAAAAPQkBSEAAAAAAAAAAAAAAAAAAehIBYAWJBjcyJU9VVhKV32f8zTCla6F46p0aEITwNTqR/judpqiRmFZ0OkLj4r6tF44FaKFMwGjyKXnWfyTM2uWHyOotcKQA=&quot;}'
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
+  &lt;li&gt;
+    &lt;p&gt;在&lt;code class=&quot;highlighter-rouge&quot;&gt;images&lt;/code&gt;目录下添加一张图片&lt;code class=&quot;highlighter-rouge&quot;&gt;avatar.JPG&lt;/code&gt;&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ol&gt;
 
 &lt;ul&gt;
-  &lt;li&gt;查看交易 hash为交易返回的hash值&lt;/li&gt;
+  &lt;li&gt;代码&lt;/li&gt;
 &lt;/ul&gt;
 
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;curl -i -H Accept:application/json -X POST http://localhost:8685/v1/user/getTransactionReceipt -d '{&quot;hash&quot;:&quot;b79a43b755f06f65bec97e9e8bb73f7bde37fc5900a0681c703f8859b1fc0e2d&quot;}'
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;const Koa = require(&quot;koa&quot;);
+const app = new Koa();
+const path = require(&quot;path&quot;);
+const koaStatic= require(&quot;koa-static&quot;);
+const router= require(&quot;koa-router&quot;)();
+
+//静态资源目录对于相对入口文件的路径
+const staticPath = './static';
+
+router.get(&quot;/&quot;,ctx=&amp;gt;{
+   ctx.body = &quot;&lt;span class=&quot;nt&quot;&gt;&amp;lt;html&amp;gt;&amp;lt;a&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;href=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'/images/avatar.JPG'&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&amp;gt;&lt;/span&gt;点我&lt;span class=&quot;nt&quot;&gt;&amp;lt;/a&amp;gt;&amp;lt;/html&amp;gt;&lt;/span&gt;&quot;
+});
+app.use(koaStatic(
+    path.join(__dirname,staticPath)
+));
+app.use(router.routes());
+//开启服务,监听端口3000
+app.listen(3000);
+
 &lt;/code&gt;&lt;/pre&gt;
 &lt;/div&gt;
+
+&lt;h2 id=&quot;十一模板引擎&quot;&gt;十一、模板引擎&lt;/h2&gt;
+
+&lt;p&gt;安装ejs模板引擎&lt;/p&gt;
+
 &lt;blockquote&gt;
-  &lt;ul&gt;
-    &lt;li&gt;0: 交易失败. 表示当前交易已经上链，但是执行失败了。可能是因为部署合约或者调用合约参数错误。&lt;/li&gt;
-    &lt;li&gt;1: 交易成功. 表示当前交易已经上链，而且执行成功了。&lt;/li&gt;
-    &lt;li&gt;2: 交易待定. 表示当前交易还没有上链。可能是因为当前交易还没有被打包；如果长时间处于当前状态，可能是因为当前交易的发送者账户的余额不够支付上链手续费&lt;/li&gt;
-  &lt;/ul&gt;
+  &lt;p&gt;npm install ejs
+npm install koa-views&lt;/p&gt;
 &lt;/blockquote&gt;
 
-&lt;h2 id=&quot;参考资料&quot;&gt;参考资料&lt;/h2&gt;
-
 &lt;ul&gt;
-  &lt;li&gt;&lt;a href=&quot;https://github.com/nebulasio/wiki/blob/master/tutorials/%5B%E4%B8%AD%E6%96%87%5D%20Nebulas%20101%20-%2002%20%E5%8F%91%E9%80%81%E4%BA%A4%E6%98%93.md&quot;&gt;Nebulas 101 - 02 在星云链上发送交易&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;代码&lt;/li&gt;
 &lt;/ul&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;const Koa = require(&quot;koa&quot;);
+const app = new Koa();
+//引入koa-router的时候要加上一个()
+var router = require(&quot;koa-router&quot;)();
+var views = require(&quot;koa-views&quot;);
+var path = require(&quot;path&quot;);
+//views 必须是异步才可以
+router.get(&quot;/login&quot;,async ctx=&amp;gt;{
+    //将json里面的值替换为文件里面的变量
+    //go 里面使用的是template模板,他们功能类型
+    var name = &quot;zhq&quot;;
+    await ctx.render(&quot;loginEjs.ejs&quot;,{
+        name
+    })
+});
+router.get(&quot;/regist&quot;,async ctx=&amp;gt;{
+    await ctx.render(&quot;regist.html&quot;)
+});
+app.use(views(
+    path.join(__dirname,&quot;./views&quot;),
+    {
+        extensions:&quot;ejs&quot;,
+        //默认去views下面获取ejs后缀的文件
+        //如果是其他类型的文件需要制定文件类型
+        map:{
+            html:&quot;ejs&quot;
+        }
+    }
+));
+//路由注册到中间件
+app.use(router.routes());
+//开启服务,监听端口3000
+app.listen(3000);
+
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;loginEjs.js&lt;/code&gt;&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;cp&quot;&gt;&amp;lt;!DOCTYPE html&amp;gt;&lt;/span&gt;
+&lt;span class=&quot;nt&quot;&gt;&amp;lt;html&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;lang=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;en&quot;&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&amp;gt;&lt;/span&gt;
+&lt;span class=&quot;nt&quot;&gt;&amp;lt;head&amp;gt;&lt;/span&gt;
+    &lt;span class=&quot;nt&quot;&gt;&amp;lt;meta&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;charset=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;UTF-8&quot;&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&amp;gt;&lt;/span&gt;
+    &lt;span class=&quot;nt&quot;&gt;&amp;lt;title&amp;gt;&lt;/span&gt;Title&lt;span class=&quot;nt&quot;&gt;&amp;lt;/title&amp;gt;&lt;/span&gt;
+    &lt;span class=&quot;nt&quot;&gt;&amp;lt;style&amp;gt;&lt;/span&gt;
+        &lt;span class=&quot;nt&quot;&gt;div&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+            &lt;span class=&quot;nl&quot;&gt;background&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;darkcyan&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+        &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+    &lt;span class=&quot;nt&quot;&gt;&amp;lt;/style&amp;gt;&lt;/span&gt;
+&lt;span class=&quot;nt&quot;&gt;&amp;lt;/head&amp;gt;&lt;/span&gt;
+&lt;span class=&quot;nt&quot;&gt;&amp;lt;body&amp;gt;&lt;/span&gt;
+&lt;span class=&quot;nt&quot;&gt;&amp;lt;div&amp;gt;&lt;/span&gt;注册  &lt;span class=&quot;err&quot;&gt;&amp;lt;&lt;/span&gt;%=  name %&amp;gt;&lt;span class=&quot;nt&quot;&gt;&amp;lt;/div&amp;gt;&lt;/span&gt;
+&lt;span class=&quot;nt&quot;&gt;&amp;lt;/body&amp;gt;&lt;/span&gt;
+&lt;span class=&quot;nt&quot;&gt;&amp;lt;/html&amp;gt;&lt;/span&gt;
+
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;源码下载&lt;/p&gt;
+
+&lt;p&gt;##感谢李旭（旭哥）指导&lt;/p&gt;
 
 </description>
-        <pubDate>Fri, 04 May 2018 00:00:00 +0800</pubDate>
-        <link>/2018/05/04/%E6%98%9F%E4%BA%91%E9%93%BE%E5%8F%91%E9%80%81%E4%BA%A4%E6%98%93/</link>
-        <guid isPermaLink="true">/2018/05/04/%E6%98%9F%E4%BA%91%E9%93%BE%E5%8F%91%E9%80%81%E4%BA%A4%E6%98%93/</guid>
+        <pubDate>Sat, 14 Jul 2018 00:00:00 +0800</pubDate>
+        <link>/2018/07/14/Nodejs%E6%A1%86%E6%9E%B6Koa/</link>
+        <guid isPermaLink="true">/2018/07/14/Nodejs%E6%A1%86%E6%9E%B6Koa/</guid>
+        
+        <category>区块链</category>
+        
+        
+      </item>
+    
+      <item>
+        <title>Nodejs实现以太坊钱包-概述</title>
+        <description>&lt;p&gt;􏰲􏰳􏰴􏰩􏰵􏰶􏰷􏰸􏰹􏰬􏰺􏰻􏰼􏰽􏰾􏰲􏰳􏰴􏰩􏰵􏰶􏰷􏰸􏰹􏰬􏰺􏰻􏰼􏰽􏰾􏰲􏰳􏰴􏰩􏰵􏰶􏰷􏰸􏰹􏰬􏰺􏰻􏰼􏰽􏰾􏰲􏰳􏰴􏰩􏰵􏰶􏰷􏰸􏰹􏰬􏰺􏰻􏰼􏰽􏰾􏰲􏰳􏰴􏰩􏰵􏰶􏰷􏰸􏰹􏰬􏰺􏰻􏰼􏰽􏰾
+如何做一个功能完整的以太坊钱包？以太坊官方提供了一些API()给开发者使用，但是依靠这些API不足以做成一个完整功能的钱包。主要在转账这块，由于安全性考虑，在加解密，数字签名这块不可能有现成的API暴露给开发者。官方给了一个Nodejs的模块给我们使用，叫web3。&lt;/p&gt;
+
+&lt;h4 id=&quot;web3&quot;&gt;web3&lt;/h4&gt;
+
+&lt;p&gt;web3模块主要连接以太坊暴露出来的RPC层。开发者利用web3连接RPC层，可以连接任何暴露了RPC接口的节点，从而与区块链交互。&lt;/p&gt;
+
+&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;web3&lt;/code&gt;中有&lt;code class=&quot;highlighter-rouge&quot;&gt;eth&lt;/code&gt;对象-&lt;code class=&quot;highlighter-rouge&quot;&gt;web.eth&lt;/code&gt;具体来表示与以太坊区块链和智能合约之间的交互。&lt;code class=&quot;highlighter-rouge&quot;&gt;web3.util&lt;/code&gt;有一些辅助函数。另外还有shh和bzz用于通信和文件存储的对象。&lt;/p&gt;
+
+&lt;p&gt;github地址：&lt;a href=&quot;https://github.com/ethereum/web3.js/tree/v1.0.0-beta.34&quot;&gt;web3&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;文档:&lt;a href=&quot;http://web3js.readthedocs.io/en/1.0/&quot;&gt;web3&lt;/a&gt;&lt;/p&gt;
+
+&lt;h4 id=&quot;koa&quot;&gt;Koa&lt;/h4&gt;
+
+&lt;p&gt;我们的钱包项目使用web3可以与区块链交互了，这个web3是Nodejs的库，那么我们就用nodejs提供后台接口供前端调用即可，这里使用Koa框架。&lt;/p&gt;
+
+&lt;p&gt;Koa是富有表现力的HTTP中间件框架，使web应用程序和API更易于编写，他的特点优雅、简洁、表达力强、自由度高。&lt;/p&gt;
+
+&lt;p&gt;github地址：&lt;a href=&quot;https://github.com/koajs/koa/tree/2.5.2&quot;&gt;Koa&lt;/a&gt;&lt;/p&gt;
+
+&lt;h4 id=&quot;中间件&quot;&gt;中间件&lt;/h4&gt;
+
+&lt;p&gt;Koa的最大特色，也是最重要的一个设计，就是中间件。Koa中间件是简单的函数，调用&lt;code class=&quot;highlighter-rouge&quot;&gt;app.use()&lt;/code&gt;传入&lt;code class=&quot;highlighter-rouge&quot;&gt;MiddlewareFunction&lt;/code&gt;函数带有两个参数&lt;code class=&quot;highlighter-rouge&quot;&gt;(ctx,next)&lt;/code&gt;。中间件处在&lt;code class=&quot;highlighter-rouge&quot;&gt;HTTP Request&lt;/code&gt;和&lt;code class=&quot;highlighter-rouge&quot;&gt;HTTP Response&lt;/code&gt;之间，用来实现某种中间功能。如:&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;app.use(async (ctx, next) =&amp;gt; {
+    console.log(`Process ${ctx.request.method} ${ctx.request.url} ...`);
+    await next();
+});
+
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;ctx&lt;/code&gt; 是一个请求的上下文，该对象封装了一个传入的http消息，并对该消息进行了相应的响应。Koa提供了一个&lt;code class=&quot;highlighter-rouge&quot;&gt;Request&lt;/code&gt;对象作为&lt;code class=&quot;highlighter-rouge&quot;&gt;Context&lt;/code&gt;和&lt;code class=&quot;highlighter-rouge&quot;&gt;request&lt;/code&gt;属性。&lt;code class=&quot;highlighter-rouge&quot;&gt;Koa&lt;/code&gt;的&lt;code class=&quot;highlighter-rouge&quot;&gt;Request&lt;/code&gt;对象提供了用于处理&lt;code class=&quot;highlighter-rouge&quot;&gt;http&lt;/code&gt;请求的方法。&lt;code class=&quot;highlighter-rouge&quot;&gt;Koa&lt;/code&gt;提供了一个&lt;code class=&quot;highlighter-rouge&quot;&gt;Response&lt;/code&gt;对象作为&lt;code class=&quot;highlighter-rouge&quot;&gt;Context&lt;/code&gt;和&lt;code class=&quot;highlighter-rouge&quot;&gt;response&lt;/code&gt;属性。&lt;code class=&quot;highlighter-rouge&quot;&gt;Koa&lt;/code&gt;的&lt;code class=&quot;highlighter-rouge&quot;&gt;Response&lt;/code&gt;对象提供了用于处理&lt;code class=&quot;highlighter-rouge&quot;&gt;http&lt;/code&gt;响应的方法。&lt;/p&gt;
+
+&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;next&lt;/code&gt;是一个被调用来执行下游中间件的函数，必须手动调用&lt;code class=&quot;highlighter-rouge&quot;&gt;next()&lt;/code&gt;以运行下游中间件。&lt;/p&gt;
+
+&lt;h2 id=&quot;感谢李旭旭哥指导&quot;&gt;感谢李旭（旭哥）指导&lt;/h2&gt;
+
+</description>
+        <pubDate>Sat, 14 Jul 2018 00:00:00 +0800</pubDate>
+        <link>/2018/07/14/Nodejs%E5%AE%9E%E7%8E%B0%E4%BB%A5%E5%A4%AA%E5%9D%8A%E9%92%B1%E5%8C%85-%E6%A6%82%E8%BF%B0/</link>
+        <guid isPermaLink="true">/2018/07/14/Nodejs%E5%AE%9E%E7%8E%B0%E4%BB%A5%E5%A4%AA%E5%9D%8A%E9%92%B1%E5%8C%85-%E6%A6%82%E8%BF%B0/</guid>
+        
+        <category>区块链</category>
+        
+        
+      </item>
+    
+      <item>
+        <title>（转载）Koa async和await详解</title>
+        <description>&lt;h2 id=&quot;基本用法&quot;&gt;基本用法&lt;/h2&gt;
+
+&lt;hr /&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;async 表示这是一个async函数，await只能用在这个函数里面。&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;await 表示在这里等待promise或者等待async函数中的promise返回结果了，再继续执行。&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Promise 对象代表一个异步操作，有三种状态：Pending（进行中）、Resolved（已完成，又称 Fulfilled）和 Rejected（已失败）。Promise 对象的状态改变，只有两种可能：用 resolve 方法将 Promise 对象的状态，从「未完成」变为「成功」（即从 pending 变为 resolved）和用 reject 方法将 Promise 对象的状态，从「未完成」变为「失败」（即从 pending 变为 rejected）。&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;第一个例子-await只能用在async函数&quot;&gt;第一个例子: await只能用在async函数&lt;/h3&gt;
+
+&lt;hr /&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;strong&gt;错误示例1：程序不能运行&lt;/strong&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;let funPromise = function (time) {
+    return new Promise(function (resolve, reject) {
+        //Pending 进行中
+        setTimeout(function () {
+            resolve(); // 从 pending 变为 resolved
+        }, time);
+    })
+};
+
+let funAsync = async function () {
+    let numArr = [1003, 1002, 1001];
+    // 会报错 await没有在async函数中
+    numArr.forEach(function(value, index){
+        await funPromise(value);
+    })
+}
+
+funAsync();
+
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;strong&gt;错误示例2：程序能运行，结果不是我们想要的&lt;/strong&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;let funPromise = function (time) {
+    return new Promise(function (resolve, reject) {
+        //Pending 进行中
+        setTimeout(function () {
+            // 从 pending 变为 resolved
+            resolve(time + ' : ' + new Date()); 
+        }, time);
+    })
+};
+
+let funAsync = async function () {
+    let numArr = [1003, 1002, 1001];
+    numArr.forEach(async function(value, index){
+        //三个funPromise()操作将是并发执行，也就是同时执行，而不是继发执行
+        let result = await funPromise(value);
+        console.log(result);
+    })
+}
+
+funAsync();
+
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://upload-images.jianshu.io/upload_images/4250933-d7274ef488f48a39.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/346&quot; alt=&quot;错误示例&quot; title=&quot;第一个例子错误示例2的运行结果&quot; /&gt;&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;strong&gt;正确示例&lt;/strong&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;let funPromise = function (time) {
+    return new Promise(function (resolve, reject) {
+        //Pending 进行中
+        setTimeout(function () {
+            // 从 pending 变为 resolved
+            resolve(time + ' : ' + new Date());  
+        }, time);
+    })
+};
+
+let funAsync = async function () {
+    let numArr = [1003, 1002, 1001];
+    // 三个funPromise()操作将是继发执行
+    for (let value of number){
+        let result = await funPromise(value);
+        console.log(result);
+    }
+}
+
+funAsync();
+
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://upload-images.jianshu.io/upload_images/4250933-f008242b85615ce0.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/359&quot; alt=&quot;&quot; title=&quot;第一个例子正确示例子的运行结果&quot; /&gt;&lt;/p&gt;
+
+&lt;h3 id=&quot;第二个例子await等待promise返回结果&quot;&gt;第二个例子：await等待promise返回结果&lt;/h3&gt;
+
+&lt;hr /&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt; let funPromise = function (time) {
+    return new Promise(function (resolve, reject) {
+        //Pending 进行中
+        setTimeout(function () {
+            resolve(); // 从 pending 变为 resolved
+        }, time);
+    })
+};
+
+let funAsync = async function () {
+    // 在这里使用起来就像同步代码那样直观
+    console.log('start:  ' + new Date());
+    await funPromise(3000);
+    console.log('end:  '  + new Date());
+};
+
+funAsync();
+
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://upload-images.jianshu.io/upload_images/4250933-34ea5539a0db33ed.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/341&quot; alt=&quot;&quot; title=&quot;第二个例子的运行结果&quot; /&gt;&lt;/p&gt;
+
+&lt;h3 id=&quot;第三个例子等待async函数中的promise返回结果&quot;&gt;第三个例子：等待async函数中的promise返回结果&lt;/h3&gt;
+
+&lt;hr /&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;let funPromise = function (time) {
+    return new Promise(function (resolve, reject) {
+        //Pending 进行中
+        setTimeout(function () {
+            resolve(); // 从 pending 变为 resolved
+        }, time);
+    })
+};
+
+let funAsync_1 = async function () {
+    console.log('funAsync_1_start:  ' + new Date());
+    await funPromise(3000);
+    console.log('funAsync_1_end:  '  + new Date());
+};
+
+let funAsync_2 = async function () {
+    console.log('funAsync_2_start:  ' + new Date());
+    // 等待 funAsync_1() 中的 Promise 运行结束
+    await funAsync_1();
+    console.log('funAsync_2_end:  '  + new Date());
+};
+
+funAsync_2();
+
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://upload-images.jianshu.io/upload_images/4250933-675dcfb80770fdde.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/434&quot; alt=&quot;&quot; title=&quot;第三个例子的运行结果&quot; /&gt;&lt;/p&gt;
+
+&lt;h3 id=&quot;注意点&quot;&gt;注意点&lt;/h3&gt;
+
+&lt;hr /&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;strong&gt;await 命令后面的 Promise 对象，运行结果可能是 rejected，所以最好把 await 命令放在 try…catch 代码块中。&lt;/strong&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;let funPromise = function (time) {
+    return new Promise(function (resolve, reject) {
+        //Pending 进行中
+        setTimeout(function () {
+            reject('我是返回的错误'); // 从 pending 变为 rejected
+        }, time);
+    })
+};
+
+let funAsync = async function () {
+    console.log('start:  ' + new Date());
+    try {
+        await funPromise(3000);
+        console.log('我不会执行的噢');
+    }  catch (err) {
+        console.log(err);
+    }
+    console.log('end:  '  + new Date());
+};
+
+funAsync();
+
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;h2 id=&quot;文章转载自-httpswwwjianshucompf8cfb82b4dad&quot;&gt;文章转载自 https://www.jianshu.com/p/f8cfb82b4dad&lt;/h2&gt;
+
+</description>
+        <pubDate>Sat, 14 Jul 2018 00:00:00 +0800</pubDate>
+        <link>/2018/07/14/(%E8%BD%AC%E8%BD%BD-Koa-async%E5%92%8Cawait%E8%AF%A6%E8%A7%A3/</link>
+        <guid isPermaLink="true">/2018/07/14/(%E8%BD%AC%E8%BD%BD-Koa-async%E5%92%8Cawait%E8%AF%A6%E8%A7%A3/</guid>
+        
+        <category>区块链</category>
+        
+        
+      </item>
+    
+      <item>
+        <title>Mac 开机停在进度条解决方法</title>
+        <description>&lt;p&gt;##查看原因&lt;/p&gt;
+
+&lt;p&gt;开机 &amp;gt; 立即按&lt;code class=&quot;highlighter-rouge&quot;&gt;command + V&lt;/code&gt;键，进入代码界面：&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;等不停的输出&lt;code class=&quot;highlighter-rouge&quot;&gt;Too many corpses being created&lt;/code&gt;这段代码的时候,说明是缓存太多造成的.&lt;/li&gt;
+  &lt;li&gt;不必要一直看这个输出，知道是这个原因就可以了。&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;##解决问题&lt;/p&gt;
+
+&lt;p&gt;1、关机 &amp;gt; 再开机 &amp;gt; 立即按command + R键，进入macOS恢复界面，左上角找到终端工具，在终端命令行中按如下顺序执行命令(目的：清除数据库缓存)：&lt;/p&gt;
+
+&lt;p&gt;进入缓存目录&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;cd /Volumes/Macintosh\ HD/var/db/caches/opendiretory/&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;删除缓存数据库&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;mv ./mbr_cache ./mbr_cache-old&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;2、写成后，关机 &amp;gt; 再开机 &amp;gt; 进入正常开机流程
+这次开机会比正常情况下要久，因为缓存清了，大概3-5分钟；&lt;/p&gt;
+
+&lt;p&gt;3、成功进入用户登录界面，恭喜你！！&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;&amp;lt;font color=red&amp;gt; 以上只对&lt;code class=&quot;highlighter-rouge&quot;&gt;Too many corpses being created&lt;/code&gt;有效，对于其它情况本人未遇到过，未测试 &amp;lt;/font&amp;gt;
+ &amp;lt;font color=red&amp;gt; 以上命令只会删除缓存数据，不会删除存储在硬盘上的本地文件 &amp;lt;/font&amp;gt;
+ &amp;lt;font color=red&amp;gt; 如果有重要文件，建议还是先备份一下 &amp;lt;/font&amp;gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;h2 id=&quot;备份重要文件&quot;&gt;备份重要文件&lt;/h2&gt;
+
+&lt;p&gt;1、开机后立即按住&lt;code class=&quot;highlighter-rouge&quot;&gt;command + R&lt;/code&gt;键进入恢复模式；&lt;/p&gt;
+
+&lt;p&gt;2、然后选择&lt;code class=&quot;highlighter-rouge&quot;&gt;磁盘工具&lt;/code&gt;；&lt;/p&gt;
+
+&lt;p&gt;3、准备一个硬盘或者U盘，通过硬盘工具将你的硬盘或者U盘格式化成mac-日志格式，如果你的U盘本身能直接读书，可以不用格式化；&lt;/p&gt;
+
+&lt;p&gt;4、通过&lt;code class=&quot;highlighter-rouge&quot;&gt;磁盘工具&lt;/code&gt;将你电脑的资料备份到你的移动盘：&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;首先新建文件夹映像&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://upload-images.jianshu.io/upload_images/2443108-4b5ac036e1d6eb8a.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/516&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;选择你想备份的文件或者文件夹&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;更改保存的位置：即你的移动磁盘&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://upload-images.jianshu.io/upload_images/2443108-5c517d9046bbf546.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/700&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;然后点击存储：等待它完成，这个还是有点慢的，跟你的电脑和磁盘、文件大小有关&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;备份完成后，你可以把移动盘插到别的电脑上去看下，是否完全成功(非必要操作，毕竟数据无价，确认下比较安全)&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;重装系统&quot;&gt;重装系统&lt;/h2&gt;
+
+&lt;p&gt;如果正常启动后，仍想要重装系统，可以继续以下操作&lt;/p&gt;
+
+&lt;p&gt;1、把你电脑的磁盘(Macintosh HD)格式抹除了&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://upload-images.jianshu.io/upload_images/2443108-1c308f7a88c56c9e.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/576&quot; alt=&quot;磁盘抹除&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;2、退出磁盘；&lt;/p&gt;
+
+&lt;p&gt;3、连接上网络，然后选择在线安装mac0x&lt;/p&gt;
+
+&lt;p&gt;4、进入在线安装过程，至此问题解决；&lt;/p&gt;
+
+&lt;h2 id=&quot;文章来源-httpswwwjianshucomp1bb053414f74&quot;&gt;文章来源 https://www.jianshu.com/p/1bb053414f74&lt;/h2&gt;
+
+</description>
+        <pubDate>Fri, 13 Jul 2018 00:00:00 +0800</pubDate>
+        <link>/2018/07/13/Mac-%E5%BC%80%E6%9C%BA%E5%81%9C%E5%9C%A8%E8%BF%9B%E5%BA%A6%E6%9D%A1%E8%A7%A3%E5%86%B3%E6%96%B9%E6%B3%95/</link>
+        <guid isPermaLink="true">/2018/07/13/Mac-%E5%BC%80%E6%9C%BA%E5%81%9C%E5%9C%A8%E8%BF%9B%E5%BA%A6%E6%9D%A1%E8%A7%A3%E5%86%B3%E6%96%B9%E6%B3%95/</guid>
+        
+        <category>其他</category>
+        
+        
+      </item>
+    
+      <item>
+        <title>Fabric 票据系统(六) goWeb</title>
+        <description>&lt;p&gt;至此与服务有关的东西已经写完了，接下需要一个与用户交互的前端，Go语言本身提供了一个Web服务器来处理HTTP请求，并为HTML提供模板。&lt;/p&gt;
+
+&lt;p&gt;新建web目录，包含三个子目录&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;web/tpl&lt;/code&gt;：包含所有的HTML页面（模板）&lt;/li&gt;
+  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;web/static&lt;/code&gt;：包含所有CSS，Javascript，图片…&lt;/li&gt;
+  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;web/controllers&lt;/code&gt; ：包含将呈现模板的所有函数&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;使用MVC（模型 - 视图 - 控制器）模式使其更具可读性。模型将是区块链部分，视图是模板和控制器由&lt;code class=&quot;highlighter-rouge&quot;&gt;controllers&lt;/code&gt;目录中的功能提供&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;web/tpl/login.html&lt;/code&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;web/tpl/issue.html&lt;/code&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;web/tpl/bills.html&lt;/code&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;web/tpl/billInfo.html&lt;/code&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;web/tpl/waitAccept.html&lt;/code&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;web/tpl/waitAcceptInfo.html&lt;/code&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;web/controller/controllerHandler.go&lt;/code&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;web/controller/controllerResponse.go&lt;/code&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;web/controllers/userInfo.go&lt;/code&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;web/app.go&lt;/code&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;web/static&lt;/code&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;在  &lt;code class=&quot;highlighter-rouge&quot;&gt;web&lt;/code&gt;  中添加  &lt;code class=&quot;highlighter-rouge&quot;&gt;controller&lt;/code&gt;  目录&lt;/p&gt;
+
+&lt;p&gt;在  &lt;code class=&quot;highlighter-rouge&quot;&gt;controller&lt;/code&gt;  目录中新建  &lt;code class=&quot;highlighter-rouge&quot;&gt;controllerHandler&lt;/code&gt; 用于处理各种请求&lt;/p&gt;
+
+&lt;p&gt;在  &lt;code class=&quot;highlighter-rouge&quot;&gt;controller&lt;/code&gt;  目录中新建  &lt;code class=&quot;highlighter-rouge&quot;&gt;controllerResponse&lt;/code&gt;  用于响应请求&lt;/p&gt;
+
+&lt;p&gt;用户登录: &lt;code class=&quot;highlighter-rouge&quot;&gt;userInfo.go&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;系统指定用户:  &lt;code class=&quot;highlighter-rouge&quot;&gt;admin,  alice,  bob,   jack&lt;/code&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;一开启服务设置路由&quot;&gt;一、开启服务，设置路由&lt;/h2&gt;
+
+&lt;p&gt;编辑&lt;code class=&quot;highlighter-rouge&quot;&gt;app.go&lt;/code&gt;&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;package Web
+
+import (
+	&quot;zhq/bill/Web/Controllers&quot;
+	&quot;fmt&quot;
+	&quot;net/http&quot;
+)
+
+func WebStart(app *Controllers.Application)error  {
+	// 指定文件服务器
+	//如果不指定文件服务器，css和js将不起作用
+	fs := http.FileServer(http.Dir(&quot;Web/Static&quot;))
+	http.Handle(&quot;/Static/&quot;, http.StripPrefix(&quot;/Static/&quot;, fs))
+
+	fmt.Println(&quot;启动应用程序，监听端口号:8888&quot;)
+	http.HandleFunc(&quot;/&quot;,app.LoginView)
+	http.HandleFunc(&quot;/login.html&quot;,app.LoginView)
+	//登录按钮响应
+	http.HandleFunc(&quot;/login&quot;,app.Login)
+	//发布票据页
+	http.HandleFunc(&quot;/issue.html&quot;,app.Issue)
+	//发布票据
+	http.HandleFunc(&quot;/issue&quot;,app.SaveBill)
+	//查询我的票据列表
+	http.HandleFunc(&quot;/bills.html&quot;,app.QueryMyBills)
+	//发起背书
+	http.HandleFunc(&quot;/endorse&quot;,app.Endorse)
+	//查看票据详情
+	http.HandleFunc(&quot;/billinfo&quot;,app.QueryBillInfo)
+	//查看所有待签收票据
+	http.HandleFunc(&quot;/waitAccept.html&quot;,app.WaitAccepts)
+	//查看代签收票据详情
+	http.HandleFunc(&quot;/waitAcceptInfo.html&quot;,app.WaitAcceptInfo)
+	//退出登录
+	http.HandleFunc(&quot;/loginout&quot;,app.LoginOut)
+	//签收票据
+	http.HandleFunc(&quot;/accept&quot;,app.Accetp)
+	//拒签票据
+	http.HandleFunc(&quot;/reject&quot;,app.Reject)
+	err := http.ListenAndServe(&quot;:8888&quot;,nil)
+	if err != nil {
+		return fmt.Errorf(&quot;启动web服务失败:%s&quot;,err.Error())
+	}
+	return nil
+}
+
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;h2 id=&quot;二封装处理请求响应&quot;&gt;二、封装处理请求响应&lt;/h2&gt;
+
+&lt;p&gt;编辑&lt;code class=&quot;highlighter-rouge&quot;&gt;controllerHandler.go&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;发布票据&lt;code class=&quot;highlighter-rouge&quot;&gt;SaveBill()&lt;/code&gt;&lt;/p&gt;
+
+&lt;h4 id=&quot;1获取页面提交的bill表单数据&quot;&gt;1、获取页面提交的&lt;code class=&quot;highlighter-rouge&quot;&gt;Bill&lt;/code&gt;表单数据&lt;/h4&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;bill := Service.Bill{
+		BillInfoID:       r.FormValue(&quot;BillInfoID&quot;),
+		BillInfoAmt:      r.FormValue(&quot;BillInfoAmt&quot;),
+		BillInfoType:     r.FormValue(&quot;BillInfoType&quot;),
+		BillInfoIsseDate: r.FormValue(&quot;BillInfoIsseDate&quot;),
+		BillInfoDueDate:  r.FormValue(&quot;BillInfoDueDate&quot;),
+		DrwrCmID:         r.FormValue(&quot;DrwrCmID&quot;),
+		DrwrAcct:         r.FormValue(&quot;DrwrAcct&quot;),
+		AccptrCmID:       r.FormValue(&quot;AccptrCmID&quot;),
+		AccptrAcct:       r.FormValue(&quot;AccptrAcct&quot;),
+		PyeeCmID:         r.FormValue(&quot;PyeeCmID&quot;),
+		PyeeAcct:         r.FormValue(&quot;PyeeAcct&quot;),
+		HoldrCmID:        r.FormValue(&quot;HoldrCmID&quot;),
+		HoldrAcct:        r.FormValue(&quot;HoldrAcct&quot;),
+	}
+	
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;对应&lt;code class=&quot;highlighter-rouge&quot;&gt;issue.html&lt;/code&gt;中的表单&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;
+&amp;lt;!--
+ &amp;lt;form action=&quot;/issue&quot; method=&quot;post&quot;&amp;gt;
+                    &amp;lt;!-- 发布票据 --&amp;gt;
+                    &amp;lt;div class=&quot;publish&quot;&amp;gt;
+                        &amp;lt;div class=&quot;&quot;&amp;gt;
+                            &amp;lt;div class=&quot;pub1&quot;&amp;gt;
+                                &amp;lt;p&amp;gt;票据号码&amp;lt;/p&amp;gt;
+                                &amp;lt;input type=&quot;text&quot; name=&quot;BillInfoID&quot; value=&quot;&quot; placeholder=&quot;&quot;/&amp;gt;
+                                &amp;lt;p&amp;gt;票据金额&amp;lt;/p&amp;gt;
+                                &amp;lt;input type=&quot;text&quot; name=&quot;BillInfoAmt&quot; value=&quot;&quot; placeholder=&quot;&quot;/&amp;gt;
+                                &amp;lt;p&amp;gt;票据类型&amp;lt;/p&amp;gt;
+                                &amp;lt;input type=&quot;text&quot; name=&quot;BillInfoType&quot; value=&quot;&quot; placeholder=&quot;&quot;/&amp;gt;
+                            &amp;lt;/div&amp;gt;
+                            &amp;lt;div class=&quot;pub2&quot;&amp;gt;
+                                &amp;lt;p&amp;gt;票据出票日期&amp;lt;/p&amp;gt;
+                                &amp;lt;input type=&quot;text&quot; name=&quot;BillInfoIsseDate&quot; value=&quot;&quot; placeholder=&quot;&quot;/&amp;gt;
+                                &amp;lt;p&amp;gt;票据到期日期&amp;lt;/p&amp;gt;
+                                &amp;lt;input type=&quot;text&quot; name=&quot;BillInfoDueDate&quot; value=&quot;&quot; placeholder=&quot;&quot;/&amp;gt;
+                            &amp;lt;/div&amp;gt;
+                            &amp;lt;div class=&quot;pub3&quot;&amp;gt;
+                                &amp;lt;p&amp;gt;出票人名称&amp;lt;/p&amp;gt;
+                                &amp;lt;input type=&quot;text&quot; name=&quot;DrwrAcct&quot; value=&quot;&quot; placeholder=&quot;&quot;/&amp;gt;
+                                &amp;lt;p&amp;gt;出票人证件号码&amp;lt;/p&amp;gt;
+                                &amp;lt;input type=&quot;text&quot; name=&quot;DrwrCmID&quot; value=&quot;&quot; placeholder=&quot;&quot;/&amp;gt;
+                                &amp;lt;p&amp;gt;承兑人名称&amp;lt;/p&amp;gt;
+                                &amp;lt;input type=&quot;text&quot; name=&quot;AccptrAcct&quot; value=&quot;&quot; placeholder=&quot;&quot;/&amp;gt;
+                                &amp;lt;p&amp;gt;承兑人证件号码&amp;lt;/p&amp;gt;
+                                &amp;lt;input type=&quot;text&quot; name=&quot;AccptrCmID&quot; value=&quot;&quot; placeholder=&quot;&quot;/&amp;gt;
+                            &amp;lt;/div&amp;gt;
+                            &amp;lt;div class=&quot;pub4&quot;&amp;gt;
+                                &amp;lt;p&amp;gt;收款人名称&amp;lt;/p&amp;gt;
+                                &amp;lt;input type=&quot;text&quot; name=&quot;PyeeAcct&quot; value=&quot;&quot; placeholder=&quot;&quot;/&amp;gt;
+                                &amp;lt;p&amp;gt;收款人证件号码&amp;lt;/p&amp;gt;
+                                &amp;lt;input type=&quot;text&quot; name=&quot;PyeeCmID&quot; value=&quot;&quot; placeholder=&quot;&quot;/&amp;gt;
+                                &amp;lt;p&amp;gt;持票人名称&amp;lt;/p&amp;gt;
+                                &amp;lt;input type=&quot;text&quot; name=&quot;HoldrAcct&quot; value=&quot;&quot; /&amp;gt;
+                                &amp;lt;p&amp;gt;持票人证件号码&amp;lt;/p&amp;gt;
+                                &amp;lt;input type=&quot;text&quot; name=&quot;HoldrCmID&quot; value=&quot;&quot; /&amp;gt;
+                            &amp;lt;/div&amp;gt;
+                            &amp;lt;p&amp;gt;
+                                &amp;lt;span&amp;gt;&amp;lt;input type=&quot;submit&quot; class=&quot;issueBtn&quot; value=&quot;提交&quot;/&amp;gt;&amp;lt;/span&amp;gt;
+                            &amp;lt;/p&amp;gt;
+--&amp;gt;
+
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;h4 id=&quot;2调用链码&quot;&gt;2、调用链码&lt;/h4&gt;
+
+&lt;p&gt;上一篇已经实现了&lt;code class=&quot;highlighter-rouge&quot;&gt;Service&lt;/code&gt;的封装，通过&lt;code class=&quot;highlighter-rouge&quot;&gt;Service&lt;/code&gt;来调用链码&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;transactionID, err := app.Fabric.IssueBill(bill)
+&lt;/code&gt;&lt;/pre&gt;
+  &lt;/div&gt;
+&lt;/blockquote&gt;
+
+&lt;h4 id=&quot;3返回响应结果&quot;&gt;3、返回响应结果&lt;/h4&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;	var msg string
+	if err != nil {
+		msg = &quot;票据发布失败:&quot; + err.Error()
+	} else {
+		msg = &quot;票据发布成功:&quot; + transactionID
+	}
+	data := &amp;amp;struct {
+		Msg  string
+		Flag bool
+		Cuser User
+
+	}{
+		Msg:  msg,
+		Flag: true,
+		Cuser: cuser,
+
+	}
+	ShowView(w, r, &quot;issue.html&quot;, data)
+
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;发布票据的功能就完成了，因为前面做了一些分装，所以实现起来很方便，其他的都差不多，就不多说了，以下为完整代码&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;package Controllers
+
+import (
+	&quot;zhq/bill/Service&quot;
+	&quot;net/http&quot;
+	&quot;fmt&quot;
+	&quot;encoding/json&quot;
+)
+
+type Application struct {
+	Fabric *Service.FabricSetupService
+
+}
+var cuser User
+func (app *Application)LoginView(w http.ResponseWriter,r *http.Request)  {
+	ShowView(w,r,&quot;login.html&quot;,nil)
+}
+func (app *Application)Login(w http.ResponseWriter,r *http.Request){
+	userName := r.FormValue(&quot;userName&quot;)
+	password := r.FormValue(&quot;password&quot;)
+
+	data := &amp;amp;struct {
+		CurrentUser User
+		Flag    bool
+	}{
+		Flag:false,
+	}
+
+	var flag bool
+	for _, user := range Users {
+		if user.UserName == userName &amp;amp;&amp;amp; user.Password == password {
+			cuser = user
+			flag = true
+			break
+		}
+	}
+
+	if flag {
+		// 登录成功, 根据当前用户查询票据列表
+		fmt.Println(&quot;当前登录用户信息:&quot;, cuser)
+		//向表单中插入数据
+		//r.Form.Set(&quot;holdeCmId&quot;, cuser.CmId)
+		app.QueryMyBills(w, r)
+	} else {
+		data.Flag = true
+		data.CurrentUser.UserName = userName
+		ShowView(w, r, &quot;login.html&quot;, data)
+	}
+}
+// 查询我的票据列表
+func (app *Application) QueryMyBills(w http.ResponseWriter, r *http.Request)  {
+	holdeCmId := cuser.CmId
+	result, err := app.Fabric.QueryBill(holdeCmId)
+	if err != nil{
+		fmt.Println(&quot;查询当前用户的票据列表失败: &quot;, err.Error())
+	}
+
+	var bills = []Service.Bill{}
+	fmt.Println(&quot;当前用户Id:&quot;, holdeCmId,&quot;bills:&quot;,bills)
+
+	json.Unmarshal(result, &amp;amp;bills)
+	data := &amp;amp;struct {
+		Bills   []Service.Bill
+		Cuser   User
+	}{
+		Bills: bills,
+		Cuser: cuser,
+	}
+	ShowView(w, r, &quot;bills.html&quot;, data)
+}
+//发布票据页
+func (app *Application) Issue(w http.ResponseWriter, r *http.Request)  {
+	data := &amp;amp;struct {
+		Msg   string
+		Flag  bool
+		Cuser User
+	}{
+		Msg:   &quot;&quot;,
+		Flag:  false,
+		Cuser: cuser,
+	}
+	ShowView(w, r, &quot;issue.html&quot;, data)
+}
+//发布票据
+func (app *Application) SaveBill(w http.ResponseWriter, r *http.Request)  {
+	bill := Service.Bill{
+		BillInfoID:       r.FormValue(&quot;BillInfoID&quot;),
+		BillInfoAmt:      r.FormValue(&quot;BillInfoAmt&quot;),
+		BillInfoType:     r.FormValue(&quot;BillInfoType&quot;),
+		BillInfoIsseDate: r.FormValue(&quot;BillInfoIsseDate&quot;),
+		BillInfoDueDate:  r.FormValue(&quot;BillInfoDueDate&quot;),
+		DrwrCmID:         r.FormValue(&quot;DrwrCmID&quot;),
+		DrwrAcct:         r.FormValue(&quot;DrwrAcct&quot;),
+		AccptrCmID:       r.FormValue(&quot;AccptrCmID&quot;),
+		AccptrAcct:       r.FormValue(&quot;AccptrAcct&quot;),
+		PyeeCmID:         r.FormValue(&quot;PyeeCmID&quot;),
+		PyeeAcct:         r.FormValue(&quot;PyeeAcct&quot;),
+		HoldrCmID:        r.FormValue(&quot;HoldrCmID&quot;),
+		HoldrAcct:        r.FormValue(&quot;HoldrAcct&quot;),
+	}
+
+
+
+	transactionID, err := app.Fabric.IssueBill(bill)
+	var msg string
+	if err != nil {
+		msg = &quot;票据发布失败:&quot; + err.Error()
+	} else {
+		msg = &quot;票据发布成功:&quot; + transactionID
+	}
+	data := &amp;amp;struct {
+		Msg  string
+		Flag bool
+		Cuser User
+
+	}{
+		Msg:  msg,
+		Flag: true,
+		Cuser: cuser,
+
+	}
+	ShowView(w, r, &quot;issue.html&quot;, data)
+}
+//发起背书
+func (app *Application) Endorse(w http.ResponseWriter, r *http.Request)  {
+	waitEndorseAcct := r.FormValue(&quot;waitEndorseAcct&quot;)
+	waitEndorseCmId := r.FormValue(&quot;waitEndorseCmId&quot;)
+	billNo := r.FormValue(&quot;billNo&quot;)
+	result,err := app.Fabric.Endorse(billNo,waitEndorseCmId,waitEndorseAcct)
+	if err != nil{
+		fmt.Println(err.Error())
+	}
+
+	r.Form.Set(&quot;billInfoNo&quot;,billNo)
+	r.Form.Set(&quot;flag&quot;,&quot;t&quot;)
+	r.Form.Set(&quot;Msg&quot;,result)
+	app.QueryBillInfo(w,r)
+}
+//签收票据
+func (app *Application) Accetp(w http.ResponseWriter, r *http.Request)  {
+	billNo := r.FormValue(&quot;billNo&quot;)
+	cmid := cuser.CmId
+	acct := cuser.Acct
+	result,err :=app.Fabric.Accept(billNo,cmid,acct)
+	if err != nil {
+		fmt.Println(err.Error())
+	}
+	r.Form.Set(&quot;billNo&quot;,billNo)
+	r.Form.Set(&quot;flag&quot;,&quot;t&quot;)
+	r.Form.Set(&quot;Msg&quot;,result)
+	app.WaitAcceptInfo(w,r)
+}
+//拒签票据
+func (app *Application) Reject(w http.ResponseWriter, r *http.Request)  {
+	billNo := r.FormValue(&quot;billNo&quot;)
+	cmid := cuser.CmId
+	acct := cuser.Acct
+	result,err :=app.Fabric.Reject(billNo,cmid,acct)
+	if err != nil {
+		fmt.Println(err.Error())
+	}
+	r.Form.Set(&quot;billNo&quot;,billNo)
+	r.Form.Set(&quot;flag&quot;,&quot;t&quot;)
+	r.Form.Set(&quot;Msg&quot;,result)
+	app.WaitAcceptInfo(w,r)
+}
+//查询票据详情
+func (app *Application) QueryBillInfo(w http.ResponseWriter, r *http.Request)  {
+
+	billInfoNo := r.FormValue(&quot;billNo&quot;)
+	result, err := app.Fabric.QueryBillByNo(billInfoNo)
+	if err != nil {
+		fmt.Println(err.Error())
+	}
+	var bill Service.Bill
+
+	json.Unmarshal(result, &amp;amp;bill)
+	data := &amp;amp;struct {
+		Cuser User
+		Bill  Service.Bill
+		Flag bool
+		Msg string
+
+	}{
+		Bill:  bill,
+		Cuser: cuser,
+		Flag:false,
+		Msg:&quot;&quot;,
+
+	}
+	flag := r.FormValue(&quot;flag&quot;)
+	if flag==&quot;t&quot; {
+		data.Flag = true
+		data.Msg = r.FormValue(&quot;Msg&quot;)
+	}
+	ShowView(w, r, &quot;billInfo.html&quot;, data)
+}
+//待签收票据列表
+func (app *Application) WaitAccepts(w http.ResponseWriter, r *http.Request)  {
+	waitEndorseCmId := cuser.CmId
+	result,err := app.Fabric.QueryMyWaitBills(waitEndorseCmId)
+	if err != nil {
+		fmt.Println(err.Error())
+	}
+	var bills []Service.Bill
+	json.Unmarshal(result,&amp;amp;bills)
+	data := &amp;amp;struct {
+		Bills []Service.Bill
+		Cuser User
+	}{
+		Bills:bills,
+		Cuser:cuser,
+	}
+	ShowView(w,r,&quot;waitAccept.html&quot;,data)
+}
+//待签收票据详情
+func (app *Application) WaitAcceptInfo(w http.ResponseWriter, r *http.Request)  {
+	billNo := r.FormValue(&quot;billNo&quot;)
+	result,err := app.Fabric.QueryBillByNo(billNo)
+	if err != nil {
+		fmt.Println(err.Error())
+	}
+	var bill Service.Bill
+	json.Unmarshal(result,&amp;amp;bill)
+	data := &amp;amp;struct {
+		Bill Service.Bill
+		Cuser User
+		Flag bool
+		Msg string
+	}{
+		bill,
+		cuser,
+		false,
+		&quot;&quot;,
+	}
+	flag := r.FormValue(&quot;flag&quot;)
+	if flag == &quot;t&quot; {
+		data.Flag = true
+		data.Msg = r.FormValue(&quot;Msg&quot;)
+	}
+	ShowView(w,r,&quot;waitAcceptInfo.html&quot;,data)
+}
+//退出登录
+func (app *Application) LoginOut(w http.ResponseWriter, r *http.Request)  {
+	cuser = User{}
+	app.LoginView(w,r)
+}
+
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;h2 id=&quot;二封装响应&quot;&gt;二、封装响应&lt;/h2&gt;
+
+&lt;p&gt;编辑 &lt;code class=&quot;highlighter-rouge&quot;&gt;controllerResponse.go&lt;/code&gt;&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;func ShowView(w http.ResponseWriter, r *http.Request, templateName string, data interface{}) {
+	page := filepath.Join(&quot;Web&quot;,&quot;TPL&quot;,templateName)
+	//创建模板实例
+	resultTemplate,err := template.ParseFiles(page)
+	if err != nil {
+		fmt.Println(&quot;创建模板实例错误：&quot;,err)
+		return
+	}
+	//融合数据
+	err = resultTemplate.Execute(w,data)
+	if err != nil {
+		fmt.Println(&quot;融合模板数据时发生错误&quot;,err)
+	}
+}
+
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;templateName 跳转页面名
+data 页面间传递的数据&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;h2 id=&quot;创建登录用户结构体&quot;&gt;创建登录用户结构体&lt;/h2&gt;
+
+&lt;p&gt;编辑&lt;code class=&quot;highlighter-rouge&quot;&gt;userInfo.go&lt;/code&gt;&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;package Controllers
+type User struct {
+	UserName	string	`json:&quot;UserName&quot;`
+	Name		string	`json:&quot;Name&quot;`
+	Password	string	`json:&quot;Password&quot;`
+	CmId		string	`json:&quot;CmId&quot;`
+	Acct		string	`json:&quot;Acct&quot;`
+}
+
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;初始化一些账户，用于测试，为了方便直接用数组保存，实际用户当然是用数据库保存&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;var Users []User
+
+//创建4个用户，模拟数据库存储
+func init()  {
+	admin := User{UserName: &quot;admin&quot;, Name: &quot;管理员&quot;, Password: &quot;123456&quot;, CmId: &quot;HODR01&quot;, Acct: &quot;管理员&quot;}
+	alice := User{UserName: &quot;alice&quot;, Name: &quot;A公司&quot;, Password: &quot;123456&quot;, CmId: &quot;ACMID&quot;, Acct: &quot;A公司&quot;}
+	bob := User{UserName: &quot;bob&quot;, Name: &quot;B公司&quot;, Password: &quot;123456&quot;, CmId: &quot;BCMID&quot;, Acct: &quot;B公司&quot;}
+	jack := User{UserName: &quot;jack&quot;, Name: &quot;C公司&quot;, Password: &quot;123456&quot;, CmId: &quot;CCMID&quot;, Acct: &quot;C公司&quot;}
+
+	Users = append(Users, admin)
+	Users = append(Users, alice)
+	Users = append(Users, bob)
+	Users = append(Users, jack)
+}
+
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;h2 id=&quot;运行测试&quot;&gt;运行测试&lt;/h2&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;cd $GOPATH/src/zhq/bill
+go build
+make&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;h4 id=&quot;1登录&quot;&gt;1、登录&lt;/h4&gt;
+
+&lt;p&gt;使用初始化的4个用户任一一个登录&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;http://otwxtrtn9.bkt.clouddn.com/Fabric%E7%A5%A8%E6%8D%AE%EF%BC%88%E5%85%AD%EF%BC%89%E7%99%BB%E5%BD%95.png&quot; alt=&quot;登录&quot; /&gt;&lt;/p&gt;
+
+&lt;h4 id=&quot;2发布一个票据&quot;&gt;2、发布一个票据&lt;/h4&gt;
+
+&lt;p&gt;填写票据内容，然后&lt;code class=&quot;highlighter-rouge&quot;&gt;提交&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;http://otwxtrtn9.bkt.clouddn.com/Fabric%E7%A5%A8%E6%8D%AE%EF%BC%88%E5%85%AD%EF%BC%89%E5%8F%91%E8%B5%B7%E8%83%8C%E4%B9%A6.png&quot; alt=&quot;发布票据&quot; /&gt;&lt;/p&gt;
+
+&lt;h4 id=&quot;3查看我的票据&quot;&gt;3、查看我的票据&lt;/h4&gt;
+
+&lt;p&gt;刚刚发布的票据已经可以查看到了&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;http://otwxtrtn9.bkt.clouddn.com/Fabric%E7%A5%A8%E6%8D%AE%EF%BC%88%E5%85%AD%EF%BC%89%E6%88%91%E7%9A%84%E7%A5%A8%E6%8D%AE%E5%88%97%E8%A1%A8.png&quot; alt=&quot;我的票据&quot; /&gt;&lt;/p&gt;
+
+&lt;h4 id=&quot;4票据详情&quot;&gt;4、票据详情&lt;/h4&gt;
+
+&lt;p&gt;&lt;img src=&quot;http://otwxtrtn9.bkt.clouddn.com/Fabric%E7%A5%A8%E6%8D%AE%EF%BC%88%E5%85%AD%EF%BC%89%E7%A5%A8%E6%8D%AE%E8%AF%A6%E6%83%85.png&quot; alt=&quot;票据详情&quot; /&gt;&lt;/p&gt;
+
+&lt;h4 id=&quot;5发起背书&quot;&gt;5、发起背书&lt;/h4&gt;
+
+&lt;p&gt;填写背书人名称，背书人证件号码&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;http://otwxtrtn9.bkt.clouddn.com/Fabric%E7%A5%A8%E6%8D%AE%EF%BC%88%E5%85%AD%EF%BC%89%E5%8F%91%E8%B5%B7%E8%83%8C%E4%B9%A6.png&quot; alt=&quot;发起背书&quot; /&gt;&lt;/p&gt;
+
+&lt;h4 id=&quot;6退出当前用户登录发起背书时指定的账户&quot;&gt;6、退出当前用户,登录发起背书时，指定的账户&lt;/h4&gt;
+
+&lt;p&gt;登录成功，可以看到刚才需要背书的票据&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;http://otwxtrtn9.bkt.clouddn.com/Fabric%E7%A5%A8%E6%8D%AE%EF%BC%88%E5%85%AD%EF%BC%89%E6%88%91%E7%9A%84%E7%A5%A8%E6%8D%AE%E5%88%97%E8%A1%A83.png&quot; alt=&quot;我的票据&quot; /&gt;&lt;/p&gt;
+
+&lt;h4 id=&quot;7签收票据&quot;&gt;7、签收票据&lt;/h4&gt;
+
+&lt;p&gt;待签收票据-&amp;gt;详情-&amp;gt;签收票据&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;http://otwxtrtn9.bkt.clouddn.com/Fabric%E7%A5%A8%E6%8D%AE%EF%BC%88%E5%85%AD%EF%BC%89%E7%AD%BE%E6%94%B6%E6%88%90%E5%8A%9F.png&quot; alt=&quot;签收票据&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;如果是签收票据，票据规自己所有，在我的票据列表可查&lt;/p&gt;
+
+&lt;h4 id=&quot;8拒签票据&quot;&gt;8、拒签票据&lt;/h4&gt;
+
+&lt;p&gt;待签收票据-&amp;gt;详情-&amp;gt;拒签&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;http://otwxtrtn9.bkt.clouddn.com/Fabric%E7%A5%A8%E6%8D%AE%EF%BC%88%E5%85%AD%EF%BC%89%E6%8B%92%E7%AD%BE.png&quot; alt=&quot;签收票据&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;如果是拒签票据，票据规返回给发起背书人，在背书人列表可查&lt;/p&gt;
+
+&lt;p&gt;不论是签收或是拒签都应只能对一个票据操作一次，这里为了掩饰，未做这一处理&lt;/p&gt;
+
+&lt;p&gt;###哦了，票据项目至此就完成了&lt;/p&gt;
+
+&lt;p&gt;##&lt;a href=&quot;https://github.com/sweetMegan/bill&quot;&gt;源码下载&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;##感谢韩晓东（老韩）指导&lt;/p&gt;
+
+</description>
+        <pubDate>Tue, 10 Jul 2018 00:00:00 +0800</pubDate>
+        <link>/2018/07/10/Fabric-%E7%A5%A8%E6%8D%AE%E7%B3%BB%E7%BB%9F(%E5%85%AD)-goWeb/</link>
+        <guid isPermaLink="true">/2018/07/10/Fabric-%E7%A5%A8%E6%8D%AE%E7%B3%BB%E7%BB%9F(%E5%85%AD)-goWeb/</guid>
+        
+        <category>区块链</category>
+        
+        
+      </item>
+    
+      <item>
+        <title>Fabric 票据系统(五) Service</title>
+        <description>&lt;p&gt;现在&lt;code class=&quot;highlighter-rouge&quot;&gt;CLI&lt;/code&gt;,链码都有了，但是还不能将它们联系起来，上一篇调用链码还需要使用命令行来测试，这篇实现通过代码代用链码&lt;/p&gt;
+
+&lt;h2 id=&quot;一安装初始化链码&quot;&gt;一、安装初始化链码&lt;/h2&gt;
+
+&lt;p&gt;安装、执行链码需要有一个客户端对象并指定链码名称，链码路径和版本，所以需要对&lt;code class=&quot;highlighter-rouge&quot;&gt;FabricSetup&lt;/code&gt;结构体进行修改&lt;/p&gt;
+
+&lt;p&gt;打开&lt;code class=&quot;highlighter-rouge&quot;&gt;startInit.go&lt;/code&gt;文件&lt;/p&gt;
+&lt;h4 id=&quot;修改fabricsetup结构体&quot;&gt;修改&lt;code class=&quot;highlighter-rouge&quot;&gt;FabricSetup&lt;/code&gt;结构体&lt;/h4&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;type FabricSetup struct {
+	//应用配置文件路径
+	ConfigFile string
+	//通道ID
+	ChannelID string
+	//sdk是否已初始化过，若已初始化，不再做初始化操作
+	Initialized bool
+	//通道配置文件路径
+	ChannelConfig string
+	//组织管理员账户名
+	OrgAdmin string
+	//组织名
+	OrgName string
+	//ResourceMgmtClient 使用'github.com/hyperledger/fabric-sdk-go/api/apitxn/resmgmtclient'包下的结构体，不要搞错
+	Admin resmgmtclient.ResourceMgmtClient
+	sdk   *fabsdk.FabricSDK
+	//链码所需参数
+	ChaincodeID     string //链码名称
+	ChaincodeGoPath string //系统GOPATH路径
+	ChaincodePath   string //链码所在路径
+	ChaincodeVersion string //链码版本
+	//执行链码的用户名
+	UserName string
+	//chclient.ChannelClient 使用的是 &quot;github.com/hyperledger/fabric-sdk-go/api/apitxn/chclient&quot; 包下的结构体
+	Client  chclient.ChannelClient
+}
+
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;h4 id=&quot;添加方法installandinstantiatecc安装和实例化链码&quot;&gt;添加方法&lt;code class=&quot;highlighter-rouge&quot;&gt;InstallAndInstantiateCC&lt;/code&gt;安装和实例化链码&lt;/h4&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;func (t *FabricSetup) InstallAndInstantiateCC()error {
+	fmt.Println(&quot;开始安装链码...&quot;)
+	//对链码进行打包
+	ccPkg,err := gopackager.NewCCPackage(t.ChaincodePath,t.ChaincodeGoPath)
+	if err != nil {
+		return fmt.Errorf(&quot;创建指定的链码包失败%s&quot;,err.Error())
+	}
+	//指定安装链码时的所需参数
+	installCCRequest := resmgmtclient.InstallCCRequest{
+		Name:t.ChaincodeID,
+		Path:t.ChaincodePath,
+		Version:t.ChaincodeVersion,
+		Package:ccPkg,
+	}
+	//安装链码
+	_,err = t.Admin.InstallCC(installCCRequest)
+	if err != nil {
+		return fmt.Errorf(&quot;安装链码失败%s&quot;,err.Error())
+	}
+	fmt.Println(&quot;安装链码成功&quot;)
+	fmt.Println(&quot;开始实例化链码...&quot;)
+	//指定链码策略
+
+	//cauthdsl.SignedByAnyMember 使用 &quot;github.com/hyperledger/fabric-sdk-go/third_party/github.com/hyperledger/fabric/common/cauthdsl&quot;包下的
+	ccPolicy := cauthdsl.SignedByAnyMember([]string{&quot;Org1MSP&quot;})
+	//指定实例化链码时的所需参数
+	instantiateCCReq := resmgmtclient.InstantiateCCRequest{
+		Name:t.ChaincodeID,
+		Path:t.ChaincodePath,
+		Version:t.ChaincodeVersion,
+		Args:[][]byte{[]byte(&quot;init&quot;)},
+		Policy:ccPolicy,
+	}
+
+	err = t.Admin.InstantiateCC(t.ChannelID,instantiateCCReq)
+	if err != nil {
+		return fmt.Errorf(&quot;实例化链码失败%s&quot;,err.Error())
+	}
+	fmt.Println(&quot;实例化链码成功&quot;)
+	//创建客户端对象，能够通过该对象执行链码查询及事务执行
+	t.Client,err = t.sdk.NewClient(fabsdk.WithUser(t.UserName)).Channel(t.ChannelID)
+	if err != nil {
+		return fmt.Errorf(&quot;创建新的通道客户端失败:%s&quot;,err.Error())
+	}
+	fmt.Println(&quot;链码安装实例化完成，且成功创建客户端对象&quot;)
+	return nil
+}
+
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;h2 id=&quot;二service&quot;&gt;二、service&lt;/h2&gt;
+
+&lt;h4 id=&quot;1准备数据&quot;&gt;1、准备数据&lt;/h4&gt;
+
+&lt;p&gt;新建&lt;code class=&quot;highlighter-rouge&quot;&gt;domain.go&lt;/code&gt;&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;package Service
+
+import &quot;zhq/bill/Blockchain&quot;
+
+type FabricSetupService struct {
+	Setup *Blockchain.FabricSetup
+}
+// 票据数据结构
+type Bill struct {
+	BillInfoID   string `json:&quot;BillInfoID&quot;`   // 票据号码
+	BillInfoAmt  string `json:&quot;BillInfoAmt&quot;`  // 票据金额
+	BillInfoType string `json:&quot;BillInfoType&quot;` // 票据类型
+
+	BillInfoIsseDate string `json:&quot;BillInfoIsseDate&quot;` // 票据出票日期
+	BillInfoDueDate  string `json:&quot;billInfoDueDate&quot;`  // 票据到期日期
+
+	DrwrCmID string `json:&quot;DrwrCmID&quot;` // 出票人证件号码
+	DrwrAcct string `json:&quot;DrwrAcct&quot;` // 出票人名称
+
+	AccptrCmID string `json:&quot;AccptrCmID&quot;` // 承兑人证件号码
+	AccptrAcct string `json:&quot;AccptrAcct&quot;` // 承兑人名称
+
+	PyeeCmID string `json:&quot;PyeeCmID&quot;` // 收款人证件号码
+	PyeeAcct string `json:&quot;PyeeAcct&quot;` // 收款人名称
+
+	HoldrCmID string `json:&quot;HodrCmID&quot;` // 当前持票人证件号码
+	HoldrAcct string `json:&quot;HodrAcct&quot;`  // 当前持票人名称
+
+	WaitEndorseCmID string `json:&quot;WaitEndorseCmID&quot;` // 待背书人证件号码
+	WaitEndorseAcct string `json:&quot;WaitEndorseAcct&quot;` // 待背书人名称
+
+	RejectEndorseCmID string `json:&quot;RejectEndorseCmID&quot;` // 拒绝背书人证件号码
+	RejectEndorseAcct string `json:&quot;RejectEndorseAcct&quot;` // 拒绝背书人名称
+
+	State   string        `json:&quot;State&quot;`   // 票据状态
+	History []HistoryItem `json:&quot;History&quot;` // 票据背书历史
+}
+
+// 票据历史信息
+type HistoryItem struct {
+	TxId string `json:&quot;TxId&quot;`
+	Bill Bill   `json:&quot;bill&quot;`
+}
+
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;FabricSetupService&lt;/code&gt;结构体存储的是初始化SDK时实例的&lt;code class=&quot;highlighter-rouge&quot;&gt;FabricSetup&lt;/code&gt;对象,里面包含通道、节点等一些需要用到的数据&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;Bill&lt;/code&gt;结构体与链码中定义的结构体一致&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h4 id=&quot;2调用链码&quot;&gt;2、调用链码&lt;/h4&gt;
+
+&lt;p&gt;新建&lt;code class=&quot;highlighter-rouge&quot;&gt;billService.go&lt;/code&gt;&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;发布票据&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;func (t *FabricSetupService) IssueBill(bill Bill) (string, error) {
+	//序列化票据
+	b, err := json.Marshal(bill)
+	if err != nil {
+		return &quot;&quot;, fmt.Errorf(&quot;指定的票据对象序列化错误:%s&quot;,err.Error())
+	}
+	//指定调用链码时的请求参数
+	req := chclient.Request{
+		ChaincodeID: t.Setup.ChaincodeID,
+		Fcn:         &quot;issue&quot;,
+		Args:        [][]byte{b},
+	}
+	//使用实例化链码时创建的客户端对象执行链码
+	response,err := t.Setup.Client.Execute(req)
+	if err != nil {
+		return &quot;&quot;,fmt.Errorf(&quot;保存票据信息失败：%s&quot;,err.Error())
+	}
+	//返回交易ID和错误信息
+	return response.TransactionID.ID,nil
+}
+
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;blockquote&gt;
+  &lt;ul&gt;
+    &lt;li&gt;req := chclient.Request{
+      ChaincodeID: t.Setup.ChaincodeID,
+      Fcn:         “issue”,
+      Args:        [][]byte{b},
+  }
+  设置请求参数，&lt;code class=&quot;highlighter-rouge&quot;&gt;ChaincodeID&lt;/code&gt;:链码ID，&lt;code class=&quot;highlighter-rouge&quot;&gt;Fcn&lt;/code&gt;:执行的方法名，&lt;code class=&quot;highlighter-rouge&quot;&gt;Args&lt;/code&gt;:指定参数&lt;/li&gt;
+    &lt;li&gt;response,err := t.Setup.Client.Execute(req) &lt;br /&gt;
+  &lt;code class=&quot;highlighter-rouge&quot;&gt;Execute&lt;/code&gt;对应的还有&lt;code class=&quot;highlighter-rouge&quot;&gt;Query&lt;/code&gt;，一个相当于&lt;code class=&quot;highlighter-rouge&quot;&gt;set&lt;/code&gt;一个是&lt;code class=&quot;highlighter-rouge&quot;&gt;get&lt;/code&gt;，区别在于会不会生成新的交易&lt;/li&gt;
+  &lt;/ul&gt;
+&lt;/blockquote&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;查询用户所有订单&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;func (t *FabricSetupService)QueryBill(holderCmId string)([]byte,error)  {
+	var args []string
+	args = append(args,&quot;queryMyBills&quot;)
+	args = append(args,holderCmId)
+	req := chclient.Request{
+		ChaincodeID:t.Setup.ChaincodeID,
+		Fcn:args[0],
+		Args:[][]byte{[]byte(holderCmId)},
+	}
+	response,err := t.Setup.Client.Query(req)
+	if err != nil {
+		return nil,fmt.Errorf(&quot;根据持票人证件号查询票据失败：%s&quot;,err.Error())
+	}
+	b := response.Payload
+	return b[:],nil
+}
+
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;其余5个方法，跟这两个类似，只需要改&lt;code class=&quot;highlighter-rouge&quot;&gt;Fcn&lt;/code&gt;和形参就可以了&lt;/p&gt;
+
+&lt;h2 id=&quot;三测试&quot;&gt;三、测试&lt;/h2&gt;
+
+&lt;p&gt;修改工程目录下的&lt;code class=&quot;highlighter-rouge&quot;&gt;main.go&lt;/code&gt;&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;func main()  {
+	setup := Blockchain.FabricSetup{
+		//组织内管理员用户
+		OrgAdmin:      &quot;Admin&quot;,
+		//组织ID
+		OrgName:       &quot;Org1&quot;,
+		//通道ID
+		ChannelID:     &quot;mychannel&quot;,
+		//应用配置文件路径
+		ConfigFile:    &quot;config.yaml&quot;,
+		//通道配置文件路径
+		ChannelConfig: os.Getenv(&quot;GOPATH&quot;) + &quot;/src/zhq/bill/fixtures/artifacts/channel.tx&quot;,
+		//链码相关
+		ChaincodeID:     &quot;bill&quot;,
+		ChaincodeGoPath: os.Getenv(&quot;GOPATH&quot;),
+		ChaincodePath:   &quot;zhq/bill/ChainCode&quot;,
+		ChaincodeVersion: &quot;1.0&quot;,
+		UserName:        &quot;User1&quot;,
+	}
+	err := setup.Initialize()
+	if err != nil {
+		fmt.Println(err)
+	}
+	//安装实例化链码
+	err = setup.InstallAndInstantiateCC()
+	if err != nil {
+		fmt.Printf(&quot;链码安装实例化发生错误:%s&quot;,err.Error())
+	}
+	serv := new(Service.FabricSetupService)
+	serv.Setup = &amp;amp;setup
+
+	//测试数据
+	bill := Service.Bill{
+		BillInfoID:        &quot;123456&quot;,
+		BillInfoAmt:       &quot;10&quot;,
+		BillInfoType:      &quot;liangpiao&quot;,
+		BillInfoIsseDate:  &quot;20180702&quot;,
+		BillInfoDueDate:   &quot;20190702&quot;,
+		DrwrCmID:          &quot;120xxxxxxx&quot;,
+		DrwrAcct:          &quot;zhq&quot;,
+		AccptrCmID:        &quot;accp120xxxxx&quot;,
+		AccptrAcct:        &quot;AccpName&quot;,
+		PyeeCmID:          &quot;Pyee120xxxxx&quot;,
+		PyeeAcct:          &quot;PyeeName&quot;,
+		HoldrCmID:         &quot;120xxxxxxx&quot;,
+		HoldrAcct:         &quot;zhq&quot;,
+		WaitEndorseCmID:   &quot;&quot;,
+		WaitEndorseAcct:   &quot;&quot;,
+		RejectEndorseCmID: &quot;&quot;,
+		RejectEndorseAcct: &quot;&quot;,
+		State:             &quot;&quot;,
+		History:           nil,
+	}
+	response, err := serv.IssueBill(bill)
+	if err != nil {
+		fmt.Println(err)
+	} else {
+		fmt.Println(&quot;交易ID：&quot;, response)
+	}
+
+	b, err := serv.QueryBill(&quot;120xxxxxxx&quot;)
+	if err != nil {
+		fmt.Errorf(err.Error())
+	} else {
+		var bills = []Service.Bill{}
+		json.Unmarshal(b, &amp;amp;bills)
+		for _, temp := range bills {
+			fmt.Println(temp)
+		}
+	}
+
+	b, err = serv.QueryBillByNo(&quot;123456&quot;)
+	if err != nil {
+		fmt.Errorf(err.Error())
+	} else {
+		var result Service.Bill
+		json.Unmarshal(b, &amp;amp;result)
+		fmt.Println(result)
+		for _, history := range result.History {
+
+			fmt.Println(history)
+		}
+	}
+	//发起背书
+	res, err := serv.Endorse(&quot;123456&quot;, &quot;pei120xxxxxx&quot;, &quot;pei&quot;)
+	if err != nil {
+		fmt.Println(err)
+	} else {
+		fmt.Println(res)
+	}
+	//
+	b, err = serv.QueryMyWaitBills(&quot;pei120xxxxxx&quot;)
+	if err != nil {
+		fmt.Println(err.Error())
+	} else {
+		var bills = []Service.Bill{}
+		json.Unmarshal(b, &amp;amp;bills)
+		for _, temp := range bills {
+			fmt.Println(temp)
+		}
+	}
+	//签收票据
+	res, err = serv.Accept(&quot;123456&quot;, &quot;pei120xxxxxx&quot;, &quot;pei&quot;)
+	if err != nil {
+		fmt.Println(err)
+	} else {
+		fmt.Println(res)
+	}
+	//拒签票据
+	res, err = serv.Accept(&quot;123456&quot;, &quot;pei120xxxxxx&quot;, &quot;pei&quot;)
+	if err != nil {
+		fmt.Println(err)
+	} else {
+		fmt.Println(res)
+	}
+}
+
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;cd $GOPATH/src/zhq/bill
+go build
+make&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;如果运行没有问题将会输出&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;http://otwxtrtn9.bkt.clouddn.com/Fabric%E7%A5%A8%E6%8D%AE%E9%A1%B9%E7%9B%AE%EF%BC%88%E4%BA%94%EF%BC%89.png&quot; alt=&quot;Fabric 票据项目五&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;##&lt;a href=&quot;https://github.com/sweetMegan/bill&quot;&gt;源码下载&lt;/a&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;感谢韩晓东老韩指导&quot;&gt;感谢韩晓东（老韩）指导&lt;/h2&gt;
+
+</description>
+        <pubDate>Mon, 09 Jul 2018 00:00:00 +0800</pubDate>
+        <link>/2018/07/09/Fabric-%E7%A5%A8%E6%8D%AE%E7%B3%BB%E7%BB%9F(%E4%BA%94)-Service/</link>
+        <guid isPermaLink="true">/2018/07/09/Fabric-%E7%A5%A8%E6%8D%AE%E7%B3%BB%E7%BB%9F(%E4%BA%94)-Service/</guid>
+        
+        <category>区块链</category>
+        
+        
+      </item>
+    
+      <item>
+        <title>Fabric 票据系统(四) 链码</title>
+        <description>&lt;p&gt;现在&lt;code class=&quot;highlighter-rouge&quot;&gt;CLI&lt;/code&gt;已经准备好了，接下来需要的是编写链码，实现功能&lt;/p&gt;
+
+&lt;h2 id=&quot;实现链码必要结构&quot;&gt;实现链码必要结构&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;新建目录&lt;code class=&quot;highlighter-rouge&quot;&gt;ChainCode&lt;/code&gt;&lt;/li&gt;
+  &lt;li&gt;在&lt;code class=&quot;highlighter-rouge&quot;&gt;ChainCode&lt;/code&gt;目录下新建&lt;code class=&quot;highlighter-rouge&quot;&gt;main.go&lt;/code&gt;
+在&lt;code class=&quot;highlighter-rouge&quot;&gt;main.go&lt;/code&gt;中实现链码的必要结构&lt;code class=&quot;highlighter-rouge&quot;&gt;Init()&lt;/code&gt;,&lt;code class=&quot;highlighter-rouge&quot;&gt;Invoke()&lt;/code&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h4 id=&quot;新建个链码结构体&quot;&gt;新建个链码结构体&lt;/h4&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;type BillChainCode struct {
+
+}
+
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;p&gt;####Init()&lt;/p&gt;
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;func (t *BillChainCode) Init(stub shim.ChaincodeStubInterface) peer.Response {
+	return shim.Success(nil)
+}
+
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;p&gt;####Invoke()&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;
+func (t *BillChainCode) Invoke(stub shim.ChaincodeStubInterface) peer.Response {
+	function, args := stub.GetFunctionAndParameters()
+	//票据操作的七个方法
+	if function == &quot;issue&quot; {
+		//发布票据
+		return t.Issue(stub, args)
+	}else if function == &quot;queryMyBills&quot; {
+		//查看我的票据列表
+		return t.QuerMyBills(stub, args)
+	}else if function == &quot;queryBillByNo&quot; {
+		//票据号查询票据
+		return t.QueryBillByNo(stub, args)
+	}else  if function == &quot;queryMyWaitBills&quot; {
+		//查询我的待背书票据列表
+		return t.QueryMyWaitBills(stub, args)
+	}else if function == &quot;endorse&quot; {
+		//发起背书
+		return t.endorse(stub, args)
+	}else if function == &quot;accept&quot; {
+		//签名
+		return t.Accept(stub, args)
+	}else if function == &quot;reject&quot; {
+		//拒签
+		return t.Reject(stub, args)
+	}
+
+	return shim.Error(&quot;指定的函数名称错误&quot;)
+}
+
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;p&gt;####启动链码&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;func main()  {
+	chaincode := new(BillChainCode)
+	err := shim.Start(chaincode)
+	if err != nil {
+		fmt.Println(&quot;启动链码错误: &quot;, err)
+	}
+}
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;h2 id=&quot;实现票据操作&quot;&gt;实现票据操作&lt;/h2&gt;
+
+&lt;p&gt;在这之前首先创建票据结构体和一些常量必须票据状态
+新建&lt;code class=&quot;highlighter-rouge&quot;&gt;stucture.go&lt;/code&gt;&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;package main
+
+// 票据状态
+const (
+	BillInfo_State_NewPublish	= &quot;NewPublish&quot;		// 新发布票据
+	BillInfo_State_EndorseWaitSign = &quot;EndorseWaitSign&quot;	// 等待签收票据
+	BillInfo_State_EndorseSigned = &quot;EndorseSigned&quot;		// 票据签收成功
+	BillInfo_State_EndorseReject = &quot;EndorseReject&quot;		// 拒绝签收票据
+)
+const (
+	IndexName   = &quot;holderName~billNo&quot; // search的映射名
+)
+
+// 票据数据结构
+type Bill struct {
+	BillInfoID			string		`json:&quot;BillInfoID&quot;`			// 票据号码
+	BillInfoAmt			string		`json:&quot;BillInfoAmt&quot;`		// 票据金额
+	BillInfoType		string		`json:&quot;BillInfoType&quot;`		// 票据类型
+
+	BillInfoIsseDate	string		`json:&quot;BillInfoIsseDate&quot;`	// 票据出票日期
+	BillInfoDueDate		string		`json:&quot;BillInfoDueDate&quot;`	// 票据到期日期
+
+	DrwrCmID			string		`json:&quot;DrwrCmID&quot;`			// 出票人证件号码
+	DrwrAcct			string		`json:&quot;DrwrAcct&quot;`			// 出票人名称
+
+	AccptrCmID			string		`json:&quot;AccptrCmID&quot;`			// 承兑人证件号码
+	AccptrAcct			string		`json:&quot;AccptrAcct&quot;`			// 承兑人名称
+
+	PyeeCmID			string		`json:&quot;PyeeCmID&quot;`			// 收款人证件号码
+	PyeeAcct			string		`json:&quot;PyeeAcct&quot;`			// 收款人名称
+
+	HoldrCmID			string		`json:&quot;HoldrCmID&quot;`		// 当前持票人证件号码
+	HoldrAcct			string		`json:&quot;HoldrAcct`		// 当前持票人名称
+
+	WaitEndorseCmID	string		`json:&quot;WaitEndorseCmID&quot;`	// 待背书人证件号码
+	WaitEndorseAcct	string		`json:&quot;WaitEndorseAcct&quot;`	// 待背书人名称
+
+	RejectEndorseCmID	string		`json:&quot;RejectEndorseCmID&quot;`	// 拒绝背书人证件号码
+	RejectEndorseAcct	string		`json:&quot;RejectEndorseAcct&quot;`	// 拒绝背书人名称
+
+	State				string		`json:&quot;State&quot;`				// 票据状态
+	History				[]HistoryItem	`json:&quot;History&quot;`		// 票据背书历史
+}
+
+// 票据历史信息
+type HistoryItem struct {
+	TxId		string		`json:&quot;TxId&quot;`
+	Bill		Bill		`json:&quot;bill&quot;`
+}
+
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;p&gt;数据结构有了，下面处理逻辑&lt;/p&gt;
+
+&lt;p&gt;新建&lt;code class=&quot;highlighter-rouge&quot;&gt;billcc.go&lt;/code&gt;&lt;/p&gt;
+
+&lt;h4 id=&quot;发布票据-issuego&quot;&gt;发布票据 &lt;code class=&quot;highlighter-rouge&quot;&gt;issue.go&lt;/code&gt;&lt;/h4&gt;
+
+&lt;p&gt;1、检查请求参数是否合法&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;
+//args 为票据的json串
+func (t *BillChainCode)Issue(stub shim.ChaincodeStubInterface,args []string)peer.Response  {
+//1、检查请求参数是否合法
+	if len(args) != 1 {
+		return shim.Error(&quot;发布票据失败，指定的票据内容错误&quot;)
+	}
+	var bill Bill
+	err := json.Unmarshal([]byte(args[0]),&amp;amp;bill)
+	if err != nil {
+		return shim.Error(&quot;反序列化票据对象时发生错误&quot;)
+	}
+}
+
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;p&gt;2、查重
+	票据具有唯一性，不允许重复发布票据
+	根据票据号查询票据，如果票据已存在，不允许重复发布&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;//根据订单号查询订单是否存在
+func (t *BillChainCode)getBill(stub shim.ChaincodeStubInterface,billNo string)(Bill,bool)  {
+	var bill Bill
+	b,err := stub.GetState(billNo)
+	if err != nil {
+		return bill,false
+	}
+	//判断查询到的结果是否为空
+	err = json.Unmarshal(b,&amp;amp;bill)
+	if err != nil {
+		return bill,false
+	}
+	return bill,true
+}
+
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;3、修改票据状态&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;//args 为票据的json串
+func (t *BillChainCode)Issue(stub shim.ChaincodeStubInterface,args []string)peer.Response  {
+	//1、检查请求参数是否合法
+	if len(args) != 1 {
+		return shim.Error(&quot;发布票据失败，指定的票据内容错误&quot;)
+	}
+	var bill Bill
+	err := json.Unmarshal([]byte(args[0]),&amp;amp;bill)
+	if err != nil {
+		return shim.Error(&quot;反序列化票据对象时发生错误&quot;)
+	}
+	//2、查重
+	//票据具有唯一性，不允许重复发布票据
+	//根据票据号查询票据，如果票据已存在，不允许重复发布
+	_,bl := t.getBill(stub,bill.BillInfoID)
+	if bl {
+		return shim.Error(&quot;发布的票据已存在&quot;)
+	}
+	//3、将票据状态保存为发布状态
+	bill.State = BillInfo_State_NewPublish
+	//4、将票据保存至账本
+}
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;p&gt;4、保存票据&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;//保存票据
+func (t *BillChainCode)putBill(stub shim.ChaincodeStubInterface,bill Bill)([]byte,bool)  {
+	b,err := json.Marshal(bill)
+	if err != nil {
+		return nil,false
+	}
+	err = stub.PutState(bill.BillInfoID,b)
+	if err != nil {
+		return nil,false
+	}
+	return b,true
+	
+}
+
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;5、根据当前持票人ID与票据号码，定义复合key，方便后期批量查询&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;//args 为票据的json串
+func (t *BillChainCode)Issue(stub shim.ChaincodeStubInterface,args []string)peer.Response  {
+	//1、检查请求参数是否合法
+	if len(args) != 1 {
+		return shim.Error(&quot;发布票据失败，指定的票据内容错误&quot;)
+	}
+	var bill Bill
+	err := json.Unmarshal([]byte(args[0]),&amp;amp;bill)
+	if err != nil {
+		return shim.Error(&quot;反序列化票据对象时发生错误&quot;)
+	}
+	//2、查重
+	//票据具有唯一性，不允许重复发布票据
+	//根据票据号查询票据，如果票据已存在，不允许重复发布
+	_,bl := t.getBill(stub,bill.BillInfoID)
+	if bl {
+		return shim.Error(&quot;发布的票据已存在&quot;)
+	}
+	//3、将票据状态保存为发布状态
+	bill.State = BillInfo_State_NewPublish
+	//4、将票据保存至账本
+	_,bl = t.putBill(stub,bill)
+	if !bl {
+		return shim.Error(&quot;保存票据信息时发生错误&quot;)
+	}
+	//5、根据当前持票人ID与票据号码，定义复合key，方便后期批量查询
+	holderCmIDBillIInfoIDIndexKey, err := stub.CreateCompositeKey(IndexName,[]string{bill.HoldrCmID,bill.BillInfoID})
+	if err != nil {
+		return shim.Error(&quot;创建复合键时发生错误&quot;)
+	}
+	err = stub.PutState(holderCmIDBillIInfoIDIndexKey,[]byte{0x00})
+	if err != nil {
+		return shim.Error(&quot;保存复合键时发生错误&quot;)
+	}
+	return shim.Success([]byte(&quot;指定的票据发布成功&quot;))
+
+}
+
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;####查询我的票据列表&lt;/p&gt;
+
+&lt;p&gt;1、依据复合键查询，一个人的所有票据&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;//根据票据持有人ID，查询这个人的所有票据
+func (t *BillChainCode) QueryMyBills(stub shim.ChaincodeStubInterface, args []string) peer.Response {
+	if len(args) != 1 {
+		return shim.Error(&quot;查询票据错误,非法的持票人号码&quot;)
+	}
+	iterator, err := stub.GetStateByPartialCompositeKey(IndexName, args)
+	if err != nil {
+		return shim.Error(&quot;根据指定的持票人证件号码查询信息时发生错误&quot;)
+	}
+	defer iterator.Close()
+	//迭代处理
+	var bills []Bill
+	for iterator.HasNext() {
+		kv, _ := iterator.Next()
+		//kv
+		//k:bill.HoldrCmID+bill.BillInfoID 
+		//v:[]byte{0x00}
+		//所以要找到订单号要拆分k就够了
+		//分割查询到的复合键
+		_, compositeKey, err := stub.SplitCompositeKey(kv.Key)
+		if err != nil {
+			return shim.Error(&quot;分割指定复合键时发生错误&quot;)
+		}
+		//从复合键中获取到的票据号码
+		bill, bl := t.getBill(stub, compositeKey[1])
+		if !bl {
+			return shim.Error(&quot;根据指定的票据号码查询票据信息时发生错误&quot;)
+		}
+		//将查询到的订单，添加到查询结果数组中
+		bills = append(bills, bill)
+	}
+	bs, err := json.Marshal(bills)
+	if err != nil {
+		return shim.Error(&quot;序列化票据时发生错误&quot;)
+	}
+	return shim.Success(bs)
+}
+
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;这里需要注意的是package 包名为 main 因为链码是可以单独运行的&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;##测试&lt;/p&gt;
+
+&lt;p&gt;将测试数据&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;	//测试数据
+	bill := Bill{
+		BillInfoID:        &quot;123456&quot;,
+		BillInfoAmt:       &quot;10&quot;,
+		BillInfoType:      &quot;liangpiao&quot;,
+		BillInfoIsseDate:  &quot;20180702&quot;,
+		BillInfoDueDate:   &quot;20190702&quot;,
+		DrwrCmID:          &quot;120xxxxxxx&quot;,
+		DrwrAcct:          &quot;zhq&quot;,
+		AccptrCmID:        &quot;accp120xxxxx&quot;,
+		AccptrAcct:        &quot;AccpName&quot;,
+		PyeeCmID:          &quot;Pyee120xxxxx&quot;,
+		PyeeAcct:          &quot;PyeeName&quot;,
+		HoldrCmID:         &quot;120xxxxxxx&quot;,
+		HoldrAcct:         &quot;zhq&quot;,
+		WaitEndorseCmID:   &quot;pei120xxxxxx&quot;,
+		WaitEndorseAcct:   &quot;pei&quot;,
+		RejectEndorseCmID: &quot;&quot;,
+		RejectEndorseAcct: &quot;&quot;,
+		State:             &quot;&quot;,
+		History:           nil,
+	}
+	
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;copy到&lt;code class=&quot;highlighter-rouge&quot;&gt;Issue&lt;/code&gt;方法中,就不需要在终端输入那么多东西了&lt;/p&gt;
+
+&lt;p&gt;将&lt;code class=&quot;highlighter-rouge&quot;&gt;ChainCode&lt;/code&gt;目录拷贝到&lt;code class=&quot;highlighter-rouge&quot;&gt;hyfa/fabric-samples/chaincode&lt;/code&gt;目录下&lt;/p&gt;
+
+&lt;p&gt;使用&lt;a href=&quot;https://sweetmegan.github.io/2018/06/22/%E5%BC%80%E5%8F%91%E6%A8%A1%E5%BC%8F%E6%B5%8B%E8%AF%95-%E6%89%93%E5%8C%85-%E7%AD%BE%E5%90%8D%E9%93%BE%E7%A0%81/&quot;&gt;开发模式&lt;/a&gt;测试链码&lt;/p&gt;
+
+&lt;p&gt;发布票据:&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;peer chaincode invoke -n bill -v 0 -c ‘{“Args”:[“issue”,””]}’ -C myc&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;&lt;img src=&quot;http://otwxtrtn9.bkt.clouddn.com/Fabric%E7%A5%A8%E6%8D%AE%E9%A1%B9%E7%9B%AE%E5%9B%9B%201.png&quot; alt=&quot;Fabric 票据项目四 1&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;status:200 表示成功&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;peer chaincode invoke -n bill -v 0 -c ‘{“Args”:[“queryMyBills”,”123456”]}’ -C myc&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;&lt;img src=&quot;http://otwxtrtn9.bkt.clouddn.com/Fabric%E7%A5%A8%E6%8D%AE%E9%A1%B9%E7%9B%AE%E5%9B%9B%202.png&quot; alt=&quot;Fabric 票据项目四 2&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;status:200 表示成功 payload:为查询结果&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;//票据操作的七个方法
+	if function == &quot;issue&quot; {
+		//发布票据
+		return t.Issue(stub, args)
+	}else if function == &quot;queryMyBills&quot; {
+		//查看我的票据列表
+		return t.QuerMyBills(stub, args)
+	}else if function == &quot;queryBillByNo&quot; {
+		//票据号查询票据
+		return t.QueryBillByNo(stub, args)
+	}else  if function == &quot;queryMyWaitBills&quot; {
+		//查询我的待背书票据列表
+		return t.QueryMyWaitBills(stub, args)
+	}else if function == &quot;endorse&quot; {
+		//发起背书
+		return t.endorse(stub, args)
+	}else if function == &quot;accept&quot; {
+		//签名
+		return t.Accept(stub, args)
+	}else if function == &quot;reject&quot; {
+		//拒签
+		return t.Reject(stub, args)
+	}
+
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;p&gt;七个方法只实现了前两个，其他的意思都跟这个差不多，就不多说了&lt;/p&gt;
+
+&lt;p&gt;##&lt;a href=&quot;https://github.com/sweetMegan/bill&quot;&gt;源码下载&lt;/a&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;感谢韩晓东老韩指导&quot;&gt;感谢韩晓东（老韩）指导&lt;/h2&gt;
+
+</description>
+        <pubDate>Sun, 08 Jul 2018 00:00:00 +0800</pubDate>
+        <link>/2018/07/08/Fabric-%E7%A5%A8%E6%8D%AE%E7%B3%BB%E7%BB%9F(%E5%9B%9B)-%E9%93%BE%E7%A0%81/</link>
+        <guid isPermaLink="true">/2018/07/08/Fabric-%E7%A5%A8%E6%8D%AE%E7%B3%BB%E7%BB%9F(%E5%9B%9B)-%E9%93%BE%E7%A0%81/</guid>
+        
+        <category>区块链</category>
+        
+        
+      </item>
+    
+      <item>
+        <title>Fabric 票据项目（三）使用Fabric SDK go</title>
+        <description>&lt;h1 id=&quot;fabric项目结构&quot;&gt;Fabric项目结构&lt;/h1&gt;
+
+&lt;p&gt;&lt;img src=&quot;http://otwxtrtn9.bkt.clouddn.com/Fabric%E7%A5%A8%E6%8D%AE%E9%A1%B9%E7%9B%AE%E4%B8%89%202.png&quot; alt=&quot;Fabric 票据项目（三)2&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;用户通过浏览器访问项目的Goweb服务，service通过SDK调用链码查询或更新数据,链码将结果返回给service，Goweb服务将结果展示给用户&lt;/p&gt;
+
+&lt;h2 id=&quot;一配置应用参数&quot;&gt;一、配置应用参数&lt;/h2&gt;
+
+&lt;p&gt;应用程序需要很多参数，特别是Fabric组件的通信地址。 现在把所有内容放入新的配置文件中(Fabric SDK Go配置和自定义参数)。&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;$ cd $GOPATH/src/zhq/bill
+$ vim config.yaml
+
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;将下面内容拷贝到&lt;code class=&quot;highlighter-rouge&quot;&gt;config.yaml&lt;/code&gt;中，文件中的路径替换为自己的项目路径&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;
+name: &quot;bill-network&quot;
+
+# Describe what the target network is/does.
+description: &quot;The network which will host my first blockchain&quot;
+
+# Schema version of the content. Used by the SDK to apply the corresponding parsing rules.
+version: 2
+
+# The client section used by GO SDK.
+client:
+  # Which organization does this application instance belong to? The value must be the name of an org
+  organization: Org1
+  logging:
+    level: info
+
+  # Global configuration for peer, event service and orderer timeouts
+  peer:
+    timeout:
+      connection: 3s
+      queryResponse: 45s
+      executeTxResponse: 30s
+  eventService:
+    timeout:
+      connection: 3s
+      registrationResponse: 3s
+  orderer:
+    timeout:
+      connection: 3s
+      response: 5s
+
+  # Root of the MSP directories with keys and certs. The Membership Service Providers is component that aims to offer an abstraction of a membership operation architecture.
+  #组织结构路径
+  cryptoconfig:
+    path: &quot;${GOPATH}/src/zhq/bill/fixtures/crypto-config&quot;
+
+  # Some SDKs support pluggable KV stores, the properties under &quot;credentialStore&quot; are implementation specific
+  credentialStore:
+    path: &quot;/tmp/bill-kvs&quot;
+
+     # [Optional]. Specific to the CryptoSuite implementation used by GO SDK. Software-based implementations requiring a key store. PKCS#11 based implementations does not.
+    cryptoStore:
+      path: &quot;/tmp/bill-msp&quot;
+
+  # BCCSP config for the client. Used by GO SDK. It's the Blockchain Cryptographic Service Provider.
+  # It offers the implementation of cryptographic standards and algorithms.
+  #设置加密方式为软件密，sha256
+  BCCSP:
+    security:
+     enabled: true
+     default:
+      provider: &quot;SW&quot;
+     hashAlgorithm: &quot;SHA2&quot;
+     softVerify: true
+     ephemeral: false
+     level: 256
+
+  tlsCerts:
+    systemCertPool: false
+
+# [Optional]. But most apps would have this section so that channel objects can be constructed based on the content below.
+# If one of your application is creating channels, you might not use this
+channels:
+  mychannel:
+    orderers:
+      - orderer.example.com
+
+    # Network entity which maintains a ledger and runs chaincode containers in order to perform operations to the ledger. Peers are owned and maintained by members.
+    peers:
+      peer0.org1.example.com:
+        # [Optional]. will this peer be sent transaction proposals for endorsement? The peer must
+        # have the chaincode installed. The app can also use this property to decide which peers
+        # to send the chaincode install request. Default: true
+        endorsingPeer: true
+
+        # [Optional]. will this peer be sent query proposals? The peer must have the chaincode
+        # installed. The app can also use this property to decide which peers to send the
+        # chaincode install request. Default: true
+        chaincodeQuery: true
+
+        # [Optional]. will this peer be sent query proposals that do not require chaincodes, like
+        # queryBlock(), queryTransaction(), etc. Default: true
+        ledgerQuery: true
+
+        # [Optional]. will this peer be the target of the SDK's listener registration? All peers can
+        # produce events but the app typically only needs to connect to one to listen to events.
+        # Default: true
+        eventSource: true
+
+      peer1.org1.example.com:
+
+# List of participating organizations in this network
+organizations:
+  Org1:
+    mspid: Org1MSP
+    cryptoPath: &quot;peerOrganizations/org1.example.com/users/{userName}@org1.example.com/msp&quot;
+    peers:
+      - peer0.org1.example.com
+      - peer1.org1.example.com
+    certificateAuthorities:
+      - ca.org1.example.com
+
+# List of orderers to send transaction and channel create/update requests to.
+# The orderers consent on the order of transactions in a block to be committed to the ledger. For the time being only one orderer is needed.
+orderers:
+  orderer.example.com:
+    url: grpcs://localhost:7050
+    grpcOptions:
+      ssl-target-name-override: orderer.example.com
+      grpc-max-send-message-length: 15
+    tlsCACerts:
+      path: &quot;${GOPATH}/src/zhq/bill/fixtures/crypto-config/ordererOrganizations/example.com/tlsca/tlsca.example.com-cert.pem&quot;
+
+# List of peers to send various requests to, including endorsement, query and event listener registration.
+peers:
+  peer0.org1.example.com:
+    # this URL is used to send endorsement and query requests
+    url: grpcs://localhost:7051
+    # this URL is used to connect the EventHub and registering event listeners
+    eventUrl: grpcs://localhost:7053
+    # These parameters should be set in coordination with the keepalive policy on the server
+    grpcOptions:
+      ssl-target-name-override: peer0.org1.example.com
+      grpc.http2.keepalive_time: 15
+
+    tlsCACerts:
+      path: &quot;${GOPATH}/src/zhq/bill/fixtures/crypto-config/peerOrganizations/org1.example.com/tlsca/tlsca.org1.example.com-cert.pem&quot;
+
+  peer1.org1.example.com:
+    url: grpcs://localhost:8051
+    eventUrl: grpcs://localhost:8053
+    grpcOptions:
+      ssl-target-name-override: peer1.org1.example.com
+      grpc.http2.keepalive_time: 15
+    tlsCACerts:
+      # Certificate location absolute path
+      path: &quot;${GOPATH}/src/zhq/bill/fixtures/crypto-config/peerOrganizations/org1.example.com/tlsca/tlsca.org1.example.com-cert.pem&quot;
+
+# Fabric-CA is a special kind of Certificate Authority provided by Hyperledger Fabric which allows certificate management to be done via REST APIs.
+certificateAuthorities:
+  ca.org1.example.com:
+    url: https://localhost:7054
+    # the properties specified under this object are passed to the 'http' client verbatim when making the request to the Fabric-CA server
+    httpOptions:
+      verify: false
+    registrar:
+      enrollId: admin
+      enrollSecret: adminpw
+    caName: ca.org1.example.com
+
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;h2 id=&quot;二初始化sdk&quot;&gt;二、初始化SDK&lt;/h2&gt;
+
+&lt;p&gt;在这个阶段，我们只初始化一个客户端，它将与 peer，CA 和 orderer进行通信。 还创建了一个新通道, 并将Peer节点加入到此通道中&lt;/p&gt;
+
+&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;goLand&lt;/code&gt;新建项目&lt;code class=&quot;highlighter-rouge&quot;&gt;bill&lt;/code&gt;,新建&lt;code class=&quot;highlighter-rouge&quot;&gt;Blockchain&lt;/code&gt;目录,新建&lt;code class=&quot;highlighter-rouge&quot;&gt;startInit.go&lt;/code&gt;文件&lt;/p&gt;
+
+&lt;p&gt;在&lt;code class=&quot;highlighter-rouge&quot;&gt;startInit.go&lt;/code&gt;文件中创建&lt;code class=&quot;highlighter-rouge&quot;&gt;FabricSetup&lt;/code&gt;结构体,保存sdk配置&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;type FabricSetup struct {
+	//应用配置文件路径
+	ConfigFile string
+	//通道ID
+	ChannelID string
+	//sdk是否已初始化过，若已初始化，不再做初始化操作
+	Initialized bool
+	//通道配置文件路径
+	ChannelConfig string
+	//组织管理员账户名
+	OrgAdmin string
+	//组织名
+	OrgName string
+	//ResourceMgmtClient 使用'github.com/hyperledger/fabric-sdk-go/api/apitxn/resmgmtclient'包下的结构体，不要搞错
+	Admin resmgmtclient.ResourceMgmtClient 
+	sdk *fabsdk.FabricSDK
+}
+
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;###初始化sdk&lt;/p&gt;
+
+&lt;p&gt;接下来要做的是创建通道,回忆手动启动一个网络时，创建通道前需要一些配置文件，这些文件现在已经准备好了,接下来是:&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;进入&lt;code class=&quot;highlighter-rouge&quot;&gt;CLI&lt;/code&gt;容器-&amp;gt;创建通道-&amp;gt;加入通道&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;以前都是通过命令行实现，现在通过代码实现：&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;func (setup *FabricSetup) Initialize() error {
+	fmt.Println(&quot;开始初始化。。。&quot;)
+	if setup.Initialized {
+		return errors.New(&quot;sdk已经初始化&quot;)
+	}
+	//使用指定的配置文件创建SDK
+	sdk, err := fabsdk.New(config.FromFile(setup.ConfigFile))
+	if err != nil {
+		return fmt.Errorf(&quot;创建SDK失败:%s&quot;, err.Error())
+	}
+	setup.sdk = sdk
+	//根据指定的具有特权的用户（admin）创建用于管理通道的客户端API
+	chMgmtClient, err := setup.sdk.NewClient(fabsdk.WithUser(setup.OrgAdmin), fabsdk.WithOrg(setup.OrgName)).ChannelMgmt()
+
+	//chMgmtClient, err := setup.sdk.NewClient(fabsdk.WithUser(setup.OrgAdmin), fabsdk.WithOrg(setup.OrgName)).ChannelMgmt()
+	if err != nil {
+		return fmt.Errorf(&quot;SDK添加管理用户失败:%s&quot;, err.Error())
+	}
+
+	//获取客户端的会话用户
+	session, err := setup.sdk.NewClient(fabsdk.WithUser(setup.OrgAdmin), fabsdk.WithOrg(setup.OrgName)).Session()
+	if err != nil {
+		return fmt.Errorf(&quot;获取会话用户失败：%s,%s:%s\n&quot;, setup.OrgName, setup.OrgAdmin, err.Error())
+	}
+	orgAdminUser := session
+
+	//指定用于创建或更新通道的参数
+	req := chmgmtclient.SaveChannelRequest{
+		ChannelID:setup.ChannelID,
+		ChannelConfig:setup.ChannelConfig,
+		SigningIdentity:orgAdminUser,
+	}
+	//使用指定参数创建或更新通道
+	err = chMgmtClient.SaveChannel(req)
+	if err != nil {
+		return fmt.Errorf(&quot;创建通道失败:%s\n&quot;,err.Error())
+	}
+	//创建或更新通过会有延迟,主线程等5秒
+	time.Sleep(time.Second * 5)
+	//创建一个用于管理系统资源的饿客户端API
+	setup.Admin,err = setup.sdk.NewClient(fabsdk.WithUser(setup.OrgAdmin)).ResourceMgmt()
+	if err != nil {
+		return fmt.Errorf(&quot;创建资源管理客户端失败:%s\n&quot;,err.Error())
+	}
+
+	//将peer加入通道
+	if err = setup.Admin.JoinChannel(setup.ChannelID); err != nil {
+		return fmt.Errorf(&quot;peer加入通道失败:%s\n&quot;,err.Error())
+	}
+	fmt.Println(&quot;初始化成功&quot;)
+	setup.Initialized = true
+	return nil
+
+}
+
+
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;###测试&lt;/p&gt;
+
+&lt;p&gt;在工程目录下新建&lt;code class=&quot;highlighter-rouge&quot;&gt;main.go&lt;/code&gt;文件&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;package main
+
+import (
+	&quot;os&quot;
+	&quot;fmt&quot;
+	&quot;zhq/bill/Blockchain&quot;
+)
+
+func main()  {
+	setup := Blockchain.FabricSetup{
+		//组织内管理员用户
+		OrgAdmin:      &quot;Admin&quot;,
+		//组织ID
+		OrgName:       &quot;Org1&quot;,
+		//通道ID
+		ChannelID:     &quot;mychannel&quot;,
+		//应用配置文件路径
+		ConfigFile:    &quot;config.yaml&quot;,
+		//通道配置文件路径
+		ChannelConfig: os.Getenv(&quot;GOPATH&quot;) + &quot;/src/zhq/bill/fixtures/artifacts/channel.tx&quot;,
+	}
+	err := setup.Initialize()
+	if err != nil {
+		fmt.Println(err)
+	}
+}
+
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;p&gt;指定了环境的GOPATH，用来编译链码&lt;/p&gt;
+
+&lt;p&gt;在开始编译之前，最后一件事是使用一个vendor目录来包含我们所有的依赖关系。 在我们的GOPATH中，我们有Fabric SDK Go和其他项目。 当尝试编译应用程序时，Golang会在GOPATH中搜索依赖项，但首先会检查项目中是否存在vendor文件夹。 如果依赖性得到满足，那么Golang就不会去看GOPATH或GOROOT。 这在使用几个不同版本的依赖关系时非常有用（可能会发生一些冲突，比如在例子中有多个BCCSP定义，通过使用像&lt;a href=&quot;https://translate.googleusercontent.com/translate_c?depth=1&amp;amp;hl=zh-CN&amp;amp;rurl=translate.google.com&amp;amp;sl=en&amp;amp;sp=nmt4&amp;amp;tl=zh-CN&amp;amp;u=https://github.com/golang/dep&amp;amp;xid=25657,15700002,15700019,15700124,15700149,15700168,15700186,15700201&amp;amp;usg=ALkJrhgelyRl7D3pIJRpuA8cynagkWYHXg&quot;&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;dep&lt;/code&gt;&lt;/a&gt;这样的工具来处理这些依赖关系在&lt;code class=&quot;highlighter-rouge&quot;&gt;vendor&lt;/code&gt;目录中。&lt;/p&gt;
+
+&lt;p&gt;当您安装SDK依赖关系时，DEP会自动安装。 如果不是这种情况，您可以阅读以下说明安装它： &lt;a href=&quot;https://translate.googleusercontent.com/translate_c?depth=1&amp;amp;hl=zh-CN&amp;amp;rurl=translate.google.com&amp;amp;sl=en&amp;amp;sp=nmt4&amp;amp;tl=zh-CN&amp;amp;u=https://github.com/golang/dep&amp;amp;xid=25657,15700002,15700019,15700124,15700149,15700168,15700186,15700201&amp;amp;usg=ALkJrhgelyRl7D3pIJRpuA8cynagkWYHXg#installation&quot;&gt;dep安装&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;创建一个名为&lt;code class=&quot;highlighter-rouge&quot;&gt;Gopkg.toml&lt;/code&gt;的文件并将其复制到里面：&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;$ vim Gopkg.toml
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;[[constraint]]
+  name = &quot;github.com/hyperledger/fabric&quot;
+  revision = &quot;014d6befcf67f3787bb3d67ff34e1a98dc6aec5f&quot;
+
+[[constraint]]
+  name = &quot;github.com/hyperledger/fabric-sdk-go&quot;
+  revision = &quot;614551a752802488988921a730b172dada7def1d&quot;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;这是&lt;code class=&quot;highlighter-rouge&quot;&gt;dep&lt;/code&gt;一个限制，以便在 vendor 中指定希望SDK转到特定版本。&lt;/p&gt;
+
+&lt;p&gt;保存该文件，然后执行此命令将vendor目录与项目的依赖关系同步（这可能需要一段时间）：&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;$ dep ensure
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;提醒：&lt;code class=&quot;highlighter-rouge&quot;&gt;dep ensure&lt;/code&gt;由于时间久，执行一次后即可，在后面的Makefile中可注释&lt;code class=&quot;highlighter-rouge&quot;&gt;@dep ensure&lt;/code&gt;命令。&lt;/p&gt;
+
+&lt;p&gt;编译应用程序&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;$ go build
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;一段时间后，一个名为 bill的新二进制文件将出现在项目的根目录下。 尝试像这样启动二进制文件：&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;$ ./bill
+
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;&lt;strong&gt;./bill命令执行失败&lt;/strong&gt;&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;此时，它将无法工作，因为没有可以与SDK进行通信的网络。 须先启动网络，然后再次启动应用程序：&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;$ cd fixtures
+$ docker-compose up -d
+$ cd ..
+$ ./bill
+
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;&lt;img src=&quot;http://otwxtrtn9.bkt.clouddn.com/Fabric%E7%A5%A8%E6%8D%AE%E9%A1%B9%E7%9B%AE%E4%B8%89%201.png&quot; alt=&quot;初始化SDK&quot; /&gt;&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;&lt;strong&gt;注意&lt;/strong&gt; ：需要看到“初始化成功”。 如果没有看到则说明出现问题。
+有&amp;gt; 启动完了，别忘了 &lt;code class=&quot;highlighter-rouge&quot;&gt;docker-compose down&lt;/code&gt; 关闭po&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;现在只用本地网络初始化SDK。 在下一步中，将与链码进行交互。&lt;/p&gt;
+
+&lt;h3 id=&quot;清理和makefile&quot;&gt;清理和Makefile&lt;/h3&gt;
+
+&lt;p&gt;Fabric SDK生成一些文件，如证书，二进制文件和临时文件。 关闭网络不会完全清理环境，当需要重新启动时，这些文件将被重复使用以避免构建过程。 对于开发，可以快速测试，但对于真正的测试，需要清理所有内容并从头开始。&lt;/p&gt;
+
+&lt;p&gt;&lt;em&gt;如何清理环境&lt;/em&gt;&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;关闭你的网络： &lt;code class=&quot;highlighter-rouge&quot;&gt;cd $GOPATH/src/zhq/bill/fixtures &amp;amp;&amp;amp; docker-compose down&lt;/code&gt;&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;删除证书存储（在配置文件中，&lt;code class=&quot;highlighter-rouge&quot;&gt;client.credentialStore&lt;/code&gt;中定义）： &lt;code class=&quot;highlighter-rouge&quot;&gt;rm -rf /tmp/bill-*&lt;/code&gt;&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;删除一些不是由&lt;code class=&quot;highlighter-rouge&quot;&gt;docker-compose&lt;/code&gt;命令生成的docker容器和docker镜像：&lt;/p&gt;
+
+    &lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;docker rm -f -v `docker ps -a --no-trunc | grep &quot;bill&quot; | cut -d ' ' -f 1` 2&amp;gt;/dev/null
+和 
+docker rmi `docker images --no-trunc | grep &quot;bill&quot; | cut -d ' ' -f 1` 2&amp;gt;/dev/null
+  
+&lt;/code&gt;&lt;/pre&gt;
+    &lt;/div&gt;
+
+    &lt;p&gt;​&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;em&gt;如何更有效率？&lt;/em&gt;&lt;/p&gt;
+
+&lt;p&gt;可以在一个步骤中自动完成所有这些任务。 构建和启动过程也可以自动化。 为此，将创建一个Makefile。 首先，确保  &lt;code class=&quot;highlighter-rouge&quot;&gt;make&lt;/code&gt; 工具：&lt;/p&gt;
+
+&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;make --version&lt;/code&gt;&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;如果没有安装&lt;code class=&quot;highlighter-rouge&quot;&gt;make&lt;/code&gt; （Ubuntu）：&lt;/p&gt;
+
+  &lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;sudo apt install make 
+&lt;/code&gt;&lt;/pre&gt;
+  &lt;/div&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;然后使用以下内容在项目的根目录下创建一个名为&lt;code class=&quot;highlighter-rouge&quot;&gt;Makefile&lt;/code&gt;的文件：&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;$ cd $GOPATH/src/zhq/bill
+$ vim Makefile
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;div class=&quot;language-makefile highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nl&quot;&gt;.PHONY&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;all dev clean build env-up env-down run&lt;/span&gt;
+
+&lt;span class=&quot;nl&quot;&gt;all&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;clean build env-up run&lt;/span&gt;
+
+&lt;span class=&quot;nl&quot;&gt;dev&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;build run&lt;/span&gt;
+
+&lt;span class=&quot;c&quot;&gt;##### BUILD
+&lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;build&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;:&lt;/span&gt;
+	&lt;span class=&quot;p&quot;&gt;@&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;echo&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;Build ...&quot;&lt;/span&gt;
+	&lt;span class=&quot;p&quot;&gt;@&lt;/span&gt;dep ensure
+	&lt;span class=&quot;p&quot;&gt;@&lt;/span&gt;go build
+	&lt;span class=&quot;p&quot;&gt;@&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;echo&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;Build done&quot;&lt;/span&gt;
+
+&lt;span class=&quot;c&quot;&gt;##### ENV
+&lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;env-up&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;:&lt;/span&gt;
+	&lt;span class=&quot;p&quot;&gt;@&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;echo&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;Start environment ...&quot;&lt;/span&gt;
+	&lt;span class=&quot;p&quot;&gt;@&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;cd &lt;/span&gt;fixtures &lt;span class=&quot;o&quot;&gt;&amp;amp;&amp;amp;&lt;/span&gt; docker-compose up --force-recreate -d
+	&lt;span class=&quot;p&quot;&gt;@&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;echo&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;Sleep 15 seconds in order to let the environment setup correctly&quot;&lt;/span&gt;
+	&lt;span class=&quot;p&quot;&gt;@&lt;/span&gt;sleep 15
+	&lt;span class=&quot;p&quot;&gt;@&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;echo&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;Environment up&quot;&lt;/span&gt;
+
+&lt;span class=&quot;nl&quot;&gt;env-down&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;:&lt;/span&gt;
+	&lt;span class=&quot;p&quot;&gt;@&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;echo&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;Stop environment ...&quot;&lt;/span&gt;
+	&lt;span class=&quot;p&quot;&gt;@&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;cd &lt;/span&gt;fixtures &lt;span class=&quot;o&quot;&gt;&amp;amp;&amp;amp;&lt;/span&gt; docker-compose down
+	&lt;span class=&quot;p&quot;&gt;@&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;echo&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;Environment down&quot;&lt;/span&gt;
+
+&lt;span class=&quot;c&quot;&gt;##### RUN
+&lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;run&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;:&lt;/span&gt;
+	&lt;span class=&quot;p&quot;&gt;@&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;echo&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;Start app ...&quot;&lt;/span&gt;
+	&lt;span class=&quot;p&quot;&gt;@&lt;/span&gt;./bill
+
+&lt;span class=&quot;c&quot;&gt;##### CLEAN
+&lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;clean&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;env-down&lt;/span&gt;
+	&lt;span class=&quot;p&quot;&gt;@&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;echo&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;Clean up ...&quot;&lt;/span&gt;
+	&lt;span class=&quot;p&quot;&gt;@&lt;/span&gt;rm -rf /tmp/bill-&lt;span class=&quot;k&quot;&gt;*&lt;/span&gt; bill
+	&lt;span class=&quot;p&quot;&gt;@&lt;/span&gt;docker rm -f -v &lt;span class=&quot;sb&quot;&gt;`&lt;/span&gt;docker ps -a --no-trunc | grep &lt;span class=&quot;s2&quot;&gt;&quot;bill&quot;&lt;/span&gt; | cut -d &lt;span class=&quot;s1&quot;&gt;' '&lt;/span&gt; -f 1&lt;span class=&quot;sb&quot;&gt;`&lt;/span&gt; 2&amp;gt;/dev/null &lt;span class=&quot;o&quot;&gt;||&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;true&lt;/span&gt;
+	&lt;span class=&quot;p&quot;&gt;@&lt;/span&gt;docker rmi &lt;span class=&quot;sb&quot;&gt;`&lt;/span&gt;docker images --no-trunc | grep &lt;span class=&quot;s2&quot;&gt;&quot;bill&quot;&lt;/span&gt; | cut -d &lt;span class=&quot;s1&quot;&gt;' '&lt;/span&gt; -f 1&lt;span class=&quot;sb&quot;&gt;`&lt;/span&gt; 2&amp;gt;/dev/null &lt;span class=&quot;o&quot;&gt;||&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;true&lt;/span&gt;
+	&lt;span class=&quot;p&quot;&gt;@&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;echo&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;Clean up done&quot;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;现在完成任务：&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;整个环境将被清理干净，&lt;/li&gt;
+  &lt;li&gt;go程序将被编译，&lt;/li&gt;
+  &lt;li&gt;之后将部署网络&lt;/li&gt;
+  &lt;li&gt;最后该应用程序将启动并运行。&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;要使用它，请进入项目的根目录并使用&lt;code class=&quot;highlighter-rouge&quot;&gt;make&lt;/code&gt;命令：&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;任务&lt;code class=&quot;highlighter-rouge&quot;&gt;all&lt;/code&gt; ： &lt;code class=&quot;highlighter-rouge&quot;&gt;make&lt;/code&gt;或&lt;code class=&quot;highlighter-rouge&quot;&gt;make all&lt;/code&gt;&lt;/li&gt;
+  &lt;li&gt;任务&lt;code class=&quot;highlighter-rouge&quot;&gt;clean&lt;/code&gt; ：清理一切并释放网络（ &lt;code class=&quot;highlighter-rouge&quot;&gt;make clean&lt;/code&gt; ）&lt;/li&gt;
+  &lt;li&gt;任务&lt;code class=&quot;highlighter-rouge&quot;&gt;build&lt;/code&gt; ：只需构建应用程序（ &lt;code class=&quot;highlighter-rouge&quot;&gt;make build&lt;/code&gt; ）&lt;/li&gt;
+  &lt;li&gt;任务&lt;code class=&quot;highlighter-rouge&quot;&gt;env-up&lt;/code&gt; ：只需建立网络（ &lt;code class=&quot;highlighter-rouge&quot;&gt;make env-up&lt;/code&gt; ）&lt;/li&gt;
+  &lt;li&gt;…&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;##&lt;a href=&quot;https://github.com/sweetMegan/bill&quot;&gt;源码下载&lt;/a&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;感谢韩晓东老韩指导&quot;&gt;感谢韩晓东（老韩）指导&lt;/h2&gt;
+
+</description>
+        <pubDate>Sat, 07 Jul 2018 00:00:00 +0800</pubDate>
+        <link>/2018/07/07/Fabric-%E7%A5%A8%E6%8D%AE%E9%A1%B9%E7%9B%AE-%E4%B8%89-%E4%BD%BF%E7%94%A8Fabric-SDK-go/</link>
+        <guid isPermaLink="true">/2018/07/07/Fabric-%E7%A5%A8%E6%8D%AE%E9%A1%B9%E7%9B%AE-%E4%B8%89-%E4%BD%BF%E7%94%A8Fabric-SDK-go/</guid>
         
         <category>区块链</category>
         

@@ -1,0 +1,766 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  <title>Fabric 票据项目（一）搭建环境</title>
+  <meta name="description" content="区块链">
+  <meta name="author" content="黎跃春">
+
+  <meta name="keywords" content="区块链"
+  />
+
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="Fabric 票据项目（一）搭建环境">
+  <meta name="twitter:description" content="区块链">
+
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="Fabric 票据项目（一）搭建环境">
+  <meta property="og:description" content="区块链">
+  <meta property="og:site_name" content="区块链e"
+  />
+
+
+  <link rel="icon" type="image/png" href="/images/favicon.png" />
+  <link href="/images/favicon.png" rel="shortcut icon" type="image/png">
+
+
+  <link rel="stylesheet" href=" /css/main.css ">
+  <link href="//netdna.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
+
+  <link rel="canonical" href="/2018/07/01/Fabric-%E7%A5%A8%E6%8D%AE%E9%A1%B9%E7%9B%AE-%E4%B8%80-%E6%90%AD%E5%BB%BA%E7%8E%AF%E5%A2%83/">
+  <link rel="alternate" type="application/rss+xml" title="sweetsmelon博客" href=" /feed.xml
+    ">
+
+  <meta name="google-site-verification" content="1-1ZlHoRvM0T2FqPbW2S-qLgYXN6rsn52kErlMPd_gw" />
+
+  <!-- 站点统计 -->
+  <script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js">
+  </script>
+  <!--<script>(function() {var _53code = document.createElement("script");_53code.src = "https://tb.53kf.com/code/code/10174862/1";var s = document.getElementsByTagName("script")[0]; s.parentNode.insertBefore(_53code, s);})();</script>-->
+  <!-- 百度统计 -->
+  
+
+  <!-- google 统计 -->
+  
+  <script>
+    (function (i, s, o, g, r, a, m) {
+      i['GoogleAnalyticsObject'] = r;
+      i[r] = i[r] || function () {
+        (i[r].q = i[r].q || []).push(arguments)
+      }, i[r].l = 1 * new Date();
+      a = s.createElement(o),
+        m = s.getElementsByTagName(o)[0];
+      a.async = 1;
+      a.src = g;
+      m.parentNode.insertBefore(a, m)
+    })(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
+    ga('create', 'UA-104237177-1', 'auto');
+    ga('send', 'pageview');
+  </script>
+  
+
+  <script>
+    (function () {
+      var bp = document.createElement('script');
+      var curProtocol = window.location.protocol.split(':')[0];
+      if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+      } else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+      }
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(bp, s);
+    })();
+  </script>
+
+</head>
+
+
+<body>
+
+  <span class="mobile btn-mobile-menu">
+      <div class="nav_container">
+         <nav class="nav-menu-item" style = "float:right">
+            <i class="nav-menu-item">
+              <a href="/#blog" title="" class="blog-button">  博客主页
+              </a>
+            </i>
+            
+                <i class="nav-menu-item">
+
+                  <a href="/archive" title="archive" class="btn-mobile-menu__icon">
+                      所有文章
+                  </a>
+                </i>
+            
+                <i class="nav-menu-item">
+
+                  <a href="/tags" title="tags" class="btn-mobile-menu__icon">
+                      分类
+                  </a>
+                </i>
+            
+                <i class="nav-menu-item">
+
+                  <a href="/about" title="about" class="btn-mobile-menu__icon">
+                      关于我
+                  </a>
+                </i>
+            
+          </nav>
+
+      </div>
+    </span> <header class="panel-cover panel-cover--collapsed" style="background-image: url('/images/background-cover.jpg')">
+  <div class="panel-main">
+    <div class="panel-main__inner panel-inverted">
+      <div class="panel-main__content">
+        <!-- 头像效果-start -->
+        <div class="ih-item circle effect right_to_left">
+          <a href="/#blog" title="前往 sweetsmelon博客 的主页" class="blog-button">
+            <div class="img"><img src="/images/avatar.jpg" alt="img"></div>
+            <div class="info">
+              <div class="info-back">
+                <h2 style="font-size: 14px">
+                   微信:zhq496927203 
+                </h2>´
+                <p style="font-size: 6px">
+                   sweetsmelon 
+                </p>
+              </div>
+            </div>
+          </a>
+        </div>
+        <!-- 头像效果-end -->
+        <h1 class="panel-cover__title panel-title"><a href="/#blog" title="link to homepage for sweetsmelon博客" class="blog-button">sweetsmelon博客</a></h1>
+        <hr class="panel-cover__divider" />
+        <p class="panel-cover__description"></p>
+        <hr class="panel-cover__divider panel-cover__divider--secondary" /> 
+
+
+        <div class="navigation-wrapper">
+          <div>
+            <nav class="cover-navigation cover-navigation--primary">
+              <ul class="navigation">
+                <li class="navigation__item"><a href="/#blog" title="" class="blog-button">博客主页</a></li>
+                
+                <li class="navigation__item"><a href="/archive" title="archive">所有文章</a></li>
+                
+                <li class="navigation__item"><a href="/tags" title="tags">分类</a></li>
+                
+                <li class="navigation__item"><a href="/about" title="about">关于我</a></li>
+                
+              </ul>
+            </nav>
+          </div>
+        </div>
+
+        <div style="display:flex;justify-content:center;-webkit-justify-content:center">
+          <div style="display:flex;flex-direction:column;align-items:center;-webkit-flex-direction:column;-webkit-align-items:center;margin-right:10px">
+            <img src="/images/zhishixingqiu.png" style="width:120px;height:120px;margin-top:30px;margin-bottom:10px" />
+            <span class="panel-cover__subtitle panel-subtitle" style="font-size: 12px">链乎问答社区</span>
+          </div>
+          <div style="display:flex;flex-direction:column;align-items:center;-webkit-flex-direction:column;-webkit-align-items:center;margin-left:10px">
+            <img src="/images/lianhu.jpg" style="width:120px;height:120px;margin-top:30px;margin-bottom:10px" />
+            <span class="panel-cover__subtitle panel-subtitle" style="font-size: 12px">链乎公众号</span>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  
+  <div class="panel-cover--overlay cover-clear"></div>
+  
+
+  </div>
+</header>
+
+
+  <div class="content-wrapper">
+    <div class="content-wrapper__inner">
+      <article class="post-container post-container--single" itemscope itemtype="http://schema.org/BlogPosting">
+  <header class="post-header">
+    <h1 class="post-title">Fabric 票据项目（一）搭建环境</h1>
+    <div class="post-meta">
+      <img src="/images/calendar.png" width="20px"/>
+      <time datetime="2018-07-01 00:00:00 +0800" itemprop="datePublished" class="post-meta__date date">2018-07-01</time>
+
+      <span id="busuanzi_container_page_pv"> | 阅读：<span id="busuanzi_value_page_pv"></span>次</span>
+    </p>
+    </div>
+  </header>
+
+  <section class="post">
+    <h2 id="一生成组织结构通道和锚节点配置文件">一、生成组织结构、通道和锚节点配置文件</h2>
+
+<p>步骤与请参考<a href="https://sweetmegan.github.io/2018/06/20/Fabric-%E5%BB%BA%E7%AB%8B%E7%AC%AC%E4%B8%80%E4%B8%AA%E7%BD%91%E7%BB%9C/">手动启动一个网络</a></p>
+
+<h2 id="二下载-安装-fabric-sdk-go">二、下载 安装 Fabric SDK Go</h2>
+
+<p>###&lt;font color=red&gt;在进行以下操作前，请确保终端可以翻墙 ！&lt;/font&gt;</p>
+
+<p>安装Hyperledger Fabric SDK Go，可以很容易的与Fabric的组件进行通信。 不需要安装Fabric或Fabric CA框架，因为SDK会自动在本地处理。</p>
+
+<p>安装软件包<code class="highlighter-rouge">libltdl-dev</code></p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>$ sudo apt update
+$ sudo apt install libltdl-dev 
+</code></pre>
+</div>
+
+<p>将当前用户添加到Docker组</p>
+
+<p>否则在执行make命令时会造成错误: <code class="highlighter-rouge">ERROR: Couldn't connect to Docker daemon at http+docker://localunixsocket - is it running?</code></p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>$ sudo usermod -aG docker kevin
+</code></pre>
+</div>
+
+<p>添加成功后<strong>必须注销/退出并重新登录</strong>(退出终端重新连接即可)</p>
+
+<p><strong>执行以下命令请确保网络通畅及稳定</strong></p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>$ go get -u --tags nopkcs11 github.com/hyperledger/fabric/core/chaincode/shim
+</code></pre>
+</div>
+
+<p>下载<a href="https://pan.baidu.com/s/1Jy1Lz3L-PTqLD652-tGQIw">Fabric SDK Go</a>,因为<code class="highlighter-rouge">Fabric SDK Go</code>一直在更新，有些方法可能会被修改，为避免错误，不要从github上直接下载</p>
+
+<blockquote>
+  <p><strong>将fabric-sdk-go目录上传并解压至$GOPATH/src/github.com/hyperledger目录下</strong></p>
+
+  <div class="highlighter-rouge"><pre class="highlight"><code>$ unzip -d $GOPATH/src/github.com/hyperledger fabric-sdk-go.zip
+</code></pre>
+  </div>
+</blockquote>
+
+<p>将如下环境变量设置到用户的环境文件中(.bashrc)中</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>export PATH=$PATH:$GOPATH/bin
+</code></pre>
+</div>
+
+<p>确保有所需的所有依赖关系：</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>$ cd $GOPATH/src/github.com/hyperledger/fabric-sdk-go 
+$ make depend-install 
+</code></pre>
+</div>
+
+<p>修改配置文件</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>$ vim Makefile
+fabric-sdk-go/Makefile文件中的 
+	1.0   修改为 1.1
+	1.0.5 修改为 1.1.0
+	0.4.2 修改为 0.4.6
+
+$ vim test/fixtures/dockerenv/.evn
+fabric-sdk-go/test/fixtures/dockerenv/.env 文件中
+	修改Docker镜像文件的版本为 1.1.0
+	0.4.2 修改为 0.4.6
+</code></pre>
+</div>
+
+<p>执行make</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>$ cd $GOPATH/src/github.com/hyperledger/fabric-sdk-go 
+$ make
+</code></pre>
+</div>
+
+<blockquote>
+  <p>如果下载失败, 则需多尝试几次</p>
+</blockquote>
+
+<p>该make过程需要一段时间（取决于网络连接情况）。 在这个过程中，虚拟网络已经建成并且已经进行了一些测试以检查您的系统是否准备就绪。 现在我们可以使用我们的第一个应用程序</p>
+
+<blockquote>
+  <p>注意 ：有很多的输出内容，但将它放在这里并不重要。 唯一需要关心的是<code class="highlighter-rouge">fabsdkgo_integration-tests_1 exited with code 0</code>。 如果你有<code class="highlighter-rouge">fabsdkgo_integration-tests_1 exited with code 1</code>那么表示有问题。 在输出的消息中向上滚动以查找错误。</p>
+</blockquote>
+
+<h2 id="三创建第一个项目">三、创建第一个项目</h2>
+
+<p>####1、创建go项目，项目名<code class="highlighter-rouge">bill</code>
+####2、项目中新建目录<code class="highlighter-rouge">fixtures</code></p>
+
+<p>将<code class="highlighter-rouge">fabric-samples/first-network/channel-artifacts</code>(里面包含创世区块、通道、锚节点配置文件)和<code class="highlighter-rouge">fabric-samples/first-network/crypto-config</code>(包含组织结构和证书)两个目录拷贝到<code class="highlighter-rouge">fixtures</code>目录下</p>
+
+<p>将  <code class="highlighter-rouge">channel-artifacts</code>  文件夹名称修改为  <code class="highlighter-rouge">artifacts</code></p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>$ mv channel-artifacts/ artifacts
+</code></pre>
+</div>
+
+<p>移除无用的文件</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>$ sudo rm -f artifacts/.gitkeep
+</code></pre>
+</div>
+
+<p>将  <code class="highlighter-rouge">fabric-samples/basic-network/docker-compose.yml</code>  文件复制至当前的 <code class="highlighter-rouge">fixtures</code>  目录下,或者直接新建<code class="highlighter-rouge">docker-compose.yml</code>文件名随意, 进行编辑,该文件用于配置节点信息</p>
+
+<blockquote>
+  <p>$ sudo vim docker-compose.yml</p>
+</blockquote>
+
+<ol>
+  <li>
+    <p>将  <code class="highlighter-rouge">network下的basic</code>   修改为  <code class="highlighter-rouge">default</code></p>
+
+    <div class="highlighter-rouge"><pre class="highlight"><code>version: '2'
+   
+networks:
+  default:
+   
+services:
+</code></pre>
+    </div>
+  </li>
+  <li>
+    <p>编辑  orderer 部分</p>
+
+    <div class="highlighter-rouge"><pre class="highlight"><code> orderer.example.com:
+    container_name: orderer.example.com
+    image: hyperledger/fabric-orderer
+    environment:
+      - ORDERER_GENERAL_LOGLEVEL=debug
+      - ORDERER_GENERAL_LISTENADDRESS=0.0.0.0
+      - ORDERER_GENERAL_GENESISMETHOD=file
+      - ORDERER_GENERAL_GENESISFILE=/var/hyperledger/orderer/orderer.genesis.block
+      - ORDERER_GENERAL_LOCALMSPID=OrdererMSP
+      - ORDERER_GENERAL_LOCALMSPDIR=/var/hyperledger/orderer/msp
+      - ORDERER_GENERAL_LISTENPORT=7050
+      # enabled TLS
+      - ORDERER_GENERAL_TLS_ENABLED=true
+      - ORDERER_GENERAL_TLS_PRIVATEKEY=/var/hyperledger/orderer/tls/server.key
+      - ORDERER_GENERAL_TLS_CERTIFICATE=/var/hyperledger/orderer/tls/server.crt
+      - ORDERER_GENERAL_TLS_ROOTCAS=[/var/hyperledger/orderer/tls/ca.crt, /var/hyperledger/peerOrg1/tls/ca.crt, /var/hyperledger/peerOrg2/tls/ca.crt]
+    working_dir: /opt/gopath/src/github.com/hyperledger/fabric
+    command: orderer
+    ports:
+      - 7050:7050
+    volumes:
+      - ./artifacts/genesis.block:/var/hyperledger/orderer/orderer.genesis.block
+      - ./crypto-config/ordererOrganizations/example.com/orderers/orderer.example.com/msp:/var/hyperledger/orderer/msp
+      - ./crypto-config/ordererOrganizations/example.com/orderers/orderer.example.com/tls:/var/hyperledger/orderer/tls
+      - ./crypto-config/peerOrganizations/org1.example.com/peers/peer0.org1.example.com/:/var/hyperledger/peerOrg1
+      - ./crypto-config/peerOrganizations/org2.example.com/peers/peer0.org2.example.com/:/var/hyperledger/peerOrg2
+    networks:
+      default:
+        aliases:
+          - orderer.example.com
+</code></pre>
+    </div>
+  </li>
+  <li>
+    <p>编辑 ca 部分</p>
+
+    <div class="highlighter-rouge"><pre class="highlight"><code>  ca.org1.example.com:
+    image: hyperledger/fabric-ca
+    environment:
+      - FABRIC_CA_HOME=/etc/hyperledger/fabric-ca-server
+      - FABRIC_CA_SERVER_CA_NAME=ca.org1.example.com
+      - FABRIC_CA_SERVER_CA_CERTFILE=/etc/hyperledger/fabric-ca-server-config/ca.org1.example.com-cert.pem
+      # path: crypto-config\peerOrganizations\org1.example.com\ca\..._sk
+      - FABRIC_CA_SERVER_CA_KEYFILE=/etc/hyperledger/fabric-ca-server-config/私钥文件名
+      - FABRIC_CA_SERVER_TLS_ENABLED=true
+      - FABRIC_CA_SERVER_TLS_CERTFILE=/etc/hyperledger/fabric-ca-server-config/ca.org1.example.com-cert.pem
+      - FABRIC_CA_SERVER_TLS_KEYFILE=/etc/hyperledger/fabric-ca-server-config/私钥文件名
+    ports:
+      - "7054:7054"
+    command: sh -c 'fabric-ca-server start -b admin:adminpw -d'
+    volumes:
+      - ./crypto-config/peerOrganizations/org1.example.com/ca/:/etc/hyperledger/fabric-ca-server-config
+    container_name: ca.org1.example.com
+    networks:
+      default:
+        aliases:
+          - ca.org1.example.com
+</code></pre>
+    </div>
+
+    <blockquote>
+      <p>&lt;font color=red&gt; 注意： <code class="highlighter-rouge">FABRIC_CA_SERVER_CA_KEYFILE</code>和<code class="highlighter-rouge">FABRIC_CA_SERVER_TLS_KEYFILE</code>对应的私钥要与自己生成的私钥一致,因为当前配置的Org1的CA证书，所以对应的私钥为 <code class="highlighter-rouge">fixtures/crypto-config/peerOrganizations/org1.example.com/ca/5839e7c26a2440eac09853ff41e199c28ea2449eed4b2884480b0891c096f58d_sk</code>,将<code class="highlighter-rouge">私钥文件名</code>改为<code class="highlighter-rouge">5839e7c26a2440eac09853ff41e199c28ea2449eed4b2884480b0891c096f58d_sk</code>即可&lt;/font&gt;</p>
+    </blockquote>
+  </li>
+</ol>
+
+<p><img src="http://otwxtrtn9.bkt.clouddn.com/fabric%20bill%EF%BC%88%E4%B8%80%EF%BC%891.png" alt="fabric bill(一)1" /></p>
+
+<ol>
+  <li>
+    <p>编辑Peer部分</p>
+
+    <ol>
+      <li>
+        <p><code class="highlighter-rouge">peer0.org1.example.com</code>  内容如下</p>
+
+        <div class="highlighter-rouge"><pre class="highlight"><code>  peer0.org1.example.com:
+    image: hyperledger/fabric-peer
+    container_name: peer0.org1.example.com
+    environment:
+      - CORE_VM_ENDPOINT=unix:///host/var/run/docker.sock
+      - CORE_VM_DOCKER_ATTACHSTDOUT=true
+      - CORE_LOGGING_LEVEL=DEBUG
+      - CORE_PEER_NETWORKID=bill
+      - CORE_PEER_PROFILE_ENABLED=true
+      - CORE_PEER_TLS_ENABLED=true
+      - CORE_PEER_TLS_CERT_FILE=/var/hyperledger/tls/server.crt
+      - CORE_PEER_TLS_KEY_FILE=/var/hyperledger/tls/server.key
+      - CORE_PEER_TLS_ROOTCERT_FILE=/var/hyperledger/tls/ca.crt
+      - CORE_PEER_ID=peer0.org1.example.com
+      - CORE_PEER_ADDRESSAUTODETECT=true
+      - CORE_PEER_ADDRESS=peer0.org1.example.com:7051
+      - CORE_PEER_GOSSIP_EXTERNALENDPOINT=peer0.org1.example.com:7051
+      - CORE_PEER_GOSSIP_USELEADERELECTION=true
+      - CORE_PEER_GOSSIP_ORGLEADER=false
+      - CORE_PEER_GOSSIP_SKIPHANDSHAKE=true
+      - CORE_PEER_LOCALMSPID=Org1MSP
+      - CORE_PEER_MSPCONFIGPATH=/var/hyperledger/msp
+      - CORE_PEER_TLS_SERVERHOSTOVERRIDE=peer0.org1.example.com
+    working_dir: /opt/gopath/src/github.com/hyperledger/fabric/peer
+    command: peer node start
+    volumes:
+      - /var/run/:/host/var/run/
+      - ./crypto-config/peerOrganizations/org1.example.com/peers/peer0.org1.example.com/msp:/var/hyperledger/msp
+      - ./crypto-config/peerOrganizations/org1.example.com/peers/peer0.org1.example.com/tls:/var/hyperledger/tls
+    ports:
+      - 7051:7051
+      - 7053:7053
+    depends_on:
+      - orderer.example.com
+    links:
+      - orderer.example.com
+    networks:
+      default:
+        aliases:
+          - peer0.org1.example.com
+</code></pre>
+        </div>
+      </li>
+      <li>
+        <p>peer1.org1.example.com 内容如下</p>
+
+        <div class="highlighter-rouge"><pre class="highlight"><code>  peer1.org1.example.com:
+    image: hyperledger/fabric-peer
+    container_name: peer1.org1.example.com
+    environment:
+      - CORE_VM_ENDPOINT=unix:///host/var/run/docker.sock
+      - CORE_VM_DOCKER_ATTACHSTDOUT=true
+      - CORE_LOGGING_LEVEL=DEBUG
+      - CORE_PEER_NETWORKID=bill
+      - CORE_PEER_PROFILE_ENABLED=true
+      - CORE_PEER_TLS_ENABLED=true
+      - CORE_PEER_TLS_CERT_FILE=/var/hyperledger/tls/server.crt
+      - CORE_PEER_TLS_KEY_FILE=/var/hyperledger/tls/server.key
+      - CORE_PEER_TLS_ROOTCERT_FILE=/var/hyperledger/tls/ca.crt
+      - CORE_PEER_ID=peer1.org1.example.com
+      - CORE_PEER_ADDRESSAUTODETECT=true
+      - CORE_PEER_ADDRESS=peer1.org1.example.com:7051
+      - CORE_PEER_GOSSIP_EXTERNALENDPOINT=peer1.org1.example.com:7051
+      - CORE_PEER_GOSSIP_USELEADERELECTION=true
+      - CORE_PEER_GOSSIP_ORGLEADER=false
+      - CORE_PEER_GOSSIP_SKIPHANDSHAKE=true
+      - CORE_PEER_LOCALMSPID=Org1MSP
+      - CORE_PEER_MSPCONFIGPATH=/var/hyperledger/msp
+      - CORE_PEER_TLS_SERVERHOSTOVERRIDE=peer1.org1.example.com
+    working_dir: /opt/gopath/src/github.com/hyperledger/fabric/peer
+    command: peer node start
+    volumes:
+      - /var/run/:/host/var/run/
+      - ./crypto-config/peerOrganizations/org1.example.com/peers/peer1.org1.example.com/msp:/var/hyperledger/msp
+      - ./crypto-config/peerOrganizations/org1.example.com/peers/peer1.org1.example.com/tls:/var/hyperledger/tls
+    ports:
+      - 8051:7051
+      - 8053:7053
+    depends_on:
+      - orderer.example.com
+    links:
+      - orderer.example.com
+    networks:
+      default:
+        aliases:
+          - peer1.org1.example.com
+</code></pre>
+        </div>
+      </li>
+    </ol>
+  </li>
+  <li>
+    <p>其余可根据实际情况进行添加</p>
+  </li>
+</ol>
+
+<p>将 <code class="highlighter-rouge">fixtures</code>  文件的所属修改为当前用户及组</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>$ sudo chown -R zhqmac:zhqmac ../fixtures
+</code></pre>
+</div>
+
+<p>&lt;font color=red&gt;编辑docker-compose.yml文件时注意格式，不要用<code class="highlighter-rouge">tab</code>键缩进,为了方便可以到<a href="https://pan.baidu.com/s/1BUewmrLxsN9Q3rVtgskU9Q">这里下载</a>,替换CA证书即可&lt;/font&gt;</p>
+
+<h4 id="3测试">3、测试</h4>
+
+<p>环境已经搭建完了，接下来测试一下</p>
+
+<p>为了检查网络是否正常工作，使用<code class="highlighter-rouge">docker-compose</code>同时启动或停止所有容器。 进入<code class="highlighter-rouge">fixtures</code>文件夹，运行：</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>$ cd $GOPATH/src/github.com/kongyixueyuan.com/bill/fixtures
+$ docker-compose up
+</code></pre>
+</div>
+
+<p>控制台会输出很多不同颜色的日志（红色不等于错误）。</p>
+
+<p>打开一个新终端并运行：</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code> $ docker ps 
+</code></pre>
+</div>
+
+<p><img src="http://otwxtrtn9.bkt.clouddn.com/fabric%20bill%EF%BC%88%E4%B8%80%EF%BC%892.png" alt="fabric bill(一)2" />
+将看到：两个peer，orderer和一个CA容器。 代表已成功创建了一个新的网络，可以随SDK一起使用。 要停止网络，请返回到上一个终端，按<code class="highlighter-rouge">Ctrl+C</code>并等待所有容器都停止。</p>
+
+<blockquote>
+  <p><strong>提示</strong> ：当网络停止时，所有使用的容器都可以访问。 例如，这对检查日志非常有用。 可以用<code class="highlighter-rouge">docker ps -a</code>来看它们。 为了清理这些容器，需要使用<code class="highlighter-rouge">docker rm $(docker ps -aq)</code>将其删除，或者如果使用了<code class="highlighter-rouge">docker-compose</code>文件，请转至此文件的位置并运行<code class="highlighter-rouge">docker-compose down</code> 。</p>
+</blockquote>
+
+<blockquote>
+  <p><strong>提示</strong> ：可以在后台运行<code class="highlighter-rouge">docker-compose</code>命令以保持提示。 为此，请使用参数<code class="highlighter-rouge">-d</code> ，如下所示： <code class="highlighter-rouge">docker-compose up -d</code> 。 要停止容器，请在<code class="highlighter-rouge">docker-compose.yaml</code>所在的文件夹中运行命令： <code class="highlighter-rouge">docker-compose stop</code> （或<code class="highlighter-rouge">docker-compose down</code>进行清理停止所有容器）。</p>
+</blockquote>
+
+<p>最后执行命令</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>$ cd $GOPATH/src/github.com/kongyixueyuan.com/bill/fixtures
+$ docker-compose down
+</code></pre>
+</div>
+<p><img src="http://otwxtrtn9.bkt.clouddn.com/fabric%20bill%EF%BC%88%E4%B8%80%EF%BC%893.png" alt="fabric bill(一)3" /></p>
+
+<p>执行 <code class="highlighter-rouge">docker-compose down</code>可能会有错误,如:<code class="highlighter-rouge">ERROR:network fixtures_default has active endpoints</code></p>
+
+<p>解决方案:</p>
+
+<ul>
+  <li>
+    <p>第一种：使用 docker network disconnect -f {network} {endpoint-name}，其中的 {endpoint-name} 可以使用命令 docker network inspect {network} 获得。然后再做你想做的操作。</p>
+  </li>
+  <li>
+    <p>第二种：重启 Docker service：sudo service docker restart。然后再做你想做的操作。</p>
+  </li>
+</ul>
+
+<p>##<a href="https://github.com/sweetMegan/bill">源码下载</a></p>
+
+<h2 id="感谢韩晓东老韩指导">感谢韩晓东（老韩）指导</h2>
+
+
+  </section>
+</article>
+
+<section>
+
+            <div class="content-play">
+              <p><a href="javascript:void(0)" onclick="dashangToggle()" class="dashang" title="打赏，支持一下">打赏一个呗</a></p>
+              <div class="hide_box-play"></div>
+              <div class="shang_box-play">
+                <a class="shang_close-play" href="javascript:void(0)" onclick="dashangToggle()" title="关闭"><img src="/images/payimg/close.jpg" alt="取消" /></a>
+                <div class="shang_tit-play">
+                  <p>感谢您的支持，我会继续努力的!</p>
+                </div>
+                <div class="shang_payimg">
+                    <img src="/images/payimg/alipayimg.jpg" alt="扫码支持" title="扫一扫" />
+                </div>
+              <div class="shang_payimg">    
+                    <img src="/images/payimg/weipayimg.jpg" alt="扫码支持" title="扫一扫" />
+                </div>
+                <div class="pay_explain">扫码打赏，你说多少就多少</div>
+                <div class="shang_payselect">
+                  <div class="pay_item checked" data-id="alipay">
+                    <span class="pay_logo"><img src="/images/payimg/alipay.jpg" alt="支付宝" /></span>
+                  </div>
+                  <div class="pay_item" data-id="weipay">
+                    <span class="pay_logo"><img src="/images/payimg/wechat.jpg" alt="微信" /></span>
+                  </div>
+                </div>
+                <div class="shang_info-play">
+                  <p>打开<span id="shang_pay_txt">支付宝</span>扫一扫，即可进行扫码打赏哦</p>
+                </div>
+              </div>
+            </div>
+            <script type="text/javascript">
+            function dashangToggle(){
+              $(".hide_box-play").fadeToggle();
+              $(".shang_box-play").fadeToggle();
+            }
+            </script>
+
+            <div style="text-align:center;margin:50px 0; font:normal 14px/24px 'MicroSoft YaHei';"></div>
+
+            <style type="text/css">
+              .content-play{width:80%;margin-top: 20px;margin-bottom: 10px;height:40px;}
+              .hide_box-play{z-index:999;filter:alpha(opacity=50);background:#666;opacity: 0.5;-moz-opacity: 0.5;left:0;top:0;height:99%;width:100%;position:fixed;display:none;}
+              .shang_box-play{width:540px;height:540px;padding:10px;background-color:#fff;border-radius:10px;position:fixed;z-index:1000;left:50%;top:50%;margin-left:-280px;margin-top:-280px;border:1px dotted #dedede;display:none;}
+              .shang_box-play img{border:none;border-width:0;}
+              .dashang{display:block;width:100px;margin:5px auto;height:25px;line-height:25px;padding:10px;background-color:#E74851;color:#fff;text-align:center;text-decoration:none;border-radius:10px;font-weight:bold;font-size:16px;transition: all 0.3s;}
+              .dashang:hover{opacity:0.8;padding:15px;font-size:18px;}
+              .shang_close-play{float:right;display:inline-block;
+                margin-right: 10px;margin-top: 20px;
+              }
+              .shang_logo{display:block;text-align:center;margin:20px auto;}
+              .shang_tit-play{width: 100%;height: 75px;text-align: center;line-height: 66px;color: #a3a3a3;font-size: 16px;background: url('/images/payimg/cy-reward-title-bg.jpg');font-family: 'Microsoft YaHei';margin-top: 7px;margin-right:2px;}
+              .shang_tit-play p{color:#a3a3a3;text-align:center;font-size:16px;}
+              .shang_payimg{width:140px;padding:10px;padding-left: 80px; /*border:6px solid #EA5F00;**/margin:0 auto;border-radius:3px;height:140px;display:inline-block;}
+              .shang_payimg img{display:inline-block;margin-right:10px;float:left;text-align:center;width:140px;height:140px; }
+              .pay_explain{text-align:center;margin:10px auto;font-size:12px;color:#545454;}
+              .shang_payselect{text-align:center;margin:0 auto;margin-top:40px;cursor:pointer;height:60px;width:500px;margin-left:110px;}
+              .shang_payselect .pay_item{display:inline-block;margin-right:140px;float:left;}
+              .shang_info-play{clear:both;}
+              .shang_info-play p,.shang_info-play a{color:#C3C3C3;text-align:center;font-size:12px;text-decoration:none;line-height:2em;}
+            </style>
+
+       <ul class="pager">
+        
+        <li class="previous">
+            <a href="/2018/06/28/ubuntu%E7%BF%BB%E5%A2%99/" data-toggle="tooltip" data-placement="top" title="ubuntu 翻墙">上一篇：  <span>ubuntu 翻墙</span>
+            </a>
+        </li>
+        
+        
+        <li class="next">
+            <a href="/2018/07/06/Fabric-%E7%A5%A8%E6%8D%AE%E9%A1%B9%E7%9B%AE-%E4%BA%8C-%E7%A5%A8%E6%8D%AE%E7%B3%BB%E7%BB%9F%E4%BB%8B%E7%BB%8D/" data-toggle="tooltip" data-placement="top" title="Fabric 票据项目（二）票据系统介绍">下一篇：  <span>Fabric 票据项目（二）票据系统介绍</span>
+            </a>
+        </li>
+        
+    </ul>
+</section>
+
+ <section class="footer">
+  <footer>
+    <div class="footer_div">
+      <nav class="cover-navigation navigation--social">
+        <ul class="navigation">
+
+           
+          <!-- Github -->
+          <li class="navigation__item_social">
+            <a href="https://github.com/sweetMegan" title="@sweetMegan 的 Github"
+               target="_blank">
+              <i class='social fa fa-github fa-2x'></i>
+              <span class="label">Github</span>
+            </a>
+          </li>
+            
+
+          <!-- RSS -->
+          <!--<li class="navigation__item_social">-->
+          <!--<a href="/feed.xml" rel="author" title="RSS" target="_blank">-->
+          <!--<i class='social fa fa-rss fa-2x'></i>-->
+          <!--<span class="label">RSS</span>-->
+          <!--</a>-->
+          <!--</li>-->
+
+          
+          <!-- Email -->
+          <li class="navigation__item_social">
+            <a href="mailto:sweetsmelon@163.com" title="Contact me">
+              <i class='social fa fa-envelope fa-2x'></i>
+              <span class="label">Email</span>
+            </a>
+          </li>
+          
+
+        </ul>
+      </nav>
+
+    </div>
+
+    <table width="100%" border="0" cellspacing="0" cellpadding="0">
+      <thead>
+      <tr id="bar_head">
+        <th colspan="11">友情链接</th>
+      </tr>
+      </thead>
+
+      <tr align="center" valign="middle">
+        <td><a href="http://www.kongyixueyuan.com">区块链技术视频网站</a></td>
+
+        <td><a href="https://www.ethereum.org">以太坊官网</a></td>
+
+        <td><a href="https://solidity.readthedocs.io/en/develop/">Solidity</a></td>
+
+        <td><a href="http://truffleframework.com/">Truffle FrameWork</a></td>
+
+        <td><a href="http://embark.readthedocs.io">Embark FrameWork</a></td>
+
+      </tr>
+      <tr align="center" valign="middle">
+
+        <td>
+          <a href="https://www.ibm.com/developerworks/community/groups/service/html/communityview?communityUuid=3302cc3b-074e-44da-90b1-5055f1dc0d9c&amp;lang=zh">IBM开源技术微讲堂</a>
+        </td>
+
+        <td><a href="https://www.bitcoin.com/">Bitcoin.com</a></td>
+
+        <td><a href="https://github.com/bitshares/bitshares1-core">bitshares1-core</a></td>
+
+        <td><a href="https://ipfs.io">ipfs官网</a></td>
+
+        <td><a href="http://ipfser.org">ipfs中文网</a></td>
+
+      </tr>
+    </table>
+
+    <div class="footer_div">
+      <p class="copyright text-muted" align="center">
+        Copyright &copy; 2018 sweetsmelon博客 京ICP备15065741号. 区块链部落QQ群：348924182
+      </p>
+      <div align="center">
+        <link rel="stylesheet" href="http://cdn.bootcss.com/font-awesome/4.3.0/css/font-awesome.min.css">
+        <!-- 访问统计 -->
+        <!--<span id="busuanzi_container_site_pv">-->
+        <!--本站总访问量-->
+        <!--<span id="busuanzi_value_site_pv"></span>次-->
+        </span>
+      </div>
+    </div>
+
+  </footer>
+</section>
+
+    </div>
+  </div>
+
+  <script type="text/javascript" src="//code.jquery.com/jquery-1.11.3.min.js"></script>
+<script type="text/javascript" src="/js/main.js"></script>
+
+<script type="text/javascript" src="/js/highlight.pack.js"></script>
+<script>hljs.initHighlightingOnLoad();</script>
+
+
+
+
+  <script>
+    (function () {
+      var bp = document.createElement('script');
+      var curProtocol = window.location.protocol.split(':')[0];
+      if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+      } else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+      }
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(bp, s);
+    })();
+  </script>
+
+
+</body>
+
+</html>

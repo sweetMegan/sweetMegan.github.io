@@ -6,21 +6,21 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
-  <title>Nodejs实现以太坊钱包</title>
+  <title>Nodejs框架Koa</title>
   <meta name="description" content="区块链">
   <meta name="author" content="黎跃春">
 
-  <meta name="keywords" content="区块链交易"
+  <meta name="keywords" content="区块链"
   />
 
   <meta name="twitter:card" content="summary">
-  <meta name="twitter:title" content="Nodejs实现以太坊钱包">
+  <meta name="twitter:title" content="Nodejs框架Koa">
   <meta name="twitter:description" content="区块链">
 
   <meta property="og:type" content="article">
-  <meta property="og:title" content="Nodejs实现以太坊钱包">
+  <meta property="og:title" content="Nodejs框架Koa">
   <meta property="og:description" content="区块链">
-  <meta property="og:site_name" content="区块链交易e"
+  <meta property="og:site_name" content="区块链e"
   />
 
 
@@ -31,7 +31,7 @@
   <link rel="stylesheet" href=" /css/main.css ">
   <link href="//netdna.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
 
-  <link rel="canonical" href="/2018/07/15/Nodejs%E5%AE%9E%E7%8E%B0%E4%BB%A5%E5%A4%AA%E5%9D%8A%E9%92%B1%E5%8C%85-iOS%E5%AE%9E%E7%8E%B0%E5%89%8D%E7%AB%AF%E8%B0%83%E7%94%A8/">
+  <link rel="canonical" href="/2018/07/14/Nodejs%E6%A1%86%E6%9E%B6Koa/">
   <link rel="alternate" type="application/rss+xml" title="sweetsmelon博客" href=" /feed.xml
     ">
 
@@ -185,10 +185,10 @@
     <div class="content-wrapper__inner">
       <article class="post-container post-container--single" itemscope itemtype="http://schema.org/BlogPosting">
   <header class="post-header">
-    <h1 class="post-title">Nodejs实现以太坊钱包</h1>
+    <h1 class="post-title">Nodejs框架Koa</h1>
     <div class="post-meta">
       <img src="/images/calendar.png" width="20px"/>
-      <time datetime="2018-07-15 00:00:00 +0800" itemprop="datePublished" class="post-meta__date date">2018-07-15</time>
+      <time datetime="2018-07-14 00:00:00 +0800" itemprop="datePublished" class="post-meta__date date">2018-07-14</time>
 
       <span id="busuanzi_container_page_pv"> | 阅读：<span id="busuanzi_value_page_pv"></span>次</span>
     </p>
@@ -196,401 +196,507 @@
   </header>
 
   <section class="post">
-    <h2 id="一创建项目">一、创建项目</h2>
+    <h2 id="安装环境">安装环境</h2>
+
+<h3 id="安装node与npm">安装Node与npm</h3>
+
+<h4 id="安装nodejs">安装Node.js</h4>
 
 <blockquote>
-  <p>zhangqiangdeMac-mini:~ zhqmac$ mkdir myWallet</p>
-
-  <p>zhangqiangdeMac-mini:~ zhqmac$  cd myWallet</p>
-
-  <p>zhangqiangdeMac-mini:myWallet zhqmac$ npm init</p>
+  <p>brew install node@8</p>
 </blockquote>
 
-<p>将下面的依赖添加到生成的<code class="highlighter-rouge">package.json</code>文件中</p>
+<h4 id="安装指定版本的npm">安装指定版本的npm</h4>
 
-<div class="highlighter-rouge"><pre class="highlight"><code> "dependencies": {
-    "bignumber.js": "^7.2.1",
-    "ejs": "^2.6.1",
-    "koa": "^2.5.2",
-    "koa-body": "^4.0.4",
-    "koa-bodyparser": "^4.2.1",
-    "koa-router": "^7.4.0",
-    "koa-static": "^5.0.0",
-    "koa-views": "^6.1.4",
-    "web3": "^1.0.0-beta.34"
-  }
-  
+<blockquote>
+  <p>npm install npm@5.6.0 -g</p>
+</blockquote>
+
+<h4 id="检查node版本">检查Node版本</h4>
+
+<blockquote>
+  <p>node -v</p>
+</blockquote>
+
+<h4 id="检查npm版本">检查npm版本</h4>
+
+<blockquote>
+  <p>npm -v</p>
+</blockquote>
+
+<h4 id="升级node">升级Node</h4>
+
+<blockquote>
+  <p>npm install -g n</p>
+</blockquote>
+
+<h2 id="一koa">一、Koa</h2>
+
+<ul>
+  <li>安装Koa</li>
+</ul>
+
+<p>新建一个项目<code class="highlighter-rouge">koademo</code>，打开终端</p>
+
+<blockquote>
+  <p>mkdir koademo
+cd  koademo
+npm init</p>
+</blockquote>
+
+<p>此时会要求输入一些配置信息，什么都不用写，一直回车</p>
+
+<p><img src="http://otwxtrtn9.bkt.clouddn.com/Nodejs%E6%A1%86%E6%9E%B6Koa%202.png" alt="" /></p>
+
+<p>此时项目路径下会新增文件<code class="highlighter-rouge">package.json</code></p>
+
+<p>安装<code class="highlighter-rouge">koa</code></p>
+
+<blockquote>
+  <p>npm install koa</p>
+</blockquote>
+
+<p>新建<code class="highlighter-rouge">index.js</code>文件，添加如下代码,开启服务,监听端口3000</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>const Koa = require("koa");
+const app = new Koa();
+//开启服务,监听端口3000
+app.listen(3000);
+
 </code></pre>
 </div>
 
-<h4 id="安装依赖">安装依赖</h4>
-
 <blockquote>
-  <p>npm install</p>
+  <p>new Koa():创建的对象被称为<code class="highlighter-rouge">Koa</code>应用对象。应用对象时带有<code class="highlighter-rouge">node http</code>服务的Koa接口，它可以处理中间件的注册，将<code class="highlighter-rouge">http</code>请求分发到中间件，进行默认错误处理，以及对上下文，请求和响应对象进行配置。
+app.listen(3000):用于启动一个服务的快捷方法，是对<code class="highlighter-rouge">http.createServer</code>的简单包装，它实际上这样运行:<code class="highlighter-rouge">http:createServer(app.callback()).listen(3000)</code>;</p>
 </blockquote>
 
-<h2 id="二初始化项目">二、初始化项目</h2>
+<h2 id="context">context</h2>
 
-<ol>
-  <li>新建文件<code class="highlighter-rouge">index.js</code>,项目入口</li>
-  <li>新建目录<code class="highlighter-rouge">controller</code>,封装请求处理
-    <ul>
-      <li><code class="highlighter-rouge">account.js</code> 与账户相关的处理</li>
-      <li><code class="highlighter-rouge">createAccount.js</code>创建账户处理</li>
-      <li><code class="highlighter-rouge">transaction.js</code> 与交易相关的处理</li>
-    </ul>
-  </li>
-  <li>新建目录<code class="highlighter-rouge">model</code>,模型封装
-    * <code class="highlighter-rouge">responsedata.js</code>,封装应答响应对象</li>
-  <li>新建目录<code class="highlighter-rouge">routers</code>,路由处理
-    <ul>
-      <li><code class="highlighter-rouge">router.js</code></li>
-    </ul>
-  </li>
-  <li>新建目录<code class="highlighter-rouge">utils</code>，工具
-    <ul>
-      <li><code class="highlighter-rouge">myUtils.js</code></li>
-    </ul>
-  </li>
-</ol>
+<p><code class="highlighter-rouge">context</code>是一个请求的上下文，该对象封装了一个传入的<code class="highlighter-rouge">http</code>消息，<code class="highlighter-rouge">context</code>有<code class="highlighter-rouge">request</code>和<code class="highlighter-rouge">response</code>属性，我们可以设置两个属性来处理和响应不同的请求。</p>
 
-<h2 id="三响应对象">三、响应对象</h2>
+<ul>
+  <li>代码</li>
+</ul>
 
-<p><code class="highlighter-rouge">responsedata.js</code></p>
+<div class="highlighter-rouge"><pre class="highlight"><code>const Koa = require("koa");
+const app = new Koa();
+//开启服务,监听端口3000
+app.use((ctx,next)=&gt;{
+   ctx.response.body="hello world";
+});
+app.listen(3000);
 
-<div class="highlighter-rouge"><pre class="highlight"><code>function response(code, msg, data) {
-    this.code = code;//状态码
-    this.msg = msg;//状态描述
-    this.data = data;//返回的数据
-}
-module.exports = response;
+</code></pre>
+</div>
+<ul>
+  <li>说明</li>
+</ul>
+
+<blockquote>
+  <p>app.use(function):将给定的function当做中间件加载到应用中。
+ctx:每一个请求都会创建一段上下文，在控制业务逻辑的中间件中，上下文被寄存在<code class="highlighter-rouge">ctx</code>对象中。为了使用方便，许多上下文属性和方法都被委托代理到他们的<code class="highlighter-rouge">ctx.request</code>和<code class="highlighter-rouge">ctx.response</code>，比如访问<code class="highlighter-rouge">ctx.type</code>和<code class="highlighter-rouge">ctx.length</code>将被代理到<code class="highlighter-rouge">response</code>对象,<code class="highlighter-rouge">ctx.path</code>和<code class="highlighter-rouge">ctx.method</code>将被代理到<code class="highlighter-rouge">request</code>对象。</p>
+</blockquote>
+
+<ul>
+  <li>启动服务</li>
+</ul>
+
+<blockquote>
+  <p>node index.js</p>
+</blockquote>
+
+<p>浏览器访问 <code class="highlighter-rouge">http://localhost:3000</code>,如果运行正确，在页面会显示<code class="highlighter-rouge">hello world</code>。</p>
+
+<h2 id="三网页模板">三、网页模板</h2>
+
+<p>实际开发中，返回给用户的网页往往都写成模板文件。我们可以让<code class="highlighter-rouge">Koa</code>先读取模板文件,然后将这个模板返回给用户。</p>
+
+<ul>
+  <li>代码</li>
+</ul>
+
+<div class="highlighter-rouge"><pre class="highlight"><code> const Koa = require("koa");
+const app = new Koa();
+const fs = require("fs");
+app.use((ctx,next)=&gt;{
+    //必须指定type,否则调用fs模板后默认响应类型为为`application/octet-stream`类型
+    ctx.response.type="text/html";
+    //将文件作为响应体流失传输
+    ctx.response.body=fs.createReadStream("./views/index.html");
+});
+app.listen("3000");
+
 </code></pre>
 </div>
 
-<h2 id="四开启服务">四、开启服务</h2>
+<h2 id="四中间件">四、中间件</h2>
 
-<p><code class="highlighter-rouge">index.js</code></p>
+<p><code class="highlighter-rouge">Koa</code>所有的功能都是通过中间件实现的。中间件处在<code class="highlighter-rouge">HTTP Request</code>和<code class="highlighter-rouge">HTTP Response</code>中间</p>
+
+<p><code class="highlighter-rouge">Koa</code>的中间件之间按照编码顺序在栈内一次执行，允许您执行操作并向下传递请求，之后过滤并逆序返回响应。</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>const Koa = require('koa');
+const app = new Koa();
+
+app.use(async (ctx,next)=&gt;{
+    console.log("first");
+    await next();
+    console.log("first over")
+});
+app.use(async(ctx,next)=&gt;{
+   console.log("second");
+    await next();
+    console.log("second over")
+
+});
+app.use(async(ctx,next)=&gt;{
+    console.log("third");
+    await next();
+console.log("third over");
+});
+
+</code></pre>
+</div>
+
+<blockquote>
+  <p>􏰔有<code class="highlighter-rouge">async</code>标记的函数称为异步函数，在异步函数中，可以用<code class="highlighter-rouge">await</code>调用另一个异步函数。使用<code class="highlighter-rouge">await</code>时，它所在的方法必须使用关键字async。</p>
+</blockquote>
+
+<p>执行结果:</p>
+
+<blockquote>
+  <p>first
+second
+third
+third over
+second over
+first over</p>
+</blockquote>
+
+<h2 id="五原生路由">五、原生路由</h2>
+
+<p>开发中需要根据用户请求返回相应的数据，可以通过设置路由实现</p>
+
+<ul>
+  <li>代码</li>
+</ul>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>const Koa = require("koa");
+const app = new Koa();
+app.use(async (ctx)=&gt;{
+    if (ctx.request.path=="/"){
+        ctx.response.body = "首页";
+    }
+    switch (ctx.request.path){
+        case "/":{
+            ctx.response.body = "首页";
+            break;
+        }
+        case "/login":{
+            ctx.body = "login";
+            break;
+        }
+        case "/test":{
+            ctx.body = "test";
+            break;
+        }
+        
+    }
+});
+//开启服务,监听端口3000
+app.listen(3000);
+
+</code></pre>
+</div>
+
+<table>
+  <thead>
+    <tr>
+      <th>浏览器访问</th>
+      <th>结果</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>http://localhost:3000/</td>
+      <td>首页</td>
+    </tr>
+    <tr>
+      <td>http://localhost:3000/login</td>
+      <td>login</td>
+    </tr>
+    <tr>
+      <td>http://localhost:3000/test</td>
+      <td>test</td>
+    </tr>
+  </tbody>
+</table>
+
+<h2 id="六koa-router">六、koa-router</h2>
+
+<p>原生路由用起来不方便，我们可以使用封装好的<a href="https://www.npmjs.com/package/koa-route">koa-router</a>模块</p>
+
+<blockquote>
+  <p>npm install koa-router</p>
+</blockquote>
+
+<ul>
+  <li>代码</li>
+</ul>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>const Koa = require("koa");
+const app = new Koa();
+const r = require("koa-router");
+const router = r();
+//设置路由
+router.get("/",(ctx,next)=&gt;{
+    ctx.body = "首页";
+
+});
+router.get("/login",(ctx,next)=&gt;{
+    ctx.body = "login";
+
+});
+router.get("/test",(ctx,next)=&gt;{
+    ctx.body = "test";
+});
+//绑定路由
+app.use(router.routes());
+//开启服务,监听端口3000
+app.listen(3000);
+
+</code></pre>
+</div>
+
+<h2 id="七重定向">七、重定向</h2>
+
+<p>将上面的代码中<code class="highlighter-rouge">test</code>重定向到<code class="highlighter-rouge">login</code></p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>const Koa = require("koa");
+const app = new Koa();
+const r = require("koa-router");
+const router = r();
+//设置路由
+router.get("/",(ctx,next)=&gt;{
+    ctx.body = "首页";
+
+});
+router.get("/login",(ctx,next)=&gt;{
+    ctx.body = "login";
+
+});
+//test重定向到login
+router.get("/test",(ctx,next)=&gt;{
+    ctx.response.redirect("/login");
+});
+//绑定路由
+app.use(router.routes());
+//开启服务,监听端口3000
+app.listen(3000);
+
+</code></pre>
+</div>
+
+<h2 id="八获取get请求参数">八、获取get请求参数</h2>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>/**
+ * Created by zhqmac on 2018/7/22.
+ */
+const Koa = require("koa");
+const app = new Koa();
+const router= require("koa-router")();
+app.use((ctx,next)=&gt;{
+   console.log(ctx.request.method);
+    console.log(ctx.request.url);
+    next()
+});
+//http://localhost:3000/login?name=zhq?age=26
+router.get("/login",ctx=&gt;{
+   var name = ctx.query.name;
+    var age = ctx.query.age;
+    console.log(name+"年龄:"+age);
+    ctx.body = `&lt;h1&gt; Hello,${name}&lt;/h1&gt;`
+});
+//http://localhost:3000/regist/zhq/26
+router.get("/regist/:name/:age",ctx=&gt;{
+    var name = ctx.params.name;
+    var age = ctx.params.age;
+    ctx.response.body = `&lt;h1&gt;regist, ${name} ${age}!&lt;/h1&gt;`;
+
+
+});
+app.use(router.routes());
+//开启服务,监听端口3000
+app.listen(3000);
+
+</code></pre>
+</div>
+
+<h2 id="获取post请求参数">获取post请求参数</h2>
 
 <div class="highlighter-rouge"><pre class="highlight"><code>const Koa = require("koa");
 const app = new Koa();
 const koaBody = require("koa-body");
-const router = require("./routers/router");
-app.use(async (ctx, next) =&gt; {
-    console.log(`Process ${ctx.request.method} ${ctx.request.url} ...`);
-    await next();
+
+const router= require("koa-router")();
+app.use(async (ctx,next)=&gt;{
+    console.log(ctx.request.method);
+    console.log(ctx.request.url);
+    await next()
 });
-//解析post请求
-app.use(koaBody({
-    multipart:true,
-}));
+router.post("/login", (ctx,next) =&gt; {
+    var body = ctx.request.body;
+    console.log(body);
+    console.log(body.name);
+    ctx.body = {name:body.name};
+
+});
+app.use(koaBody());
 app.use(router.routes());
-app.listen("3000");
-console.log("服务已开启,监听端口:3000");
+//开启服务,监听端口3000
+app.listen(3000);
 
 </code></pre>
 </div>
 
-<h2 id="五设置路由">五、设置路由</h2>
-
-<p><code class="highlighter-rouge">router.js</code></p>
-
-<div class="highlighter-rouge"><pre class="highlight"><code>const router = require("koa-router")();
-const createAccountController = require("../controller/createAccount");
-const accountController = require("../controller/account");
-const transactionController = require("../controller/transaction");
-//创建账号
-router.post("/createaccount",createAccountController.createAccount);
-//私钥解锁账户
-router.post("/unlockaccountwithprivatekey",accountController.unlockAccountWithPrivateKey);
-//keystore解锁账户
-router.post("/unlockaccountwithkeystore",accountController.unlockAccountWithKeyStore);
-//发起交易
-router.post("/createtransaction",transactionController.createTransaction);
-//确认交易
-router.post("/sendtransaction",transactionController.sendTransaction);
-//交易详情
-router.post("/transactionstatus",transactionController.transactionStatus);
-module.exports = router;
-
-</code></pre>
-</div>
-
-<p>项目中所有请求都采用<code class="highlighter-rouge">post</code>的方式</p>
-
-<h2 id="六实例化web3">六、实例化<code class="highlighter-rouge">web3</code></h2>
-
-<p><code class="highlighter-rouge">myUtils.js</code></p>
-
-<div class="highlighter-rouge"><pre class="highlight"><code>const Web3 = require("web3");
-var fs = require("fs");
-getWeb3 = ()=&gt;{
-    //初始化web3访问节点为私有链节点
-    const web3 = new Web3(Web3.givenProvider||"http://localhost:8545");
-    //以太坊测试链
-    // const web3 = new Web3(Web3.givenProvider || "https://kovan.infura.io/v3/4abf7f8865064ed6b99ca3fdac820921");
-    return web3;
-};
-module.exports={
-    getWeb3,
-};
-</code></pre>
-</div>
-
-<p>调用<code class="highlighter-rouge">getWeb3()</code>获取<code class="highlighter-rouge">web3</code>对象</p>
+<p>使用<code class="highlighter-rouge">curl</code>发起post请求</p>
 
 <blockquote>
-  <div class="highlighter-rouge"><pre class="highlight"><code>var web3 = new Web3(Web3.givenProvider||"http://localhost:8545");
+  <p>curl -X POST –data “name=zhq” 127.0.0.1:3000/login</p>
+</blockquote>
+
+<p>返回结果是一个json串</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code><span class="p">{</span><span class="w">
+    </span><span class="nt">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"zhq"</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+</div>
+<h2 id="十加载静态资源">十、加载静态资源</h2>
+
+<p>如图片、字体、样式表、脚本等</p>
+
+<p>引入<code class="highlighter-rouge">koa-static</code></p>
+
+<blockquote>
+  <p>npm install koa-static</p>
+</blockquote>
+
+<p>下面以加载一张图片为例</p>
+
+<ol>
+  <li>
+    <p>新建目录<code class="highlighter-rouge">static</code></p>
+  </li>
+  <li>
+    <p>在<code class="highlighter-rouge">static</code>目录下新建<code class="highlighter-rouge">images</code>目录</p>
+  </li>
+  <li>
+    <p>在<code class="highlighter-rouge">images</code>目录下添加一张图片<code class="highlighter-rouge">avatar.JPG</code></p>
+  </li>
+</ol>
+
+<ul>
+  <li>代码</li>
+</ul>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>const Koa = require("koa");
+const app = new Koa();
+const path = require("path");
+const koaStatic= require("koa-static");
+const router= require("koa-router")();
+
+//静态资源目录对于相对入口文件的路径
+const staticPath = './static';
+
+router.get("/",ctx=&gt;{
+   ctx.body = "<span class="nt">&lt;html&gt;&lt;a</span> <span class="na">href=</span><span class="s">'/images/avatar.JPG'</span><span class="nt">&gt;</span>点我<span class="nt">&lt;/a&gt;&lt;/html&gt;</span>"
+});
+app.use(koaStatic(
+    path.join(__dirname,staticPath)
+));
+app.use(router.routes());
+//开启服务,监听端口3000
+app.listen(3000);
+
 </code></pre>
-  </div>
+</div>
+
+<h2 id="十一模板引擎">十一、模板引擎</h2>
+
+<p>安装ejs模板引擎</p>
+
+<blockquote>
+  <p>npm install ejs
+npm install koa-views</p>
 </blockquote>
 
 <ul>
-  <li>第一次调用<code class="highlighter-rouge">getWeb3()</code>方法时<code class="highlighter-rouge">Web3.givenProvider</code>为空,所以需要设置一个种子节点。</li>
-  <li><code class="highlighter-rouge">http://localhost:8545</code>为本地私有链地址，<a href="https://sweetmegan.github.io/2018/07/15/%E4%BB%A5%E5%A4%AA%E5%9D%8A%E7%A7%81%E7%BD%91%E5%BB%BA%E7%AB%8B-%E9%80%9A%E8%BF%87%E5%88%9B%E4%B8%96%E5%8C%BA%E5%9D%97%E6%9D%A5%E5%88%9D%E5%A7%8B%E5%8C%96%E5%8C%BA%E5%9D%97%E9%93%BE/">怎么搭建私链</a></li>
-  <li><code class="highlighter-rouge">https://kovan.infura.io/v3/4abf7f8865064ed6b99ca3fdac820921</code>是以太网<code class="highlighter-rouge">kovan</code>测试链地址</li>
+  <li>代码</li>
 </ul>
 
-<h4 id="获取测试链地址"><strong>获取测试链地址</strong></h4>
-
-<p>打开 <code class="highlighter-rouge">INFURA</code> https://infura.io/dashboard
-注册，登录
-登录成功后来到下面页面</p>
-
-<p><img src="http://otwxtrtn9.bkt.clouddn.com/%E8%8E%B7%E5%8F%96%E4%BB%A5%E5%A4%AA%E7%BD%91%E6%B5%8B%E8%AF%95%E9%93%BE%E5%9C%B0%E5%9D%80.png" alt="" /></p>
-
-<p>可以看到主网和其他三个测试链，按需选择<code class="highlighter-rouge">ENDPOINT</code>下的地址就是我们所需要的地址</p>
-
-<h2 id="七请求处理">七、请求处理</h2>
-
-<h4 id="font-colorred在执行下面操作前需开启一个私链或者测试链font">&lt;font color=red&gt;在执行下面操作前需开启一个私链或者测试链&lt;/font&gt;</h4>
-
-<h4 id="1创建账户">1、创建账户</h4>
-
-<p><code class="highlighter-rouge">createAccount.js</code></p>
-
-<div class="highlighter-rouge"><pre class="highlight"><code>const web3 = require("../utils/myUtils").getWeb3();
-const path = require("path");
-const fs = require("fs");
-var respones = require("../model/responsedata");
-//创建钱包
-createAccount = async ctx =&gt; {
-    var responseData = new respones(0,"success",{});
-    // console.log(ctx.request.body);
-    var body = ctx.request.body;
-    //创建钱包
-    var account = web3.eth.accounts.create();
-    //生成keyStore文件
-    //keyStore是将私钥与用户密码拼接,将拼接结果对称加密得到
-    var keyStoreJson = account.encrypt(body.pwd);
-    //保存keyStore
-    //写入文件的keyStore数据
-    // var keyStoreStr = JSON.stringify(keyStoreJson);
-    // //keyStore文件名
-    // var keyStoreFileName = "UTC--"+new Date().toISOString()+"--"+account.address;
-    // //文件保存路径
-    // var keyStoreFilePath = path.join(__dirname,"../static/keystore",keyStoreFileName);
-    // await fs.writeFile(keyStoreFilePath,keyStoreStr,()=&gt;{});
-    // var responseData = new respones(0,"success",{
-    //     "downloadUrl":"/keystore/"+keyStoreFileName,
-    //     "privateKey":account.privateKey
-    // });
-    responseData.data.keyStore = keyStoreJson;
-    ctx.body = responseData;
-};
-module.exports={
-    createAccount
-};
-
-</code></pre>
-</div>
-
-<p><code class="highlighter-rouge">keystore</code>文件在客户端自己保存，服务端不保存</p>
-
-<h4 id="2账号操作">2、账号操作</h4>
-
-<p><code class="highlighter-rouge">account.js</code></p>
-
-<div class="highlighter-rouge"><pre class="highlight"><code>
-const web3 = require("../utils/myUtils").getWeb3();
-const myUtil = require("../utils/myUtils");
-var response = require("../model/responsedata");
-setResponseDataWithAccount = async(account, responseData)=&gt; {
-    responseData.data.address = account.address;
-    responseData.data.privateKey = account.privateKey;
-    responseData.data.balance = await getBalanceWithAddress(account.address);
-    return responseData;
-};
-
-getBalanceWithAddress = async(address)=&gt; {
-    console.log("account:" + address);
-    var balance = await web3.eth.getBalance(address);
-    return web3.utils.fromWei(balance, "ether");
-};
-//使用私钥解锁账户
-unlockAccountWithPrivateKey = async(ctx)=&gt; {
-    var responseData = new response(0, "success", {});
-    var body = ctx.request.body;
-    var privateKey = body.privateKey;
-    console.log("privateKey:" + privateKey);
-    var account = web3.eth.accounts.privateKeyToAccount(privateKey);
-    // ctx.body = {name:"解锁"};
-    var data = await setResponseDataWithAccount(account, responseData);
-    console.log(data);
-    ctx.body = data;
-};
-//使用keyStore文件
-unlockAccountWithKeyStore = async(ctx)=&gt; {
-    var responseData = new response(0, "success", {});
-    var body = ctx.request.body;
-    var pwd = body.pwd;
-    var keyStore = body.keyStore;
-    try {
-        var account = web3.eth.accounts.decrypt(keyStore, pwd);
-        ctx.body = await setResponseDataWithAccount(account, responseData);
-    }catch (error){
-        console.log(error)
-        responseData.code = 1;
-        responseData.message = "failed";
-        responseData.data = {error: error.message};
-        ctx.body = responseData;
+<div class="highlighter-rouge"><pre class="highlight"><code>const Koa = require("koa");
+const app = new Koa();
+//引入koa-router的时候要加上一个()
+var router = require("koa-router")();
+var views = require("koa-views");
+var path = require("path");
+//views 必须是异步才可以
+router.get("/login",async ctx=&gt;{
+    //将json里面的值替换为文件里面的变量
+    //go 里面使用的是template模板,他们功能类型
+    var name = "zhq";
+    await ctx.render("loginEjs.ejs",{
+        name
+    })
+});
+router.get("/regist",async ctx=&gt;{
+    await ctx.render("regist.html")
+});
+app.use(views(
+    path.join(__dirname,"./views"),
+    {
+        extensions:"ejs",
+        //默认去views下面获取ejs后缀的文件
+        //如果是其他类型的文件需要制定文件类型
+        map:{
+            html:"ejs"
+        }
     }
-};
-module.exports = {
-    unlockAccountWithPrivateKey,
-    unlockAccountWithKeyStore,
-};
+));
+//路由注册到中间件
+app.use(router.routes());
+//开启服务,监听端口3000
+app.listen(3000);
 
 </code></pre>
 </div>
 
-<h4 id="3交易处理">3、交易处理</h4>
+<p><code class="highlighter-rouge">loginEjs.js</code></p>
 
-<p><code class="highlighter-rouge">transaction.js</code></p>
-
-<div class="highlighter-rouge"><pre class="highlight"><code>const web3 = require("../utils/myUtils").getWeb3();
-var response = require("../model/responsedata");
-var bignumber = require("bignumber.js")
-
-//发起交易
-createTransaction = async(ctx)=&gt; {
-    console.log("createTransaction");
-    var responseData = new response(0, "success", {});
-    var body = ctx.request.body;
-    var fromAddress = body.from;
-    var toAddress = body.to;
-    //将输入的金额换算成Wei
-    var money = web3.utils.toWei(body.money, "ether");
-    var gasPrice = await web3.eth.getGasPrice();
-    //获取交易的nonce值,一个顺序累加的值
-    var nonce = await web3.eth.getTransactionCount(fromAddress);
-    var transactionData = {
-        from: fromAddress,
-        to: toAddress,
-        value: money,
-        gasPrice: gasPrice,
-        data: '0x00',//当使用代币转账或者合约调用时
-        nonce: nonce,
-    };
-    //estimateGas()方法会将transactionData数据做一些操作,导致,transactionData一些值的类型变化,所以下面对transactionData重新赋值
-    var gas = await web3.eth.estimateGas(transactionData);
-    transactionData = {
-        from: fromAddress,
-        to: toAddress,
-        value: money,
-        gasPrice: gasPrice,
-        data: '0x00',//当使用代币转账或者合约调用时
-        nonce: nonce,
-        gas:gas,
-    };
-    console.log(transactionData);
-    responseData.data = transactionData;
-    ctx.body = responseData;
-
-};
-
-</code></pre>
-</div>
-<p>创建一笔交易，返回交易的<code class="highlighter-rouge">gas</code>和<code class="highlighter-rouge">gasPrice</code>供用户确认</p>
-
-<div class="highlighter-rouge"><pre class="highlight"><code>//确认交易
-/*
-* 1、签名交易
-* 2、发送交易
-* */
-sendTransaction = async(ctx)=&gt; {
-
-    console.log("sendTransaction");
-
-    var responseData = new response(0, "success", {});
-    var body = ctx.request.body;
-    var transactionData = {
-        from: body.from,
-        to: body.to,
-        value: body.value,
-        gasPrice: body.gasPrice,
-        data: body.data,//当使用代币转账或者合约调用时
-        nonce: body.nonce,
-        gas: body.gas
-    };
-    //privateKey为了安全,需要进行加密处理
-    var privateKey = body.privateKey;
-    //签名交易
-    console.log(transactionData);
-    console.log(privateKey);
-    var signTransactionData = await web3.eth.accounts.signTransaction(transactionData, privateKey);
-    try {
-        //发送交易
-        await web3.eth.sendSignedTransaction(signTransactionData.rawTransaction, (error, hash)=&gt; {
-            if (!error) {
-                responseData.data.hash = hash;
-            } else {
-                responseData.code = 1;
-                responseData.message = "failed";
-                responseData.data = {error: error.message};
-            }
-        })
-    } catch (error) {
-        console.log(error);
-        responseData.code = 1;
-        responseData.message = "failed";
-        responseData.data = {error: error.message};
-    }
-    ctx.body = responseData
-};
-</code></pre>
-</div>
-<p>确认一笔交易，这里才是真正提交一笔交易，这时不会直接返回结果，交易提交后，如果连接的是测试链，需要自己去挖矿,执行命令<code class="highlighter-rouge">miner.start()</code>,直到矿工确认这笔交易后，才会返回交易信息。如果是测试链，因为它有自己的生态，不需要做其他操作。</p>
-
-<div class="highlighter-rouge"><pre class="highlight"><code>//根据txHash查询交易状态
-transactionStatus = async(ctx)=&gt; {
-  var responseData = new response(0,"success",{});
-    var data = ctx.request.body;
-    var txHash = data.txHash;
-    var result = await web3.eth.getTransactionReceipt(txHash);
-    if (result != null){
-        responseData.data = result;
-    }
-    ctx.body = responseData;
-};
-module.exports = {
-    createTransaction,
-    sendTransaction,
-    transactionStatus,
-};
+<div class="highlighter-rouge"><pre class="highlight"><code><span class="cp">&lt;!DOCTYPE html&gt;</span>
+<span class="nt">&lt;html</span> <span class="na">lang=</span><span class="s">"en"</span><span class="nt">&gt;</span>
+<span class="nt">&lt;head&gt;</span>
+    <span class="nt">&lt;meta</span> <span class="na">charset=</span><span class="s">"UTF-8"</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;title&gt;</span>Title<span class="nt">&lt;/title&gt;</span>
+    <span class="nt">&lt;style&gt;</span>
+        <span class="nt">div</span><span class="p">{</span>
+            <span class="nl">background</span><span class="p">:</span> <span class="no">darkcyan</span><span class="p">;</span>
+        <span class="p">}</span>
+    <span class="nt">&lt;/style&gt;</span>
+<span class="nt">&lt;/head&gt;</span>
+<span class="nt">&lt;body&gt;</span>
+<span class="nt">&lt;div&gt;</span>注册  <span class="err">&lt;</span>%=  name %&gt;<span class="nt">&lt;/div&gt;</span>
+<span class="nt">&lt;/body&gt;</span>
+<span class="nt">&lt;/html&gt;</span>
 
 </code></pre>
 </div>
 
-<p>根据交易hash，返回</p>
+<p>源码下载</p>
 
-<blockquote>
-  <p>注 ：<code class="highlighter-rouge">createTransaction</code>方法中调用<code class="highlighter-rouge">estimateGas()</code>方法会将<code class="highlighter-rouge">transactionData</code>数据做一些操作,导致,<code class="highlighter-rouge">transactionData</code>一些值的类型变化,所以下面对<code class="highlighter-rouge">transactionData</code>重新赋值</p>
-</blockquote>
-
-<h2 id="demo下载-httpsgithubcomsweetmeganmywalletdemo">demo下载 https://github.com/sweetMegan/myWalletDemo</h2>
-
-<h4 id="mywallet为nodejs后台"><strong><code class="highlighter-rouge">myWallet</code>为nodejs后台</strong></h4>
-<h4 id="mywalletclient为ios前端"><strong><code class="highlighter-rouge">myWalletClient</code>为iOS前端</strong></h4>
+<p>##感谢李旭（旭哥）指导</p>
 
 
   </section>
@@ -660,13 +766,13 @@ module.exports = {
        <ul class="pager">
         
         <li class="previous">
-            <a href="/2018/07/14/Nodejs%E6%A1%86%E6%9E%B6Koa/" data-toggle="tooltip" data-placement="top" title="Nodejs框架Koa">上一篇：  <span>Nodejs框架Koa</span>
+            <a href="/2018/07/14/Nodejs%E5%AE%9E%E7%8E%B0%E4%BB%A5%E5%A4%AA%E5%9D%8A%E9%92%B1%E5%8C%85-%E6%A6%82%E8%BF%B0/" data-toggle="tooltip" data-placement="top" title="Nodejs实现以太坊钱包-概述">上一篇：  <span>Nodejs实现以太坊钱包-概述</span>
             </a>
         </li>
         
         
         <li class="next">
-            <a href="/2018/07/15/%E4%BB%A5%E5%A4%AA%E5%9D%8A%E7%A7%81%E7%BD%91%E5%BB%BA%E7%AB%8B-%E9%80%9A%E8%BF%87%E5%88%9B%E4%B8%96%E5%8C%BA%E5%9D%97%E6%9D%A5%E5%88%9D%E5%A7%8B%E5%8C%96%E5%8C%BA%E5%9D%97%E9%93%BE/" data-toggle="tooltip" data-placement="top" title="以太坊私网建立-通过创世区块来初始化区块链">下一篇：  <span>以太坊私网建立-通过创世区块来初始化区块链</span>
+            <a href="/2018/07/15/Nodejs%E5%AE%9E%E7%8E%B0%E4%BB%A5%E5%A4%AA%E5%9D%8A%E9%92%B1%E5%8C%85-iOS%E5%AE%9E%E7%8E%B0%E5%89%8D%E7%AB%AF%E8%B0%83%E7%94%A8/" data-toggle="tooltip" data-placement="top" title="Nodejs实现以太坊钱包">下一篇：  <span>Nodejs实现以太坊钱包</span>
             </a>
         </li>
         

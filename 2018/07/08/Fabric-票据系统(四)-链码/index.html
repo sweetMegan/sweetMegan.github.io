@@ -6,21 +6,21 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
-  <title>星云链发送交易</title>
-  <meta name="description" content="星云链发送交易手记">
+  <title>Fabric 票据系统(四) 链码</title>
+  <meta name="description" content="区块链">
   <meta name="author" content="黎跃春">
 
-  <meta name="keywords" content="区块链交易"
+  <meta name="keywords" content="区块链"
   />
 
   <meta name="twitter:card" content="summary">
-  <meta name="twitter:title" content="星云链发送交易">
-  <meta name="twitter:description" content="星云链发送交易手记">
+  <meta name="twitter:title" content="Fabric 票据系统(四) 链码">
+  <meta name="twitter:description" content="区块链">
 
   <meta property="og:type" content="article">
-  <meta property="og:title" content="星云链发送交易">
-  <meta property="og:description" content="星云链发送交易手记">
-  <meta property="og:site_name" content="区块链交易e"
+  <meta property="og:title" content="Fabric 票据系统(四) 链码">
+  <meta property="og:description" content="区块链">
+  <meta property="og:site_name" content="区块链e"
   />
 
 
@@ -31,7 +31,7 @@
   <link rel="stylesheet" href=" /css/main.css ">
   <link href="//netdna.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
 
-  <link rel="canonical" href="/2018/05/04/%E6%98%9F%E4%BA%91%E9%93%BE%E5%8F%91%E9%80%81%E4%BA%A4%E6%98%93/">
+  <link rel="canonical" href="/2018/07/08/Fabric-%E7%A5%A8%E6%8D%AE%E7%B3%BB%E7%BB%9F(%E5%9B%9B)-%E9%93%BE%E7%A0%81/">
   <link rel="alternate" type="application/rss+xml" title="sweetsmelon博客" href=" /feed.xml
     ">
 
@@ -185,10 +185,10 @@
     <div class="content-wrapper__inner">
       <article class="post-container post-container--single" itemscope itemtype="http://schema.org/BlogPosting">
   <header class="post-header">
-    <h1 class="post-title">星云链发送交易</h1>
+    <h1 class="post-title">Fabric 票据系统(四) 链码</h1>
     <div class="post-meta">
       <img src="/images/calendar.png" width="20px"/>
-      <time datetime="2018-05-04 00:00:00 +0800" itemprop="datePublished" class="post-meta__date date">2018-05-04</time>
+      <time datetime="2018-07-08 00:00:00 +0800" itemprop="datePublished" class="post-meta__date date">2018-07-08</time>
 
       <span id="busuanzi_container_page_pv"> | 阅读：<span id="busuanzi_value_page_pv"></span>次</span>
     </p>
@@ -196,92 +196,401 @@
   </header>
 
   <section class="post">
-    <ul>
-  <li>创建账户</li>
+    <p>现在<code class="highlighter-rouge">CLI</code>已经准备好了，接下来需要的是编写链码，实现功能</p>
+
+<h2 id="实现链码必要结构">实现链码必要结构</h2>
+
+<ul>
+  <li>新建目录<code class="highlighter-rouge">ChainCode</code></li>
+  <li>在<code class="highlighter-rouge">ChainCode</code>目录下新建<code class="highlighter-rouge">main.go</code>
+在<code class="highlighter-rouge">main.go</code>中实现链码的必要结构<code class="highlighter-rouge">Init()</code>,<code class="highlighter-rouge">Invoke()</code></li>
 </ul>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>$ ./neb account new
+<h4 id="新建个链码结构体">新建个链码结构体</h4>
 
-Your new account is locked with a passphrase. Please give a passphrase. Do not forget this passphrase.
+<div class="highlighter-rouge"><pre class="highlight"><code>type BillChainCode struct {
 
-Passphrase:
+}
 
-Repeat passphrase:
-
-Address: n1SQe5d1NKHYFMKtJ5sNHPsSPVavGzW71Wy
 </code></pre>
 </div>
+<p>####Init()</p>
+<div class="highlighter-rouge"><pre class="highlight"><code>func (t *BillChainCode) Init(stub shim.ChaincodeStubInterface) peer.Response {
+	return shim.Success(nil)
+}
+
+</code></pre>
+</div>
+<p>####Invoke()</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>
+func (t *BillChainCode) Invoke(stub shim.ChaincodeStubInterface) peer.Response {
+	function, args := stub.GetFunctionAndParameters()
+	//票据操作的七个方法
+	if function == "issue" {
+		//发布票据
+		return t.Issue(stub, args)
+	}else if function == "queryMyBills" {
+		//查看我的票据列表
+		return t.QuerMyBills(stub, args)
+	}else if function == "queryBillByNo" {
+		//票据号查询票据
+		return t.QueryBillByNo(stub, args)
+	}else  if function == "queryMyWaitBills" {
+		//查询我的待背书票据列表
+		return t.QueryMyWaitBills(stub, args)
+	}else if function == "endorse" {
+		//发起背书
+		return t.endorse(stub, args)
+	}else if function == "accept" {
+		//签名
+		return t.Accept(stub, args)
+	}else if function == "reject" {
+		//拒签
+		return t.Reject(stub, args)
+	}
+
+	return shim.Error("指定的函数名称错误")
+}
+
+</code></pre>
+</div>
+<p>####启动链码</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>func main()  {
+	chaincode := new(BillChainCode)
+	err := shim.Start(chaincode)
+	if err != nil {
+		fmt.Println("启动链码错误: ", err)
+	}
+}
+</code></pre>
+</div>
+<h2 id="实现票据操作">实现票据操作</h2>
+
+<p>在这之前首先创建票据结构体和一些常量必须票据状态
+新建<code class="highlighter-rouge">stucture.go</code></p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>package main
+
+// 票据状态
+const (
+	BillInfo_State_NewPublish	= "NewPublish"		// 新发布票据
+	BillInfo_State_EndorseWaitSign = "EndorseWaitSign"	// 等待签收票据
+	BillInfo_State_EndorseSigned = "EndorseSigned"		// 票据签收成功
+	BillInfo_State_EndorseReject = "EndorseReject"		// 拒绝签收票据
+)
+const (
+	IndexName   = "holderName~billNo" // search的映射名
+)
+
+// 票据数据结构
+type Bill struct {
+	BillInfoID			string		`json:"BillInfoID"`			// 票据号码
+	BillInfoAmt			string		`json:"BillInfoAmt"`		// 票据金额
+	BillInfoType		string		`json:"BillInfoType"`		// 票据类型
+
+	BillInfoIsseDate	string		`json:"BillInfoIsseDate"`	// 票据出票日期
+	BillInfoDueDate		string		`json:"BillInfoDueDate"`	// 票据到期日期
+
+	DrwrCmID			string		`json:"DrwrCmID"`			// 出票人证件号码
+	DrwrAcct			string		`json:"DrwrAcct"`			// 出票人名称
+
+	AccptrCmID			string		`json:"AccptrCmID"`			// 承兑人证件号码
+	AccptrAcct			string		`json:"AccptrAcct"`			// 承兑人名称
+
+	PyeeCmID			string		`json:"PyeeCmID"`			// 收款人证件号码
+	PyeeAcct			string		`json:"PyeeAcct"`			// 收款人名称
+
+	HoldrCmID			string		`json:"HoldrCmID"`		// 当前持票人证件号码
+	HoldrAcct			string		`json:"HoldrAcct`		// 当前持票人名称
+
+	WaitEndorseCmID	string		`json:"WaitEndorseCmID"`	// 待背书人证件号码
+	WaitEndorseAcct	string		`json:"WaitEndorseAcct"`	// 待背书人名称
+
+	RejectEndorseCmID	string		`json:"RejectEndorseCmID"`	// 拒绝背书人证件号码
+	RejectEndorseAcct	string		`json:"RejectEndorseAcct"`	// 拒绝背书人名称
+
+	State				string		`json:"State"`				// 票据状态
+	History				[]HistoryItem	`json:"History"`		// 票据背书历史
+}
+
+// 票据历史信息
+type HistoryItem struct {
+	TxId		string		`json:"TxId"`
+	Bill		Bill		`json:"bill"`
+}
+
+</code></pre>
+</div>
+<p>数据结构有了，下面处理逻辑</p>
+
+<p>新建<code class="highlighter-rouge">billcc.go</code></p>
+
+<h4 id="发布票据-issuego">发布票据 <code class="highlighter-rouge">issue.go</code></h4>
+
+<p>1、检查请求参数是否合法</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>
+//args 为票据的json串
+func (t *BillChainCode)Issue(stub shim.ChaincodeStubInterface,args []string)peer.Response  {
+//1、检查请求参数是否合法
+	if len(args) != 1 {
+		return shim.Error("发布票据失败，指定的票据内容错误")
+	}
+	var bill Bill
+	err := json.Unmarshal([]byte(args[0]),&amp;bill)
+	if err != nil {
+		return shim.Error("反序列化票据对象时发生错误")
+	}
+}
+
+</code></pre>
+</div>
+<p>2、查重
+	票据具有唯一性，不允许重复发布票据
+	根据票据号查询票据，如果票据已存在，不允许重复发布</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>//根据订单号查询订单是否存在
+func (t *BillChainCode)getBill(stub shim.ChaincodeStubInterface,billNo string)(Bill,bool)  {
+	var bill Bill
+	b,err := stub.GetState(billNo)
+	if err != nil {
+		return bill,false
+	}
+	//判断查询到的结果是否为空
+	err = json.Unmarshal(b,&amp;bill)
+	if err != nil {
+		return bill,false
+	}
+	return bill,true
+}
+
+</code></pre>
+</div>
+
+<p>3、修改票据状态</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>//args 为票据的json串
+func (t *BillChainCode)Issue(stub shim.ChaincodeStubInterface,args []string)peer.Response  {
+	//1、检查请求参数是否合法
+	if len(args) != 1 {
+		return shim.Error("发布票据失败，指定的票据内容错误")
+	}
+	var bill Bill
+	err := json.Unmarshal([]byte(args[0]),&amp;bill)
+	if err != nil {
+		return shim.Error("反序列化票据对象时发生错误")
+	}
+	//2、查重
+	//票据具有唯一性，不允许重复发布票据
+	//根据票据号查询票据，如果票据已存在，不允许重复发布
+	_,bl := t.getBill(stub,bill.BillInfoID)
+	if bl {
+		return shim.Error("发布的票据已存在")
+	}
+	//3、将票据状态保存为发布状态
+	bill.State = BillInfo_State_NewPublish
+	//4、将票据保存至账本
+}
+</code></pre>
+</div>
+<p>4、保存票据</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>//保存票据
+func (t *BillChainCode)putBill(stub shim.ChaincodeStubInterface,bill Bill)([]byte,bool)  {
+	b,err := json.Marshal(bill)
+	if err != nil {
+		return nil,false
+	}
+	err = stub.PutState(bill.BillInfoID,b)
+	if err != nil {
+		return nil,false
+	}
+	return b,true
+	
+}
+
+</code></pre>
+</div>
+
+<p>5、根据当前持票人ID与票据号码，定义复合key，方便后期批量查询</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>//args 为票据的json串
+func (t *BillChainCode)Issue(stub shim.ChaincodeStubInterface,args []string)peer.Response  {
+	//1、检查请求参数是否合法
+	if len(args) != 1 {
+		return shim.Error("发布票据失败，指定的票据内容错误")
+	}
+	var bill Bill
+	err := json.Unmarshal([]byte(args[0]),&amp;bill)
+	if err != nil {
+		return shim.Error("反序列化票据对象时发生错误")
+	}
+	//2、查重
+	//票据具有唯一性，不允许重复发布票据
+	//根据票据号查询票据，如果票据已存在，不允许重复发布
+	_,bl := t.getBill(stub,bill.BillInfoID)
+	if bl {
+		return shim.Error("发布的票据已存在")
+	}
+	//3、将票据状态保存为发布状态
+	bill.State = BillInfo_State_NewPublish
+	//4、将票据保存至账本
+	_,bl = t.putBill(stub,bill)
+	if !bl {
+		return shim.Error("保存票据信息时发生错误")
+	}
+	//5、根据当前持票人ID与票据号码，定义复合key，方便后期批量查询
+	holderCmIDBillIInfoIDIndexKey, err := stub.CreateCompositeKey(IndexName,[]string{bill.HoldrCmID,bill.BillInfoID})
+	if err != nil {
+		return shim.Error("创建复合键时发生错误")
+	}
+	err = stub.PutState(holderCmIDBillIInfoIDIndexKey,[]byte{0x00})
+	if err != nil {
+		return shim.Error("保存复合键时发生错误")
+	}
+	return shim.Success([]byte("指定的票据发布成功"))
+
+}
+
+</code></pre>
+</div>
+
+<p>####查询我的票据列表</p>
+
+<p>1、依据复合键查询，一个人的所有票据</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>//根据票据持有人ID，查询这个人的所有票据
+func (t *BillChainCode) QueryMyBills(stub shim.ChaincodeStubInterface, args []string) peer.Response {
+	if len(args) != 1 {
+		return shim.Error("查询票据错误,非法的持票人号码")
+	}
+	iterator, err := stub.GetStateByPartialCompositeKey(IndexName, args)
+	if err != nil {
+		return shim.Error("根据指定的持票人证件号码查询信息时发生错误")
+	}
+	defer iterator.Close()
+	//迭代处理
+	var bills []Bill
+	for iterator.HasNext() {
+		kv, _ := iterator.Next()
+		//kv
+		//k:bill.HoldrCmID+bill.BillInfoID 
+		//v:[]byte{0x00}
+		//所以要找到订单号要拆分k就够了
+		//分割查询到的复合键
+		_, compositeKey, err := stub.SplitCompositeKey(kv.Key)
+		if err != nil {
+			return shim.Error("分割指定复合键时发生错误")
+		}
+		//从复合键中获取到的票据号码
+		bill, bl := t.getBill(stub, compositeKey[1])
+		if !bl {
+			return shim.Error("根据指定的票据号码查询票据信息时发生错误")
+		}
+		//将查询到的订单，添加到查询结果数组中
+		bills = append(bills, bill)
+	}
+	bs, err := json.Marshal(bills)
+	if err != nil {
+		return shim.Error("序列化票据时发生错误")
+	}
+	return shim.Success(bs)
+}
+
+</code></pre>
+</div>
+
 <blockquote>
-  <p>密码不要乱写，记住密码</p>
+  <p>这里需要注意的是package 包名为 main 因为链码是可以单独运行的</p>
 </blockquote>
 
-<ul>
-  <li>查看账户</li>
-</ul>
+<p>##测试</p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>curl -i -H Accept:application/json -X POST http://localhost:8685/v1/user/accountstate -d '{"address":"n1MVEBhTKXe49CJstoLZ7kq8C3nLP9Bbx5G"}'
+<p>将测试数据</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>	//测试数据
+	bill := Bill{
+		BillInfoID:        "123456",
+		BillInfoAmt:       "10",
+		BillInfoType:      "liangpiao",
+		BillInfoIsseDate:  "20180702",
+		BillInfoDueDate:   "20190702",
+		DrwrCmID:          "120xxxxxxx",
+		DrwrAcct:          "zhq",
+		AccptrCmID:        "accp120xxxxx",
+		AccptrAcct:        "AccpName",
+		PyeeCmID:          "Pyee120xxxxx",
+		PyeeAcct:          "PyeeName",
+		HoldrCmID:         "120xxxxxxx",
+		HoldrAcct:         "zhq",
+		WaitEndorseCmID:   "pei120xxxxxx",
+		WaitEndorseAcct:   "pei",
+		RejectEndorseCmID: "",
+		RejectEndorseAcct: "",
+		State:             "",
+		History:           nil,
+	}
+	
 </code></pre>
 </div>
-<ul>
-  <li>
-    <p>启动私有链
-  <strong>1、启动种子节点</strong></p>
 
-    <div class="highlighter-rouge"><pre class="highlight"><code>  ./neb -c conf/default/config.conf
-</code></pre>
-    </div>
+<p>copy到<code class="highlighter-rouge">Issue</code>方法中,就不需要在终端输入那么多东西了</p>
 
-    <p><strong>2、启动矿工节点</strong></p>
+<p>将<code class="highlighter-rouge">ChainCode</code>目录拷贝到<code class="highlighter-rouge">hyfa/fabric-samples/chaincode</code>目录下</p>
 
-    <div class="highlighter-rouge"><pre class="highlight"><code>  ./neb -c conf/example/miner.conf
-</code></pre>
-    </div>
-  </li>
-  <li>
-    <p>发起交易</p>
+<p>使用<a href="https://sweetmegan.github.io/2018/06/22/%E5%BC%80%E5%8F%91%E6%A8%A1%E5%BC%8F%E6%B5%8B%E8%AF%95-%E6%89%93%E5%8C%85-%E7%AD%BE%E5%90%8D%E9%93%BE%E7%A0%81/">开发模式</a>测试链码</p>
 
-    <p><strong>一、签名&amp;发送</strong>
-  <strong>1、给交易签名</strong></p>
-  </li>
-</ul>
+<p>发布票据:</p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>   curl -i -H 'Content-Type: application/json' -X POST http://localhost:8685/v1/admin/sign -d '{"transaction":{"from":"n1FF1nz6tarkDVwWQkMnnwFPuPKUaQTdptE","to":"n1MVEBhTKXe49CJstoLZ7kq8C3nLP9Bbx5G", "value":"1000000000000000000","nonce":1,"gasPrice":"1000000","gasLimit":"2000000"}, "passphrase":"passphrase"}' 
-</code></pre>
-</div>
 <blockquote>
-  <ul>
-    <li>nonce值必须大于 from账户的nonce值,否则下面提交交易会报错
-{“error”:”transaction’s nonce is invalid, should bigger than the from’s nonce”}</li>
-    <li>在发送交易时，对于同一个账户，只有当他Nonce为N的交易上链后，Nonce为N+1的交易才能上链，有严格的顺序，Nonce必须严格加1。可以通过GetAccountState接口查看最新的Nonce。</li>
-  </ul>
+  <p>peer chaincode invoke -n bill -v 0 -c ‘{“Args”:[“issue”,””]}’ -C myc</p>
 </blockquote>
 
-<p><strong>2、提交交易</strong></p>
+<p><img src="http://otwxtrtn9.bkt.clouddn.com/Fabric%E7%A5%A8%E6%8D%AE%E9%A1%B9%E7%9B%AE%E5%9B%9B%201.png" alt="Fabric 票据项目四 1" /></p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>curl -i -H 'Content-Type: application/json' -X POST http://localhost:8685/v1/user/rawtransaction -d '{"data":"CiC3mkO3VfBvZb7Jfp6Ltz973jf8WQCgaBxwP4hZsfwOLRIaGVcH+WT/SVMkY18ix7SG4F1+Z8evXJoA35caGhlXTHpREcMhXjav+RTl4PXYdSAjpbXNazKjIhAAAAAAAAAAAA3gtrOnZAAAKAMwkbys1wU6CAoGYmluYXJ5QGRKEAAAAAAAAAAAAAAAAAAPQkBSEAAAAAAAAAAAAAAAAAAehIBYAWJBjcyJU9VVhKV32f8zTCla6F46p0aEITwNTqR/judpqiRmFZ0OkLj4r6tF44FaKFMwGjyKXnWfyTM2uWHyOotcKQA="}'
-</code></pre>
-</div>
+<p>status:200 表示成功</p>
 
-<ul>
-  <li>查看交易 hash为交易返回的hash值</li>
-</ul>
-
-<div class="highlighter-rouge"><pre class="highlight"><code>curl -i -H Accept:application/json -X POST http://localhost:8685/v1/user/getTransactionReceipt -d '{"hash":"b79a43b755f06f65bec97e9e8bb73f7bde37fc5900a0681c703f8859b1fc0e2d"}'
-</code></pre>
-</div>
 <blockquote>
-  <ul>
-    <li>0: 交易失败. 表示当前交易已经上链，但是执行失败了。可能是因为部署合约或者调用合约参数错误。</li>
-    <li>1: 交易成功. 表示当前交易已经上链，而且执行成功了。</li>
-    <li>2: 交易待定. 表示当前交易还没有上链。可能是因为当前交易还没有被打包；如果长时间处于当前状态，可能是因为当前交易的发送者账户的余额不够支付上链手续费</li>
-  </ul>
+  <p>peer chaincode invoke -n bill -v 0 -c ‘{“Args”:[“queryMyBills”,”123456”]}’ -C myc</p>
 </blockquote>
 
-<h2 id="参考资料">参考资料</h2>
+<p><img src="http://otwxtrtn9.bkt.clouddn.com/Fabric%E7%A5%A8%E6%8D%AE%E9%A1%B9%E7%9B%AE%E5%9B%9B%202.png" alt="Fabric 票据项目四 2" /></p>
 
-<ul>
-  <li><a href="https://github.com/nebulasio/wiki/blob/master/tutorials/%5B%E4%B8%AD%E6%96%87%5D%20Nebulas%20101%20-%2002%20%E5%8F%91%E9%80%81%E4%BA%A4%E6%98%93.md">Nebulas 101 - 02 在星云链上发送交易</a></li>
-</ul>
+<p>status:200 表示成功 payload:为查询结果</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>//票据操作的七个方法
+	if function == "issue" {
+		//发布票据
+		return t.Issue(stub, args)
+	}else if function == "queryMyBills" {
+		//查看我的票据列表
+		return t.QuerMyBills(stub, args)
+	}else if function == "queryBillByNo" {
+		//票据号查询票据
+		return t.QueryBillByNo(stub, args)
+	}else  if function == "queryMyWaitBills" {
+		//查询我的待背书票据列表
+		return t.QueryMyWaitBills(stub, args)
+	}else if function == "endorse" {
+		//发起背书
+		return t.endorse(stub, args)
+	}else if function == "accept" {
+		//签名
+		return t.Accept(stub, args)
+	}else if function == "reject" {
+		//拒签
+		return t.Reject(stub, args)
+	}
+
+</code></pre>
+</div>
+<p>七个方法只实现了前两个，其他的意思都跟这个差不多，就不多说了</p>
+
+<p>##<a href="https://github.com/sweetMegan/bill">源码下载</a></p>
+
+<h2 id="感谢韩晓东老韩指导">感谢韩晓东（老韩）指导</h2>
 
 
   </section>
@@ -350,9 +659,14 @@ Address: n1SQe5d1NKHYFMKtJ5sNHPsSPVavGzW71Wy
 
        <ul class="pager">
         
+        <li class="previous">
+            <a href="/2018/07/07/Fabric-%E7%A5%A8%E6%8D%AE%E9%A1%B9%E7%9B%AE-%E4%B8%89-%E4%BD%BF%E7%94%A8Fabric-SDK-go/" data-toggle="tooltip" data-placement="top" title="Fabric 票据项目（三）使用Fabric SDK go">上一篇：  <span>Fabric 票据项目（三）使用Fabric SDK go</span>
+            </a>
+        </li>
+        
         
         <li class="next">
-            <a href="/2018/06/10/%E4%BB%8E%E9%9B%B6%E5%BC%80%E5%A7%8B%E5%86%99%E4%B8%80%E6%9D%A1%E5%85%AC%E9%93%BE-%E4%B8%80/" data-toggle="tooltip" data-placement="top" title="从零开始写一条公链（一）">下一篇：  <span>从零开始写一条公链（一）</span>
+            <a href="/2018/07/09/Fabric-%E7%A5%A8%E6%8D%AE%E7%B3%BB%E7%BB%9F(%E4%BA%94)-Service/" data-toggle="tooltip" data-placement="top" title="Fabric 票据系统(五) Service">下一篇：  <span>Fabric 票据系统(五) Service</span>
             </a>
         </li>
         

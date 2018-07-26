@@ -6,21 +6,21 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
-  <title>sweetsmelon博客</title>
-  <meta name="description" content="">
+  <title>Mac 开机停在进度条解决方法</title>
+  <meta name="description" content="其他">
   <meta name="author" content="黎跃春">
 
-  <meta name="keywords" content="ios、区块链"
+  <meta name="keywords" content="其他"
   />
 
   <meta name="twitter:card" content="summary">
-  <meta name="twitter:title" content="sweetsmelon博客">
-  <meta name="twitter:description" content="">
+  <meta name="twitter:title" content="Mac 开机停在进度条解决方法">
+  <meta name="twitter:description" content="其他">
 
   <meta property="og:type" content="article">
-  <meta property="og:title" content="sweetsmelon博客">
-  <meta property="og:description" content="">
-  <meta property="og:site_name" content="ios、区块链e"
+  <meta property="og:title" content="Mac 开机停在进度条解决方法">
+  <meta property="og:description" content="其他">
+  <meta property="og:site_name" content="其他e"
   />
 
 
@@ -31,7 +31,7 @@
   <link rel="stylesheet" href=" /css/main.css ">
   <link href="//netdna.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
 
-  <link rel="canonical" href="/tags/">
+  <link rel="canonical" href="/2018/07/13/Mac-%E5%BC%80%E6%9C%BA%E5%81%9C%E5%9C%A8%E8%BF%9B%E5%BA%A6%E6%9D%A1%E8%A7%A3%E5%86%B3%E6%96%B9%E6%B3%95/">
   <link rel="alternate" type="application/rss+xml" title="sweetsmelon博客" href=" /feed.xml
     ">
 
@@ -185,254 +185,187 @@
     <div class="content-wrapper__inner">
       <article class="post-container post-container--single" itemscope itemtype="http://schema.org/BlogPosting">
   <header class="post-header">
+    <h1 class="post-title">Mac 开机停在进度条解决方法</h1>
     <div class="post-meta">
-      <time datetime="" itemprop="datePublished" class="post-meta__date date"></time>
-      <span class="post-meta__tags tags"></span>
+      <img src="/images/calendar.png" width="20px"/>
+      <time datetime="2018-07-13 00:00:00 +0800" itemprop="datePublished" class="post-meta__date date">2018-07-13</time>
+
+      <span id="busuanzi_container_page_pv"> | 阅读：<span id="busuanzi_value_page_pv"></span>次</span>
+    </p>
     </div>
-    <h1 class="post-title"></h1>
   </header>
 
   <section class="post">
-    
+    <p>##查看原因</p>
 
-<ul class="tag_box inline">
-    
-  
+<p>开机 &gt; 立即按<code class="highlighter-rouge">command + V</code>键，进入代码界面：</p>
 
-
-  
-     
-    	<li><a href="#区块链-ref">区块链 <span>20</span></a></li>
-     
-    	<li><a href="#其他-ref">其他 <span>3</span></a></li>
-    
-  
-
-
-
+<ul>
+  <li>等不停的输出<code class="highlighter-rouge">Too many corpses being created</code>这段代码的时候,说明是缓存太多造成的.</li>
+  <li>不必要一直看这个输出，知道是这个原因就可以了。</li>
 </ul>
 
-<div class = "card">
- 
+<p>##解决问题</p>
 
-  <h3 id="区块链-ref">区块链</h3>
-  <ul>
-      
-    
+<p>1、关机 &gt; 再开机 &gt; 立即按command + R键，进入macOS恢复界面，左上角找到终端工具，在终端命令行中按如下顺序执行命令(目的：清除数据库缓存)：</p>
 
+<p>进入缓存目录</p>
 
-  
-    
-      
-      	
-      	<li><a href="/2018/07/15/%E4%BB%A5%E5%A4%AA%E5%9D%8A%E7%A7%81%E7%BD%91%E5%BB%BA%E7%AB%8B-%E9%80%9A%E8%BF%87%E5%88%9B%E4%B8%96%E5%8C%BA%E5%9D%97%E6%9D%A5%E5%88%9D%E5%A7%8B%E5%8C%96%E5%8C%BA%E5%9D%97%E9%93%BE/">以太坊私网建立-通过创世区块来初始化区块链</a></li>
-      	
-      
-    
-  
-    
-      
-      	
-      	<li><a href="/2018/07/15/Nodejs%E5%AE%9E%E7%8E%B0%E4%BB%A5%E5%A4%AA%E5%9D%8A%E9%92%B1%E5%8C%85-iOS%E5%AE%9E%E7%8E%B0%E5%89%8D%E7%AB%AF%E8%B0%83%E7%94%A8/">Nodejs实现以太坊钱包</a></li>
-      	
-      
-    
-  
-    
-      
-      	
-      	<li><a href="/2018/07/14/Nodejs%E6%A1%86%E6%9E%B6Koa/">Nodejs框架Koa</a></li>
-      	
-      
-    
-  
-    
-      
-      	
-      	<li><a href="/2018/07/14/Nodejs%E5%AE%9E%E7%8E%B0%E4%BB%A5%E5%A4%AA%E5%9D%8A%E9%92%B1%E5%8C%85-%E6%A6%82%E8%BF%B0/">Nodejs实现以太坊钱包-概述</a></li>
-      	
-      
-    
-  
-    
-      
-      	
-      	<li><a href="/2018/07/14/(%E8%BD%AC%E8%BD%BD-Koa-async%E5%92%8Cawait%E8%AF%A6%E8%A7%A3/">（转载）Koa async和await详解</a></li>
-      	
-      
-    
-  
-    
-      
-      	
-      	<li><a href="/2018/07/10/Fabric-%E7%A5%A8%E6%8D%AE%E7%B3%BB%E7%BB%9F(%E5%85%AD)-goWeb/">Fabric 票据系统(六) goWeb</a></li>
-      	
-      
-    
-  
-    
-      
-      	
-      	<li><a href="/2018/07/09/Fabric-%E7%A5%A8%E6%8D%AE%E7%B3%BB%E7%BB%9F(%E4%BA%94)-Service/">Fabric 票据系统(五) Service</a></li>
-      	
-      
-    
-  
-    
-      
-      	
-      	<li><a href="/2018/07/08/Fabric-%E7%A5%A8%E6%8D%AE%E7%B3%BB%E7%BB%9F(%E5%9B%9B)-%E9%93%BE%E7%A0%81/">Fabric 票据系统(四) 链码</a></li>
-      	
-      
-    
-  
-    
-      
-      	
-      	<li><a href="/2018/07/07/Fabric-%E7%A5%A8%E6%8D%AE%E9%A1%B9%E7%9B%AE-%E4%B8%89-%E4%BD%BF%E7%94%A8Fabric-SDK-go/">Fabric 票据项目（三）使用Fabric SDK go</a></li>
-      	
-      
-    
-  
-    
-      
-      	
-      	<li><a href="/2018/07/06/Fabric-%E7%A5%A8%E6%8D%AE%E9%A1%B9%E7%9B%AE-%E4%BA%8C-%E7%A5%A8%E6%8D%AE%E7%B3%BB%E7%BB%9F%E4%BB%8B%E7%BB%8D/">Fabric 票据项目（二）票据系统介绍</a></li>
-      	
-      
-    
-  
-    
-      
-      	
-      	<li><a href="/2018/07/01/Fabric-%E7%A5%A8%E6%8D%AE%E9%A1%B9%E7%9B%AE-%E4%B8%80-%E6%90%AD%E5%BB%BA%E7%8E%AF%E5%A2%83/">Fabric 票据项目（一）搭建环境</a></li>
-      	
-      
-    
-  
-    
-      
-      	
-      	<li><a href="/2018/06/23/goweb%E7%BC%96%E7%A8%8B/">goWeb编程</a></li>
-      	
-      
-    
-  
-    
-      
-      	
-      	<li><a href="/2018/06/22/%E5%BC%80%E5%8F%91%E6%A8%A1%E5%BC%8F%E6%B5%8B%E8%AF%95-%E6%89%93%E5%8C%85-%E7%AD%BE%E5%90%8D%E9%93%BE%E7%A0%81/">Fabric 使用开发模式测试，打包，签名链码</a></li>
-      	
-      
-    
-  
-    
-      
-      	
-      	<li><a href="/2018/06/22/Fabric-%E4%BA%A4%E6%98%93%E8%BF%87%E7%A8%8B/">Fabric 交易过程</a></li>
-      	
-      
-    
-  
-    
-      
-      	
-      	<li><a href="/2018/06/21/%E9%93%BE%E7%A0%81%E5%BC%80%E5%8F%91/">Fabric 链码开发</a></li>
-      	
-      
-    
-  
-    
-      
-      	
-      	<li><a href="/2018/06/20/Fabric-%E5%BB%BA%E7%AB%8B%E7%AC%AC%E4%B8%80%E4%B8%AA%E7%BD%91%E7%BB%9C/">Fabric 建立第一个网络</a></li>
-      	
-      
-    
-  
-    
-      
-      	
-      	<li><a href="/2018/06/19/%E9%93%BE%E7%A0%81%E7%9A%84%E6%A6%82%E5%BF%B5%E4%B8%8E%E4%BD%BF%E7%94%A8/">Fabric链码的概念与使用</a></li>
-      	
-      
-    
-  
-    
-      
-      	
-      	<li><a href="/2018/06/19/Fabric%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/">Fabric环境搭建</a></li>
-      	
-      
-    
-  
-    
-      
-      	
-      	<li><a href="/2018/06/10/%E4%BB%8E%E9%9B%B6%E5%BC%80%E5%A7%8B%E5%86%99%E4%B8%80%E6%9D%A1%E5%85%AC%E9%93%BE-%E4%B8%80/">从零开始写一条公链（一）</a></li>
-      	
-      
-    
-  
-    
-      
-      	
-      	<li><a href="/2018/05/04/%E6%98%9F%E4%BA%91%E9%93%BE%E5%8F%91%E9%80%81%E4%BA%A4%E6%98%93/">星云链发送交易</a></li>
-      	
-      
-    
-  
+<blockquote>
+  <p>cd /Volumes/Macintosh\ HD/var/db/caches/opendiretory/</p>
+</blockquote>
 
+<p>删除缓存数据库</p>
 
+<blockquote>
+  <p>mv ./mbr_cache ./mbr_cache-old</p>
+</blockquote>
 
-  </ul>
+<p>2、写成后，关机 &gt; 再开机 &gt; 进入正常开机流程
+这次开机会比正常情况下要久，因为缓存清了，大概3-5分钟；</p>
 
+<p>3、成功进入用户登录界面，恭喜你！！</p>
 
- 
+<blockquote>
+  <p>&lt;font color=red&gt; 以上只对<code class="highlighter-rouge">Too many corpses being created</code>有效，对于其它情况本人未遇到过，未测试 &lt;/font&gt;
+ &lt;font color=red&gt; 以上命令只会删除缓存数据，不会删除存储在硬盘上的本地文件 &lt;/font&gt;
+ &lt;font color=red&gt; 如果有重要文件，建议还是先备份一下 &lt;/font&gt;</p>
+</blockquote>
 
-  <h3 id="其他-ref">其他</h3>
-  <ul>
-      
-    
+<h2 id="备份重要文件">备份重要文件</h2>
 
+<p>1、开机后立即按住<code class="highlighter-rouge">command + R</code>键进入恢复模式；</p>
 
-  
-    
-      
-      	
-      	<li><a href="/2018/07/13/Mac-%E5%BC%80%E6%9C%BA%E5%81%9C%E5%9C%A8%E8%BF%9B%E5%BA%A6%E6%9D%A1%E8%A7%A3%E5%86%B3%E6%96%B9%E6%B3%95/">Mac 开机停在进度条解决方法</a></li>
-      	
-      
-    
-  
-    
-      
-      	
-      	<li><a href="/2018/06/28/ubuntu%E7%BF%BB%E5%A2%99/">ubuntu 翻墙</a></li>
-      	
-      
-    
-  
-    
-      
-      	
-      	<li><a href="/2018/06/28/Mac-%E7%BB%88%E7%AB%AF%E7%BF%BB%E5%A2%99/">Mac 终端翻墙</a></li>
-      	
-      
-    
-  
+<p>2、然后选择<code class="highlighter-rouge">磁盘工具</code>；</p>
 
+<p>3、准备一个硬盘或者U盘，通过硬盘工具将你的硬盘或者U盘格式化成mac-日志格式，如果你的U盘本身能直接读书，可以不用格式化；</p>
 
+<p>4、通过<code class="highlighter-rouge">磁盘工具</code>将你电脑的资料备份到你的移动盘：</p>
 
-  </ul>
+<ul>
+  <li>首先新建文件夹映像</li>
+</ul>
 
+<p><img src="https://upload-images.jianshu.io/upload_images/2443108-4b5ac036e1d6eb8a.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/516" alt="" /></p>
 
+<ul>
+  <li>
+    <p>选择你想备份的文件或者文件夹</p>
+  </li>
+  <li>
+    <p>更改保存的位置：即你的移动磁盘</p>
+  </li>
+</ul>
 
-</div>
+<p><img src="https://upload-images.jianshu.io/upload_images/2443108-5c517d9046bbf546.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/700" alt="" /></p>
+
+<ul>
+  <li>
+    <p>然后点击存储：等待它完成，这个还是有点慢的，跟你的电脑和磁盘、文件大小有关</p>
+  </li>
+  <li>
+    <p>备份完成后，你可以把移动盘插到别的电脑上去看下，是否完全成功(非必要操作，毕竟数据无价，确认下比较安全)</p>
+  </li>
+</ul>
+
+<h2 id="重装系统">重装系统</h2>
+
+<p>如果正常启动后，仍想要重装系统，可以继续以下操作</p>
+
+<p>1、把你电脑的磁盘(Macintosh HD)格式抹除了</p>
+
+<p><img src="https://upload-images.jianshu.io/upload_images/2443108-1c308f7a88c56c9e.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/576" alt="磁盘抹除" /></p>
+
+<p>2、退出磁盘；</p>
+
+<p>3、连接上网络，然后选择在线安装mac0x</p>
+
+<p>4、进入在线安装过程，至此问题解决；</p>
+
+<h2 id="文章来源-httpswwwjianshucomp1bb053414f74">文章来源 https://www.jianshu.com/p/1bb053414f74</h2>
+
 
   </section>
 </article>
-</script> <section class="footer">
+
+<section>
+
+            <div class="content-play">
+              <p><a href="javascript:void(0)" onclick="dashangToggle()" class="dashang" title="打赏，支持一下">打赏一个呗</a></p>
+              <div class="hide_box-play"></div>
+              <div class="shang_box-play">
+                <a class="shang_close-play" href="javascript:void(0)" onclick="dashangToggle()" title="关闭"><img src="/images/payimg/close.jpg" alt="取消" /></a>
+                <div class="shang_tit-play">
+                  <p>感谢您的支持，我会继续努力的!</p>
+                </div>
+                <div class="shang_payimg">
+                    <img src="/images/payimg/alipayimg.jpg" alt="扫码支持" title="扫一扫" />
+                </div>
+              <div class="shang_payimg">    
+                    <img src="/images/payimg/weipayimg.jpg" alt="扫码支持" title="扫一扫" />
+                </div>
+                <div class="pay_explain">扫码打赏，你说多少就多少</div>
+                <div class="shang_payselect">
+                  <div class="pay_item checked" data-id="alipay">
+                    <span class="pay_logo"><img src="/images/payimg/alipay.jpg" alt="支付宝" /></span>
+                  </div>
+                  <div class="pay_item" data-id="weipay">
+                    <span class="pay_logo"><img src="/images/payimg/wechat.jpg" alt="微信" /></span>
+                  </div>
+                </div>
+                <div class="shang_info-play">
+                  <p>打开<span id="shang_pay_txt">支付宝</span>扫一扫，即可进行扫码打赏哦</p>
+                </div>
+              </div>
+            </div>
+            <script type="text/javascript">
+            function dashangToggle(){
+              $(".hide_box-play").fadeToggle();
+              $(".shang_box-play").fadeToggle();
+            }
+            </script>
+
+            <div style="text-align:center;margin:50px 0; font:normal 14px/24px 'MicroSoft YaHei';"></div>
+
+            <style type="text/css">
+              .content-play{width:80%;margin-top: 20px;margin-bottom: 10px;height:40px;}
+              .hide_box-play{z-index:999;filter:alpha(opacity=50);background:#666;opacity: 0.5;-moz-opacity: 0.5;left:0;top:0;height:99%;width:100%;position:fixed;display:none;}
+              .shang_box-play{width:540px;height:540px;padding:10px;background-color:#fff;border-radius:10px;position:fixed;z-index:1000;left:50%;top:50%;margin-left:-280px;margin-top:-280px;border:1px dotted #dedede;display:none;}
+              .shang_box-play img{border:none;border-width:0;}
+              .dashang{display:block;width:100px;margin:5px auto;height:25px;line-height:25px;padding:10px;background-color:#E74851;color:#fff;text-align:center;text-decoration:none;border-radius:10px;font-weight:bold;font-size:16px;transition: all 0.3s;}
+              .dashang:hover{opacity:0.8;padding:15px;font-size:18px;}
+              .shang_close-play{float:right;display:inline-block;
+                margin-right: 10px;margin-top: 20px;
+              }
+              .shang_logo{display:block;text-align:center;margin:20px auto;}
+              .shang_tit-play{width: 100%;height: 75px;text-align: center;line-height: 66px;color: #a3a3a3;font-size: 16px;background: url('/images/payimg/cy-reward-title-bg.jpg');font-family: 'Microsoft YaHei';margin-top: 7px;margin-right:2px;}
+              .shang_tit-play p{color:#a3a3a3;text-align:center;font-size:16px;}
+              .shang_payimg{width:140px;padding:10px;padding-left: 80px; /*border:6px solid #EA5F00;**/margin:0 auto;border-radius:3px;height:140px;display:inline-block;}
+              .shang_payimg img{display:inline-block;margin-right:10px;float:left;text-align:center;width:140px;height:140px; }
+              .pay_explain{text-align:center;margin:10px auto;font-size:12px;color:#545454;}
+              .shang_payselect{text-align:center;margin:0 auto;margin-top:40px;cursor:pointer;height:60px;width:500px;margin-left:110px;}
+              .shang_payselect .pay_item{display:inline-block;margin-right:140px;float:left;}
+              .shang_info-play{clear:both;}
+              .shang_info-play p,.shang_info-play a{color:#C3C3C3;text-align:center;font-size:12px;text-decoration:none;line-height:2em;}
+            </style>
+
+       <ul class="pager">
+        
+        <li class="previous">
+            <a href="/2018/07/10/Fabric-%E7%A5%A8%E6%8D%AE%E7%B3%BB%E7%BB%9F(%E5%85%AD)-goWeb/" data-toggle="tooltip" data-placement="top" title="Fabric 票据系统(六) goWeb">上一篇：  <span>Fabric 票据系统(六) goWeb</span>
+            </a>
+        </li>
+        
+        
+        <li class="next">
+            <a href="/2018/07/14/(%E8%BD%AC%E8%BD%BD-Koa-async%E5%92%8Cawait%E8%AF%A6%E8%A7%A3/" data-toggle="tooltip" data-placement="top" title="（转载）Koa async和await详解">下一篇：  <span>（转载）Koa async和await详解</span>
+            </a>
+        </li>
+        
+    </ul>
+</section>
+
+ <section class="footer">
   <footer>
     <div class="footer_div">
       <nav class="cover-navigation navigation--social">
