@@ -5,8 +5,8 @@
     <description></description>
     <link>/</link>
     <atom:link href="/feed.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Wed, 25 Jul 2018 22:00:38 +0800</pubDate>
-    <lastBuildDate>Wed, 25 Jul 2018 22:00:38 +0800</lastBuildDate>
+    <pubDate>Thu, 26 Jul 2018 21:15:39 +0800</pubDate>
+    <lastBuildDate>Thu, 26 Jul 2018 21:15:39 +0800</lastBuildDate>
     <generator>Jekyll v3.5.1</generator>
     
       <item>
@@ -1637,600 +1637,6 @@ funAsync();
       </item>
     
       <item>
-        <title>Fabric 票据系统(六) goWeb</title>
-        <description>&lt;p&gt;至此与服务有关的东西已经写完了，接下需要一个与用户交互的前端，Go语言本身提供了一个Web服务器来处理HTTP请求，并为HTML提供模板。&lt;/p&gt;
-
-&lt;p&gt;新建web目录，包含三个子目录&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;web/tpl&lt;/code&gt;：包含所有的HTML页面（模板）&lt;/li&gt;
-  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;web/static&lt;/code&gt;：包含所有CSS，Javascript，图片…&lt;/li&gt;
-  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;web/controllers&lt;/code&gt; ：包含将呈现模板的所有函数&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;使用MVC（模型 - 视图 - 控制器）模式使其更具可读性。模型将是区块链部分，视图是模板和控制器由&lt;code class=&quot;highlighter-rouge&quot;&gt;controllers&lt;/code&gt;目录中的功能提供&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;web/tpl/login.html&lt;/code&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;web/tpl/issue.html&lt;/code&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;web/tpl/bills.html&lt;/code&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;web/tpl/billInfo.html&lt;/code&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;web/tpl/waitAccept.html&lt;/code&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;web/tpl/waitAcceptInfo.html&lt;/code&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;web/controller/controllerHandler.go&lt;/code&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;web/controller/controllerResponse.go&lt;/code&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;web/controllers/userInfo.go&lt;/code&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;web/app.go&lt;/code&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;web/static&lt;/code&gt;&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;在  &lt;code class=&quot;highlighter-rouge&quot;&gt;web&lt;/code&gt;  中添加  &lt;code class=&quot;highlighter-rouge&quot;&gt;controller&lt;/code&gt;  目录&lt;/p&gt;
-
-&lt;p&gt;在  &lt;code class=&quot;highlighter-rouge&quot;&gt;controller&lt;/code&gt;  目录中新建  &lt;code class=&quot;highlighter-rouge&quot;&gt;controllerHandler&lt;/code&gt; 用于处理各种请求&lt;/p&gt;
-
-&lt;p&gt;在  &lt;code class=&quot;highlighter-rouge&quot;&gt;controller&lt;/code&gt;  目录中新建  &lt;code class=&quot;highlighter-rouge&quot;&gt;controllerResponse&lt;/code&gt;  用于响应请求&lt;/p&gt;
-
-&lt;p&gt;用户登录: &lt;code class=&quot;highlighter-rouge&quot;&gt;userInfo.go&lt;/code&gt;&lt;/p&gt;
-
-&lt;p&gt;系统指定用户:  &lt;code class=&quot;highlighter-rouge&quot;&gt;admin,  alice,  bob,   jack&lt;/code&gt;&lt;/p&gt;
-
-&lt;h2 id=&quot;一开启服务设置路由&quot;&gt;一、开启服务，设置路由&lt;/h2&gt;
-
-&lt;p&gt;编辑&lt;code class=&quot;highlighter-rouge&quot;&gt;app.go&lt;/code&gt;&lt;/p&gt;
-
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;package Web
-
-import (
-	&quot;zhq/bill/Web/Controllers&quot;
-	&quot;fmt&quot;
-	&quot;net/http&quot;
-)
-
-func WebStart(app *Controllers.Application)error  {
-	// 指定文件服务器
-	//如果不指定文件服务器，css和js将不起作用
-	fs := http.FileServer(http.Dir(&quot;Web/Static&quot;))
-	http.Handle(&quot;/Static/&quot;, http.StripPrefix(&quot;/Static/&quot;, fs))
-
-	fmt.Println(&quot;启动应用程序，监听端口号:8888&quot;)
-	http.HandleFunc(&quot;/&quot;,app.LoginView)
-	http.HandleFunc(&quot;/login.html&quot;,app.LoginView)
-	//登录按钮响应
-	http.HandleFunc(&quot;/login&quot;,app.Login)
-	//发布票据页
-	http.HandleFunc(&quot;/issue.html&quot;,app.Issue)
-	//发布票据
-	http.HandleFunc(&quot;/issue&quot;,app.SaveBill)
-	//查询我的票据列表
-	http.HandleFunc(&quot;/bills.html&quot;,app.QueryMyBills)
-	//发起背书
-	http.HandleFunc(&quot;/endorse&quot;,app.Endorse)
-	//查看票据详情
-	http.HandleFunc(&quot;/billinfo&quot;,app.QueryBillInfo)
-	//查看所有待签收票据
-	http.HandleFunc(&quot;/waitAccept.html&quot;,app.WaitAccepts)
-	//查看代签收票据详情
-	http.HandleFunc(&quot;/waitAcceptInfo.html&quot;,app.WaitAcceptInfo)
-	//退出登录
-	http.HandleFunc(&quot;/loginout&quot;,app.LoginOut)
-	//签收票据
-	http.HandleFunc(&quot;/accept&quot;,app.Accetp)
-	//拒签票据
-	http.HandleFunc(&quot;/reject&quot;,app.Reject)
-	err := http.ListenAndServe(&quot;:8888&quot;,nil)
-	if err != nil {
-		return fmt.Errorf(&quot;启动web服务失败:%s&quot;,err.Error())
-	}
-	return nil
-}
-
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-
-&lt;h2 id=&quot;二封装处理请求响应&quot;&gt;二、封装处理请求响应&lt;/h2&gt;
-
-&lt;p&gt;编辑&lt;code class=&quot;highlighter-rouge&quot;&gt;controllerHandler.go&lt;/code&gt;&lt;/p&gt;
-
-&lt;p&gt;发布票据&lt;code class=&quot;highlighter-rouge&quot;&gt;SaveBill()&lt;/code&gt;&lt;/p&gt;
-
-&lt;h4 id=&quot;1获取页面提交的bill表单数据&quot;&gt;1、获取页面提交的&lt;code class=&quot;highlighter-rouge&quot;&gt;Bill&lt;/code&gt;表单数据&lt;/h4&gt;
-
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;bill := Service.Bill{
-		BillInfoID:       r.FormValue(&quot;BillInfoID&quot;),
-		BillInfoAmt:      r.FormValue(&quot;BillInfoAmt&quot;),
-		BillInfoType:     r.FormValue(&quot;BillInfoType&quot;),
-		BillInfoIsseDate: r.FormValue(&quot;BillInfoIsseDate&quot;),
-		BillInfoDueDate:  r.FormValue(&quot;BillInfoDueDate&quot;),
-		DrwrCmID:         r.FormValue(&quot;DrwrCmID&quot;),
-		DrwrAcct:         r.FormValue(&quot;DrwrAcct&quot;),
-		AccptrCmID:       r.FormValue(&quot;AccptrCmID&quot;),
-		AccptrAcct:       r.FormValue(&quot;AccptrAcct&quot;),
-		PyeeCmID:         r.FormValue(&quot;PyeeCmID&quot;),
-		PyeeAcct:         r.FormValue(&quot;PyeeAcct&quot;),
-		HoldrCmID:        r.FormValue(&quot;HoldrCmID&quot;),
-		HoldrAcct:        r.FormValue(&quot;HoldrAcct&quot;),
-	}
-	
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-
-&lt;p&gt;对应&lt;code class=&quot;highlighter-rouge&quot;&gt;issue.html&lt;/code&gt;中的表单&lt;/p&gt;
-
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;
-&amp;lt;!--
- &amp;lt;form action=&quot;/issue&quot; method=&quot;post&quot;&amp;gt;
-                    &amp;lt;!-- 发布票据 --&amp;gt;
-                    &amp;lt;div class=&quot;publish&quot;&amp;gt;
-                        &amp;lt;div class=&quot;&quot;&amp;gt;
-                            &amp;lt;div class=&quot;pub1&quot;&amp;gt;
-                                &amp;lt;p&amp;gt;票据号码&amp;lt;/p&amp;gt;
-                                &amp;lt;input type=&quot;text&quot; name=&quot;BillInfoID&quot; value=&quot;&quot; placeholder=&quot;&quot;/&amp;gt;
-                                &amp;lt;p&amp;gt;票据金额&amp;lt;/p&amp;gt;
-                                &amp;lt;input type=&quot;text&quot; name=&quot;BillInfoAmt&quot; value=&quot;&quot; placeholder=&quot;&quot;/&amp;gt;
-                                &amp;lt;p&amp;gt;票据类型&amp;lt;/p&amp;gt;
-                                &amp;lt;input type=&quot;text&quot; name=&quot;BillInfoType&quot; value=&quot;&quot; placeholder=&quot;&quot;/&amp;gt;
-                            &amp;lt;/div&amp;gt;
-                            &amp;lt;div class=&quot;pub2&quot;&amp;gt;
-                                &amp;lt;p&amp;gt;票据出票日期&amp;lt;/p&amp;gt;
-                                &amp;lt;input type=&quot;text&quot; name=&quot;BillInfoIsseDate&quot; value=&quot;&quot; placeholder=&quot;&quot;/&amp;gt;
-                                &amp;lt;p&amp;gt;票据到期日期&amp;lt;/p&amp;gt;
-                                &amp;lt;input type=&quot;text&quot; name=&quot;BillInfoDueDate&quot; value=&quot;&quot; placeholder=&quot;&quot;/&amp;gt;
-                            &amp;lt;/div&amp;gt;
-                            &amp;lt;div class=&quot;pub3&quot;&amp;gt;
-                                &amp;lt;p&amp;gt;出票人名称&amp;lt;/p&amp;gt;
-                                &amp;lt;input type=&quot;text&quot; name=&quot;DrwrAcct&quot; value=&quot;&quot; placeholder=&quot;&quot;/&amp;gt;
-                                &amp;lt;p&amp;gt;出票人证件号码&amp;lt;/p&amp;gt;
-                                &amp;lt;input type=&quot;text&quot; name=&quot;DrwrCmID&quot; value=&quot;&quot; placeholder=&quot;&quot;/&amp;gt;
-                                &amp;lt;p&amp;gt;承兑人名称&amp;lt;/p&amp;gt;
-                                &amp;lt;input type=&quot;text&quot; name=&quot;AccptrAcct&quot; value=&quot;&quot; placeholder=&quot;&quot;/&amp;gt;
-                                &amp;lt;p&amp;gt;承兑人证件号码&amp;lt;/p&amp;gt;
-                                &amp;lt;input type=&quot;text&quot; name=&quot;AccptrCmID&quot; value=&quot;&quot; placeholder=&quot;&quot;/&amp;gt;
-                            &amp;lt;/div&amp;gt;
-                            &amp;lt;div class=&quot;pub4&quot;&amp;gt;
-                                &amp;lt;p&amp;gt;收款人名称&amp;lt;/p&amp;gt;
-                                &amp;lt;input type=&quot;text&quot; name=&quot;PyeeAcct&quot; value=&quot;&quot; placeholder=&quot;&quot;/&amp;gt;
-                                &amp;lt;p&amp;gt;收款人证件号码&amp;lt;/p&amp;gt;
-                                &amp;lt;input type=&quot;text&quot; name=&quot;PyeeCmID&quot; value=&quot;&quot; placeholder=&quot;&quot;/&amp;gt;
-                                &amp;lt;p&amp;gt;持票人名称&amp;lt;/p&amp;gt;
-                                &amp;lt;input type=&quot;text&quot; name=&quot;HoldrAcct&quot; value=&quot;&quot; /&amp;gt;
-                                &amp;lt;p&amp;gt;持票人证件号码&amp;lt;/p&amp;gt;
-                                &amp;lt;input type=&quot;text&quot; name=&quot;HoldrCmID&quot; value=&quot;&quot; /&amp;gt;
-                            &amp;lt;/div&amp;gt;
-                            &amp;lt;p&amp;gt;
-                                &amp;lt;span&amp;gt;&amp;lt;input type=&quot;submit&quot; class=&quot;issueBtn&quot; value=&quot;提交&quot;/&amp;gt;&amp;lt;/span&amp;gt;
-                            &amp;lt;/p&amp;gt;
---&amp;gt;
-
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-
-&lt;h4 id=&quot;2调用链码&quot;&gt;2、调用链码&lt;/h4&gt;
-
-&lt;p&gt;上一篇已经实现了&lt;code class=&quot;highlighter-rouge&quot;&gt;Service&lt;/code&gt;的封装，通过&lt;code class=&quot;highlighter-rouge&quot;&gt;Service&lt;/code&gt;来调用链码&lt;/p&gt;
-
-&lt;blockquote&gt;
-  &lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;transactionID, err := app.Fabric.IssueBill(bill)
-&lt;/code&gt;&lt;/pre&gt;
-  &lt;/div&gt;
-&lt;/blockquote&gt;
-
-&lt;h4 id=&quot;3返回响应结果&quot;&gt;3、返回响应结果&lt;/h4&gt;
-
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;	var msg string
-	if err != nil {
-		msg = &quot;票据发布失败:&quot; + err.Error()
-	} else {
-		msg = &quot;票据发布成功:&quot; + transactionID
-	}
-	data := &amp;amp;struct {
-		Msg  string
-		Flag bool
-		Cuser User
-
-	}{
-		Msg:  msg,
-		Flag: true,
-		Cuser: cuser,
-
-	}
-	ShowView(w, r, &quot;issue.html&quot;, data)
-
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-
-&lt;p&gt;发布票据的功能就完成了，因为前面做了一些分装，所以实现起来很方便，其他的都差不多，就不多说了，以下为完整代码&lt;/p&gt;
-
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;package Controllers
-
-import (
-	&quot;zhq/bill/Service&quot;
-	&quot;net/http&quot;
-	&quot;fmt&quot;
-	&quot;encoding/json&quot;
-)
-
-type Application struct {
-	Fabric *Service.FabricSetupService
-
-}
-var cuser User
-func (app *Application)LoginView(w http.ResponseWriter,r *http.Request)  {
-	ShowView(w,r,&quot;login.html&quot;,nil)
-}
-func (app *Application)Login(w http.ResponseWriter,r *http.Request){
-	userName := r.FormValue(&quot;userName&quot;)
-	password := r.FormValue(&quot;password&quot;)
-
-	data := &amp;amp;struct {
-		CurrentUser User
-		Flag    bool
-	}{
-		Flag:false,
-	}
-
-	var flag bool
-	for _, user := range Users {
-		if user.UserName == userName &amp;amp;&amp;amp; user.Password == password {
-			cuser = user
-			flag = true
-			break
-		}
-	}
-
-	if flag {
-		// 登录成功, 根据当前用户查询票据列表
-		fmt.Println(&quot;当前登录用户信息:&quot;, cuser)
-		//向表单中插入数据
-		//r.Form.Set(&quot;holdeCmId&quot;, cuser.CmId)
-		app.QueryMyBills(w, r)
-	} else {
-		data.Flag = true
-		data.CurrentUser.UserName = userName
-		ShowView(w, r, &quot;login.html&quot;, data)
-	}
-}
-// 查询我的票据列表
-func (app *Application) QueryMyBills(w http.ResponseWriter, r *http.Request)  {
-	holdeCmId := cuser.CmId
-	result, err := app.Fabric.QueryBill(holdeCmId)
-	if err != nil{
-		fmt.Println(&quot;查询当前用户的票据列表失败: &quot;, err.Error())
-	}
-
-	var bills = []Service.Bill{}
-	fmt.Println(&quot;当前用户Id:&quot;, holdeCmId,&quot;bills:&quot;,bills)
-
-	json.Unmarshal(result, &amp;amp;bills)
-	data := &amp;amp;struct {
-		Bills   []Service.Bill
-		Cuser   User
-	}{
-		Bills: bills,
-		Cuser: cuser,
-	}
-	ShowView(w, r, &quot;bills.html&quot;, data)
-}
-//发布票据页
-func (app *Application) Issue(w http.ResponseWriter, r *http.Request)  {
-	data := &amp;amp;struct {
-		Msg   string
-		Flag  bool
-		Cuser User
-	}{
-		Msg:   &quot;&quot;,
-		Flag:  false,
-		Cuser: cuser,
-	}
-	ShowView(w, r, &quot;issue.html&quot;, data)
-}
-//发布票据
-func (app *Application) SaveBill(w http.ResponseWriter, r *http.Request)  {
-	bill := Service.Bill{
-		BillInfoID:       r.FormValue(&quot;BillInfoID&quot;),
-		BillInfoAmt:      r.FormValue(&quot;BillInfoAmt&quot;),
-		BillInfoType:     r.FormValue(&quot;BillInfoType&quot;),
-		BillInfoIsseDate: r.FormValue(&quot;BillInfoIsseDate&quot;),
-		BillInfoDueDate:  r.FormValue(&quot;BillInfoDueDate&quot;),
-		DrwrCmID:         r.FormValue(&quot;DrwrCmID&quot;),
-		DrwrAcct:         r.FormValue(&quot;DrwrAcct&quot;),
-		AccptrCmID:       r.FormValue(&quot;AccptrCmID&quot;),
-		AccptrAcct:       r.FormValue(&quot;AccptrAcct&quot;),
-		PyeeCmID:         r.FormValue(&quot;PyeeCmID&quot;),
-		PyeeAcct:         r.FormValue(&quot;PyeeAcct&quot;),
-		HoldrCmID:        r.FormValue(&quot;HoldrCmID&quot;),
-		HoldrAcct:        r.FormValue(&quot;HoldrAcct&quot;),
-	}
-
-
-
-	transactionID, err := app.Fabric.IssueBill(bill)
-	var msg string
-	if err != nil {
-		msg = &quot;票据发布失败:&quot; + err.Error()
-	} else {
-		msg = &quot;票据发布成功:&quot; + transactionID
-	}
-	data := &amp;amp;struct {
-		Msg  string
-		Flag bool
-		Cuser User
-
-	}{
-		Msg:  msg,
-		Flag: true,
-		Cuser: cuser,
-
-	}
-	ShowView(w, r, &quot;issue.html&quot;, data)
-}
-//发起背书
-func (app *Application) Endorse(w http.ResponseWriter, r *http.Request)  {
-	waitEndorseAcct := r.FormValue(&quot;waitEndorseAcct&quot;)
-	waitEndorseCmId := r.FormValue(&quot;waitEndorseCmId&quot;)
-	billNo := r.FormValue(&quot;billNo&quot;)
-	result,err := app.Fabric.Endorse(billNo,waitEndorseCmId,waitEndorseAcct)
-	if err != nil{
-		fmt.Println(err.Error())
-	}
-
-	r.Form.Set(&quot;billInfoNo&quot;,billNo)
-	r.Form.Set(&quot;flag&quot;,&quot;t&quot;)
-	r.Form.Set(&quot;Msg&quot;,result)
-	app.QueryBillInfo(w,r)
-}
-//签收票据
-func (app *Application) Accetp(w http.ResponseWriter, r *http.Request)  {
-	billNo := r.FormValue(&quot;billNo&quot;)
-	cmid := cuser.CmId
-	acct := cuser.Acct
-	result,err :=app.Fabric.Accept(billNo,cmid,acct)
-	if err != nil {
-		fmt.Println(err.Error())
-	}
-	r.Form.Set(&quot;billNo&quot;,billNo)
-	r.Form.Set(&quot;flag&quot;,&quot;t&quot;)
-	r.Form.Set(&quot;Msg&quot;,result)
-	app.WaitAcceptInfo(w,r)
-}
-//拒签票据
-func (app *Application) Reject(w http.ResponseWriter, r *http.Request)  {
-	billNo := r.FormValue(&quot;billNo&quot;)
-	cmid := cuser.CmId
-	acct := cuser.Acct
-	result,err :=app.Fabric.Reject(billNo,cmid,acct)
-	if err != nil {
-		fmt.Println(err.Error())
-	}
-	r.Form.Set(&quot;billNo&quot;,billNo)
-	r.Form.Set(&quot;flag&quot;,&quot;t&quot;)
-	r.Form.Set(&quot;Msg&quot;,result)
-	app.WaitAcceptInfo(w,r)
-}
-//查询票据详情
-func (app *Application) QueryBillInfo(w http.ResponseWriter, r *http.Request)  {
-
-	billInfoNo := r.FormValue(&quot;billNo&quot;)
-	result, err := app.Fabric.QueryBillByNo(billInfoNo)
-	if err != nil {
-		fmt.Println(err.Error())
-	}
-	var bill Service.Bill
-
-	json.Unmarshal(result, &amp;amp;bill)
-	data := &amp;amp;struct {
-		Cuser User
-		Bill  Service.Bill
-		Flag bool
-		Msg string
-
-	}{
-		Bill:  bill,
-		Cuser: cuser,
-		Flag:false,
-		Msg:&quot;&quot;,
-
-	}
-	flag := r.FormValue(&quot;flag&quot;)
-	if flag==&quot;t&quot; {
-		data.Flag = true
-		data.Msg = r.FormValue(&quot;Msg&quot;)
-	}
-	ShowView(w, r, &quot;billInfo.html&quot;, data)
-}
-//待签收票据列表
-func (app *Application) WaitAccepts(w http.ResponseWriter, r *http.Request)  {
-	waitEndorseCmId := cuser.CmId
-	result,err := app.Fabric.QueryMyWaitBills(waitEndorseCmId)
-	if err != nil {
-		fmt.Println(err.Error())
-	}
-	var bills []Service.Bill
-	json.Unmarshal(result,&amp;amp;bills)
-	data := &amp;amp;struct {
-		Bills []Service.Bill
-		Cuser User
-	}{
-		Bills:bills,
-		Cuser:cuser,
-	}
-	ShowView(w,r,&quot;waitAccept.html&quot;,data)
-}
-//待签收票据详情
-func (app *Application) WaitAcceptInfo(w http.ResponseWriter, r *http.Request)  {
-	billNo := r.FormValue(&quot;billNo&quot;)
-	result,err := app.Fabric.QueryBillByNo(billNo)
-	if err != nil {
-		fmt.Println(err.Error())
-	}
-	var bill Service.Bill
-	json.Unmarshal(result,&amp;amp;bill)
-	data := &amp;amp;struct {
-		Bill Service.Bill
-		Cuser User
-		Flag bool
-		Msg string
-	}{
-		bill,
-		cuser,
-		false,
-		&quot;&quot;,
-	}
-	flag := r.FormValue(&quot;flag&quot;)
-	if flag == &quot;t&quot; {
-		data.Flag = true
-		data.Msg = r.FormValue(&quot;Msg&quot;)
-	}
-	ShowView(w,r,&quot;waitAcceptInfo.html&quot;,data)
-}
-//退出登录
-func (app *Application) LoginOut(w http.ResponseWriter, r *http.Request)  {
-	cuser = User{}
-	app.LoginView(w,r)
-}
-
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-
-&lt;h2 id=&quot;二封装响应&quot;&gt;二、封装响应&lt;/h2&gt;
-
-&lt;p&gt;编辑 &lt;code class=&quot;highlighter-rouge&quot;&gt;controllerResponse.go&lt;/code&gt;&lt;/p&gt;
-
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;func ShowView(w http.ResponseWriter, r *http.Request, templateName string, data interface{}) {
-	page := filepath.Join(&quot;Web&quot;,&quot;TPL&quot;,templateName)
-	//创建模板实例
-	resultTemplate,err := template.ParseFiles(page)
-	if err != nil {
-		fmt.Println(&quot;创建模板实例错误：&quot;,err)
-		return
-	}
-	//融合数据
-	err = resultTemplate.Execute(w,data)
-	if err != nil {
-		fmt.Println(&quot;融合模板数据时发生错误&quot;,err)
-	}
-}
-
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-
-&lt;blockquote&gt;
-  &lt;p&gt;templateName 跳转页面名
-data 页面间传递的数据&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;h2 id=&quot;创建登录用户结构体&quot;&gt;创建登录用户结构体&lt;/h2&gt;
-
-&lt;p&gt;编辑&lt;code class=&quot;highlighter-rouge&quot;&gt;userInfo.go&lt;/code&gt;&lt;/p&gt;
-
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;package Controllers
-type User struct {
-	UserName	string	`json:&quot;UserName&quot;`
-	Name		string	`json:&quot;Name&quot;`
-	Password	string	`json:&quot;Password&quot;`
-	CmId		string	`json:&quot;CmId&quot;`
-	Acct		string	`json:&quot;Acct&quot;`
-}
-
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-
-&lt;p&gt;初始化一些账户，用于测试，为了方便直接用数组保存，实际用户当然是用数据库保存&lt;/p&gt;
-
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;var Users []User
-
-//创建4个用户，模拟数据库存储
-func init()  {
-	admin := User{UserName: &quot;admin&quot;, Name: &quot;管理员&quot;, Password: &quot;123456&quot;, CmId: &quot;HODR01&quot;, Acct: &quot;管理员&quot;}
-	alice := User{UserName: &quot;alice&quot;, Name: &quot;A公司&quot;, Password: &quot;123456&quot;, CmId: &quot;ACMID&quot;, Acct: &quot;A公司&quot;}
-	bob := User{UserName: &quot;bob&quot;, Name: &quot;B公司&quot;, Password: &quot;123456&quot;, CmId: &quot;BCMID&quot;, Acct: &quot;B公司&quot;}
-	jack := User{UserName: &quot;jack&quot;, Name: &quot;C公司&quot;, Password: &quot;123456&quot;, CmId: &quot;CCMID&quot;, Acct: &quot;C公司&quot;}
-
-	Users = append(Users, admin)
-	Users = append(Users, alice)
-	Users = append(Users, bob)
-	Users = append(Users, jack)
-}
-
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-
-&lt;h2 id=&quot;运行测试&quot;&gt;运行测试&lt;/h2&gt;
-
-&lt;blockquote&gt;
-  &lt;p&gt;cd $GOPATH/src/zhq/bill
-go build
-make&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;h4 id=&quot;1登录&quot;&gt;1、登录&lt;/h4&gt;
-
-&lt;p&gt;使用初始化的4个用户任一一个登录&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;http://otwxtrtn9.bkt.clouddn.com/Fabric%E7%A5%A8%E6%8D%AE%EF%BC%88%E5%85%AD%EF%BC%89%E7%99%BB%E5%BD%95.png&quot; alt=&quot;登录&quot; /&gt;&lt;/p&gt;
-
-&lt;h4 id=&quot;2发布一个票据&quot;&gt;2、发布一个票据&lt;/h4&gt;
-
-&lt;p&gt;填写票据内容，然后&lt;code class=&quot;highlighter-rouge&quot;&gt;提交&lt;/code&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;http://otwxtrtn9.bkt.clouddn.com/Fabric%E7%A5%A8%E6%8D%AE%EF%BC%88%E5%85%AD%EF%BC%89%E5%8F%91%E8%B5%B7%E8%83%8C%E4%B9%A6.png&quot; alt=&quot;发布票据&quot; /&gt;&lt;/p&gt;
-
-&lt;h4 id=&quot;3查看我的票据&quot;&gt;3、查看我的票据&lt;/h4&gt;
-
-&lt;p&gt;刚刚发布的票据已经可以查看到了&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;http://otwxtrtn9.bkt.clouddn.com/Fabric%E7%A5%A8%E6%8D%AE%EF%BC%88%E5%85%AD%EF%BC%89%E6%88%91%E7%9A%84%E7%A5%A8%E6%8D%AE%E5%88%97%E8%A1%A8.png&quot; alt=&quot;我的票据&quot; /&gt;&lt;/p&gt;
-
-&lt;h4 id=&quot;4票据详情&quot;&gt;4、票据详情&lt;/h4&gt;
-
-&lt;p&gt;&lt;img src=&quot;http://otwxtrtn9.bkt.clouddn.com/Fabric%E7%A5%A8%E6%8D%AE%EF%BC%88%E5%85%AD%EF%BC%89%E7%A5%A8%E6%8D%AE%E8%AF%A6%E6%83%85.png&quot; alt=&quot;票据详情&quot; /&gt;&lt;/p&gt;
-
-&lt;h4 id=&quot;5发起背书&quot;&gt;5、发起背书&lt;/h4&gt;
-
-&lt;p&gt;填写背书人名称，背书人证件号码&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;http://otwxtrtn9.bkt.clouddn.com/Fabric%E7%A5%A8%E6%8D%AE%EF%BC%88%E5%85%AD%EF%BC%89%E5%8F%91%E8%B5%B7%E8%83%8C%E4%B9%A6.png&quot; alt=&quot;发起背书&quot; /&gt;&lt;/p&gt;
-
-&lt;h4 id=&quot;6退出当前用户登录发起背书时指定的账户&quot;&gt;6、退出当前用户,登录发起背书时，指定的账户&lt;/h4&gt;
-
-&lt;p&gt;登录成功，可以看到刚才需要背书的票据&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;http://otwxtrtn9.bkt.clouddn.com/Fabric%E7%A5%A8%E6%8D%AE%EF%BC%88%E5%85%AD%EF%BC%89%E6%88%91%E7%9A%84%E7%A5%A8%E6%8D%AE%E5%88%97%E8%A1%A83.png&quot; alt=&quot;我的票据&quot; /&gt;&lt;/p&gt;
-
-&lt;h4 id=&quot;7签收票据&quot;&gt;7、签收票据&lt;/h4&gt;
-
-&lt;p&gt;待签收票据-&amp;gt;详情-&amp;gt;签收票据&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;http://otwxtrtn9.bkt.clouddn.com/Fabric%E7%A5%A8%E6%8D%AE%EF%BC%88%E5%85%AD%EF%BC%89%E7%AD%BE%E6%94%B6%E6%88%90%E5%8A%9F.png&quot; alt=&quot;签收票据&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;如果是签收票据，票据规自己所有，在我的票据列表可查&lt;/p&gt;
-
-&lt;h4 id=&quot;8拒签票据&quot;&gt;8、拒签票据&lt;/h4&gt;
-
-&lt;p&gt;待签收票据-&amp;gt;详情-&amp;gt;拒签&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;http://otwxtrtn9.bkt.clouddn.com/Fabric%E7%A5%A8%E6%8D%AE%EF%BC%88%E5%85%AD%EF%BC%89%E6%8B%92%E7%AD%BE.png&quot; alt=&quot;签收票据&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;如果是拒签票据，票据规返回给发起背书人，在背书人列表可查&lt;/p&gt;
-
-&lt;p&gt;不论是签收或是拒签都应只能对一个票据操作一次，这里为了掩饰，未做这一处理&lt;/p&gt;
-
-&lt;p&gt;###哦了，票据项目至此就完成了&lt;/p&gt;
-
-&lt;p&gt;##&lt;a href=&quot;https://github.com/sweetMegan/bill&quot;&gt;源码下载&lt;/a&gt;&lt;/p&gt;
-
-&lt;p&gt;##感谢韩晓东（老韩）指导&lt;/p&gt;
-
-</description>
-        <pubDate>Tue, 10 Jul 2018 00:00:00 +0800</pubDate>
-        <link>/2018/07/10/Fabric-%E7%A5%A8%E6%8D%AE%E7%B3%BB%E7%BB%9F(%E5%85%AD)-goWeb/</link>
-        <guid isPermaLink="true">/2018/07/10/Fabric-%E7%A5%A8%E6%8D%AE%E7%B3%BB%E7%BB%9F(%E5%85%AD)-goWeb/</guid>
-        
-        <category>区块链</category>
-        
-        
-      </item>
-    
-      <item>
         <title>Fabric 票据系统(五) Service</title>
         <description>&lt;p&gt;现在&lt;code class=&quot;highlighter-rouge&quot;&gt;CLI&lt;/code&gt;,链码都有了，但是还不能将它们联系起来，上一篇调用链码还需要使用命令行来测试，这篇实现通过代码代用链码&lt;/p&gt;
 
@@ -2951,7 +2357,7 @@ func (t *BillChainCode) QueryMyBills(stub shim.ChaincodeStubInterface, args []st
 
 &lt;p&gt;将&lt;code class=&quot;highlighter-rouge&quot;&gt;ChainCode&lt;/code&gt;目录拷贝到&lt;code class=&quot;highlighter-rouge&quot;&gt;hyfa/fabric-samples/chaincode&lt;/code&gt;目录下&lt;/p&gt;
 
-&lt;p&gt;使用&lt;a href=&quot;&quot;&gt;开发模式&lt;/a&gt;测试链码&lt;/p&gt;
+&lt;p&gt;使用&lt;a href=&quot;https://sweetmegan.github.io/2018/06/22/%E5%BC%80%E5%8F%91%E6%A8%A1%E5%BC%8F%E6%B5%8B%E8%AF%95-%E6%89%93%E5%8C%85-%E7%AD%BE%E5%90%8D%E9%93%BE%E7%A0%81/&quot;&gt;开发模式&lt;/a&gt;测试链码&lt;/p&gt;
 
 &lt;p&gt;发布票据:&lt;/p&gt;
 
@@ -3501,6 +2907,251 @@ $ vim Makefile
         <pubDate>Sat, 07 Jul 2018 00:00:00 +0800</pubDate>
         <link>/2018/07/07/Fabric-%E7%A5%A8%E6%8D%AE%E9%A1%B9%E7%9B%AE-%E4%B8%89-%E4%BD%BF%E7%94%A8Fabric-SDK-go/</link>
         <guid isPermaLink="true">/2018/07/07/Fabric-%E7%A5%A8%E6%8D%AE%E9%A1%B9%E7%9B%AE-%E4%B8%89-%E4%BD%BF%E7%94%A8Fabric-SDK-go/</guid>
+        
+        <category>区块链</category>
+        
+        
+      </item>
+    
+      <item>
+        <title>Fabric 票据项目（二）票据系统介绍</title>
+        <description>&lt;p&gt;基于超级账本开发一个区块链应用——票据背书&lt;/p&gt;
+
+&lt;h2 id=&quot;一-为什么要做基于区块链技术的数字票据&quot;&gt;一 为什么要做基于区块链技术的数字票据？&lt;/h2&gt;
+
+&lt;p&gt;票据现有的形式有纸质票据和电子票据。纸质票据是传统的票据形式，需要在票据上字或者加盖有效印章才能生效。电子票据是基于央行牵头开发完成的电子商业汇票系统(ECDS)，银行或者企业通过直连或者网银接人，所有的票据承兑、交易等都需要通过ECDS 才能完成，是典型的中心化系统。&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;纸质票据和电子票据都有一些尚未解决的痛点。&lt;/strong&gt;&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;票据真实性问题: 票据的贸易背景信息可能并不真实存在或者存在偏差，票据信息也容易被克隆和伪造，市场中存在的假票很难识别。&lt;/li&gt;
+  &lt;li&gt;票据安全性问题: 纸质票据在携带过程有遗失或者损坏的风险，也存在打款和背书不同步的情况。&lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;票据信用风险问题: 可能存在汇票到期后承兑人未及时将相关款项划入持票人账户的情况。&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;票据处理效率问题: 在途时间会造成资金结算延后，监管和审计成本也会很高。&lt;/li&gt;
+  &lt;li&gt;票据违规交易问题: 票据交易主体或者中介机构可能存在一票多卖、清单交易、出租账户等违法违规行为。&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;strong&gt;借助区块链技术，可以在实现原有的票据业务的基础上解决现有的一些痛点。&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;a.  在不依赖可信第三方平台的基础上实现票据信息的真实性。
+纸质票据和电子票据的交易双方都依赖可信的第三方平台或者票据实物验证票据的真伪。但是在实际的操作过程中，票据的真实信息是很难确认的。超级账本的成员管理利用底层的安全机制确保上链信息的真实性，基于记录到分布式共享账本中的票据信息，杜绝假票、克隆票、变造票等伪假票据。&lt;/p&gt;
+
+&lt;p&gt;b. 分布式共享账本避免违规交易
+纸质票据中的一票多卖和电子票据中打款背书不同步等违规交易存在的原因是信息的不同步。基于区块链技术的数字票据利用分布式共享账本记录的信息具有不可篡改性，一旦交易完成并记录到账本中，就不会存在纸质票据和电子票据中的数据丢失和信息不同步的问题，交易双方都没有机会进行违规交易。&lt;/p&gt;
+
+&lt;p&gt;c. 智能合约实现票据业务自动处理
+智能合约功能可以实现复杂的业务逻辑，比如业务操作前可以基于不可篡改的账本信息搜集和评估参与者的信用，拒绝信用评级低的交易方提交的请求，业务操作后可以自动实现转账等功能，解决不同操作导致的信息不同步问题。&lt;/p&gt;
+
+&lt;p&gt;d. 数字票据提升票据处理效率
+分布式共享账本在区块链网络中有多份数据拷贝，交易结束后就完成了对账，利用本地的账本能快速检索信息，做更多的业务处理，提升票据处理的效率。&lt;/p&gt;
+
+&lt;p&gt;e. 区块链技术提高票据安全性
+票据安全性包括物理安全、数据安全、网络安全等多个方面。纸质票据在携带过程有遗失或者损坏的风险，属于物理安全范畴。纸质票据和电子票据都可能存在数据被篡改的可能性，属于数据安全范畴。传输过程中被中间人攻击等属于网络安全范畴。基于区块链技术的数字票据综合了多种底层技术，分布式账本解决了物理安全和数据安全的问题，数字签名和安全传输解决网络安全的问题。&lt;/p&gt;
+
+&lt;h2 id=&quot;二-票据背书需求分析&quot;&gt;二 票据背书需求分析&lt;/h2&gt;
+
+&lt;p&gt;票据背书的应用开发实例会对票据的应用场最进行简化，我们实现的业务逻辑包括票据发布、票据背书、票据签收，票据拒收、票据查询等操作，实际的票据业务需要根据实际需求做调整。&lt;/p&gt;
+
+&lt;h3 id=&quot;1票据发布&quot;&gt;1.票据发布&lt;/h3&gt;
+
+&lt;p&gt;票据发布操作生成一个票据，包括如下5类信息。&lt;/p&gt;
+
+&lt;h5 id=&quot;a-票据基本信息&quot;&gt;a. 票据基本信息&lt;/h5&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;票据号码&lt;/li&gt;
+  &lt;li&gt;票据金额&lt;/li&gt;
+  &lt;li&gt;票据种类&lt;/li&gt;
+  &lt;li&gt;票据出票日期&lt;/li&gt;
+  &lt;li&gt;票据到期日期&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h5 id=&quot;b-出票人信息&quot;&gt;b. 出票人信息&lt;/h5&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;出票人名称&lt;/li&gt;
+  &lt;li&gt;出票人证件号码&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h5 id=&quot;c-承兑人信息口&quot;&gt;c. 承兑人信息口&lt;/h5&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;承兑人名称&lt;/li&gt;
+  &lt;li&gt;承兑人证件号码&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h5 id=&quot;d-收款人信息&quot;&gt;d. 收款人信息&lt;/h5&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;收款人名称&lt;/li&gt;
+  &lt;li&gt;收款人证件号码&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h5 id=&quot;e-持票人信息&quot;&gt;e. 持票人信息&lt;/h5&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;持票人名称&lt;/li&gt;
+  &lt;li&gt;持票人证件号码&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;2-票据背书&quot;&gt;2. 票据背书&lt;/h3&gt;
+
+&lt;p&gt;票据背书是转让票据权利的重要方式和手段。发票票据需要先获取持票人持有的票据，填写被背书人的信息:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;被背书人名称;&lt;/li&gt;
+  &lt;li&gt;被背书人的证件号码。&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;发起票据背书的请求后会提交给被背书人。被背书人接收到票据背书的请求后，可以择签收票据或者拒绝背书。&lt;/p&gt;
+
+&lt;h3 id=&quot;3-票据背书签收&quot;&gt;3. 票据背书签收&lt;/h3&gt;
+
+&lt;p&gt;票据背书签收实现了票据权利的转让，签收前需要仔细地查阅待签收票据的信息，确保内容的完整性。票据签收的过程需要用被背书人的签名密钥对签收的内容进行数字签名，实现防抵赖的功能。&lt;/p&gt;
+
+&lt;h3 id=&quot;4-票据背书拒收&quot;&gt;4. 票据背书拒收&lt;/h3&gt;
+
+&lt;p&gt;被背书人可以拒绝对票据背书的请求进行签收，拒绝以后，票据的持有人还是票据背书的发起者。拒绝背书的操作也会记录到票据的历史流转信息中。&lt;/p&gt;
+
+&lt;h3 id=&quot;5-票据信息查询&quot;&gt;5. 票据信息查询&lt;/h3&gt;
+
+&lt;p&gt;票据信息查询可以获取自己持有的票据和待签收的票据，也可以根据票据号码查询票据的详细信息，包括票据的历史流转信息。&lt;/p&gt;
+
+&lt;h2 id=&quot;三-票据背书架构设计&quot;&gt;三 票据背书架构设计&lt;/h2&gt;
+
+&lt;p&gt;根据票据背书的需求分析，下面设计一个简单的架构，再定义票据背书的数据模型。&lt;/p&gt;
+
+&lt;h3 id=&quot;1-票据背书的分成架构&quot;&gt;1. 票据背书的分成架构&lt;/h3&gt;
+
+&lt;p&gt;我们将基于区块链的数字票据进行分层设计，包括Hyperledger Fabric底层平台
+智能合约、业务层和应用层，如下图所示。&lt;/p&gt;
+
+&lt;p&gt;1.1. 应用层&lt;/p&gt;
+
+&lt;p&gt;​	用户登录, 发布票据, 发起背书, 签收背书, 拒绝背书, 我的票据, 待签收票据, 票据详情&lt;/p&gt;
+
+&lt;p&gt;1.2. 业务层&lt;/p&gt;
+
+&lt;p&gt;​	用户管理, 票据管理, 其它…&lt;/p&gt;
+
+&lt;p&gt;1.3. 智能合约(链码)&lt;/p&gt;
+
+&lt;p&gt;​	票据发布, 票据背书, 票据背书签收, 票据背书拒签,&lt;/p&gt;
+
+&lt;p&gt;​	查询持票人票据, 查询待签收票据, 根据票据号码查询票据详情&lt;/p&gt;
+
+&lt;p&gt;1.4. 区块链底层平台&lt;/p&gt;
+
+&lt;p&gt;​	CA, 区块链, 账本&lt;/p&gt;
+
+&lt;p&gt;每层的主要功能如下。&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;区块链底层平台: 提供分布式共享账本的维护、状态数据库维护、智能合约的全生命周期管理等区块链功能，实现数据的不可篡改和智能合约的业务逻辑。根据第11章的内容搭建区块链网络以后，默认就提供了这部分功能。另外，通过fabric-ca提供成员注册和注销等功能。&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;智能合约: 智能合约通过链码来实现，包括票据发布、票据背书、票据背书签收、票据背书拒绝等链码调用功能，链码查询包括查询持票人票据、查询待签收票据、根据链码号码查询票据信息等。票据系统的其他功能(比如贴现、转贴现、再贴现、回购等一系列业务类型) 都可以在智能合约里实现，这部分功能暂未完善。&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;业务层: 业务层是应用程序的后端服务，给Web应用提供RESTful的接口，处理前端的业务请求。后端服务的基本功能包括用户管理和票据管理，通过Hyperledger Fabri提供的Go SDK和区块链网络进行通信。业务层也可以和其他的业务系统进行交互。&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;应用层，Web应用采用jQuery+HTML+CSS 的前端架构编写页面，提供用户交互的界面操作，包括用户操作的功能&lt;/p&gt;
+
+    &lt;p&gt;业务操作的功能。用户是内置的，只提供用户登录和用户退出操作。业务操作包括发布
+查询持票人持有的票据、发起票据背书、查询待签收票据、签收票据背书、拒绝票据背书等功能。
+各个层之间采用不同的接口，业务层的Go SDK、智能合约和区块链底层平台之间
+用gRPC的接口。&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;2-票据背书的数据模型&quot;&gt;2. 票据背书的数据模型&lt;/h3&gt;
+
+&lt;p&gt;下面看一下链码设计的数据模型，包括票据数据结构定义和票据状态定义。&lt;/p&gt;
+
+&lt;h5 id=&quot;a-票据数据结构&quot;&gt;a. 票据数据结构&lt;/h5&gt;
+
+&lt;p&gt;票据信息包括票据基本信息、出票人信息、承兑人信息、收款人信息、持票人信息、待背书人信息、拒绝背书人信息、票据状态和票据背书历史等，数据结构定义如下:&lt;/p&gt;
+
+&lt;div class=&quot;language-go highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;c&quot;&gt;//票据数据结构&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;
+&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;type&lt;/span&gt;&lt;span class=&quot;x&quot;&gt; &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Bill&lt;/span&gt;&lt;span class=&quot;x&quot;&gt; &lt;/span&gt;&lt;span class=&quot;k&quot;&gt;struct&lt;/span&gt;&lt;span class=&quot;x&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;
+	&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;BillInfoID&lt;/span&gt;&lt;span class=&quot;x&quot;&gt; &lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;string&lt;/span&gt;&lt;span class=&quot;x&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s&quot;&gt;`json:BillInfoID`&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;                &lt;/span&gt;&lt;span class=&quot;c&quot;&gt;//票据号码&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;
+	&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;BillInfoAmt&lt;/span&gt;&lt;span class=&quot;x&quot;&gt; &lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;string&lt;/span&gt;&lt;span class=&quot;x&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s&quot;&gt;`json:BillInfoAmt`&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;              &lt;/span&gt;&lt;span class=&quot;c&quot;&gt;//票据金额&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;
+	&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;BillInfoType&lt;/span&gt;&lt;span class=&quot;x&quot;&gt; &lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;string&lt;/span&gt;&lt;span class=&quot;x&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s&quot;&gt;`json:BillInfoType`&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;            &lt;/span&gt;&lt;span class=&quot;c&quot;&gt;//票据类型&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;
+	&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;BillInfoIsseDate&lt;/span&gt;&lt;span class=&quot;x&quot;&gt; &lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;string&lt;/span&gt;&lt;span class=&quot;x&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s&quot;&gt;`json:BillInfoIsseDate`&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;    &lt;/span&gt;&lt;span class=&quot;c&quot;&gt;//票据出票日期&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;
+	&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;BillInfoDueDate&lt;/span&gt;&lt;span class=&quot;x&quot;&gt; &lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;string&lt;/span&gt;&lt;span class=&quot;x&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s&quot;&gt;`json:BillInfoDueDate`&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;      &lt;/span&gt;&lt;span class=&quot;c&quot;&gt;//票据到期日期&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;
+	&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;DrwrCmID&lt;/span&gt;&lt;span class=&quot;x&quot;&gt; &lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;string&lt;/span&gt;&lt;span class=&quot;x&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s&quot;&gt;`json:DrwrCmID`&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;                    &lt;/span&gt;&lt;span class=&quot;c&quot;&gt;//出票人证件号码&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;
+	&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;DrwrAcct&lt;/span&gt;&lt;span class=&quot;x&quot;&gt; &lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;string&lt;/span&gt;&lt;span class=&quot;x&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s&quot;&gt;`json:DrwrAcct`&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;                    &lt;/span&gt;&lt;span class=&quot;c&quot;&gt;//出票人名称&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;
+	&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;AccptrCmID&lt;/span&gt;&lt;span class=&quot;x&quot;&gt; &lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;string&lt;/span&gt;&lt;span class=&quot;x&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s&quot;&gt;`json:AccptrCmID`&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;                &lt;/span&gt;&lt;span class=&quot;c&quot;&gt;//承兑人证件号码&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;
+	&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;AccptrAcct&lt;/span&gt;&lt;span class=&quot;x&quot;&gt; &lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;string&lt;/span&gt;&lt;span class=&quot;x&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s&quot;&gt;`json:AccptrAcct`&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;                &lt;/span&gt;&lt;span class=&quot;c&quot;&gt;//承兑人名称&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;
+	&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;PyeeCmID&lt;/span&gt;&lt;span class=&quot;x&quot;&gt; &lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;string&lt;/span&gt;&lt;span class=&quot;x&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s&quot;&gt;`json:PyeeCmID`&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;                    &lt;/span&gt;&lt;span class=&quot;c&quot;&gt;//收款人证件号码&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;
+	&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;PyeeAcct&lt;/span&gt;&lt;span class=&quot;x&quot;&gt; &lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;string&lt;/span&gt;&lt;span class=&quot;x&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s&quot;&gt;`json:PyeeAcct`&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;                    &lt;/span&gt;&lt;span class=&quot;c&quot;&gt;//收款人名称&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;
+	&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;HoldrCmID&lt;/span&gt;&lt;span class=&quot;x&quot;&gt; &lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;string&lt;/span&gt;&lt;span class=&quot;x&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s&quot;&gt;`json:HodrCmID`&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;                    &lt;/span&gt;&lt;span class=&quot;c&quot;&gt;//持票人证件号码&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;
+	&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;HoldrAcct&lt;/span&gt;&lt;span class=&quot;x&quot;&gt; &lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;string&lt;/span&gt;&lt;span class=&quot;x&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s&quot;&gt;`json:HodrAcct`&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;                    &lt;/span&gt;&lt;span class=&quot;c&quot;&gt;//持票人名称&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;
+	&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;WaitEndorserCmID&lt;/span&gt;&lt;span class=&quot;x&quot;&gt; &lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;string&lt;/span&gt;&lt;span class=&quot;x&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s&quot;&gt;`json:WaitEndorserCmID`&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;    &lt;/span&gt;&lt;span class=&quot;c&quot;&gt;//待背书人证件号码&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;
+	&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;WaitEndorserAcct&lt;/span&gt;&lt;span class=&quot;x&quot;&gt; &lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;string&lt;/span&gt;&lt;span class=&quot;x&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s&quot;&gt;`json:WaitEndorserAcct`&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;    &lt;/span&gt;&lt;span class=&quot;c&quot;&gt;//待背书人名称&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;
+	&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;RejectEndorserCmID&lt;/span&gt;&lt;span class=&quot;x&quot;&gt; &lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;string&lt;/span&gt;&lt;span class=&quot;x&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s&quot;&gt;`json:RejectEndorserCmID`&lt;/span&gt;&lt;span class=&quot;c&quot;&gt;//拒绝背书人证件号码&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;
+	&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;RejectEndorserAcct&lt;/span&gt;&lt;span class=&quot;x&quot;&gt; &lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;string&lt;/span&gt;&lt;span class=&quot;x&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s&quot;&gt;`json:RejectEndorserAcct`&lt;/span&gt;&lt;span class=&quot;c&quot;&gt;//拒绝背书人名称&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;
+	&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;State&lt;/span&gt;&lt;span class=&quot;x&quot;&gt; &lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;string&lt;/span&gt;&lt;span class=&quot;x&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s&quot;&gt;`json:State`&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;                          &lt;/span&gt;&lt;span class=&quot;c&quot;&gt;//票据状态&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;
+	&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;History&lt;/span&gt;&lt;span class=&quot;x&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[]&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;HistoryItem&lt;/span&gt;&lt;span class=&quot;x&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s&quot;&gt;`json:History`&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;               &lt;/span&gt;&lt;span class=&quot;c&quot;&gt;//背书历史&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;
+&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;票据历史信息包含了票据的流转信息，比如票据发布、票据签收、票据拒绝等都会记录到历史信息中，数据结构定义如下:&lt;/p&gt;
+
+&lt;div class=&quot;language-go highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;c&quot;&gt;// 背书历史item结构&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;
+&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;type&lt;/span&gt;&lt;span class=&quot;x&quot;&gt; &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;HistoryItem&lt;/span&gt;&lt;span class=&quot;x&quot;&gt; &lt;/span&gt;&lt;span class=&quot;k&quot;&gt;struct&lt;/span&gt;&lt;span class=&quot;x&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;
+	&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;TxId&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;  &lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;string&lt;/span&gt;&lt;span class=&quot;x&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s&quot;&gt;`json:&quot;txId&quot;`&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;
+	&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Bill&lt;/span&gt;&lt;span class=&quot;x&quot;&gt; &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Bill&lt;/span&gt;&lt;span class=&quot;x&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s&quot;&gt;`json:&quot;bill&quot;`&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;
+&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;x&quot;&gt;
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;票据历史信息是智能合约自动完成的。&lt;/p&gt;
+
+&lt;h5 id=&quot;b-票据状态模型&quot;&gt;b. 票据状态模型&lt;/h5&gt;
+
+&lt;p&gt;票据状态定义如下：&lt;/p&gt;
+
+&lt;table&gt;
+  &lt;thead&gt;
+    &lt;tr&gt;
+      &lt;th style=&quot;text-align: center&quot;&gt;票据状态&lt;/th&gt;
+      &lt;th style=&quot;text-align: center&quot;&gt;NewPublish&lt;/th&gt;
+      &lt;th style=&quot;text-align: center&quot;&gt;EndrWaitSign&lt;/th&gt;
+      &lt;th style=&quot;text-align: center&quot;&gt;EndrSigned&lt;/th&gt;
+      &lt;th style=&quot;text-align: center&quot;&gt;EndrReject&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;状态说明&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;票据新发布&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;票据等待签收&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;票据签收成功&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;票据被拒绝签收&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;p&gt;票据发布以后进人票据新发布状态NewPublish,票据持票人可以提交票据背书的操作进行票据权利转移，进入票据等待签收的状态EndrWaitSign&lt;/p&gt;
+
+&lt;p&gt;票据被背书人接收到票据背书请求后，可以选择签收票据或者拒绝签收，票据签收成功进入状态EndrSigned,持票人转移为被背书人;&lt;/p&gt;
+
+&lt;p&gt;拒绝签收进人状态EndrReject,持票人保持不变还是原有的持票人。&lt;/p&gt;
+
+&lt;p&gt;处于Endrsigned 和EndrRejet 状态的持票人都可以再次发起票据背书的请求，进入下一轮的操作。&lt;/p&gt;
+
+&lt;h2 id=&quot;感谢韩晓东老韩指导&quot;&gt;感谢韩晓东（老韩）指导&lt;/h2&gt;
+
+</description>
+        <pubDate>Fri, 06 Jul 2018 00:00:00 +0800</pubDate>
+        <link>/2018/07/06/Fabric-%E7%A5%A8%E6%8D%AE%E9%A1%B9%E7%9B%AE-%E4%BA%8C-%E7%A5%A8%E6%8D%AE%E7%B3%BB%E7%BB%9F%E4%BB%8B%E7%BB%8D/</link>
+        <guid isPermaLink="true">/2018/07/06/Fabric-%E7%A5%A8%E6%8D%AE%E9%A1%B9%E7%9B%AE-%E4%BA%8C-%E7%A5%A8%E6%8D%AE%E7%B3%BB%E7%BB%9F%E4%BB%8B%E7%BB%8D/</guid>
         
         <category>区块链</category>
         

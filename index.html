@@ -314,27 +314,6 @@
     </li>
     
     <li>
-      <h2 class="post-list__post-title post-title"><a href="/2018/07/10/Fabric-%E7%A5%A8%E6%8D%AE%E7%B3%BB%E7%BB%9F(%E5%85%AD)-goWeb/" title="访问 Fabric 票据系统(六) goWeb">Fabric 票据系统(六) goWeb</a></h2>
-      <p class="excerpt">至此与服务有关的东西已经写完了，接下需要一个与用户交互的前端，Go语言本身提供了一个Web服务器来处理HTTP请求，并为HTML提供模板。新建web目录，包含三个子目录  web/tpl：包含所有的HTML页面（模板）  web/static：包含所有CSS，Javascript，图片…  web/controllers ：包含将呈现模板的所有函数使用MVC（模型 - 视图 - 控制器）模式使其更具可读性。模型将是区块链部分，视图是模板和控制器由controllers目录中的功能提供  w...&hellip;</p>
-      <div class="post-list__meta">        
-        <time datetime="2018-07-10 00:00:00 +0800" class="post-list__meta--date date">
-          <img src="/images/calendar.png" width="20px" /> 
-          2018-07-10</time> 
-        <div class = "tag-img-icon">
-          <img src="/images/tag-icon.svg" width="20px" /> 
-        </div>
-        <a href="/tags">
-          <div class = "post-list-icon-mate">
-            <span class="post-list__meta--tags-right">区块链</span>
-          </div>
-          <div class = "post-list-small-mate">
-          <a class="btn-border-small" href=/2018/07/10/Fabric-%E7%A5%A8%E6%8D%AE%E7%B3%BB%E7%BB%9F(%E5%85%AD)-goWeb/>阅读全文 » </a>
-          </div>
-      </div>
-      <hr class="post-list__divider" />
-    </li>
-    
-    <li>
       <h2 class="post-list__post-title post-title"><a href="/2018/07/09/Fabric-%E7%A5%A8%E6%8D%AE%E7%B3%BB%E7%BB%9F(%E4%BA%94)-Service/" title="访问 Fabric 票据系统(五) Service">Fabric 票据系统(五) Service</a></h2>
       <p class="excerpt">现在CLI,链码都有了，但是还不能将它们联系起来，上一篇调用链码还需要使用命令行来测试，这篇实现通过代码代用链码一、安装初始化链码安装、执行链码需要有一个客户端对象并指定链码名称，链码路径和版本，所以需要对FabricSetup结构体进行修改打开startInit.go文件修改FabricSetup结构体type FabricSetup struct {	//应用配置文件路径	ConfigFile string	//通道ID	ChannelID string	//sdk是否已初始化过，若已...&hellip;</p>
       <div class="post-list__meta">        
@@ -482,27 +461,6 @@
     </li>
     
     <li>
-      <h2 class="post-list__post-title post-title"><a href="/2018/06/23/goweb%E7%BC%96%E7%A8%8B/" title="访问 goWeb编程">goWeb编程</a></h2>
-      <p class="excerpt">一、开启一个网络服务go语言本身就对网络进行了封装，所以开启一个网络服务非常容易1、 设置监听端口  http.ListenAndServe(“:9000”, nil):9000监听的端口 handler：一般传nil2、设置访问路由  http.HandleFunc(“/”, Hello)指定访问localhost:9000时调用Hello函数新建main.gopackage mainimport (	"net/http"	"log"	"io")func main() {	http.Ha...&hellip;</p>
-      <div class="post-list__meta">        
-        <time datetime="2018-06-23 00:00:00 +0800" class="post-list__meta--date date">
-          <img src="/images/calendar.png" width="20px" /> 
-          2018-06-23</time> 
-        <div class = "tag-img-icon">
-          <img src="/images/tag-icon.svg" width="20px" /> 
-        </div>
-        <a href="/tags">
-          <div class = "post-list-icon-mate">
-            <span class="post-list__meta--tags-right">区块链</span>
-          </div>
-          <div class = "post-list-small-mate">
-          <a class="btn-border-small" href=/2018/06/23/goweb%E7%BC%96%E7%A8%8B/>阅读全文 » </a>
-          </div>
-      </div>
-      <hr class="post-list__divider" />
-    </li>
-    
-    <li>
       <h2 class="post-list__post-title post-title"><a href="/2018/06/22/%E5%BC%80%E5%8F%91%E6%A8%A1%E5%BC%8F%E6%B5%8B%E8%AF%95-%E6%89%93%E5%8C%85-%E7%AD%BE%E5%90%8D%E9%93%BE%E7%A0%81/" title="访问 Fabric 使用开发模式测试，打包，签名链码">Fabric 使用开发模式测试，打包，签名链码</a></h2>
       <p class="excerpt">正常情况下chaincode由对等体启动和维护。然而，在“开发模式”下，链码由用户构建并启动  如果没有安装Hyperledger Fabric Samples请先安装  如果没有下载Docker images请先下载跳转至fabric-samples的chaincode-docker-devmode目录$ cd ~/hyfa/fabric-samples/chaincode-docker-devmode/使用docker images查看Docker镜像信息(显示本地Docker Reg...&hellip;</p>
       <div class="post-list__meta">        
@@ -602,6 +560,48 @@
           </div>
           <div class = "post-list-small-mate">
           <a class="btn-border-small" href=/2018/06/19/%E9%93%BE%E7%A0%81%E7%9A%84%E6%A6%82%E5%BF%B5%E4%B8%8E%E4%BD%BF%E7%94%A8/>阅读全文 » </a>
+          </div>
+      </div>
+      <hr class="post-list__divider" />
+    </li>
+    
+    <li>
+      <h2 class="post-list__post-title post-title"><a href="/2018/06/19/Fabric%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/" title="访问 Fabric环境搭建">Fabric环境搭建</a></h2>
+      <p class="excerpt">###1、安装fabric需要的工具  git  curl  vim (可选，vm）  Golang（GOROOT,GOPATH）1.10.1  Docker 一个容器  docker_compose 实现对Docker的自动化操作,简化了Docker容器的操作命令，一条命令即可启动docker容器，相关的操作命令是被集成在一个配置文件中  Node，npm(可选)####安装git$ sudo apt update$ sudo apt install git###安装curl$ sudo...&hellip;</p>
+      <div class="post-list__meta">        
+        <time datetime="2018-06-19 00:00:00 +0800" class="post-list__meta--date date">
+          <img src="/images/calendar.png" width="20px" /> 
+          2018-06-19</time> 
+        <div class = "tag-img-icon">
+          <img src="/images/tag-icon.svg" width="20px" /> 
+        </div>
+        <a href="/tags">
+          <div class = "post-list-icon-mate">
+            <span class="post-list__meta--tags-right">区块链</span>
+          </div>
+          <div class = "post-list-small-mate">
+          <a class="btn-border-small" href=/2018/06/19/Fabric%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/>阅读全文 » </a>
+          </div>
+      </div>
+      <hr class="post-list__divider" />
+    </li>
+    
+    <li>
+      <h2 class="post-list__post-title post-title"><a href="/2018/06/10/%E4%BB%8E%E9%9B%B6%E5%BC%80%E5%A7%8B%E5%86%99%E4%B8%80%E6%9D%A1%E5%85%AC%E9%93%BE-%E4%B8%80/" title="访问 从零开始写一条公链（一）">从零开始写一条公链（一）</a></h2>
+      <p class="excerpt">##写在前面：本文目的：使用go语言，实现简单的区块结构，并通过pow共识算法将区块存储在区块链上，结构如下图  Prehash :上一个区块的hash值，通过它将两个区块串联起来，以后遍历区块也要用到，同时也保证了区块的有效性与安全性Timestamp:区块产生的时间Data:区块上的记录，交易Hash:当前区块的hash注：这只是一个简单的区块结构，具体结构还要根据区块的作用来定义属性##实现一个区块定义一个结构体type Block struct {	//时间戳	Timestame ...&hellip;</p>
+      <div class="post-list__meta">        
+        <time datetime="2018-06-10 00:00:00 +0800" class="post-list__meta--date date">
+          <img src="/images/calendar.png" width="20px" /> 
+          2018-06-10</time> 
+        <div class = "tag-img-icon">
+          <img src="/images/tag-icon.svg" width="20px" /> 
+        </div>
+        <a href="/tags">
+          <div class = "post-list-icon-mate">
+            <span class="post-list__meta--tags-right">区块链</span>
+          </div>
+          <div class = "post-list-small-mate">
+          <a class="btn-border-small" href=/2018/06/10/%E4%BB%8E%E9%9B%B6%E5%BC%80%E5%A7%8B%E5%86%99%E4%B8%80%E6%9D%A1%E5%85%AC%E9%93%BE-%E4%B8%80/>阅读全文 » </a>
           </div>
       </div>
       <hr class="post-list__divider" />
