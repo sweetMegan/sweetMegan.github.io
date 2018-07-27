@@ -5,8 +5,8 @@
     <description></description>
     <link>/</link>
     <atom:link href="/feed.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Fri, 27 Jul 2018 00:17:04 +0800</pubDate>
-    <lastBuildDate>Fri, 27 Jul 2018 00:17:04 +0800</lastBuildDate>
+    <pubDate>Fri, 27 Jul 2018 14:53:34 +0800</pubDate>
+    <lastBuildDate>Fri, 27 Jul 2018 14:53:34 +0800</lastBuildDate>
     <generator>Jekyll v3.5.1</generator>
     
       <item>
@@ -103,13 +103,13 @@
 &lt;h3 id=&quot;三初始化区块链并且创建一个文件夹来存储区块数据&quot;&gt;三、初始化区块链，并且创建一个文件夹来存储区块数据&lt;/h3&gt;
 
 &lt;blockquote&gt;
-  &lt;p&gt;zhangqiangdeMac-mini:privatechain zhqmac$ geth init genesis.json –datadir blockchainData&lt;/p&gt;
+  &lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;zhangqiangdeMac-mini:privatechain zhqmac$ geth init genesis.json --datadir blockchainData&lt;/code&gt;&lt;/p&gt;
 &lt;/blockquote&gt;
 
 &lt;h3 id=&quot;四启动私有链节点&quot;&gt;四、启动私有链节点&lt;/h3&gt;
 
 &lt;blockquote&gt;
-  &lt;p&gt;geth –datadir blockchainData/ –networkid 110 –rpc console&lt;/p&gt;
+  &lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;geth --datadir blockchainData/ --networkid 110 --rpc console&lt;/code&gt;&lt;/p&gt;
 &lt;/blockquote&gt;
 
 &lt;p&gt;如果出现&lt;code class=&quot;highlighter-rouge&quot;&gt;Welcome to the Geth JavaScript console!&lt;/code&gt;表示启动成功&lt;/p&gt;
