@@ -188,6 +188,48 @@
   <ol class="post-list">
     
     <li>
+      <h2 class="post-list__post-title post-title"><a href="/2018/08/02/go-test%E4%BD%BF%E7%94%A8/" title="访问 go test使用">go test使用</a></h2>
+      <p class="excerpt">go test 功能，提高了开发和测试的效率。下面例子的文件结构如下：goTest使用/add.gogoTest使用/test_add.goadd.gopackage goTest使用import "fmt"func Add(a, b int) int {	return a+b}func What() {fmt.Println("what ?")}add_test.gopackage goTest使用import (	"testing"	"fmt")func TestAdd(t *test...&hellip;</p>
+      <div class="post-list__meta">        
+        <time datetime="2018-08-02 00:00:00 +0800" class="post-list__meta--date date">
+          <img src="/images/calendar.png" width="20px" /> 
+          2018-08-02</time> 
+        <div class = "tag-img-icon">
+          <img src="/images/tag-icon.svg" width="20px" /> 
+        </div>
+        <a href="/tags">
+          <div class = "post-list-icon-mate">
+            <span class="post-list__meta--tags-right">Go</span>
+          </div>
+          <div class = "post-list-small-mate">
+          <a class="btn-border-small" href=/2018/08/02/go-test%E4%BD%BF%E7%94%A8/>阅读全文 » </a>
+          </div>
+      </div>
+      <hr class="post-list__divider" />
+    </li>
+    
+    <li>
+      <h2 class="post-list__post-title post-title"><a href="/2018/08/02/go-defer-panic-recover%E4%BD%BF%E7%94%A8/" title="访问 go defer、panic、recover使用">go defer、panic、recover使用</a></h2>
+      <p class="excerpt">deferdefer和go一样都是Go语言提供的关键字。defer用于资源的释放，会在函数返回之前进行调用。多个defer调用顺序如果有多个defer表达式，调用顺序类似于栈，越后面的defer表达式越先被调用。func f() {	defer fmt.Println("defer 1")	defer fmt.Println("defer 2")	defer fmt.Println("defer 3")}执行结果为：defer 3defer 2defer 1defer函数形参的值如果def...&hellip;</p>
+      <div class="post-list__meta">        
+        <time datetime="2018-08-02 00:00:00 +0800" class="post-list__meta--date date">
+          <img src="/images/calendar.png" width="20px" /> 
+          2018-08-02</time> 
+        <div class = "tag-img-icon">
+          <img src="/images/tag-icon.svg" width="20px" /> 
+        </div>
+        <a href="/tags">
+          <div class = "post-list-icon-mate">
+            <span class="post-list__meta--tags-right">Go</span>
+          </div>
+          <div class = "post-list-small-mate">
+          <a class="btn-border-small" href=/2018/08/02/go-defer-panic-recover%E4%BD%BF%E7%94%A8/>阅读全文 » </a>
+          </div>
+      </div>
+      <hr class="post-list__divider" />
+    </li>
+    
+    <li>
       <h2 class="post-list__post-title post-title"><a href="/2018/07/15/%E4%BB%A5%E5%A4%AA%E5%9D%8A%E7%A7%81%E7%BD%91%E5%BB%BA%E7%AB%8B-%E9%80%9A%E8%BF%87%E5%88%9B%E4%B8%96%E5%8C%BA%E5%9D%97%E6%9D%A5%E5%88%9D%E5%A7%8B%E5%8C%96%E5%8C%BA%E5%9D%97%E9%93%BE/" title="访问 以太坊私网建立-通过创世区块来初始化区块链">以太坊私网建立-通过创世区块来初始化区块链</a></h2>
       <p class="excerpt">一、创建目录privatechain,名字随便起  zhangqiangdeMac-mini:~ zhqmac$  cd Desktop  zhangqiangdeMac-mini:Desktop zhqmac$ mkdir privatechain  zhangqiangdeMac-mini:Desktop zhqmac$ cd privatechain/二、创建创世块  vi genesis.json拷贝下面的内容{  "alloc" : {},  "coinbase" : "0x00...&hellip;</p>
       <div class="post-list__meta">        
@@ -560,48 +602,6 @@
           </div>
           <div class = "post-list-small-mate">
           <a class="btn-border-small" href=/2018/06/21/%E9%93%BE%E7%A0%81%E5%BC%80%E5%8F%91/>阅读全文 » </a>
-          </div>
-      </div>
-      <hr class="post-list__divider" />
-    </li>
-    
-    <li>
-      <h2 class="post-list__post-title post-title"><a href="/2018/06/20/Fabric-%E5%BB%BA%E7%AB%8B%E7%AC%AC%E4%B8%80%E4%B8%AA%E7%BD%91%E7%BB%9C/" title="访问 Fabric 建立第一个网络">Fabric 建立第一个网络</a></h2>
-      <p class="excerpt">进入到first-network目录下文件目录如下，可以看到所有文件执行权限都是root，所以在执行脚本时需要管理员权限sudo前提准备:  1、生成组织结构及身份证书  2、创建orderer的初始区块      启动orderer服务  3、生成应用通道配置交易文件      用来生成应用通道，指定通道内的成员及访问策略  4、生成锚节点更新配置文件      用来配置锚节点1、自动启动byfn.sh就是我们自动启动需要用到的脚本文件启动前准备  byfn.sh  generate 生...&hellip;</p>
-      <div class="post-list__meta">        
-        <time datetime="2018-06-20 00:00:00 +0800" class="post-list__meta--date date">
-          <img src="/images/calendar.png" width="20px" /> 
-          2018-06-20</time> 
-        <div class = "tag-img-icon">
-          <img src="/images/tag-icon.svg" width="20px" /> 
-        </div>
-        <a href="/tags">
-          <div class = "post-list-icon-mate">
-            <span class="post-list__meta--tags-right">区块链</span>
-          </div>
-          <div class = "post-list-small-mate">
-          <a class="btn-border-small" href=/2018/06/20/Fabric-%E5%BB%BA%E7%AB%8B%E7%AC%AC%E4%B8%80%E4%B8%AA%E7%BD%91%E7%BB%9C/>阅读全文 » </a>
-          </div>
-      </div>
-      <hr class="post-list__divider" />
-    </li>
-    
-    <li>
-      <h2 class="post-list__post-title post-title"><a href="/2018/06/19/%E9%93%BE%E7%A0%81%E7%9A%84%E6%A6%82%E5%BF%B5%E4%B8%8E%E4%BD%BF%E7%94%A8/" title="访问 Fabric链码的概念与使用">Fabric链码的概念与使用</a></h2>
-      <p class="excerpt">概念:Chaincode: 链上代码, 简称链码, 一般是指用户编写的应用代码链码被部署在Fabric网络节点上,​	Peer 节点​		– 背书节点​		– commit节点​		– Leader节点​		– 锚节点运行在隔离沙盒(当前为Docker容器)中,并通过gRPC协议与相应的Peer节点进行交互, 以操作分布式账本中的数据protobuf分类链码一般分为:  用户链码  系统链码用户链码由应用开发人员使用Go(Java/JS)语言编写基于区块链分布式账本的状态及处理逻辑运行在链...&hellip;</p>
-      <div class="post-list__meta">        
-        <time datetime="2018-06-19 00:00:00 +0800" class="post-list__meta--date date">
-          <img src="/images/calendar.png" width="20px" /> 
-          2018-06-19</time> 
-        <div class = "tag-img-icon">
-          <img src="/images/tag-icon.svg" width="20px" /> 
-        </div>
-        <a href="/tags">
-          <div class = "post-list-icon-mate">
-            <span class="post-list__meta--tags-right">区块链</span>
-          </div>
-          <div class = "post-list-small-mate">
-          <a class="btn-border-small" href=/2018/06/19/%E9%93%BE%E7%A0%81%E7%9A%84%E6%A6%82%E5%BF%B5%E4%B8%8E%E4%BD%BF%E7%94%A8/>阅读全文 » </a>
           </div>
       </div>
       <hr class="post-list__divider" />
