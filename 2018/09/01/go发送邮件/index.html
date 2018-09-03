@@ -1,0 +1,113 @@
+<h1 id="go-发送邮件">go 发送邮件</h1>
+
+<h3 id="简述">简述</h3>
+
+<p>Go 提供了一个 smtp（Simple Mail Transfer Protocol - 简单邮件传输协议）库作为其网络包的一部分，“net/smtp”公开了一些可立即使用的有用功能。</p>
+
+<p><code class="highlighter-rouge">Gomail</code> - 一个比较成熟的第三方包，提供了一个快速、简单的解决方案，可以轻松地发送电子邮件。</p>
+
+<h3 id="smpt">SMPT</h3>
+
+<p>SMTP（Simple Mail Transfer Protocol）即简单邮件传输协议,它是一组用于由源地址到目的地址传送邮件的规则，由它来控制信件的中转方式。SMTP协议属于TCP/IP协议簇，它帮助每台计算机在发送或中转信件时找到下一个目的地。通过SMTP协议所指定的服务器,就可以把E-mail寄到收信人的服务器上了，整个过程只要几分钟。SMTP服务器则是遵循SMTP协议的发送邮件服务器，用来发送或中转发出的电子邮件。</p>
+
+<h3 id="实例">实例</h3>
+
+<h4 id="1导入gomail">1.导入<code class="highlighter-rouge">gomail</code></h4>
+
+<blockquote>
+  <p>go get “github.com/go-gomail/gomail”</p>
+</blockquote>
+
+<h4 id="2demo">2.demo</h4>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>package main
+
+import (
+	"bytes"
+	"fmt"
+	"github.com/go-gomail/gomail"
+	"html/template"
+)
+
+func main() {
+	m := gomail.NewMessage()
+	//发件人邮箱
+	fromEmail := "123456@qq.com"
+
+	//发件人昵称
+	fromName := "zhq"
+	m.SetAddressHeader("From", fromEmail, fromName) // 发件人
+	//收件人邮箱
+	toEmail := "67890@163.com"
+
+	m.SetHeader("To", // 收件人
+		m.FormatAddress(toEmail, ""),
+	)
+	m.SetHeader("Subject", "发送邮件测试")            // 主题
+	//初始化模板
+	emailTemplate := `&lt;div&gt;&lt;/div&gt;`
+	t, err := template.New("mail summary template").Parse(emailTemplate)
+	if err != nil {
+		fmt.Println(err)
+	}
+	buffer := new(bytes.Buffer)
+	data := &amp;struct{
+		Vcode string
+	}{
+		Vcode:"hello world",
+	}
+	//动态配置模板
+	t.Execute(buffer,data)
+	// 正文
+	m.SetBody("text/html", buffer.String())
+	//发件人邮箱授权码
+	fromEmailPassword := "123"
+	d := gomail.NewDialer("smtp.qq.com", 465, fromEmail, fromEmailPassword)
+	if err := d.DialAndSend(m); err != nil {
+		fmt.Println(err)
+	}
+	fmt.Println("邮件已发送")
+}
+
+
+</code></pre>
+</div>
+
+<blockquote>
+  <p>ps:需要注意的是 d := gomail.NewDialer(“smtp.qq.com”, 465, fromEmail, fromEmailPassword) 中 <code class="highlighter-rouge">fromEmailPassword</code>并非邮箱密码，而是授权码</p>
+</blockquote>
+
+<p>执行代码，如果输出<code class="highlighter-rouge">邮件已发送</code>表示邮件发送成功，查看收件人邮箱即可</p>
+
+<p><img src="http://otwxtrtn9.bkt.clouddn.com/go%E5%8F%91%E9%80%81%E9%82%AE%E4%BB%B6.png" alt="" /></p>
+
+<h4 id="3获取授权码以qq邮箱为例">3.获取授权码,以qq邮箱为例</h4>
+
+<p>进入邮箱 -&gt; 设置 -&gt; 账户 -&gt; POP3/IMAP/SMTP/Exchange/CardDAV/CalDAV服务 -&gt; 开启POP3/SMTP服务</p>
+
+<p><img src="http://otwxtrtn9.bkt.clouddn.com/qq%E9%82%AE%E7%AE%B1%E8%8E%B7%E5%8F%96%E6%8E%88%E6%9D%83%E7%A0%811.png" alt="" /></p>
+
+<p><img src="http://otwxtrtn9.bkt.clouddn.com/qq%E9%82%AE%E7%AE%B1%E8%8E%B7%E5%8F%96%E6%8E%88%E6%9D%83%E7%A0%812.png" alt="" /></p>
+
+<h3 id="常用邮箱">常用邮箱</h3>
+
+<p>列举一些常用的邮箱，可以用来测试：</p>
+
+<p>QQ 邮箱 
+POP3 服务器地址：qq.com（端口：995） 
+SMTP 服务器地址：smtp.qq.com（端口：465/587）</p>
+
+<p>163 邮箱： 
+POP3 服务器地址：pop.163.com（端口：110） 
+SMTP 服务器地址：smtp.163.com（端口：25）</p>
+
+<p>126 邮箱： 
+POP3 服务器地址：pop.126.com（端口：110） 
+SMTP 服务器地址：smtp.126.com（端口：25）</p>
+
+<h3 id="参考资料">参考资料:</h3>
+
+<p>https://blog.csdn.net/liang19890820/article/details/53084638</p>
+
+<p>https://blog.csdn.net/wangshubo1989/article/details/70808989</p>
+

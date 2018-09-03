@@ -6,7 +6,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
-  <title>go test使用</title>
+  <title>jwt 初体验</title>
   <meta name="description" content="Go">
   <meta name="author" content="黎跃春">
 
@@ -14,11 +14,11 @@
   />
 
   <meta name="twitter:card" content="summary">
-  <meta name="twitter:title" content="go test使用">
+  <meta name="twitter:title" content="jwt 初体验">
   <meta name="twitter:description" content="Go">
 
   <meta property="og:type" content="article">
-  <meta property="og:title" content="go test使用">
+  <meta property="og:title" content="jwt 初体验">
   <meta property="og:description" content="Go">
   <meta property="og:site_name" content="Goe"
   />
@@ -31,7 +31,7 @@
   <link rel="stylesheet" href=" /css/main.css ">
   <link href="//netdna.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
 
-  <link rel="canonical" href="/2018/08/02/go-test%E4%BD%BF%E7%94%A8/">
+  <link rel="canonical" href="/2018/09/01/jwt-%E5%88%9D%E4%BD%93%E9%AA%8C/">
   <link rel="alternate" type="application/rss+xml" title="sweetsmelon博客" href=" /feed.xml
     ">
 
@@ -185,10 +185,10 @@
     <div class="content-wrapper__inner">
       <article class="post-container post-container--single" itemscope itemtype="http://schema.org/BlogPosting">
   <header class="post-header">
-    <h1 class="post-title">go test使用</h1>
+    <h1 class="post-title">jwt 初体验</h1>
     <div class="post-meta">
       <img src="/images/calendar.png" width="20px"/>
-      <time datetime="2018-08-02 00:00:00 +0800" itemprop="datePublished" class="post-meta__date date">2018-08-02</time>
+      <time datetime="2018-09-01 00:00:00 +0800" itemprop="datePublished" class="post-meta__date date">2018-09-01</time>
 
       <span id="busuanzi_container_page_pv"> | 阅读：<span id="busuanzi_value_page_pv"></span>次</span>
     </p>
@@ -196,149 +196,251 @@
   </header>
 
   <section class="post">
-    <p><code class="highlighter-rouge">go test</code> 功能，提高了开发和测试的效率。</p>
+    <h3 id="简介">简介</h3>
 
-<p>下面例子的文件结构如下：</p>
+<p>1、什么是<code class="highlighter-rouge">JWT</code></p>
 
-<p>goTest使用/add.go
-goTest使用/test_add.go</p>
+<p><code class="highlighter-rouge">JWT</code>是<code class="highlighter-rouge">json web token</code>缩写。它将用户信息加密
+到<code class="highlighter-rouge">token</code>里，服务器不保存任何用户信息。服务器通过使用保存的密钥验证<code class="highlighter-rouge">token</code>的正确性，只要正确即通过验证。</p>
 
-<h3 id="addgo">add.go</h3>
+<p>2、<code class="highlighter-rouge">JWT</code>结构</p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>package goTest使用
+<p><code class="highlighter-rouge">JWT</code>包含三部分:Header（头部）、Payload（负载）、Signature（签名）</p>
 
-import "fmt"
+<p>最终生成的<code class="highlighter-rouge">JWT</code>样式:<code class="highlighter-rouge">base64URLEncoding(Header).</code>+<code class="highlighter-rouge">base64URLEncoding(Payload).</code>+<code class="highlighter-rouge">HMAC-SHA256(base64URLEncoding(Header).+base64URLEncoding(Payload).+密钥)</code></p>
 
-func Add(a, b int) int {
-	return a+b
-}
-func What() {
-fmt.Println("what ?")
-}
+<h4 id="header"><code class="highlighter-rouge">Header</code></h4>
 
-</code></pre>
+<p>一般保存两部分信息：<code class="highlighter-rouge">token</code>类型和加密算法</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code><span class="p">{</span><span class="w">
+    </span><span class="nt">"alg"</span><span class="p">:</span><span class="s2">"HS256"</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"typ"</span><span class="p">:</span><span class="s2">"JWT"</span><span class="w">
+</span><span class="p">}</span><span class="w">
+
+</span></code></pre>
 </div>
 
-<h3 id="add_testgo">add_test.go</h3>
+<p>经过Base64Url编码后作为JWT结构的第一部分。</p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>package goTest使用
+<h4 id="payload"><code class="highlighter-rouge">Payload</code></h4>
+
+<p>Token的第二部分是负载，它包含了claim， Claim是一些实体（通常指的用户）的状态和额外的元数据，有三种类型的claim：reserved, public 和 private.Reserved claims: 这些claim是JWT预先定义的，在JWT中并不会强制使用它们，而是推荐使用，常用的有 iss（签发者）,exp（过期时间戳）, sub（面向的用户）, aud（接收方）, iat（签发时间）。 Public claims：根据需要定义自己的字段，注意应该避免冲突 Private claims：这些是自定义的字段，可以用来在双方之间交换信息</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code><span class="p">{</span><span class="w"> 
+    </span><span class="nt">"sub"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1234567890"</span><span class="p">,</span><span class="w"> 
+    </span><span class="nt">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"John Doe"</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"admin"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
+ </span><span class="p">}</span><span class="w">
+ 
+</span></code></pre>
+</div>
+
+<p>经过Base64Url编码后作为JWT结构的第二部分。</p>
+
+<h4 id="signature"><code class="highlighter-rouge">Signature</code></h4>
+
+<p>创建签名需要使用编码后的header和payload以及一个秘钥，使用header中指定签名算法进行签名。例如如果希望使用HMAC SHA256算法，那么签名应该使用下列方式创建： HMACSHA256( base64UrlEncode(header) + “.” + base64UrlEncode(payload), secret) 签名用于验证消息的发送者以及消息是没有经过篡改的。 完整的JWT 完整的JWT格式的输出是以. 分隔的三段Base64编码，与SAML等基于XML的标准相比，JWT在HTTP和HTML环境中更容易传递。 下列的JWT展示了一个完整的JWT格式，它拼接了之前的Header， Payload以及秘钥签名：</p>
+
+<p>&lt;font color=red&gt;eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.&lt;/font&gt;&lt;font color=purple&gt;eyJleHAiOjE1MzU5NDgyNzMsImlhdCI6MTUzNTk0NDY3MywidXNlcm5hbWUiOiJzd2VldHNtZWxvbiJ9.&lt;/font&gt;&lt;font color=blue&gt;cfyaGsbVrHalZik1HPPqZAttk3sjM7XY-mBhdmCSis8&lt;/font&gt;</p>
+
+<h4 id="如何使用jwt">如何使用JWT</h4>
+
+<p>使用场景：身份鉴定、信息交换</p>
+
+<p>以身份鉴定为例:</p>
+
+<p>在身份鉴定的实现中，传统方法是在服务端存储一个session，给客户端返回一个cookie，而使用JWT之后，当用户使用它的认证信息登陆系统之后，会返回给用户一个JWT，用户只需要本地保存该token（通常使用local storage，也可以使用cookie）即可。 当用户希望访问一个受保护的路由或者资源的时候，通常应该在Authorization头部使用Bearer模式添加JWT，其内容看起来是下面这样：Authorization: Bearer <token>
+因为用户的状态在服务端的内存中是不存储的，所以这是一种无状态的认证机制。服务端的保护路由将会检查请求头Authorization中的JWT信息，如果合法，则允许用户的行为。由于JWT是自包含的，因此减少了需要查询数据库的需要。 JWT的这些特性使得我们可以完全依赖其无状态的特性提供数据API服务，甚至是创建一个下载流服务。因为JWT并不使用Cookie的，所以你可以使用任何域名提供你的API服务而不需要担心跨域资源共享问题（CORS）。 下面的序列图展示了该过程：</token></p>
+
+<p><img src="https://segmentfault.com/image?src=http://source.aicode.cc/markdown/jwt-diagram.png&amp;objectId=1190000005047525&amp;token=fc83f4c0cf107cabeafd6a449cd49762" alt="" /></p>
+
+<h3 id="go-实现myjwt">go 实现myJWT</h3>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>package main
 
 import (
-	"testing"
+	"time"
+	"encoding/json"
+	"encoding/base64"
 	"fmt"
+	"crypto/hmac"
+	"crypto/sha256"
+	"strings"
 )
 
-func TestAdd(t *testing.T) {
-	r := Add(1,2)
-	fmt.Println(r)
-
+const kScreateKey  = "123"
+type Header struct {
+	//加密方式
+	Alg string
+	//加密类型
+	Typ string
 }
-func TestWhat(t *testing.T) {
-	What()
+type Payload struct {
+	//过期时间
+	Exp int64
+	//签发时间
+	Iat int64
+	//用户名
+	UserName string
+}
+
+type jwt struct {
+	Header Header
+	Payload Payload
+	Signature string
+}
+
+func main() {
+	token := createToken()
+	//token := "eyJBbGciOiJIUzI1NiIsIlR5cCI6IkpXVCJ9.eyJFeHAiOjE1MzU5NDk5MjUsIklhdCI6MTUzNTk0OTkyMywiVXNlck5hbWUiOiJzd2VldHNtZWxvbiJ9.C6XqHbR3Td9PhgTofVGlLnQ6PAab2pHm9T7yj_NtoQs"
+	verifyToken(token)
+}
+//创建token
+func createToken() string {
+
+	//1、创建header
+	header := Header{"HS256","JWT"}
+	//2、创建JWT第一段 header的base64编码
+	headerBytes,err := json.Marshal(header)
+	fmt.Println(err)
+	header_Base64 := base64.URLEncoding.EncodeToString(headerBytes)
+	//3、创建payload
+	payload := Payload{}
+	//token两秒后过期
+	payload.Exp = time.Now().Add(time.Second*time.Duration(2)).Unix()
+	payload.Iat = time.Now().Unix()
+	payload.UserName = "sweetsmelon"
+	//4、创建JWT第二段 payload的base64编码
+	payloadBytes,_:= json.Marshal(payload)
+	payload_Base64 := base64.URLEncoding.EncodeToString(payloadBytes)
+
+	//5、拼接header和payload
+	hpString := fmt.Sprintf("%s.%s",header_Base64,payload_Base64)
+	//6、生成签名
+	signatureStr := createSianature(hpString)
+	token := fmt.Sprintf("%s.%s",hpString,signatureStr)
+	fmt.Println(token)
+
+	return token
+}
+func createSianature(hpString string) string  {
+	hasher := hmac.New(sha256.New,[]byte(kScreateKey))
+	hasher.Write([]byte(hpString))
+	signatureStr :=strings.TrimRight(base64.URLEncoding.EncodeToString(hasher.Sum(nil)), "=")
+	return signatureStr
+}
+func verifyToken(token string)  {
+	//1、根据"."拆分token
+	jwt := strings.Split(token,".")
+	//2、解析header
+	headerStr := jwt[0]
+	headerBytes,_ := base64.URLEncoding.DecodeString(headerStr)
+	header := Header{}
+	json.Unmarshal(headerBytes,&amp;header)
+	//3、解析payload
+	payloadStr := jwt[1]
+	payloadBytes,_ := base64.URLEncoding.DecodeString(payloadStr)
+	payload := Payload{}
+	json.Unmarshal(payloadBytes,&amp;payload)
+	//4、验证签名是否有效
+	hpString := fmt.Sprintf("%s.%s",headerStr,payloadStr)
+	signatureString := createSianature(hpString)
+	if signatureString == jwt[2] {
+		if header.Alg == "HS256" &amp;&amp; header.Typ == "JWT" {
+			//3、判断是否过期
+			if payload.Exp &lt; time.Now().Unix() {
+				fmt.Println("验证码已失效")
+			}else {
+				fmt.Println("验证成功 username=",payload.UserName)
+			}
+		}else {
+			fmt.Println("验证header失败")
+		}
+	}else {
+		fmt.Println("验证签名失败")
+	}
 }
 
 </code></pre>
 </div>
 
-<p>进入两个文件所在的目录下,如</p>
+<h3 id="使用-jwt-go">使用 jwt-go</h3>
+
+<p><code class="highlighter-rouge">jwt-go</code>是一个封装好的<code class="highlighter-rouge">go</code>语言版的<code class="highlighter-rouge">jwt</code>工具</p>
+
+<h4 id="安装jwt-go">安装<code class="highlighter-rouge">jwt-go</code></h4>
 
 <blockquote>
-  <p>zhangqiangdeMac-mini:Test zhqmac$ cd goTest使用/</p>
+  <p>go get github.com/dgrijalva/jwt-go</p>
 </blockquote>
 
-<p>执行 <code class="highlighter-rouge">go test</code>命令</p>
+<h4 id="使用">使用</h4>
 
-<blockquote>
-  <p>zhangqiangdeMac-mini:goTest使用 zhqmac$ go test</p>
-</blockquote>
-
-<div class="highlighter-rouge"><pre class="highlight"><code>控制台输出:
-
-3  //Add()结果
-what ? //What()结果
-PASS
-ok      zhqGo/Test/goTest使用   0.007s
-
-</code></pre>
-</div>
-
-<h4 id="测试某个函数"><strong>测试某个函数</strong></h4>
-
-<p>go test 命令，默认运行所有在目录下xxx_test.go 的测试文件 
-而且只对以Testxxx(t tesing.T)的函数进行测试,要单测某个函数,如<code class="highlighter-rouge">Add()</code>可以使用命令</p>
-
-<blockquote>
-  <p>go test -test.run Add</p>
-</blockquote>
-
-<p>或</p>
-
-<blockquote>
-  <p>go test -test.run TestAdd</p>
-</blockquote>
-
-<h4 id="测试单个文件"><strong>测试单个文件</strong></h4>
-
-<blockquote>
-  <p>go test -v add_test.go  add.go</p>
-</blockquote>
-
-<h4 id="测试前初始化"><strong>测试前初始化</strong></h4>
-
-<p>进行测试之前需要初始化操作(例如打开连接)，测试结束后，需要做清理工作(例如关闭连接)等等。这个时候就可以使用TestMain()。</p>
-
-<div class="highlighter-rouge"><pre class="highlight"><code>package goTest使用
+<div class="highlighter-rouge"><pre class="highlight"><code>package main
 
 import (
-	"testing"
+	"time"
+	"github.com/dgrijalva/jwt-go"
+	"reflect"
 	"fmt"
 )
-
-func TestAdd(t *testing.T) {
-	r := Add(1,2)
-	fmt.Println(r)
-
+const kSecretKey = "123456"
+func main() {
+	createToken()
 }
-func TestWhat(t *testing.T) {
-	What()
+func createToken() {
+	token := jwt.New(jwt.SigningMethodHS256)
+	claims := make(jwt.MapClaims)
+	claims["exp"] = time.Now().Add(time.Hour * time.Duration(1)).Unix()
+	claims["iat"] = time.Now().Unix()
+	//自定义属性username
+	claims["username"] = "sweetsmelon"
+	token.Claims = claims
+
+	tokenString, err := token.SignedString([]byte(kSecretKey))
+	if err != nil {
+		fmt.Println(err)
+	}
+	fmt.Println(tokenString)
+	veiftyToken(tokenString)
 }
-func TestMain(m *testing.M)  {
-//初始化操作
-	fmt.Println("begin")
-	m.Run()
-	fmt.Println("end")
+func veiftyToken(tokenStr string)  {
+	token, err := jwt.Parse(tokenStr, func(token *jwt.Token) (interface{}, error) {
+		return []byte(kSecretKey), nil
+	})
+	//通过映射，获取自定义的Claims属性
+	switch token.Claims.(type) {
+	case jwt.MapClaims:
+		{
+			v := reflect.ValueOf(token.Claims)
+			v2 := v.Interface().(jwt.MapClaims)
+			fmt.Println(v2["username"])
+			if err != nil {
+				fmt.Println("验证失败")
+			} else {
+				if token.Valid {
+					fmt.Println("验证成功")
+				} else {
+					fmt.Println("验证码失效")
+				}
+			}
+			return
+		}
+	}
+	fmt.Println("token格式错误，验证失败")
 }
 
 </code></pre>
 </div>
 
-<h3 id="参数说明">参数说明</h3>
+<p>参考资料：</p>
 
-<h4 id="1运行参数"><strong>1、运行参数</strong></h4>
+<p>https://jwt.io/introduction/</p>
 
-<ul>
-  <li>go test 忽略log信息</li>
-  <li>go test -v 冗长模式， 打印实时的log信息</li>
-</ul>
+<p>https://blog.csdn.net/qq_40081976/article/details/79046825</p>
 
-<h4 id="2测试过程控制"><strong>2、测试过程控制</strong></h4>
-
-<ul>
-  <li><code class="highlighter-rouge">t.Log</code> <code class="highlighter-rouge">t.Logf</code> // 正常信息</li>
-  <li><code class="highlighter-rouge">t.Error</code> <code class="highlighter-rouge">t.Errorf</code> // 测试失败信息</li>
-  <li><code class="highlighter-rouge">t.Fatal</code> <code class="highlighter-rouge">t.Fatalf</code> // 致命错误， 测试程序退出的信息</li>
-  <li><code class="highlighter-rouge">t.Fail</code>   //当前测试标记为失败</li>
-  <li><code class="highlighter-rouge">t.Failed</code> //查看失败标记</li>
-  <li><code class="highlighter-rouge">t.FailNow</code>// 标记失败， 并终止当前测试函数的执行(需要注意的是，我们只能在运行测试函数的Goroutine中调用
-       //t.FailNow方法，而不能在我们在测试代码创建出的Goroutine中调用它。</li>
-  <li><code class="highlighter-rouge">t.Skip</code> //调用t.Skip方法相当于先后对t.Log和t.SkipNow方法进行调用，而调用t.Skipf方法则相当于先后对             //t.Logf和t.Skip-Now方法进行调用。方法t.Skipped的结果值会告知我们当前的测试是否已被忽略。</li>
-  <li><code class="highlighter-rouge">t.Parallel</code> // 标记为可并行运算</li>
-</ul>
-
-<h3 id="参考资料">参考资料</h3>
-
-<p>go test 初始化— TestMain的使用<br />
-https://www.cnblogs.com/lanyangsh/p/8685989.html</p>
+<p>http://blog.51cto.com/xwandrew/2050973</p>
 
 
   </section>
@@ -408,15 +510,10 @@ https://www.cnblogs.com/lanyangsh/p/8685989.html</p>
        <ul class="pager">
         
         <li class="previous">
-            <a href="/2018/08/02/go-defer-panic-recover%E4%BD%BF%E7%94%A8/" data-toggle="tooltip" data-placement="top" title="go defer、panic、recover使用">上一篇：  <span>go defer、panic、recover使用</span>
+            <a href="/2018/09/01/iris-%E5%AE%9E%E7%8E%B0GET-POST-PUT%E6%8E%A5%E5%8F%A3/" data-toggle="tooltip" data-placement="top" title="go iris 实现GET、POST、PUT接口">上一篇：  <span>go iris 实现GET、POST、PUT接口</span>
             </a>
         </li>
         
-        
-        <li class="next">
-            <a href="/2018/09/01/go%E5%8F%91%E9%80%81%E9%82%AE%E4%BB%B6/" data-toggle="tooltip" data-placement="top" title="Go发送邮件">下一篇：  <span>Go发送邮件</span>
-            </a>
-        </li>
         
     </ul>
 </section>
