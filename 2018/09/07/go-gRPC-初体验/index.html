@@ -1,0 +1,476 @@
+<h1 id="grpc">gRPC</h1>
+
+<h3 id="安装-grpc">安装 gRPC</h3>
+
+<blockquote>
+  <p>go get google.golang.org/grpc</p>
+</blockquote>
+
+<h3 id="安装-protocal-环境">安装 protocal 环境</h3>
+
+<p>从 <code class="highlighter-rouge">https://github.com/google/protobuf/releases</code>下载安装包，例如：protobuf-cpp-3.6.1.zip，解压后</p>
+
+<blockquote>
+  <p>./configure
+make &amp;&amp; make install</p>
+</blockquote>
+
+<p>等待至安装完成</p>
+
+<blockquote>
+  <p><code class="highlighter-rouge">zhangqiangdeMac-mini:protobuf-3.6.1 zhqmac$ protoc --version</code></p>
+</blockquote>
+
+<p>提示版本信息，表示安装成功</p>
+
+<blockquote>
+  <p>libprotoc 3.6.1</p>
+</blockquote>
+
+<h3 id="goland-安装-protoc-插件">goland 安装 protoc 插件</h3>
+
+<table>
+  <thead>
+    <tr>
+      <th>插件名</th>
+      <th>用途</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Protobuf Support</td>
+      <td>protoc文件打开工具</td>
+    </tr>
+    <tr>
+      <td>ClangFormatIJ</td>
+      <td>protoc 代码提示工具</td>
+    </tr>
+  </tbody>
+</table>
+
+<p><img src="http://otwxtrtn9.bkt.clouddn.com/goland%20%E5%AE%89%E8%A3%85%20protoc%20%E6%8F%92%E4%BB%B6.png" alt="" /></p>
+
+<h3 id="安装golang-protoc-插件">安装GoLang protoc 插件</h3>
+
+<blockquote>
+  <p>go get -a github.com/golang/protobuf/protoc-gen-go</p>
+</blockquote>
+
+<h3 id="定义service">定义Service</h3>
+
+<p>一个RPC service就是一个能够通过参数和返回值进行远程调用的method，我们可以简单地将它理解成一个函数。因为gRPC是通过将数据编码成protocal buffer来实现传输的。因此，我们通过protocal buffers interface definitioin language(IDL)来定义service method，同时将参数和返回值也定义成protocal buffer message类型。具体实现如下所示，包含下面代码的文件叫helloworld.proto：</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>syntax = "proto3";
+
+option java_package = "io.grpc.examples";
+
+package helloworld;
+
+// The greeter service definition.
+service Greeter {
+    // Sends a greeting
+    rpc SayHello (HelloRequest) returns (HelloReply) {}
+}
+
+// The request message containing the user's name.
+message HelloRequest {
+    string name = 1;
+}
+
+// The response message containing the greetings
+message HelloReply {
+    string message = 1;
+}
+
+</code></pre>
+</div>
+
+<p>接着，根据上述定义的service，我们可以利用protocal buffer compiler ，即protoc生成相应的服务器端和客户端的GoLang代码。生成的代码中包含了客户端能够进行RPC的方法以及服务器端需要进行实现的接口</p>
+
+<p>假设现在所在的目录是$GOPATH/src/helloworld/helloworld，我们将通过如下命令生成gRPC对应的GoLang代码：</p>
+
+<blockquote>
+  <p>protoc –go_out=plugins=grpc:. proto/helloworld.proto</p>
+</blockquote>
+
+<p>此时，将在目录下生成helloworld.pb.go文件。</p>
+
+<h3 id="servergo">server.go</h3>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>package main
+
+// server.go
+
+import (
+	"log"
+	"net"
+
+	"golang.org/x/net/context"
+	"google.golang.org/grpc"
+	pb "zhqGo/gRPCDemo/proto"
+)
+
+const (
+	port = ":50051"
+)
+
+type server struct {}
+
+func (s *server) SayHello(ctx context.Context, in *pb.HelloRequest) (*pb.HelloReply, error) {
+	return &amp;pb.HelloReply{Message: "Hello " + in.Name}, nil
+}
+
+func main() {
+	lis, err := net.Listen("tcp", port)
+	if err != nil {
+		log.Fatal("failed to listen: %v", err)
+	}
+	s := grpc.NewServer()
+	pb.RegisterGreeterServer(s, &amp;server{})
+	s.Serve(lis)
+}
+
+</code></pre>
+</div>
+
+<h3 id="clientgo">client.go</h3>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>package main
+
+//client.go
+
+import (
+	"log"
+	"os"
+
+	"golang.org/x/net/context"
+	"google.golang.org/grpc"
+	pb "zhqGo/gRPCDemo/proto"
+)
+
+const (
+	address     = "localhost:50051"
+	defaultName = "world"
+)
+
+func main() {
+	conn, err := grpc.Dial(address, grpc.WithInsecure())
+	if err != nil {
+		log.Fatal("did not connect: %v", err)
+	}
+	defer conn.Close()
+	c := pb.NewGreeterClient(conn)
+
+	name := defaultName
+	if len(os.Args) &gt;1 {
+		name = os.Args[1]
+	}
+	r, err := c.SayHello(context.Background(), &amp;pb.HelloRequest{Name: name})
+	if err != nil {
+		log.Fatal("could not greet: %v", err)
+	}
+	log.Printf("Greeting: %s", r.Message)
+}
+
+</code></pre>
+</div>
+
+<p>最后运行：</p>
+
+<blockquote>
+  <p>go run server.go
+go run client.go</p>
+</blockquote>
+
+<p>以上是<code class="highlighter-rouge">grpc</code>官网给出的一个demo，如果跑通了，表示环境已经没有问题了，接下来给它改一改</p>
+
+<h3 id="添加age字段">添加age字段</h3>
+
+<h4 id="一打开helloworldproto文件找到">一、打开<code class="highlighter-rouge">helloworld.proto</code>文件,找到</h4>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>message HelloRequest{
+        string name = 1;
+}
+
+</code></pre>
+</div>
+<p>请求体，暂且就这么说吧，反正就是在<code class="highlighter-rouge">client</code>端调用时需要传入的参数,添加字段</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>     int32 age = 2;
+ 
+</code></pre>
+</div>
+
+<p>一些说明:</p>
+
+<ol>
+  <li>string、int32为字段的数据类型，还有其他数据类型，见下表</li>
+  <li>name = 1,age=2,其中”1,2”表示字段tag值，tag值不可以重复</li>
+</ol>
+
+<table>
+  <thead>
+    <tr>
+      <th>.proto Type</th>
+      <th>Notes</th>
+      <th>C++ Type</th>
+      <th>Java Type</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>double</td>
+      <td> </td>
+      <td>doubel</td>
+      <td>doubel</td>
+    </tr>
+    <tr>
+      <td>float</td>
+      <td> </td>
+      <td>float</td>
+      <td>float</td>
+    </tr>
+    <tr>
+      <td>int32</td>
+      <td>Uses variable-length encoding. Inefficient for encoding negative numbers – if your field is likely to have negative values, use sint32 instead.</td>
+      <td>int32</td>
+      <td>int</td>
+    </tr>
+    <tr>
+      <td>int64</td>
+      <td>Uses variable-length encoding. Inefficient for encoding negative numbers – if your field is likely to have negative values, use sint64 instead.</td>
+      <td>int64</td>
+      <td>long</td>
+    </tr>
+    <tr>
+      <td>uint32</td>
+      <td>Uses variable-length encoding.</td>
+      <td>uint32</td>
+      <td>int</td>
+    </tr>
+    <tr>
+      <td>uint64</td>
+      <td>Uses variable-length encoding.</td>
+      <td>uint64</td>
+      <td>long</td>
+    </tr>
+    <tr>
+      <td>sint32</td>
+      <td>Uses variable-length encoding. Signed int value. These more efficiently encode negative numbers than regular int64s.</td>
+      <td>int32</td>
+      <td>int</td>
+    </tr>
+    <tr>
+      <td>sint64</td>
+      <td>Uses variable-length encoding. Signed int value. These more efficiently encode negative numbers than regular int32s.</td>
+      <td>int64</td>
+      <td>long</td>
+    </tr>
+    <tr>
+      <td>fixed32</td>
+      <td>Always four bytes. More efficient than uint32 if values are often greater than 2^28.</td>
+      <td>uint32</td>
+      <td>int</td>
+    </tr>
+    <tr>
+      <td>fixed64</td>
+      <td>Always eight bytes. More efficient than uint64 if values are often greater than 2^56.</td>
+      <td>uint64</td>
+      <td>long</td>
+    </tr>
+    <tr>
+      <td>sfixed32</td>
+      <td>Always four bytes.</td>
+      <td>int32</td>
+      <td>int</td>
+    </tr>
+    <tr>
+      <td>sfixed64</td>
+      <td>Always eight bytes.</td>
+      <td>int64</td>
+      <td>long</td>
+    </tr>
+    <tr>
+      <td>bool</td>
+      <td> </td>
+      <td>bool</td>
+      <td>boolean</td>
+    </tr>
+    <tr>
+      <td>string</td>
+      <td>A string must always contain UTF-8 encoded or 7-bit ASCII text.</td>
+      <td>string</td>
+      <td>string</td>
+    </tr>
+    <tr>
+      <td>bytes</td>
+      <td>May contain any arbitrary sequence of bytes.</td>
+      <td>string</td>
+      <td>ByteString</td>
+    </tr>
+  </tbody>
+</table>
+
+<h4 id="二添加响应字段">二、添加响应字段</h4>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>message HelloReply {
+    string message = 1;
+    //age字段
+    int32 ageMessage = 2;
+
+}
+
+</code></pre>
+</div>
+
+<p>在当前工程目录下执行命令,将重新生成<code class="highlighter-rouge">helloworld.pb.go</code></p>
+
+<blockquote>
+  <p>protoc –go_out=plugins=grpc:. proto/helloworld.proto</p>
+</blockquote>
+
+<p>打开<code class="highlighter-rouge">helloworld.pb.go</code>,可以看到一些变化</p>
+
+<ol>
+  <li>
+    <p><code class="highlighter-rouge">HelloRequest</code>结构体中多了<code class="highlighter-rouge">Age</code>字段和<code class="highlighter-rouge">func (m *HelloRequest) GetAge() int32 </code>方法</p>
+  </li>
+  <li>
+    <p><code class="highlighter-rouge">HelloReply</code>结构体中多了<code class="highlighter-rouge">AgeMessage</code>字段和<code class="highlighter-rouge">func (m *HelloReply) GetAgeMessage() int32 </code>方法</p>
+  </li>
+</ol>
+
+<h4 id="三调用">三、调用</h4>
+
+<p><code class="highlighter-rouge">client.go</code></p>
+
+<p>替换下面代码</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>	r, err := c.SayHello(context.Background(), &amp;pb.HelloRequest{Name: name,Age:25})
+	if err != nil {
+		log.Fatal("could not greet: %v", err)
+	}
+	log.Printf("Greeting: %s,%v", r.Message,r.AgeMessage)
+
+
+</code></pre>
+</div>
+
+<p><code class="highlighter-rouge">server.go</code></p>
+
+<p>替换下面代码</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>func (s *server) SayHello(ctx context.Context, in *pb.HelloRequest) (*pb.HelloReply, error) {
+	return &amp;pb.HelloReply{Message:"123",AgeMessage:in.Age}, nil
+}
+
+</code></pre>
+</div>
+
+<p>执行：</p>
+
+<blockquote>
+  <p>go run server.go
+go run client.go</p>
+</blockquote>
+
+<p>可以看到有age输出。</p>
+
+<h3 id="protobuf-repeated">protobuf repeated</h3>
+
+<p>message中通过<code class="highlighter-rouge">repeated</code>关键字+数据类型，声明一个数组，如声明一个int32的数组</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>repeated int32 array = 3
+</code></pre>
+</div>
+
+<blockquote>
+  <p>注：在<code class="highlighter-rouge">go</code>调用方法时，repeated声明的字段为切片类型</p>
+</blockquote>
+
+<h3 id="packagetrue">package==true</h3>
+
+<p><code class="highlighter-rouge">package</code>用于修饰 ``repeated` 声明的字段</p>
+
+<p>1.作用</p>
+
+<p><img src="http://otwxtrtn9.bkt.clouddn.com/package==true11.png" alt="" /></p>
+
+<p><img src="http://otwxtrtn9.bkt.clouddn.com/package==true12.png" alt="" /></p>
+
+<p>2.只能用于基本数据类型</p>
+
+<h3 id="添加方法">添加方法</h3>
+
+<p>一、声明方法</p>
+
+<p>打开<code class="highlighter-rouge">helloworld.proto</code>文件</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>service Greeter {
+    // Sends a greeting
+    rpc SayHello (HelloRequest) returns (HelloReply) {}
+    //添加ZHQTest方法
+    //形参 TestRequest对象
+    //返回值 TestReply对象
+    rpc ZHQTest (TestRequest) returns (TestReply){}
+}
+message TestRequest {
+    repeated string users = 1 ;
+}
+message TestReply{
+    repeated string users = 1 ;
+}
+</code></pre>
+</div>
+
+<p>在当前工程目录下执行命令,将重新生成<code class="highlighter-rouge">helloworld.pb.go</code></p>
+
+<blockquote>
+  <p>protoc –go_out=plugins=grpc:. proto/helloworld.proto</p>
+</blockquote>
+
+<p>二、调用方法</p>
+
+<p><code class="highlighter-rouge">server.go</code></p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>//方法名必须与Greeter声明的方法名一致
+func (s *server)ZHQTest(ctx context.Context, in *pb.TestRequest) (*pb.TestReply, error) {
+
+	return &amp;pb.TestReply{Users:in.Users},nil
+}
+
+</code></pre>
+</div>
+
+<p><code class="highlighter-rouge">client.go</code></p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>func myRPCRequest(c pb.GreeterClient)  {
+	users := []string{"zhq", "sweetsmelon"}
+	r, err := c.ZHQTest(context.Background(), &amp;pb.TestRequest{Users: users})
+	if err != nil {
+		log.Fatal("could not greet: %v", err)
+	}
+	log.Printf("users is:%v,%s", r.Users[0],r.Users[1])
+}
+
+
+</code></pre>
+</div>
+
+<p>执行：</p>
+
+<blockquote>
+  <p>go run server.go
+go run client.go</p>
+</blockquote>
+
+<h3 id="demo下载-httpsgithubcomsweetmegangrpcdemo">demo下载 https://github.com/sweetMegan/gRPCDemo</h3>
+
+<h3 id="参考链接">参考链接：</h3>
+
+<p>https://www.cnblogs.com/YaoDD/p/5504881.html</p>
+
+<p>https://blog.csdn.net/weiwangchao_/article/details/16797763</p>
+
+<p>https://www.jianshu.com/p/30ef9b3780d9</p>
+

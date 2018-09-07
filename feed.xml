@@ -5,9 +5,495 @@
     <description></description>
     <link>/</link>
     <atom:link href="/feed.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Mon, 03 Sep 2018 12:57:36 +0800</pubDate>
-    <lastBuildDate>Mon, 03 Sep 2018 12:57:36 +0800</lastBuildDate>
+    <pubDate>Fri, 07 Sep 2018 16:04:14 +0800</pubDate>
+    <lastBuildDate>Fri, 07 Sep 2018 16:04:14 +0800</lastBuildDate>
     <generator>Jekyll v3.5.1</generator>
+    
+      <item>
+        <title>Go grpc 初体验</title>
+        <description>&lt;h1 id=&quot;grpc&quot;&gt;gRPC&lt;/h1&gt;
+
+&lt;h3 id=&quot;安装-grpc&quot;&gt;安装 gRPC&lt;/h3&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;go get google.golang.org/grpc&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;h3 id=&quot;安装-protocal-环境&quot;&gt;安装 protocal 环境&lt;/h3&gt;
+
+&lt;p&gt;从 &lt;code class=&quot;highlighter-rouge&quot;&gt;https://github.com/google/protobuf/releases&lt;/code&gt;下载安装包，例如：protobuf-cpp-3.6.1.zip，解压后&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;./configure
+make &amp;amp;&amp;amp; make install&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;等待至安装完成&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;zhangqiangdeMac-mini:protobuf-3.6.1 zhqmac$ protoc --version&lt;/code&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;提示版本信息，表示安装成功&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;libprotoc 3.6.1&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;h3 id=&quot;goland-安装-protoc-插件&quot;&gt;goland 安装 protoc 插件&lt;/h3&gt;
+
+&lt;table&gt;
+  &lt;thead&gt;
+    &lt;tr&gt;
+      &lt;th&gt;插件名&lt;/th&gt;
+      &lt;th&gt;用途&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td&gt;Protobuf Support&lt;/td&gt;
+      &lt;td&gt;protoc文件打开工具&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;ClangFormatIJ&lt;/td&gt;
+      &lt;td&gt;protoc 代码提示工具&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;p&gt;&lt;img src=&quot;http://otwxtrtn9.bkt.clouddn.com/goland%20%E5%AE%89%E8%A3%85%20protoc%20%E6%8F%92%E4%BB%B6.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+
+&lt;h3 id=&quot;安装golang-protoc-插件&quot;&gt;安装GoLang protoc 插件&lt;/h3&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;go get -a github.com/golang/protobuf/protoc-gen-go&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;h3 id=&quot;定义service&quot;&gt;定义Service&lt;/h3&gt;
+
+&lt;p&gt;一个RPC service就是一个能够通过参数和返回值进行远程调用的method，我们可以简单地将它理解成一个函数。因为gRPC是通过将数据编码成protocal buffer来实现传输的。因此，我们通过protocal buffers interface definitioin language(IDL)来定义service method，同时将参数和返回值也定义成protocal buffer message类型。具体实现如下所示，包含下面代码的文件叫helloworld.proto：&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;syntax = &quot;proto3&quot;;
+
+option java_package = &quot;io.grpc.examples&quot;;
+
+package helloworld;
+
+// The greeter service definition.
+service Greeter {
+    // Sends a greeting
+    rpc SayHello (HelloRequest) returns (HelloReply) {}
+}
+
+// The request message containing the user's name.
+message HelloRequest {
+    string name = 1;
+}
+
+// The response message containing the greetings
+message HelloReply {
+    string message = 1;
+}
+
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;接着，根据上述定义的service，我们可以利用protocal buffer compiler ，即protoc生成相应的服务器端和客户端的GoLang代码。生成的代码中包含了客户端能够进行RPC的方法以及服务器端需要进行实现的接口&lt;/p&gt;
+
+&lt;p&gt;假设现在所在的目录是$GOPATH/src/helloworld/helloworld，我们将通过如下命令生成gRPC对应的GoLang代码：&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;protoc –go_out=plugins=grpc:. proto/helloworld.proto&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;此时，将在目录下生成helloworld.pb.go文件。&lt;/p&gt;
+
+&lt;h3 id=&quot;servergo&quot;&gt;server.go&lt;/h3&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;package main
+
+// server.go
+
+import (
+	&quot;log&quot;
+	&quot;net&quot;
+
+	&quot;golang.org/x/net/context&quot;
+	&quot;google.golang.org/grpc&quot;
+	pb &quot;zhqGo/gRPCDemo/proto&quot;
+)
+
+const (
+	port = &quot;:50051&quot;
+)
+
+type server struct {}
+
+func (s *server) SayHello(ctx context.Context, in *pb.HelloRequest) (*pb.HelloReply, error) {
+	return &amp;amp;pb.HelloReply{Message: &quot;Hello &quot; + in.Name}, nil
+}
+
+func main() {
+	lis, err := net.Listen(&quot;tcp&quot;, port)
+	if err != nil {
+		log.Fatal(&quot;failed to listen: %v&quot;, err)
+	}
+	s := grpc.NewServer()
+	pb.RegisterGreeterServer(s, &amp;amp;server{})
+	s.Serve(lis)
+}
+
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;h3 id=&quot;clientgo&quot;&gt;client.go&lt;/h3&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;package main
+
+//client.go
+
+import (
+	&quot;log&quot;
+	&quot;os&quot;
+
+	&quot;golang.org/x/net/context&quot;
+	&quot;google.golang.org/grpc&quot;
+	pb &quot;zhqGo/gRPCDemo/proto&quot;
+)
+
+const (
+	address     = &quot;localhost:50051&quot;
+	defaultName = &quot;world&quot;
+)
+
+func main() {
+	conn, err := grpc.Dial(address, grpc.WithInsecure())
+	if err != nil {
+		log.Fatal(&quot;did not connect: %v&quot;, err)
+	}
+	defer conn.Close()
+	c := pb.NewGreeterClient(conn)
+
+	name := defaultName
+	if len(os.Args) &amp;gt;1 {
+		name = os.Args[1]
+	}
+	r, err := c.SayHello(context.Background(), &amp;amp;pb.HelloRequest{Name: name})
+	if err != nil {
+		log.Fatal(&quot;could not greet: %v&quot;, err)
+	}
+	log.Printf(&quot;Greeting: %s&quot;, r.Message)
+}
+
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;最后运行：&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;go run server.go
+go run client.go&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;以上是&lt;code class=&quot;highlighter-rouge&quot;&gt;grpc&lt;/code&gt;官网给出的一个demo，如果跑通了，表示环境已经没有问题了，接下来给它改一改&lt;/p&gt;
+
+&lt;h3 id=&quot;添加age字段&quot;&gt;添加age字段&lt;/h3&gt;
+
+&lt;h4 id=&quot;一打开helloworldproto文件找到&quot;&gt;一、打开&lt;code class=&quot;highlighter-rouge&quot;&gt;helloworld.proto&lt;/code&gt;文件,找到&lt;/h4&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;message HelloRequest{
+        string name = 1;
+}
+
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;p&gt;请求体，暂且就这么说吧，反正就是在&lt;code class=&quot;highlighter-rouge&quot;&gt;client&lt;/code&gt;端调用时需要传入的参数,添加字段&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;     int32 age = 2;
+ 
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;一些说明:&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;string、int32为字段的数据类型，还有其他数据类型，见下表&lt;/li&gt;
+  &lt;li&gt;name = 1,age=2,其中”1,2”表示字段tag值，tag值不可以重复&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;table&gt;
+  &lt;thead&gt;
+    &lt;tr&gt;
+      &lt;th&gt;.proto Type&lt;/th&gt;
+      &lt;th&gt;Notes&lt;/th&gt;
+      &lt;th&gt;C++ Type&lt;/th&gt;
+      &lt;th&gt;Java Type&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td&gt;double&lt;/td&gt;
+      &lt;td&gt; &lt;/td&gt;
+      &lt;td&gt;doubel&lt;/td&gt;
+      &lt;td&gt;doubel&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;float&lt;/td&gt;
+      &lt;td&gt; &lt;/td&gt;
+      &lt;td&gt;float&lt;/td&gt;
+      &lt;td&gt;float&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;int32&lt;/td&gt;
+      &lt;td&gt;Uses variable-length encoding. Inefficient for encoding negative numbers – if your field is likely to have negative values, use sint32 instead.&lt;/td&gt;
+      &lt;td&gt;int32&lt;/td&gt;
+      &lt;td&gt;int&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;int64&lt;/td&gt;
+      &lt;td&gt;Uses variable-length encoding. Inefficient for encoding negative numbers – if your field is likely to have negative values, use sint64 instead.&lt;/td&gt;
+      &lt;td&gt;int64&lt;/td&gt;
+      &lt;td&gt;long&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;uint32&lt;/td&gt;
+      &lt;td&gt;Uses variable-length encoding.&lt;/td&gt;
+      &lt;td&gt;uint32&lt;/td&gt;
+      &lt;td&gt;int&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;uint64&lt;/td&gt;
+      &lt;td&gt;Uses variable-length encoding.&lt;/td&gt;
+      &lt;td&gt;uint64&lt;/td&gt;
+      &lt;td&gt;long&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;sint32&lt;/td&gt;
+      &lt;td&gt;Uses variable-length encoding. Signed int value. These more efficiently encode negative numbers than regular int64s.&lt;/td&gt;
+      &lt;td&gt;int32&lt;/td&gt;
+      &lt;td&gt;int&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;sint64&lt;/td&gt;
+      &lt;td&gt;Uses variable-length encoding. Signed int value. These more efficiently encode negative numbers than regular int32s.&lt;/td&gt;
+      &lt;td&gt;int64&lt;/td&gt;
+      &lt;td&gt;long&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;fixed32&lt;/td&gt;
+      &lt;td&gt;Always four bytes. More efficient than uint32 if values are often greater than 2^28.&lt;/td&gt;
+      &lt;td&gt;uint32&lt;/td&gt;
+      &lt;td&gt;int&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;fixed64&lt;/td&gt;
+      &lt;td&gt;Always eight bytes. More efficient than uint64 if values are often greater than 2^56.&lt;/td&gt;
+      &lt;td&gt;uint64&lt;/td&gt;
+      &lt;td&gt;long&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;sfixed32&lt;/td&gt;
+      &lt;td&gt;Always four bytes.&lt;/td&gt;
+      &lt;td&gt;int32&lt;/td&gt;
+      &lt;td&gt;int&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;sfixed64&lt;/td&gt;
+      &lt;td&gt;Always eight bytes.&lt;/td&gt;
+      &lt;td&gt;int64&lt;/td&gt;
+      &lt;td&gt;long&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;bool&lt;/td&gt;
+      &lt;td&gt; &lt;/td&gt;
+      &lt;td&gt;bool&lt;/td&gt;
+      &lt;td&gt;boolean&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;string&lt;/td&gt;
+      &lt;td&gt;A string must always contain UTF-8 encoded or 7-bit ASCII text.&lt;/td&gt;
+      &lt;td&gt;string&lt;/td&gt;
+      &lt;td&gt;string&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;bytes&lt;/td&gt;
+      &lt;td&gt;May contain any arbitrary sequence of bytes.&lt;/td&gt;
+      &lt;td&gt;string&lt;/td&gt;
+      &lt;td&gt;ByteString&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;h4 id=&quot;二添加响应字段&quot;&gt;二、添加响应字段&lt;/h4&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;message HelloReply {
+    string message = 1;
+    //age字段
+    int32 ageMessage = 2;
+
+}
+
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;在当前工程目录下执行命令,将重新生成&lt;code class=&quot;highlighter-rouge&quot;&gt;helloworld.pb.go&lt;/code&gt;&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;protoc –go_out=plugins=grpc:. proto/helloworld.proto&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;打开&lt;code class=&quot;highlighter-rouge&quot;&gt;helloworld.pb.go&lt;/code&gt;,可以看到一些变化&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;
+    &lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;HelloRequest&lt;/code&gt;结构体中多了&lt;code class=&quot;highlighter-rouge&quot;&gt;Age&lt;/code&gt;字段和&lt;code class=&quot;highlighter-rouge&quot;&gt;func (m *HelloRequest) GetAge() int32 &lt;/code&gt;方法&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;HelloReply&lt;/code&gt;结构体中多了&lt;code class=&quot;highlighter-rouge&quot;&gt;AgeMessage&lt;/code&gt;字段和&lt;code class=&quot;highlighter-rouge&quot;&gt;func (m *HelloReply) GetAgeMessage() int32 &lt;/code&gt;方法&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;h4 id=&quot;三调用&quot;&gt;三、调用&lt;/h4&gt;
+
+&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;client.go&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;替换下面代码&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;	r, err := c.SayHello(context.Background(), &amp;amp;pb.HelloRequest{Name: name,Age:25})
+	if err != nil {
+		log.Fatal(&quot;could not greet: %v&quot;, err)
+	}
+	log.Printf(&quot;Greeting: %s,%v&quot;, r.Message,r.AgeMessage)
+
+
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;server.go&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;替换下面代码&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;func (s *server) SayHello(ctx context.Context, in *pb.HelloRequest) (*pb.HelloReply, error) {
+	return &amp;amp;pb.HelloReply{Message:&quot;123&quot;,AgeMessage:in.Age}, nil
+}
+
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;执行：&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;go run server.go
+go run client.go&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;可以看到有age输出。&lt;/p&gt;
+
+&lt;h3 id=&quot;protobuf-repeated&quot;&gt;protobuf repeated&lt;/h3&gt;
+
+&lt;p&gt;message中通过&lt;code class=&quot;highlighter-rouge&quot;&gt;repeated&lt;/code&gt;关键字+数据类型，声明一个数组，如声明一个int32的数组&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;repeated int32 array = 3
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;注：在&lt;code class=&quot;highlighter-rouge&quot;&gt;go&lt;/code&gt;调用方法时，repeated声明的字段为切片类型&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;h3 id=&quot;packagetrue&quot;&gt;package==true&lt;/h3&gt;
+
+&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;package&lt;/code&gt;用于修饰 ``repeated` 声明的字段&lt;/p&gt;
+
+&lt;p&gt;1.作用&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;http://otwxtrtn9.bkt.clouddn.com/package==true11.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;http://otwxtrtn9.bkt.clouddn.com/package==true12.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;2.只能用于基本数据类型&lt;/p&gt;
+
+&lt;h3 id=&quot;添加方法&quot;&gt;添加方法&lt;/h3&gt;
+
+&lt;p&gt;一、声明方法&lt;/p&gt;
+
+&lt;p&gt;打开&lt;code class=&quot;highlighter-rouge&quot;&gt;helloworld.proto&lt;/code&gt;文件&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;service Greeter {
+    // Sends a greeting
+    rpc SayHello (HelloRequest) returns (HelloReply) {}
+    //添加ZHQTest方法
+    //形参 TestRequest对象
+    //返回值 TestReply对象
+    rpc ZHQTest (TestRequest) returns (TestReply){}
+}
+message TestRequest {
+    repeated string users = 1 ;
+}
+message TestReply{
+    repeated string users = 1 ;
+}
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;在当前工程目录下执行命令,将重新生成&lt;code class=&quot;highlighter-rouge&quot;&gt;helloworld.pb.go&lt;/code&gt;&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;protoc –go_out=plugins=grpc:. proto/helloworld.proto&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;二、调用方法&lt;/p&gt;
+
+&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;server.go&lt;/code&gt;&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;//方法名必须与Greeter声明的方法名一致
+func (s *server)ZHQTest(ctx context.Context, in *pb.TestRequest) (*pb.TestReply, error) {
+
+	return &amp;amp;pb.TestReply{Users:in.Users},nil
+}
+
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;client.go&lt;/code&gt;&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;func myRPCRequest(c pb.GreeterClient)  {
+	users := []string{&quot;zhq&quot;, &quot;sweetsmelon&quot;}
+	r, err := c.ZHQTest(context.Background(), &amp;amp;pb.TestRequest{Users: users})
+	if err != nil {
+		log.Fatal(&quot;could not greet: %v&quot;, err)
+	}
+	log.Printf(&quot;users is:%v,%s&quot;, r.Users[0],r.Users[1])
+}
+
+
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;执行：&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;go run server.go
+go run client.go&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;h3 id=&quot;demo下载-httpsgithubcomsweetmegangrpcdemo&quot;&gt;demo下载 https://github.com/sweetMegan/gRPCDemo&lt;/h3&gt;
+
+&lt;h3 id=&quot;参考链接&quot;&gt;参考链接：&lt;/h3&gt;
+
+&lt;p&gt;https://www.cnblogs.com/YaoDD/p/5504881.html&lt;/p&gt;
+
+&lt;p&gt;https://blog.csdn.net/weiwangchao_/article/details/16797763&lt;/p&gt;
+
+&lt;p&gt;https://www.jianshu.com/p/30ef9b3780d9&lt;/p&gt;
+
+</description>
+        <pubDate>Fri, 07 Sep 2018 00:00:00 +0800</pubDate>
+        <link>/2018/09/07/go-gRPC-%E5%88%9D%E4%BD%93%E9%AA%8C/</link>
+        <guid isPermaLink="true">/2018/09/07/go-gRPC-%E5%88%9D%E4%BD%93%E9%AA%8C/</guid>
+        
+        
+      </item>
     
       <item>
         <title>jwt 初体验</title>
@@ -2351,219 +2837,6 @@ app.listen(3000);
         <pubDate>Sat, 14 Jul 2018 00:00:00 +0800</pubDate>
         <link>/2018/07/14/Nodejs%E5%AE%9E%E7%8E%B0%E4%BB%A5%E5%A4%AA%E5%9D%8A%E9%92%B1%E5%8C%85-%E6%A6%82%E8%BF%B0/</link>
         <guid isPermaLink="true">/2018/07/14/Nodejs%E5%AE%9E%E7%8E%B0%E4%BB%A5%E5%A4%AA%E5%9D%8A%E9%92%B1%E5%8C%85-%E6%A6%82%E8%BF%B0/</guid>
-        
-        <category>区块链</category>
-        
-        
-      </item>
-    
-      <item>
-        <title>（转载）Koa async和await详解</title>
-        <description>&lt;h2 id=&quot;基本用法&quot;&gt;基本用法&lt;/h2&gt;
-
-&lt;hr /&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;
-    &lt;p&gt;async 表示这是一个async函数，await只能用在这个函数里面。&lt;/p&gt;
-  &lt;/li&gt;
-  &lt;li&gt;
-    &lt;p&gt;await 表示在这里等待promise或者等待async函数中的promise返回结果了，再继续执行。&lt;/p&gt;
-  &lt;/li&gt;
-  &lt;li&gt;
-    &lt;p&gt;Promise 对象代表一个异步操作，有三种状态：Pending（进行中）、Resolved（已完成，又称 Fulfilled）和 Rejected（已失败）。Promise 对象的状态改变，只有两种可能：用 resolve 方法将 Promise 对象的状态，从「未完成」变为「成功」（即从 pending 变为 resolved）和用 reject 方法将 Promise 对象的状态，从「未完成」变为「失败」（即从 pending 变为 rejected）。&lt;/p&gt;
-  &lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h3 id=&quot;第一个例子-await只能用在async函数&quot;&gt;第一个例子: await只能用在async函数&lt;/h3&gt;
-
-&lt;hr /&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;&lt;strong&gt;错误示例1：程序不能运行&lt;/strong&gt;&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;let funPromise = function (time) {
-    return new Promise(function (resolve, reject) {
-        //Pending 进行中
-        setTimeout(function () {
-            resolve(); // 从 pending 变为 resolved
-        }, time);
-    })
-};
-
-let funAsync = async function () {
-    let numArr = [1003, 1002, 1001];
-    // 会报错 await没有在async函数中
-    numArr.forEach(function(value, index){
-        await funPromise(value);
-    })
-}
-
-funAsync();
-
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;&lt;strong&gt;错误示例2：程序能运行，结果不是我们想要的&lt;/strong&gt;&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;let funPromise = function (time) {
-    return new Promise(function (resolve, reject) {
-        //Pending 进行中
-        setTimeout(function () {
-            // 从 pending 变为 resolved
-            resolve(time + ' : ' + new Date()); 
-        }, time);
-    })
-};
-
-let funAsync = async function () {
-    let numArr = [1003, 1002, 1001];
-    numArr.forEach(async function(value, index){
-        //三个funPromise()操作将是并发执行，也就是同时执行，而不是继发执行
-        let result = await funPromise(value);
-        console.log(result);
-    })
-}
-
-funAsync();
-
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-
-&lt;p&gt;&lt;img src=&quot;https://upload-images.jianshu.io/upload_images/4250933-d7274ef488f48a39.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/346&quot; alt=&quot;错误示例&quot; title=&quot;第一个例子错误示例2的运行结果&quot; /&gt;&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;&lt;strong&gt;正确示例&lt;/strong&gt;&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;let funPromise = function (time) {
-    return new Promise(function (resolve, reject) {
-        //Pending 进行中
-        setTimeout(function () {
-            // 从 pending 变为 resolved
-            resolve(time + ' : ' + new Date());  
-        }, time);
-    })
-};
-
-let funAsync = async function () {
-    let numArr = [1003, 1002, 1001];
-    // 三个funPromise()操作将是继发执行
-    for (let value of number){
-        let result = await funPromise(value);
-        console.log(result);
-    }
-}
-
-funAsync();
-
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-
-&lt;p&gt;&lt;img src=&quot;https://upload-images.jianshu.io/upload_images/4250933-f008242b85615ce0.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/359&quot; alt=&quot;&quot; title=&quot;第一个例子正确示例子的运行结果&quot; /&gt;&lt;/p&gt;
-
-&lt;h3 id=&quot;第二个例子await等待promise返回结果&quot;&gt;第二个例子：await等待promise返回结果&lt;/h3&gt;
-
-&lt;hr /&gt;
-
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt; let funPromise = function (time) {
-    return new Promise(function (resolve, reject) {
-        //Pending 进行中
-        setTimeout(function () {
-            resolve(); // 从 pending 变为 resolved
-        }, time);
-    })
-};
-
-let funAsync = async function () {
-    // 在这里使用起来就像同步代码那样直观
-    console.log('start:  ' + new Date());
-    await funPromise(3000);
-    console.log('end:  '  + new Date());
-};
-
-funAsync();
-
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-
-&lt;p&gt;&lt;img src=&quot;https://upload-images.jianshu.io/upload_images/4250933-34ea5539a0db33ed.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/341&quot; alt=&quot;&quot; title=&quot;第二个例子的运行结果&quot; /&gt;&lt;/p&gt;
-
-&lt;h3 id=&quot;第三个例子等待async函数中的promise返回结果&quot;&gt;第三个例子：等待async函数中的promise返回结果&lt;/h3&gt;
-
-&lt;hr /&gt;
-
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;let funPromise = function (time) {
-    return new Promise(function (resolve, reject) {
-        //Pending 进行中
-        setTimeout(function () {
-            resolve(); // 从 pending 变为 resolved
-        }, time);
-    })
-};
-
-let funAsync_1 = async function () {
-    console.log('funAsync_1_start:  ' + new Date());
-    await funPromise(3000);
-    console.log('funAsync_1_end:  '  + new Date());
-};
-
-let funAsync_2 = async function () {
-    console.log('funAsync_2_start:  ' + new Date());
-    // 等待 funAsync_1() 中的 Promise 运行结束
-    await funAsync_1();
-    console.log('funAsync_2_end:  '  + new Date());
-};
-
-funAsync_2();
-
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-
-&lt;p&gt;&lt;img src=&quot;https://upload-images.jianshu.io/upload_images/4250933-675dcfb80770fdde.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/434&quot; alt=&quot;&quot; title=&quot;第三个例子的运行结果&quot; /&gt;&lt;/p&gt;
-
-&lt;h3 id=&quot;注意点&quot;&gt;注意点&lt;/h3&gt;
-
-&lt;hr /&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;&lt;strong&gt;await 命令后面的 Promise 对象，运行结果可能是 rejected，所以最好把 await 命令放在 try…catch 代码块中。&lt;/strong&gt;&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;let funPromise = function (time) {
-    return new Promise(function (resolve, reject) {
-        //Pending 进行中
-        setTimeout(function () {
-            reject('我是返回的错误'); // 从 pending 变为 rejected
-        }, time);
-    })
-};
-
-let funAsync = async function () {
-    console.log('start:  ' + new Date());
-    try {
-        await funPromise(3000);
-        console.log('我不会执行的噢');
-    }  catch (err) {
-        console.log(err);
-    }
-    console.log('end:  '  + new Date());
-};
-
-funAsync();
-
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-
-&lt;h2 id=&quot;文章转载自-httpswwwjianshucompf8cfb82b4dad&quot;&gt;文章转载自 https://www.jianshu.com/p/f8cfb82b4dad&lt;/h2&gt;
-
-</description>
-        <pubDate>Sat, 14 Jul 2018 00:00:00 +0800</pubDate>
-        <link>/2018/07/14/(%E8%BD%AC%E8%BD%BD-Koa-async%E5%92%8Cawait%E8%AF%A6%E8%A7%A3/</link>
-        <guid isPermaLink="true">/2018/07/14/(%E8%BD%AC%E8%BD%BD-Koa-async%E5%92%8Cawait%E8%AF%A6%E8%A7%A3/</guid>
         
         <category>区块链</category>
         
