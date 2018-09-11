@@ -286,7 +286,7 @@ message HelloReply {
 <p>假设现在所在的目录是$GOPATH/src/helloworld/helloworld，我们将通过如下命令生成gRPC对应的GoLang代码：</p>
 
 <blockquote>
-  <p>protoc –go_out=plugins=grpc:. proto/helloworld.proto</p>
+  <p><code class="highlighter-rouge">protoc --go_out=plugins=grpc:. proto/helloworld.proto</code></p>
 </blockquote>
 
 <p>此时，将在目录下生成helloworld.pb.go文件。</p>
@@ -374,8 +374,11 @@ func main() {
 <p>最后运行：</p>
 
 <blockquote>
-  <p>go run server.go
-go run client.go</p>
+  <p>go run server.go</p>
+</blockquote>
+
+<blockquote>
+  <p>go run client.go</p>
 </blockquote>
 
 <p>以上是<code class="highlighter-rouge">grpc</code>官网给出的一个demo，如果跑通了，表示环境已经没有问题了，接下来给它改一改</p>
@@ -656,8 +659,11 @@ func (s *server)ZHQTest(ctx context.Context, in *pb.TestRequest) (*pb.TestReply,
 <p>执行：</p>
 
 <blockquote>
-  <p>go run server.go
-go run client.go</p>
+  <p>go run server.go</p>
+</blockquote>
+
+<blockquote>
+  <p>go run client.go</p>
 </blockquote>
 
 <h3 id="demo下载-httpsgithubcomsweetmegangrpcdemo">demo下载 https://github.com/sweetMegan/gRPCDemo</h3>
